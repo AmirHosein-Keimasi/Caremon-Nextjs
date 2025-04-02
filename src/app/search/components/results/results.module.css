@@ -64,21 +64,6 @@
     }
   }
 
-  .info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    margin: 0.5rem 0;
-    font-size: var(--fz-400);
-    flex-wrap: wrap;
-    color: var(--color-text-400);
-  }
-
-  .icon {
-    color: var(--color-primary);
-  }
-
   .subtitle {
     font-size: var(--fz-400);
     color: var(--color-text-700);

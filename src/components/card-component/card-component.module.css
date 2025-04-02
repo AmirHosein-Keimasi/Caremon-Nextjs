@@ -1,5 +1,5 @@
 .card {
-  background-color: var(--color-surface-700);
+  background-color: var(--color-surface-400);
   box-shadow: var(--shadow-400);
 
   padding: 1rem;

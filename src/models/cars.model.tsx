@@ -42,6 +42,13 @@ export type CarsModel = {
     fuel_consumption: number;
   };
   with_driver: string;
+  driver_rental: {
+    hourly_10: number;
+    intercity_per_km: number;
+    airport_transfer: number;
+  };
   img: string;
   location: string;
+  reviewCount: number;
+  ratingNumber: number;
 };

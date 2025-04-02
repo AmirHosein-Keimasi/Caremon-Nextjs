@@ -1,0 +1,43 @@
+.container {
+  display: grid;
+
+  color: var(--color-text-400);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text-700);
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.specItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.specLabel {
+  font-weight: 500;
+  color: var(--color-text-400);
+}
+
+.specValue {
+  font-weight: 400;
+  color: var(--color-text-700);
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}

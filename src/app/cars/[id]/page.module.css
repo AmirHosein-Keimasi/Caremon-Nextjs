@@ -1,0 +1,41 @@
+.page {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  grid-template-areas:
+    "carInfo Prices "
+    "locationCar SpecsAndFeatures"
+    "rentalInfo rentalInfo";
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.carInfo {
+  grid-area: carInfo;
+}
+
+.Prices {
+  grid-area: Prices;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.locationCar {
+  grid-area: locationCar;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.SpecsAndFeatures {
+  grid-area: SpecsAndFeatures;
+}
+
+.rentalInfo {
+  grid-area: rentalInfo;
+}
+
+.locationCar,
+.SpecsAndFeatures {
+  min-height: 100%;
+}
