@@ -12,7 +12,7 @@ type Props = PropsWithChildren & {
 const Peugeot206RentalInfo = ({ car }: Props) => {
   return (
     <div className={styles.container}>
-      <details className={styles.details}>
+      <details className={styles.details} open>
         <summary className={styles.mainTitle}>
           مدارک و شرایط اجاره {car.name} در {car.location}
         </summary>
