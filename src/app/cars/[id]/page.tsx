@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { notFound } from "next/navigation";
 
 import { cars } from "@/db/cars";
+import { CommentModel } from "@/models/comment.model";
 
 import styles from "./page.module.css";
 
@@ -13,7 +14,6 @@ import DriverPriceCar from "./components/price-car-with-driver/price-car-with-dr
 import SpecsAndFeatures from "./components/car-details/car-details.component";
 import Peugeot206RentalInfo from "./components/Rental-Info/Peugeot206RentalInfo";
 import CommentComponent from "./components/comment/comment.component";
-import { CommentModel } from "@/models/comment.model";
 
 type Props = {
   params: { id: string };

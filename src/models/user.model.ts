@@ -1,5 +1,5 @@
 export type UserModel = {
-    id: string;
-    username: string;
-    name: string;
-  };
+  id: string;
+  username: string;
+  name: string;
+};
