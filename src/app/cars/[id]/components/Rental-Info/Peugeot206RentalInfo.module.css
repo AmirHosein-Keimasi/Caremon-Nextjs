@@ -1,3 +1,18 @@
+.details summary {
+  cursor: pointer;
+  font-weight: bold;
+  list-style: none;
+}
+
+.details summary::before {
+  content: "+";
+  margin-left: 0.5rem;
+}
+
+.details[open] summary::before {
+  content: "-";
+}
+
 .container {
   max-width: var(--full-width);
   margin: 0 auto;
@@ -7,7 +22,7 @@
 
 .mainTitle {
   font-size: 1.8rem;
-  color: var(--color-text-700);
+  color: var(--color-primary);
   margin-bottom: 2rem;
   text-align: center;
   padding-bottom: 1rem;
@@ -23,7 +38,6 @@
   color: var(--color-text-700);
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--color-border);
 }
 
 .gridContainer {
@@ -77,12 +91,10 @@
 
 .insuranceCard.basic {
   background-color: var(--color-surface-700);
-  border: 1px solid var(--color-gray-70);
 }
 
 .insuranceCard.medium {
   background-color: var(--color-primary-fade);
-  border: 1px solid var(--color-primary);
   color: var(--color-gray-12);
 }
 

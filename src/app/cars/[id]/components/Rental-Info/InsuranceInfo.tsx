@@ -1,7 +1,9 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import styles from "./Peugeot206RentalInfo.module.css";
-
-const InsuranceInfo = ({ carName }) => {
+type Props = PropsWithChildren & {
+  carName: string;
+};
+const InsuranceInfo = ({ carName }: Props) => {
   return (
     <section className={styles.section}>
       <h2 className={styles.sectionTitle}>
