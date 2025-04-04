@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import styles from "./Accordion.module.css";
+import Loading from "@/app/loading";
 
 interface AccordionItem {
   question: string;
@@ -21,7 +22,11 @@ export default function Accordion({ items = [] }: AccordionProps) {
   };
 
   if (!items || items.length === 0) {
-    return <div className={styles.noItems}>هیچ سوالی یافت نشد</div>;
+    return (
+      <div className={styles.noItems}>
+        <Loading />
+      </div>
+    );
   }
 
   return (

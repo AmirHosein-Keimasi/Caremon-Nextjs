@@ -1,0 +1,51 @@
+.info {
+  position: relative;
+
+  .image {
+    border-radius: var(--border-radius);
+    object-fit: contain;
+  }
+}
+
+.title {
+  font-weight: 700;
+}
+
+.rating {
+  background-color: var(--color-star);
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  justify-content: space-between;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999rem;
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  color: var(--color-gray-16);
+
+  .averagerating {
+    font-weight: 700;
+  }
+
+  .totalvotes {
+    font-size: var(--fz-300);
+  }
+}
+
+.cardModel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  position: relative;
+
+  .model {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    position: relative;
+    font-weight: 300;
+  }
+}

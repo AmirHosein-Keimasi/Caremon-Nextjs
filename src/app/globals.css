@@ -109,8 +109,7 @@ body {
   min-block-size: 100vh;
   min-block-size: 100dvh;
   font-size: var(--fz-400);
-  transition: all var(--animation-duration-normal)
-    cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  transition: all var(--animation-duration-normal) ease;
 
   > * {
     padding-inline: var(--full-width-padding-inline);

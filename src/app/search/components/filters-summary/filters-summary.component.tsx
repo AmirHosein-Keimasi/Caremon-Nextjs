@@ -61,7 +61,7 @@ export default function FiltersSummaryComponent(): ReactElement | null {
               {filters.location}
             </li>
           )}
-          {filters.location && (
+          {filters.with_driver && (
             <li onClick={() => filterClickHandler("with_driver")}>
               {filters.with_driver}
             </li>
