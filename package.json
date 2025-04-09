@@ -10,8 +10,8 @@
     "prettier:check": "prettier . --check",
     "prettier:fix": "prettier . --write"
   },
-  "prisma":{
- "seed":"tsx prisma/seed.ts"
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.6.0",

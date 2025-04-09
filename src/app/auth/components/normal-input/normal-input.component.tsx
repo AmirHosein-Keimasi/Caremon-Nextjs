@@ -44,7 +44,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       switch (type) {
         case "email":
           return "example@example.com";
-     
+
         case "tel":
           return "09123456789";
         default:
