@@ -173,3 +173,5 @@ fabric.properties
 
 .idea/
 .vscode/
+.env/
+.env.local
