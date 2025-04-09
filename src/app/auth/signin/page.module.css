@@ -1,0 +1,119 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+}
+
+/* Form Section */
+.formSection {
+  width: 100%;
+  max-width: 28rem;
+
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  background-color: var(--color-primary);
+  color: var(--color-primary-opposite);
+  font-weight: 500;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--animation-duration-normal) ease;
+  box-shadow: var(--shadow-400);
+}
+
+.submitBtn:hover {
+  background-color: var(--color-primary-lighter);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  color: var(--color-text-400);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--color-border);
+  margin: 0 0.5rem;
+}
+
+.dividerText {
+  padding: 0 0.5rem;
+  font-weight: 600;
+}
+
+.googleBtn {
+  width: 100%;
+  padding: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #4285F4;
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color var(--animation-duration-normal) ease;
+  box-shadow: var(--shadow-400);
+}
+
+.googleBtn:hover {
+  background-color: #357ae8;
+}
+
+.loginText {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-text-400);
+}
+
+.loginLink {
+  color: var(--color-primary);
+  font-weight: 500;
+  transition: color var(--animation-duration-normal) ease;
+}
+
+.loginLink:hover {
+  text-decoration: underline;
+  color: var(--color-primary-lighter);
+}
+
+/* Illustration Section */
+.illustration {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    justify-content: space-between;
+    padding: 4rem;
+  }
+
+  .illustration {
+    display: block;
+    width: 50%;
+    max-width: 600px;
+  }
+
+  .illustrationImg {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}

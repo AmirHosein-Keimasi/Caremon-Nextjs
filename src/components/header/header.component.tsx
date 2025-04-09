@@ -38,7 +38,9 @@ export default function HeaderComponent(): ReactElement {
         </ul>
       </nav>
 
-      <button className={styles.cta}>ورود | ثبت‌نام</button>
+      <Link href="/auth/signin" className={styles.cta}>
+        ورود | ثبت‌نام
+      </Link>
       <DarkModeToggleComponent />
     </header>
   );
