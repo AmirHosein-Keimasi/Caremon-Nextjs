@@ -5,6 +5,8 @@ import { Vazirmatn } from "next/font/google";
 import HeaderComponent from "@/components/header/header.component";
 import FooterComponent from "@/components/footer/footer.component";
 
+import { ToastContainer } from "react-toastify";
+
 import "./globals.css";
 import "../styles/typography.css";
 
@@ -31,6 +33,7 @@ export default function RootLayout({
         <main>{children}</main>
 
         <FooterComponent />
+        <ToastContainer />
       </body>
     </html>
   );

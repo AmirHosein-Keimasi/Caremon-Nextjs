@@ -7,7 +7,6 @@ import PasswordInput from "../components/password-input/password-input.component
 import styles from "../signup/page.module.css";
 
 export default function SigninPage() {
-
   return (
     <div className={styles.container}>
       {/* Form Section */}
