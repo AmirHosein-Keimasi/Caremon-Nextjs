@@ -70,3 +70,9 @@ export async function isSignedIn(request: NextRequest): Promise<boolean> {
     return false;
   }
 }
+
+
+export async function removeAuthCookie(): Promise<void> {
+  const cookieStore = cookies();
+  cookieStore.delete(process.env.TOKEN_KEY!);
+}
