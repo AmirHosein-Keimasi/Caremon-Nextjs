@@ -1,16 +1,21 @@
 "use client";
+import { ReactElement, useRef } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 
 import InputField from "../components/normal-input/normal-input.component";
 import PasswordInput from "../components/password-input/password-input.component";
 
-import { toast } from "react-toastify";
 import { signupDto } from "@/dto/auth.dto";
+
+import { fetchWithToast } from "@/utils/fetch-utils";
 
 import styles from "./page.module.css";
 
-export default function page() {
+export default function Page(): ReactElement {
+  const formRef = useRef<HTMLFormElement>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -23,29 +28,18 @@ export default function page() {
       password: formData.get("password") as string,
     };
 
-    const response = await fetch("/api/auth/sign-up", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const result = await fetchWithToast<null>(
+      "/api/auth/sign-up",
+      {
+        method: "POST",
+        body: JSON.stringify(dto),
       },
-      body: JSON.stringify(dto),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      let message: string = "خطای غیر منتظره";
-      if ("error" in result) message = result.error;
-
-      toast.error(message, {
-        position: "bottom-right",
-      });
+      "ثبت‌نام با موفقیت انجام شد.",
+    );
+    if (result.error) {
       return;
     }
-    toast.success("ثبت نام با موفقیت انجام شد ", {
-      position: "bottom-right",
-    });
-
+    formRef.current?.reset();
     // Redirect to login page or dashboard
     // window.location.href = '/dashboard';
   };
@@ -53,7 +47,7 @@ export default function page() {
     <div className={styles.container}>
       {/* Form Section */}
       <div className={styles.formSection}>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form ref={formRef} className={styles.form} onSubmit={handleSubmit}>
           <InputField
             type="email"
             id="email"
