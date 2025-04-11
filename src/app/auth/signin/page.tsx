@@ -7,10 +7,6 @@ import PasswordInput from "../components/password-input/password-input.component
 import styles from "../signup/page.module.css";
 
 export default function SigninPage() {
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   console.log("Form submitted");
-  // };
 
   return (
     <div className={styles.container}>

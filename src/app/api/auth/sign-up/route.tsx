@@ -29,7 +29,7 @@ export async function POST(request: Request): Promise<ApiResponseType<null>> {
       );
     }
     foundUser = await prisma.user.findUnique({
-      where: { username: body.email },
+      where: { email: body.email },
     });
 
     if (foundUser) {
