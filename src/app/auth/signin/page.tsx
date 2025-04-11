@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -5,13 +6,43 @@ import InputField from "../components/normal-input/normal-input.component";
 import PasswordInput from "../components/password-input/password-input.component";
 
 import styles from "../signup/page.module.css";
+import { useRef } from "react";
+import { signinDto } from "@/dto/auth.dto";
+import { fetchWithToast } from "@/utils/fetch-utils";
 
 export default function SigninPage() {
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
+
+    const dto: signinDto = {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+    };
+
+    const result = await fetchWithToast<null>(
+      "/api/auth/sign-in",
+      {
+        method: "POST",
+        body: JSON.stringify(dto),
+      },
+      "ورود با موفقیت انجام شد.",
+    );
+    if (result.error) {
+      return;
+    }
+    formRef.current?.reset();
+    // Redirect to login page or dashboard
+    // window.location.href = '/dashboard';
+  };
   return (
     <div className={styles.container}>
       {/* Form Section */}
       <div className={styles.formSection}>
-        <form className={styles.form}>
+        <form ref={formRef} className={styles.form} onSubmit={handleSubmit}>
           <InputField
             type="email"
             id="email"
