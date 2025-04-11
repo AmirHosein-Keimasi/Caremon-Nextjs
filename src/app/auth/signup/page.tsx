@@ -8,6 +8,7 @@ import InputField from "../components/normal-input/normal-input.component";
 import PasswordInput from "../components/password-input/password-input.component";
 
 import { signupDto } from "@/dto/auth.dto";
+import { useRouter } from "next/navigation";
 
 import { fetchWithToast } from "@/utils/fetch-utils";
 
@@ -15,7 +16,7 @@ import styles from "./page.module.css";
 
 export default function Page(): ReactElement {
   const formRef = useRef<HTMLFormElement>(null);
-
+  const router = useRouter()
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -40,8 +41,7 @@ export default function Page(): ReactElement {
       return;
     }
     formRef.current?.reset();
-    // Redirect to login page or dashboard
-    // window.location.href = '/dashboard';
+    router.push('/dashboard')
   };
   return (
     <div className={styles.container}>

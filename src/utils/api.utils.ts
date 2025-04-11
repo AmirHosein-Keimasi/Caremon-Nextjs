@@ -1,4 +1,8 @@
 import { ApiResponseType } from "@/types/api.response.tyle";
+
+import { cookies } from "next/headers";
+import * as jose  from 'jose'
+
 import { NextResponse } from "next/server";
 
 type ParseBodyResult<T> = [error: null, data: T] | [error: string, data: null];
@@ -33,4 +37,19 @@ export async function wrapWithTryCatch<T>(
       { status: 500 },
     );
   }
+}
+
+
+const alg= "HS256"
+const secretKey = new TextEncoder().encode(process.env.TOKEN_SECRET)
+export async function setauthCookie() {
+  const cookieStore = cookies()
+
+  const token = await new jose.SignJWT().setProtectedHeader({alg}).setIssuedAt().setExpirationTime("3d").sign(secretKey)
+  cookieStore.set (process.env.TOKEN_KEY!,token,{
+    secure : true,
+    httpOnly:true,
+    sameSite:'none',
+    maxAge:3*24*3600
+  })
 }

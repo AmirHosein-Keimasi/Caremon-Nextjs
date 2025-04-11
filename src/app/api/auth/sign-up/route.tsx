@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 
 import { signupDto } from "@/dto/auth.dto";
 
-import { parseBody, wrapWithTryCatch } from "@/utils/api.utils";
+import { parseBody, setauthCookie, wrapWithTryCatch } from "@/utils/api.utils";
 
 import { ApiResponseType } from "@/types/api.response.tyle";
 
@@ -39,11 +39,8 @@ export async function POST(request: Request): Promise<ApiResponseType<null>> {
       );
     }
     await prisma.user.create({ data: body });
+    await setauthCookie();
     return NextResponse.json({ data: null }, { status: 201 });
   });
 }
 
-// export async function GET(request: Request): Promise<NextResponse> {
-//   const users = await prisma.user.findMany();
-//   return NextResponse.json(users);
-// }

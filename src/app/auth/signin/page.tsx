@@ -1,16 +1,21 @@
 "use client";
+import { useRef } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 
 import InputField from "../components/normal-input/normal-input.component";
 import PasswordInput from "../components/password-input/password-input.component";
 
-import styles from "../signup/page.module.css";
-import { useRef } from "react";
 import { signinDto } from "@/dto/auth.dto";
+import { useRouter } from "next/navigation";
+
 import { fetchWithToast } from "@/utils/fetch-utils";
 
+import styles from "../signup/page.module.css";
+
 export default function SigninPage() {
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,8 +40,7 @@ export default function SigninPage() {
       return;
     }
     formRef.current?.reset();
-    // Redirect to login page or dashboard
-    // window.location.href = '/dashboard';
+    router.push("/dashboard");
   };
   return (
     <div className={styles.container}>
