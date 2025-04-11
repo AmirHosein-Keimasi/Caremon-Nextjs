@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 
 
 
-type ParsBodyResult<T> =[error:null , data:T]|[error:string , data:null];
-export async function parsBody<T>(request: Request):Promise<ParsBodyResult<T>> {
+type ParseBodyResult<T> =[error:null , data:T]|[error:string , data:null];
+export async function parseBody<T>(request: Request):Promise<ParseBodyResult<T>> {
     try {
         const body = await request.json();
         return [null,body]
@@ -21,7 +21,7 @@ export async function parsBody<T>(request: Request):Promise<ParsBodyResult<T>> {
 
 
 
-export async function wrapWithTryCash<T>(callback :()=>Promise<ApiResponseType<T>>):Promise<ApiResponseType<T>>{
+export async function wrapWithTryCatch <T>(callback :()=>Promise<ApiResponseType<T>>):Promise<ApiResponseType<T>>{
 try {
    return await callback()
 } catch (error) {
