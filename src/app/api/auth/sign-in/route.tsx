@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import { signinDto } from "@/dto/auth.dto";
 
 import { parseBody, setauthCookie, wrapWithTryCatch } from "@/utils/api.utils";
+import { comparePassword } from "@/utils/bcrypt.utils";
 
 import { ApiResponseType } from "@/types/api.response.tyle";
 
@@ -29,14 +30,13 @@ export async function POST(request: Request): Promise<ApiResponseType<null>> {
       );
     }
 
-    if (body.password !== foundUser.password) {
+    if (!(await comparePassword(body.password , foundUser.password))) {
       return NextResponse.json(
         { error: "اطلاعات وارد شده اشتباه است" },
         { status: 401 },
       );
     }
-     await setauthCookie();
+    await setauthCookie();
     return NextResponse.json({ data: null }, { status: 201 });
   });
 }
-
