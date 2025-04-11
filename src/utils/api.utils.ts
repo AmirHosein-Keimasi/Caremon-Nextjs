@@ -1,9 +1,9 @@
 import { ApiResponseType } from "@/types/api.response.tyle";
+import { NextRequest, NextResponse } from "next/server";
 
 import { cookies } from "next/headers";
 import * as jose  from 'jose'
 
-import { NextResponse } from "next/server";
 
 type ParseBodyResult<T> = [error: null, data: T] | [error: string, data: null];
 export async function parseBody<T>(
@@ -52,4 +52,21 @@ export async function setauthCookie() {
     sameSite:'none',
     maxAge:3*24*3600
   })
+}
+
+
+export async function isSignedIn(request: NextRequest): Promise<boolean> {
+  const token = request.cookies.get(process.env.TOKEN_KEY!)?.value;
+
+  if (!token) {
+    return false;
+  }
+
+  try {
+    await jose.jwtVerify(token, secretKey);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 }
