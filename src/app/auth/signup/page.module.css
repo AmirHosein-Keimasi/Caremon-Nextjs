@@ -137,3 +137,19 @@
   text-decoration: underline;
   color: var(--color-primary-lighter);
 }
+
+
+.submitBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  /* ارتفاع ثابت برای جلوگیری از تغییر اندازه */
+}
+
+/* اگر نیاز به استایل خاص برای اسپینر دارید */
+.submitBtn :global(.spinner) {
+  margin: 0;
+}

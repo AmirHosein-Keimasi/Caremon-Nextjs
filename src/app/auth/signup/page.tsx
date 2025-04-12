@@ -1,5 +1,5 @@
 "use client";
-import { ReactElement, useRef } from "react";
+import { ReactElement, useRef, useState } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -12,13 +12,18 @@ import { useRouter } from "next/navigation";
 
 import { fetchWithToast } from "@/utils/fetch-utils";
 
+import Spinner from "@/components/Spinner/Spinner";
+
 import styles from "./page.module.css";
 
 export default function Page(): ReactElement {
   const formRef = useRef<HTMLFormElement>(null);
-  const router = useRouter()
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const formData = new FormData(e.currentTarget as HTMLFormElement);
 
@@ -37,12 +42,21 @@ export default function Page(): ReactElement {
       },
       "ثبت‌نام با موفقیت انجام شد.",
     );
-    if (result.error) {
-      return;
+    setIsLoading(false);
+
+    if (!result.error) {
+      formRef.current?.reset();
+      router.push("/dashboard");
     }
-    formRef.current?.reset();
-    router.push('/dashboard')
   };
+
+  // if (result.error) {
+  //   return;
+  // }
+
+  // formRef.current?.reset();
+  // router.push("/dashboard");
+
   return (
     <div className={styles.container}>
       {/* Form Section */}
@@ -78,8 +92,12 @@ export default function Page(): ReactElement {
             placeholder="رمز عبور خود را وارد کنید"
             required
           />
-          <button type="submit" className={styles.submitBtn}>
-            ثبت نام
+          <button
+            type="submit"
+            className={styles.submitBtn}
+            disabled={isLoading}
+          >
+            {isLoading ? <Spinner size={30} /> : "ثبت نام"}
           </button>
 
           <div className={styles.divider}>

@@ -1,5 +1,6 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +9,7 @@ import InputField from "../components/normal-input/normal-input.component";
 import PasswordInput from "../components/password-input/password-input.component";
 
 import { signinDto } from "@/dto/auth.dto";
-import { useRouter } from "next/navigation";
+import Spinner from "@/components/Spinner/Spinner";
 
 import { fetchWithToast } from "@/utils/fetch-utils";
 
@@ -17,10 +18,11 @@ import styles from "../signup/page.module.css";
 export default function SigninPage() {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    setIsLoading(true);
     const formData = new FormData(e.currentTarget as HTMLFormElement);
 
     const dto: signinDto = {
@@ -36,11 +38,12 @@ export default function SigninPage() {
       },
       "ورود با موفقیت انجام شد.",
     );
-    if (result.error) {
-      return;
+    setIsLoading(false);
+
+    if (!result.error) {
+      formRef.current?.reset();
+      router.push("/dashboard");
     }
-    formRef.current?.reset();
-    router.push("/dashboard");
   };
   return (
     <div className={styles.container}>
@@ -67,10 +70,13 @@ export default function SigninPage() {
             </Link>
           </div>
 
-          <button type="submit" className={styles.submitBtn}>
-            ورود
+          <button
+            type="submit"
+            className={styles.submitBtn}
+            disabled={isLoading}
+          >
+            {isLoading ? <Spinner size={30} /> : "ثبت نام"}
           </button>
-
           <div className={styles.divider}>
             <span className={styles.dividerText}>یا</span>
           </div>
