@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import Link from "next/link";
@@ -15,7 +15,7 @@ export default function LogOutButton() {
   const router = useRouter();
   const [showDialog, setShowDialog] = useState(false);
 
-  const signOutButtonHandler = async (e: KeyboardEvent) => {
+  const signOutButtonHandler = async (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     setShowDialog(true);
   };
