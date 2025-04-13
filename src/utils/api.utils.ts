@@ -2,8 +2,7 @@ import { ApiResponseType } from "@/types/api.response.tyle";
 import { NextRequest, NextResponse } from "next/server";
 
 import { cookies } from "next/headers";
-import * as jose  from 'jose'
-
+import * as jose from "jose";
 
 type ParseBodyResult<T> = [error: null, data: T] | [error: string, data: null];
 export async function parseBody<T>(
@@ -39,21 +38,23 @@ export async function wrapWithTryCatch<T>(
   }
 }
 
-
-const alg= "HS256"
-const secretKey = new TextEncoder().encode(process.env.TOKEN_SECRET)
+const alg = "HS256";
+const secretKey = new TextEncoder().encode(process.env.TOKEN_SECRET);
 export async function setauthCookie() {
-  const cookieStore = cookies()
+  const cookieStore = cookies();
 
-  const token = await new jose.SignJWT().setProtectedHeader({alg}).setIssuedAt().setExpirationTime("3d").sign(secretKey)
-  cookieStore.set (process.env.TOKEN_KEY!,token,{
-    secure : true,
-    httpOnly:true,
-    sameSite:'none',
-    maxAge:3*24*3600
-  })
+  const token = await new jose.SignJWT()
+    .setProtectedHeader({ alg })
+    .setIssuedAt()
+    .setExpirationTime("3d")
+    .sign(secretKey);
+  cookieStore.set(process.env.TOKEN_KEY!, token, {
+    secure: true,
+    httpOnly: true,
+    sameSite: "none",
+    maxAge: 3 * 24 * 3600,
+  });
 }
-
 
 export async function isSignedIn(request: NextRequest): Promise<boolean> {
   const token = request.cookies.get(process.env.TOKEN_KEY!)?.value;
@@ -70,7 +71,6 @@ export async function isSignedIn(request: NextRequest): Promise<boolean> {
     return false;
   }
 }
-
 
 export async function removeAuthCookie(): Promise<void> {
   const cookieStore = cookies();

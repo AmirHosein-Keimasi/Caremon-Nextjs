@@ -1,43 +1,49 @@
 .loader {
-    width: 60px;
-    aspect-ratio: 1;
-    color: var(--color-primary, #4f46e5);
-    /* مقدار پیش‌فرض اگر متغیر تعریف نشده */
-    border-radius: 50%;
-    display: grid;
-    background:
-        conic-gradient(from 90deg at 4px 4px,
-            transparent 90deg,
-            currentColor 0) -4px -4px/calc(50% + 2px) calc(50% + 2px),
-        radial-gradient(farthest-side,
-            currentColor 4px,
-            transparent 4px calc(100% - 6px),
-            currentColor calc(100% - 6px)) no-repeat;
-    animation: spin 1.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    position: relative;
-    box-shadow: 0 0 10px rgba(79, 70, 229, 0.2);
+  width: 60px;
+  aspect-ratio: 1;
+  color: var(--color-primary, #4f46e5);
+  /* مقدار پیش‌فرض اگر متغیر تعریف نشده */
+  border-radius: 50%;
+  display: grid;
+  background:
+    conic-gradient(
+        from 90deg at 4px 4px,
+        transparent 90deg,
+        currentColor 0
+      ) -4px -4px /
+      calc(50% + 2px) calc(50% + 2px),
+    radial-gradient(
+        farthest-side,
+        currentColor 4px,
+        transparent 4px calc(100% - 6px),
+        currentColor calc(100% - 6px)
+      )
+      no-repeat;
+  animation: spin 1.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  position: relative;
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.2);
 }
 
 .loader::before {
-    content: "";
-    border-radius: inherit;
-    background: inherit;
-    transform: rotate(45deg);
-    opacity: 0.8;
+  content: "";
+  border-radius: inherit;
+  background: inherit;
+  transform: rotate(45deg);
+  opacity: 0.8;
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-        opacity: 0.8;
-    }
+  0% {
+    transform: rotate(0deg);
+    opacity: 0.8;
+  }
 
-    50% {
-        opacity: 1;
-    }
+  50% {
+    opacity: 1;
+  }
 
-    100% {
-        transform: rotate(360deg);
-        opacity: 0.8;
-    }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0.8;
+  }
 }

@@ -1,19 +1,19 @@
 .cta {
-    background-color: transparent;
-    color: var(--color-danger);
+  background-color: transparent;
+  color: var(--color-danger);
 
-    margin-inline-start: auto;
-    padding: 0.5rem 1rem;
+  margin-inline-start: auto;
+  padding: 0.5rem 1rem;
 
-    border: 1px solid var(--color-danger);
-    border-radius: var(--border-radius);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--border-radius);
 
-    font-weight: 700;
+  font-weight: 700;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    &:hover {
-      background-color: var(--color-danger);
-      color: var(--color-primary-opposite);
-    }
+  &:hover {
+    background-color: var(--color-danger);
+    color: var(--color-primary-opposite);
   }
+}

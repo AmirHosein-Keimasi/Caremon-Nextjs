@@ -30,7 +30,7 @@ export async function POST(request: Request): Promise<ApiResponseType<null>> {
       );
     }
 
-    if (!(await comparePassword(body.password , foundUser.password))) {
+    if (!(await comparePassword(body.password, foundUser.password))) {
       return NextResponse.json(
         { error: "اطلاعات وارد شده اشتباه است" },
         { status: 401 },
