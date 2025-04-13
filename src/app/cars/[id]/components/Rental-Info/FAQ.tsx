@@ -3,7 +3,6 @@ import { CarsModel } from "@/models/cars.model";
 
 import styles from "./RentalInfo.module.css";
 
-
 type Props = PropsWithChildren & {
   car: CarsModel;
 };

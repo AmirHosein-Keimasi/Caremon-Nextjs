@@ -13,7 +13,7 @@ import SpecsAndFeatures from "./components/car-details/car-details.component";
 import CommentComponent from "./components/comment/comment.component";
 
 import styles from "./page.module.css";
-import RentalInfo from "./components/Rental-Info/RentalInfo";
+// import RentalInfo from "./components/Rental-Info/RentalInfo";
 
 type Props = {
   params: { id: string };

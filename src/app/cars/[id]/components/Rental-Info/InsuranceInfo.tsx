@@ -1,8 +1,6 @@
 import React, { PropsWithChildren } from "react";
 
-
 import styles from "./RentalInfo.module.css";
-
 
 type Props = PropsWithChildren & {
   carName: string;
