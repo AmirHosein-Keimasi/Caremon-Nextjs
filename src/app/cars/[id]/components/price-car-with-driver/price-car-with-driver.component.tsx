@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from "react";
 
 import { CarsModel } from "@/models/cars.model";
 
-import styles from "./price-car-with-driver.module.css";
+import styles from "../price-car/price-car.module.css";
 
 type Props = PropsWithChildren & {
   car: CarsModel;

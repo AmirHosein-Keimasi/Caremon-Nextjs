@@ -1,15 +1,17 @@
 import React, { PropsWithChildren } from "react";
-import styles from "./Peugeot206RentalInfo.module.css";
 import RentalRequirements from "./RentalRequirements";
 import LuggageGuide from "./LuggageGuide";
 import InsuranceInfo from "./InsuranceInfo";
 import FAQ from "./FAQ";
 import { CarsModel } from "@/models/cars.model";
 
+import styles from "./RentalInfo.module.css";
+
+
 type Props = PropsWithChildren & {
   car: CarsModel;
 };
-const Peugeot206RentalInfo = ({ car }: Props) => {
+const RentalInfo = ({ car }: Props) => {
   return (
     <div className={styles.container}>
       <details className={styles.details} open>
@@ -28,4 +30,4 @@ const Peugeot206RentalInfo = ({ car }: Props) => {
   );
 };
 
-export default Peugeot206RentalInfo;
+export default RentalInfo;

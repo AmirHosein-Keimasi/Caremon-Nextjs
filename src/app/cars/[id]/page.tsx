@@ -4,16 +4,16 @@ import { notFound } from "next/navigation";
 import { cars } from "@/db/cars";
 import { CommentModel } from "@/models/comment.model";
 
-import styles from "./page.module.css";
-
 import CarInfo from "./components/car-info/car-info.component";
 import PriceCar from "./components/price-car/price-car.component";
 import LocationCar from "./components/location-car/location-car.component";
 import Features from "./components/features/features.component";
 import DriverPriceCar from "./components/price-car-with-driver/price-car-with-driver.component";
 import SpecsAndFeatures from "./components/car-details/car-details.component";
-import Peugeot206RentalInfo from "./components/Rental-Info/Peugeot206RentalInfo";
 import CommentComponent from "./components/comment/comment.component";
+
+import styles from "./page.module.css";
+import RentalInfo from "./components/Rental-Info/RentalInfo";
 
 type Props = {
   params: { id: string };
@@ -214,7 +214,7 @@ export default function Page({ params }: Props): ReactElement {
       <div className={styles.SpecsAndFeatures}>
         <SpecsAndFeatures car={car} />
         <div className={styles.rentalInfo}>
-          <Peugeot206RentalInfo car={car} />
+          {/* <RentalInfo car={car} /> */}
         </div>
       </div>
     </div>

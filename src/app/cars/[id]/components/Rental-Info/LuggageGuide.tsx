@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import styles from "./Peugeot206RentalInfo.module.css";
+import styles from "./RentalInfo.module.css";
 
 type Props = PropsWithChildren & {
   luggage: number | string;

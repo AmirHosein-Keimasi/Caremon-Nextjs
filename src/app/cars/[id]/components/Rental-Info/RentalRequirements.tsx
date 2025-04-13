@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Peugeot206RentalInfo.module.css";
+import styles from "./RentalInfo.module.css";
 
 const RentalRequirements = () => {
   return (
