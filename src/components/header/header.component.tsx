@@ -37,7 +37,13 @@ export default function HeaderComponent(): ReactElement {
           ))}
         </ul>
       </nav>
-
+      {/* {isLoggedIn ? (
+        <LogOutButton />
+      ) : (
+        <Link href="/auth/signin" className={styles.cta}>
+          ورود | ثبت‌نام
+        </Link>
+      )} */}
       <Link href="/auth/signin" className={styles.cta}>
         ورود | ثبت‌نام
       </Link>
