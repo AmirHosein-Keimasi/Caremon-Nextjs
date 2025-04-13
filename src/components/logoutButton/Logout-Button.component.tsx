@@ -15,7 +15,7 @@ export default function LogOutButton() {
   const router = useRouter();
   const [showDialog, setShowDialog] = useState(false);
 
-  const signOutButtonHandler = async (e) => {
+  const signOutButtonHandler = async (e: KeyboardEvent) => {
     e.preventDefault();
     setShowDialog(true);
   };
