@@ -20,7 +20,7 @@ const SearchFormComponent = () => {
   const startDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
 
-  const today = new DateObject().setCalendar("persian").setLocale("fa");
+  const today = new DateObject();
 
   const handleStartDateChange = (date: DateObject | null) => {
     setStartDate(date);
