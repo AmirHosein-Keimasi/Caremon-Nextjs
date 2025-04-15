@@ -269,7 +269,7 @@ export const cars: CarsModel[] = [
       airport_transfer: 1230000,
     },
     img: "pars.png",
-    location: "مشهد",
+    location: "خراسان رضوی",
     reviewCount: 50,
     ratingNumber: 4.1,
   },

@@ -1,11 +1,11 @@
 import React from "react";
-import styles from "./normal-input.module.css"; // مسیر فایل استایل‌های شما
+import styles from "./normal-input.module.css";
 
 interface InputFieldProps {
   type?: "text" | "email" | "tel" | "number" | "date";
   label?: string;
   placeholder?: string;
-  id: string;
+  id?: string;
   name?: string;
   value?: string;
   defaultValue?: string;
@@ -14,8 +14,10 @@ interface InputFieldProps {
   className?: string;
   required?: boolean;
   disabled?: boolean;
+  readOnly?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onClick?: () => void;
   autoComplete?: string;
 }
 
@@ -34,8 +36,10 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       className = "",
       required = false,
       disabled = false,
+      readOnly = false,
       onChange,
       onBlur,
+      onClick,
       autoComplete,
     },
     ref,
@@ -44,7 +48,6 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       switch (type) {
         case "email":
           return "example@example.com";
-
         case "tel":
           return "09123456789";
         default:
@@ -54,28 +57,32 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
 
     const inputPlaceholder = placeholder || getDefaultPlaceholder();
     const inputName = name || id;
+    const inputId = id || Math.random().toString(36).substring(2);
 
     return (
       <div className={`${styles.inputGroup} ${className}`}>
         {label && (
-          <label htmlFor={id} className={styles.label}>
+          <label htmlFor={inputId} className={styles.label}>
             {label}
-            {/* {required && <span className={styles.required}>*</span>} */}
           </label>
         )}
         <input
           ref={ref}
           type={type}
-          id={id}
+          id={inputId}
           name={inputName}
-          className={`${styles.input} ${showError ? styles.error : ""}`}
+          className={`${styles.input} ${showError ? styles.error : ""} ${
+            disabled ? styles.disabled : ""
+          }`}
           placeholder={inputPlaceholder}
           value={value}
           defaultValue={defaultValue}
           required={required}
           disabled={disabled}
+          readOnly={readOnly}
           onChange={onChange}
           onBlur={onBlur}
+          onClick={onClick}
           autoComplete={autoComplete}
         />
         {showError && errorText && (

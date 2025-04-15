@@ -2,7 +2,8 @@ import { ReactElement } from "react";
 
 import CarmonLogo from "@/logo/CarmonLogo";
 
-import GlobalSearchBoxComponent from "@/components/globall-search-box/globall-search-box.component";
+import SearchFormComponent from "@/components/searchFormComponent/search-form.component";
+
 import StatsComponents from "@/components/stats/stats.component";
 
 import styles from "./page.module.css";
@@ -14,7 +15,8 @@ export default function Home(): ReactElement {
         <CarmonLogo />
         کا‌‌‌‌رِمون{" "}
       </h1>
-      <GlobalSearchBoxComponent />
+      <SearchFormComponent />
+
       <StatsComponents />
     </div>
   );

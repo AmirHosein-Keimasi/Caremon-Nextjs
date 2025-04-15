@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect, useState, useCallback } from 'react';
-import Cookies from 'js-cookie';
+import { useEffect, useState, useCallback } from "react";
+import Cookies from "js-cookie";
 
 const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -11,13 +11,13 @@ const useAuth = () => {
   // تابع بهینه‌شده برای بررسی توکن
   const verifyToken = useCallback(() => {
     setIsLoading(true);
-    const authToken = Cookies.get('token');
-    
+    const authToken = Cookies.get("token");
+
     if (authToken !== token) {
       setToken(authToken || null);
       setIsLoggedIn(!!authToken);
     }
-    
+
     setIsLoading(false);
   }, [token]);
 
@@ -34,7 +34,6 @@ const useAuth = () => {
     isLoggedIn,
     token,
     isLoading,
-
   };
 };
 

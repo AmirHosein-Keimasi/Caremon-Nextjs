@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 import { fetchWithToast } from "@/utils/fetch-utils";
 
-import Spinner from "@/components/Spinner/Spinner";
+import Spinner from "@/components/spinner/Spinner";
 
 import styles from "./page.module.css";
 

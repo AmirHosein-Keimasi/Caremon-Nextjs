@@ -33,7 +33,7 @@
   padding: 0.625rem;
   font-size: var(--fz-300);
   line-height: 1.25rem;
-  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-400);
 }
 
 .input:focus {
@@ -51,4 +51,15 @@
   font-size: var(--fz-200);
   line-height: 1rem;
   margin-top: 0.25rem;
+}
+
+.disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background-color: var(--color-surface-300);
+}
+
+.input[readonly] {
+  cursor: pointer;
+  background-color: var(--color-surface-400);
 }

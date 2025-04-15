@@ -22,7 +22,7 @@ const links = [
 
 export default function HeaderComponent(): ReactElement {
   const pathname = usePathname();
-  const { isLoggedIn} = useAuth();
+  const { isLoggedIn } = useAuth();
 
   return (
     <header className={styles.header}>
