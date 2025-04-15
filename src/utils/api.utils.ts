@@ -50,7 +50,7 @@ export async function setauthCookie() {
     .sign(secretKey);
   cookieStore.set(process.env.TOKEN_KEY!, token, {
     secure: true,
-    httpOnly: true,
+    // httpOnly: true,
     sameSite: "none",
     maxAge: 3 * 24 * 3600,
   });

@@ -10,6 +10,8 @@ import DarkModeToggleComponent from "../dark-mode-toggle/dark-mode-toggle.compon
 import clsx from "clsx";
 
 import styles from "./header.module.css";
+import useAuth from "@/utils/useAuth";
+import LogOutButton from "../logoutButton/Logout-Button.component";
 
 const links = [
   { href: "/", title: "خانه" },
@@ -20,6 +22,7 @@ const links = [
 
 export default function HeaderComponent(): ReactElement {
   const pathname = usePathname();
+  const { isLoggedIn} = useAuth();
 
   return (
     <header className={styles.header}>
@@ -37,16 +40,14 @@ export default function HeaderComponent(): ReactElement {
           ))}
         </ul>
       </nav>
-      {/* {isLoggedIn ? (
+      {isLoggedIn ? (
         <LogOutButton />
       ) : (
         <Link href="/auth/signin" className={styles.cta}>
           ورود | ثبت‌نام
         </Link>
-      )} */}
-      <Link href="/auth/signin" className={styles.cta}>
-        ورود | ثبت‌نام
-      </Link>
+      )}
+
       <DarkModeToggleComponent />
     </header>
   );
