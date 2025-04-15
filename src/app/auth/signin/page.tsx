@@ -9,7 +9,7 @@ import InputField from "../components/normal-input/normal-input.component";
 import PasswordInput from "../components/password-input/password-input.component";
 
 import { signinDto } from "@/dto/auth.dto";
-import Spinner from "@/components/spinner/Spinner";
+import Spinner from "@/components/Spinner/Spinner";
 
 import { fetchWithToast } from "@/utils/fetch-utils";
 
