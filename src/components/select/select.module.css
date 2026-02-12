@@ -1,4 +1,7 @@
 .container {
+  scrollbar-color: #888 var(--color-surface-300);
+  scrollbar-width: thin;
+
   position: relative;
 
   display: flex;
@@ -7,7 +10,6 @@
 
   padding: 0.5rem;
 
-  border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
 
   outline: none;
@@ -40,7 +42,7 @@
     overflow-y: auto;
     z-index: 100;
 
-    max-block-size: 15rem;
+    max-block-size: 20rem;
     min-inline-size: 100%;
     inline-size: max-content;
 
@@ -71,7 +73,7 @@
 
   &:focus,
   &.open {
-    border-color: var(--color-primary);
+    border: 1px solid var(--color-border);
 
     .caret {
       border-block-start-color: var(--color-primary);
