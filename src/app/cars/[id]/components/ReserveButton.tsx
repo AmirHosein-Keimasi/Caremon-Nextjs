@@ -1,10 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { DateObject } from "react-multi-date-picker";
 import { CarsModel } from "@/models/cars.model";
 import { useCartStore, RentalItem } from "@/store/cartStore";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import StartDatePicker from "@/components/calendar/StartDatePicker-component";
+import EndDatePicker from "@/components/calendar/EndDatePicker-component";
 import styles from "./ReserveButton.module.css";
 
 interface ReserveButtonProps {
@@ -20,6 +23,11 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
   const setRental = useCartStore((state) => state.setRental);
   const [showReservationForm, setShowReservationForm] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [startDate, setStartDate] = useState<DateObject | null>(null);
+  const [endDate, setEndDate] = useState<DateObject | null>(null);
+  const startDateRef = useRef<HTMLInputElement>(null);
+  const endDateRef = useRef<HTMLInputElement>(null);
+  const today = new DateObject();
 
   // Form state
   const [formData, setFormData] = useState({
@@ -32,11 +40,42 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
     selectedOptions: [] as string[],
   });
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const toLocalDateTime = (date: DateObject) => {
+    const d = date.toDate();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    const hour = String(d.getHours()).padStart(2, "0");
+    const minute = String(d.getMinutes()).padStart(2, "0");
+    return `${year}-${month}-${day}T${hour}:${minute}`;
+  };
+
+  const handleStartDateChange = (date: DateObject | null) => {
+    setStartDate(date);
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      startDate: date ? toLocalDateTime(date) : "",
+    }));
+
+    if (date && endDate) {
+      const startTime = date.toDate().getTime();
+      const endTime = endDate.toDate().getTime();
+
+      if (startTime > endTime) {
+        setEndDate(null);
+        setFormData((prev) => ({
+          ...prev,
+          endDate: "",
+        }));
+      }
+    }
+  };
+
+  const handleEndDateChange = (date: DateObject | null) => {
+    setEndDate(date);
+    setFormData((prev) => ({
+      ...prev,
+      endDate: date ? toLocalDateTime(date) : "",
     }));
   };
 
@@ -167,25 +206,21 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                 <div className={styles.dateRow}>
                   <div className={styles.formGroup}>
                     <label>تاریخ شروع</label>
-                    <input
-                      type="date"
-                      name="startDate"
-                      value={formData.startDate}
-                      onChange={handleDateChange}
-                      min={new Date().toISOString().split("T")[0]}
+                    <StartDatePicker
+                      ref={startDateRef}
+                      value={startDate}
+                      onChange={handleStartDateChange}
+                      minDate={today}
                     />
                   </div>
                   <div className={styles.formGroup}>
                     <label>تاریخ پایان</label>
-                    <input
-                      type="date"
-                      name="endDate"
-                      value={formData.endDate}
-                      onChange={handleDateChange}
-                      min={
-                        formData.startDate ||
-                        new Date().toISOString().split("T")[0]
-                      }
+                    <EndDatePicker
+                      ref={endDateRef}
+                      value={endDate}
+                      onChange={handleEndDateChange}
+                      minDate={startDate || today}
+                      disabled={!startDate}
                     />
                   </div>
                 </div>

@@ -3,6 +3,7 @@ import React, { forwardRef } from "react";
 
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
 import persian_fa from "react-date-object/locales/persian_fa";
 
@@ -24,9 +25,12 @@ const StartDatePicker = forwardRef<HTMLInputElement, StartDatePickerProps>(
         locale={persian_fa}
         calendarPosition="bottom-right"
         minDate={minDate}
+        format="YYYY/MM/DD HH:mm"
+        plugins={[<TimePicker key="start-time" position="bottom" hideSeconds />]}
         render={(value, openCalendar) => (
           <InputField
             ref={ref}
+            id="startDateTime"
             type="text"
             label="تاریخ و ساعت تحویل"
             placeholder="تاریخ شروع را انتخاب کنید"
