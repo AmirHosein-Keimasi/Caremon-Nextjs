@@ -20,6 +20,7 @@ export default function DashboardPage() {
   const reservationStore = useReservationStore();
   const dashboardStore = useDashboardStore();
   const stats = dashboardStore.stats;
+  const refreshStats = dashboardStore.refreshStats;
 
   const [activeTab, setActiveTab] = useState<
     "overview" | "cart" | "reservations" | "invoice"
@@ -32,8 +33,12 @@ export default function DashboardPage() {
 
   // Refresh stats on mount and when stores change
   useEffect(() => {
-    dashboardStore.refreshStats("current-user-id"); // TODO: Get from auth
-  }, [cartStore.items, reservationStore.reservations, dashboardStore]);
+    refreshStats("current-user-id"); // TODO: Get from auth
+  }, [
+    cartStore.items.length,
+    reservationStore.reservations.length,
+    refreshStats,
+  ]);
 
   const filteredReservations =
     filterStatus === "all"

@@ -46,6 +46,7 @@ export const useDashboardStore = create<DashboardStore>((set, get) => ({
   refreshStats: (userId?: string) => {
     const reservationStore = useReservationStore.getState();
     const cartStore = useCartStore.getState();
+    const currentStats = get().stats;
 
     // Get reservations (filter by userId if provided)
     let reservations = reservationStore.reservations;
@@ -82,19 +83,34 @@ export const useDashboardStore = create<DashboardStore>((set, get) => ({
     const cartValue = cartStore.totalPrice;
     const cartItemCount = cartStore.totalItems;
 
-    set({
-      stats: {
-        totalReservations,
-        activeReservations,
-        completedReservations,
-        cancelledReservations,
-        totalRevenue,
-        averageReservationValue,
-        pendingPayments,
-        cartValue,
-        cartItemCount,
-      },
-    });
+    // Only update if values have changed
+    const newStats = {
+      totalReservations,
+      activeReservations,
+      completedReservations,
+      cancelledReservations,
+      totalRevenue,
+      averageReservationValue,
+      pendingPayments,
+      cartValue,
+      cartItemCount,
+    };
+
+    // Check if any value changed before calling set to prevent unnecessary updates
+    const hasChanged =
+      newStats.totalReservations !== currentStats.totalReservations ||
+      newStats.activeReservations !== currentStats.activeReservations ||
+      newStats.completedReservations !== currentStats.completedReservations ||
+      newStats.cancelledReservations !== currentStats.cancelledReservations ||
+      newStats.totalRevenue !== currentStats.totalRevenue ||
+      newStats.averageReservationValue !== currentStats.averageReservationValue ||
+      newStats.pendingPayments !== currentStats.pendingPayments ||
+      newStats.cartValue !== currentStats.cartValue ||
+      newStats.cartItemCount !== currentStats.cartItemCount;
+
+    if (hasChanged) {
+      set({ stats: newStats });
+    }
   },
 
   getStats: () => get().stats,
