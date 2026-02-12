@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { useUserProfileStore } from "@/store/userProfileStore";
 
 import InputField from "../../components/normal-input/normal-input.component";
 import PasswordInput from "../../components/password-input/password-input.component";
@@ -12,10 +13,11 @@ import styles from "../../signup/page.module.css";
 
 export default function SigninForm() {
   const router = useRouter();
+  const updateProfile = useUserProfileStore((state) => state.updateProfile);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
@@ -39,7 +41,19 @@ export default function SigninForm() {
         return;
       }
 
-      // فعلاً بدون بک‌اند واقعی، فقط یک توکن نمایشی ست می‌کنیم
+      const fullName = String(data?.user?.name || "").trim();
+      const [firstName = "", ...lastNameParts] = fullName
+        .split(/\s+/)
+        .filter(Boolean);
+      const lastName = lastNameParts.join(" ");
+
+      updateProfile({
+        ...(firstName ? { firstName } : {}),
+        ...(lastName ? { lastName } : {}),
+        email: String(data?.user?.email || email).trim(),
+      });
+
+      // فعلا بدون بک‌اند واقعی، فقط یک توکن نمایشی ست می‌کنیم
       // تا هدر و useAuth بتوانند وضعیت ورود کاربر را تشخیص دهند.
       Cookies.set("token", "dummy-token", {
         expires: 7,
@@ -82,11 +96,7 @@ export default function SigninForm() {
         </Link>
       </div>
 
-      <button
-        type="submit"
-        className={styles.submitBtn}
-        disabled={isLoading}
-      >
+      <button type="submit" className={styles.submitBtn} disabled={isLoading}>
         {isLoading ? "در حال ورود..." : "ورود"}
       </button>
 

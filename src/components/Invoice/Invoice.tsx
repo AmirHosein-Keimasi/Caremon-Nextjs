@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Reservation, ReservationStatus } from "@/store/reservationStore";
+import { toPersianOptionLabel } from "@/utils/rentalOptions";
 import styles from "./Invoice.module.css";
 
 interface InvoiceProps {
@@ -145,7 +146,7 @@ export default function Invoice({
               {rental.selectedOptions.map((option: string) => (
                 <div key={option} className={styles.optionItem}>
                   <span>{rental.car.name}:</span>
-                  <strong>{option}</strong>
+                  <strong>{toPersianOptionLabel(option)}</strong>
                 </div>
               ))}
             </div>
