@@ -77,7 +77,7 @@ export default function UserPanel() {
           <div className={styles.divider}></div>
 
           <nav className={styles.menu}>
-            <Link href="/profile" className={styles.menuItem}>
+            <Link href="/dashboard" className={styles.menuItem}>
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -92,7 +92,7 @@ export default function UserPanel() {
               <span>داشبورد</span>
             </Link>
 
-            <Link href="/dashboard" className={styles.menuItem}>
+            <Link href="/profile" className={styles.menuItem}>
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
