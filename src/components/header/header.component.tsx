@@ -6,12 +6,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import DarkModeToggleComponent from "../dark-mode-toggle/dark-mode-toggle.component";
+import UserPanel from "./UserPanel";
 
 import clsx from "clsx";
 
 import styles from "./header.module.css";
 import useAuth from "@/utils/useAuth";
-import LogOutButton from "../logoutButton/Logout-Button.component";
 
 const links = [
   { href: "/", title: "خانه" },
@@ -41,7 +41,7 @@ export default function HeaderComponent(): ReactElement {
         </ul>
       </nav>
       {isLoggedIn ? (
-        <LogOutButton />
+        <UserPanel />
       ) : (
         <Link href="/auth/signin" className={styles.cta}>
           ورود | ثبت‌نام

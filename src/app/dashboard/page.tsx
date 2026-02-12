@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useCartStore, CartItem } from "@/store/cartStore";
+import { useCartStore, RentalItem } from "@/store/cartStore";
 import {
   useReservationStore,
   ReservationStatus,
@@ -23,7 +23,7 @@ export default function DashboardPage() {
   const refreshStats = dashboardStore.refreshStats;
 
   const [activeTab, setActiveTab] = useState<
-    "overview" | "cart" | "reservations" | "invoice"
+    "overview" | "rental" | "reservations" | "invoice"
   >("overview");
   const [selectedReservation, setSelectedReservation] =
     useState<Reservation | null>(null);
@@ -32,13 +32,11 @@ export default function DashboardPage() {
   );
 
   // Refresh stats on mount and when stores change
+  const currentRentalCount = cartStore.currentRental ? 1 : 0;
+
   useEffect(() => {
     refreshStats("current-user-id"); // TODO: Get from auth
-  }, [
-    cartStore.items.length,
-    reservationStore.reservations.length,
-    refreshStats,
-  ]);
+  }, [currentRentalCount, reservationStore.reservations.length, refreshStats]);
 
   const filteredReservations =
     filterStatus === "all"
@@ -96,10 +94,10 @@ export default function DashboardPage() {
           نمای کلی
         </button>
         <button
-          className={`${styles.tab} ${activeTab === "cart" ? styles.active : ""}`}
-          onClick={() => setActiveTab("cart")}
+          className={`${styles.tab} ${activeTab === "rental" ? styles.active : ""}`}
+          onClick={() => setActiveTab("rental")}
         >
-          سبد خرید ({cartStore.totalItems})
+          رزرو فعلی ({cartStore.currentRental ? 1 : 0})
         </button>
         <button
           className={`${styles.tab} ${activeTab === "reservations" ? styles.active : ""}`}
@@ -168,14 +166,14 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* Cart Tab */}
-        {activeTab === "cart" && (
-          <div className={styles.cartTab}>
-            {cartStore.items.length > 0 ? (
-              <CartItemsList items={cartStore.items} />
+        {/* Rental Tab */}
+        {activeTab === "rental" && (
+          <div className={styles.rentalTab}>
+            {cartStore.currentRental ? (
+              <RentalDisplay rental={cartStore.currentRental} />
             ) : (
               <div className={styles.empty}>
-                <p>سبد خرید خالی است</p>
+                <p>هیچ رزروی فعالی وجود ندارد</p>
               </div>
             )}
           </div>
@@ -292,7 +290,7 @@ function RecentReservationsList({
               </span>
             </div>
             <div className={styles.listItemFooter}>
-              <span>{res.totalItems} خودرو</span>
+              <span>1 خودرو</span>
               <span className={styles.listItemAmount}>
                 {res.totalPrice.toLocaleString("fa-IR")} تومان
               </span>
@@ -342,7 +340,7 @@ function ReservationsList({
               <td>
                 {res.firstName} {res.lastName}
               </td>
-              <td>{res.totalItems}</td>
+              <td>1</td>
               <td>{res.totalPrice.toLocaleString("fa-IR")} تومان</td>
               <td>
                 <span
@@ -368,28 +366,56 @@ function ReservationsList({
 }
 
 /**
- * Cart Items List
+ * Rental Display Component
  */
-function CartItemsList({ items }: { items: CartItem[] }) {
+function RentalDisplay({ rental }: { rental: RentalItem }) {
   return (
-    <div className={styles.cartList}>
-      {items.map((item) => (
-        <div key={item.id} className={styles.cartListItem}>
-          <div className={styles.cartItemInfo}>
-            <h4>{item.car.name}</h4>
-            <p>{item.car.model}</p>
-            <p className={styles.dates}>
-              {item.startDate} تا {item.endDate}
-            </p>
+    <div className={styles.rentalDisplay}>
+      <div className={styles.section}>
+        <h2>جزئیات رزرو فعلی</h2>
+        <div className={styles.rentalInfo}>
+          <div className={styles.rentalRow}>
+            <span>مدل ماشین:</span>
+            <strong>{rental.car.name}</strong>
           </div>
-          <div className={styles.cartItemPrice}>
-            <p className={styles.quantity}>تعداد: {item.quantity}</p>
-            <p className={styles.total}>
-              {item.totalPrice.toLocaleString("fa-IR")} تومان
-            </p>
+          <div className={styles.rentalRow}>
+            <span>تاریخ شروع:</span>
+            <strong>
+              {new Date(rental.startDate).toLocaleDateString("fa-IR")}
+            </strong>
+          </div>
+          <div className={styles.rentalRow}>
+            <span>تاریخ پایان:</span>
+            <strong>
+              {new Date(rental.endDate).toLocaleDateString("fa-IR")}
+            </strong>
+          </div>
+          <div className={styles.rentalRow}>
+            <span>تعداد روز:</span>
+            <strong>{rental.rentalDays}</strong>
+          </div>
+          <div className={styles.rentalRow}>
+            <span>محل تحویل:</span>
+            <strong>{rental.pickupLocation}</strong>
+          </div>
+          <div className={styles.rentalRow}>
+            <span>محل تسلیم:</span>
+            <strong>{rental.dropoffLocation}</strong>
+          </div>
+          {rental.withDriver && (
+            <div className={styles.rentalRow}>
+              <span>راننده:</span>
+              <strong>بلی ({rental.driverDays} روز)</strong>
+            </div>
+          )}
+          <div className={styles.rentalRow}>
+            <span>قیمت کل:</span>
+            <strong className={styles.price}>
+              {rental.totalPrice.toLocaleString("fa-IR")} تومان
+            </strong>
           </div>
         </div>
-      ))}
+      </div>
     </div>
   );
 }

@@ -14,6 +14,7 @@ import DriverPriceCar from "./components/price-car-with-driver/price-car-with-dr
 import SpecsAndFeatures from "./components/car-details/car-details.component";
 import Peugeot206RentalInfo from "./components/Rental-Info/Peugeot206RentalInfo";
 import CommentComponent from "./components/comment/comment.component";
+import ReserveButton from "./components/ReserveButton";
 
 type Props = {
   params: { id: string };
@@ -201,6 +202,7 @@ export default async function Page({ params }: Props): Promise<ReactElement> {
       <div className={styles.Prices}>
         <PriceCar car={car} />
         <DriverPriceCar car={car} />
+        <ReserveButton car={car} />
       </div>
 
       <div className={styles.locationCar}>

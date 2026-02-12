@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Reservation, ReservationStatus } from "@/store/reservationStore";
-import { CartItem } from "@/store/cartStore";
 import styles from "./Invoice.module.css";
 
 interface InvoiceProps {
@@ -11,8 +10,8 @@ interface InvoiceProps {
 }
 
 /**
- * Invoice Component
- * کامپوننت فاکتور
+ * Invoice Component (Updated for Single Rental)
+ * کامپوننت فاکتور (به‌روز شده برای رزرو منفرد)
  */
 export default function Invoice({
   reservation,
@@ -36,11 +35,9 @@ export default function Invoice({
     failed: "پرداخت ناموفق",
   };
 
-  // Calculate additional fees
-  const subtotal = reservation.items.reduce(
-    (sum, item) => sum + item.totalPrice,
-    0,
-  );
+  // Calculate prices
+  const rental = reservation.rental;
+  const subtotal = rental.totalPrice;
   const tax = subtotal * 0.09; // 9% VAT
   const total = subtotal + tax;
 
@@ -102,61 +99,55 @@ export default function Invoice({
           </div>
         </div>
 
-        {/* Items Table */}
+        {/* Items Section */}
         <div className={styles.itemsSection}>
-          <h3>جزئیات خودروها</h3>
+          <h3>جزئیات خودرو</h3>
           <table className={styles.itemsTable}>
             <thead>
               <tr>
                 <th>نام خودرو</th>
                 <th>روزهای اجاره</th>
                 <th>قیمت روزانه</th>
-                <th>تعداد</th>
+                <th>روزها</th>
                 <th>مجموع</th>
               </tr>
             </thead>
             <tbody>
-              {reservation.items.map((item: CartItem) => (
-                <tr key={item.id}>
-                  <td>
-                    <div>
-                      <strong>{item.car.name}</strong>
-                      <p className={styles.model}>{item.car.model}</p>
-                      {item.withDriver && (
-                        <span className={styles.driverBadge}>راننده شامل</span>
-                      )}
-                    </div>
-                  </td>
-                  <td>
-                    {item.startDate} تا {item.endDate}
-                  </td>
-                  <td>{item.pricePerDay.toLocaleString("fa-IR")} تومان</td>
-                  <td>{item.quantity}</td>
-                  <td className={styles.totalCell}>
-                    {item.totalPrice.toLocaleString("fa-IR")} تومان
-                  </td>
-                </tr>
-              ))}
+              <tr>
+                <td>
+                  <div>
+                    <strong>{rental.car.name}</strong>
+                    <p className={styles.model}>{rental.car.model}</p>
+                    {rental.withDriver && (
+                      <span className={styles.driverBadge}>راننده شامل</span>
+                    )}
+                  </div>
+                </td>
+                <td>
+                  {new Date(rental.startDate).toLocaleDateString("fa-IR")} تا{" "}
+                  {new Date(rental.endDate).toLocaleDateString("fa-IR")}
+                </td>
+                <td>{rental.pricePerDay.toLocaleString("fa-IR")} تومان</td>
+                <td>{rental.rentalDays}</td>
+                <td className={styles.totalCell}>
+                  {rental.totalPrice.toLocaleString("fa-IR")} تومان
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
 
         {/* Options */}
-        {reservation.items.some((item) => item.selectedOptions.length > 0) && (
+        {rental.selectedOptions.length > 0 && (
           <div className={styles.optionsSection}>
             <h3>خدمات و اپشن‌های انتخاب شده</h3>
             <div className={styles.optionsList}>
-              {reservation.items.map((item) =>
-                item.selectedOptions.map((option) => (
-                  <div
-                    key={`${item.id}-${option}`}
-                    className={styles.optionItem}
-                  >
-                    <span>{item.car.name}:</span>
-                    <strong>{option}</strong>
-                  </div>
-                )),
-              )}
+              {rental.selectedOptions.map((option: string) => (
+                <div key={option} className={styles.optionItem}>
+                  <span>{rental.car.name}:</span>
+                  <strong>{option}</strong>
+                </div>
+              ))}
             </div>
           </div>
         )}
@@ -171,7 +162,7 @@ export default function Invoice({
             <span>مالیات (9%):</span>
             <span>{tax.toLocaleString("fa-IR")} تومان</span>
           </div>
-          <div className={styles.summaryRow + " " + styles.totalRow}>
+          <div className={`${styles.summaryRow} ${styles.totalRow}`}>
             <span>مجموع کل:</span>
             <span>{total.toLocaleString("fa-IR")} تومان</span>
           </div>
@@ -184,7 +175,7 @@ export default function Invoice({
                 </span>
               </div>
               {reservation.paidAmount < total && (
-                <div className={styles.summaryRow + " " + styles.remainingRow}>
+                <div className={`${styles.summaryRow} ${styles.remainingRow}`}>
                   <span>مبلغ باقی‌مانده:</span>
                   <span>
                     {(total - reservation.paidAmount).toLocaleString("fa-IR")}{" "}

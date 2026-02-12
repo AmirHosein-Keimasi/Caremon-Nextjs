@@ -3,10 +3,10 @@ import { persist } from 'zustand/middleware';
 import { CarsModel } from '@/models/cars.model';
 
 /**
- * Cart Item Type
- * نوع آیتم سبد خرید
+ * Rental Item Type (Single Car Rental)
+ * نوع آیتم رزرو (رزرو یک ماشین)
  */
-export interface CartItem {
+export interface RentalItem {
   id: string;
   car: CarsModel;
   rentalDays: number;
@@ -19,37 +19,33 @@ export interface CartItem {
   selectedOptions: string[]; // Additional options/features
   pricePerDay: number;
   totalPrice: number;
-  quantity: number;
   addedAt: number;
 }
 
 /**
- * Cart Store State & Actions
- * استیت و اکشن های فروشگاه سبد
+ * Cart Store State & Actions (Single Rental System)
+ * استیت و اکشن های سیستم رزرو منفرد
  */
 interface CartStore {
-  items: CartItem[];
-  totalItems: number;
+  currentRental: RentalItem | null;
   totalPrice: number;
+  totalItems: number; // For compatibility - always 0 or 1
 
   // Actions
-  addToCart: (item: CartItem) => void;
-  removeFromCart: (cartItemId: string) => void;
-  updateCartItem: (cartItemId: string, updates: Partial<CartItem>) => void;
-  updateQuantity: (cartItemId: string, quantity: number) => void;
-  clearCart: () => void;
+  setRental: (item: RentalItem) => void;
+  clearRental: () => void;
+  updateRental: (updates: Partial<RentalItem>) => void;
   
   // Computed
-  getCartItem: (cartItemId: string) => CartItem | undefined;
+  getRental: () => RentalItem | null;
   getTotal: () => number;
-  getItemCount: () => number;
 }
 
 /**
- * Calculate total price for a cart item
+ * Calculate total price for rental item
  */
-const calculateItemTotal = (item: Omit<CartItem, 'totalPrice'>) => {
-  let total = item.pricePerDay * item.rentalDays * item.quantity;
+const calculateRentalTotal = (item: Omit<RentalItem, 'totalPrice'>) => {
+  let total = item.pricePerDay * item.rentalDays;
 
   if (item.withDriver && item.driverDays) {
     // Driver cost (approximation - adjust based on business logic)
@@ -61,115 +57,81 @@ const calculateItemTotal = (item: Omit<CartItem, 'totalPrice'>) => {
 };
 
 /**
- * Zustand Cart Store with Persistence
+ * Zustand Cart Store with Persistence (Single Rental System)
  */
 export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
-      items: [],
-      totalItems: 0,
+      currentRental: null,
       totalPrice: 0,
+      totalItems: 0,
 
-      addToCart: (item: CartItem) =>
-        set((state) => {
-          // Check if item already exists
-          const existingIndex = state.items.findIndex(
-            (i) =>
-              i.car.id === item.car.id &&
-              i.startDate === item.startDate &&
-              i.endDate === item.endDate
-          );
+      setRental: (item: RentalItem) => {
+        const totalPrice = calculateRentalTotal({
+          id: item.id,
+          car: item.car,
+          rentalDays: item.rentalDays,
+          startDate: item.startDate,
+          endDate: item.endDate,
+          pickupLocation: item.pickupLocation,
+          dropoffLocation: item.dropoffLocation,
+          withDriver: item.withDriver,
+          driverDays: item.driverDays,
+          selectedOptions: item.selectedOptions,
+          pricePerDay: item.pricePerDay,
+          addedAt: item.addedAt,
+        });
 
-          let newItems = [...state.items];
-
-          if (existingIndex >= 0) {
-            // Update quantity
-            newItems[existingIndex].quantity += item.quantity;
-            newItems[existingIndex].totalPrice = calculateItemTotal(newItems[existingIndex]);
-          } else {
-            // Add new item
-            const newItem = {
-              ...item,
-              id: `${item.car.id}-${item.startDate}-${Date.now()}`,
-              totalPrice: calculateItemTotal(item),
-            };
-            newItems = [...newItems, newItem];
-          }
-
-          return {
-            items: newItems,
-            totalItems: newItems.reduce((sum, i) => sum + i.quantity, 0),
-            totalPrice: newItems.reduce((sum, i) => sum + i.totalPrice, 0),
-          };
-        }),
-
-      removeFromCart: (cartItemId: string) =>
-        set((state) => {
-          const newItems = state.items.filter((item) => item.id !== cartItemId);
-          return {
-            items: newItems,
-            totalItems: newItems.reduce((sum, i) => sum + i.quantity, 0),
-            totalPrice: newItems.reduce((sum, i) => sum + i.totalPrice, 0),
-          };
-        }),
-
-      updateCartItem: (cartItemId: string, updates: Partial<CartItem>) =>
-        set((state) => {
-          const newItems = state.items.map((item) => {
-            if (item.id === cartItemId) {
-              const updated = { ...item, ...updates };
-              updated.totalPrice = calculateItemTotal(updated);
-              return updated;
-            }
-            return item;
-          });
-
-          return {
-            items: newItems,
-            totalItems: newItems.reduce((sum, i) => sum + i.quantity, 0),
-            totalPrice: newItems.reduce((sum, i) => sum + i.totalPrice, 0),
-          };
-        }),
-
-      updateQuantity: (cartItemId: string, quantity: number) => {
-        if (quantity <= 0) {
-          get().removeFromCart(cartItemId);
-          return;
-        }
-
-        set((state) => {
-          const newItems = state.items.map((item) => {
-            if (item.id === cartItemId) {
-              const updated = { ...item, quantity };
-              updated.totalPrice = calculateItemTotal(updated);
-              return updated;
-            }
-            return item;
-          });
-
-          return {
-            items: newItems,
-            totalItems: newItems.reduce((sum, i) => sum + i.quantity, 0),
-            totalPrice: newItems.reduce((sum, i) => sum + i.totalPrice, 0),
-          };
+        set({
+          currentRental: {
+            ...item,
+            totalPrice,
+            id: `${item.car.id}-${item.startDate}-${Date.now()}`,
+          },
+          totalPrice,
+          totalItems: 1,
         });
       },
 
-      clearCart: () =>
+      clearRental: () =>
         set({
-          items: [],
-          totalItems: 0,
+          currentRental: null,
           totalPrice: 0,
+          totalItems: 0,
         }),
 
-      getCartItem: (cartItemId: string) => get().items.find((i) => i.id === cartItemId),
+      updateRental: (updates: Partial<RentalItem>) =>
+        set((state) => {
+          if (!state.currentRental) return state;
+
+          const updated = { ...state.currentRental, ...updates };
+          const totalPrice = calculateRentalTotal({
+            id: updated.id,
+            car: updated.car,
+            rentalDays: updated.rentalDays,
+            startDate: updated.startDate,
+            endDate: updated.endDate,
+            pickupLocation: updated.pickupLocation,
+            dropoffLocation: updated.dropoffLocation,
+            withDriver: updated.withDriver,
+            driverDays: updated.driverDays,
+            selectedOptions: updated.selectedOptions,
+            pricePerDay: updated.pricePerDay,
+            addedAt: updated.addedAt,
+          });
+
+          return {
+            currentRental: { ...updated, totalPrice },
+            totalPrice,
+          };
+        }),
+
+      getRental: () => get().currentRental,
 
       getTotal: () => get().totalPrice,
-
-      getItemCount: () => get().totalItems,
     }),
     {
-      name: 'caremon-cart', // Name of the storage
+      name: 'caremon-rental', // Name of the storage
       version: 1,
     }
   )

@@ -1,14 +1,14 @@
-import { useCartStore, CartItem } from '@/store/cartStore';
+import { useCartStore, RentalItem } from '@/store/cartStore';
 import { useCallback } from 'react';
 import { showSuccessNotification, showErrorNotification } from '@/lib/error-notifications';
 import { CarsModel } from '@/models/cars.model';
 
 /**
- * Hook to add cars to cart with reservation options
- * هوک برای اضافه کردن خودرو به سبد با گزینه های رزرو
+ * Hook to add cars to cart with reservation options (Single Rental)
+ * هوک برای اضافه کردن خودرو به سبد با گزینه های رزرو (رزرو منفرد)
  */
 export function useAddToCart() {
-  const { addToCart } = useCartStore();
+  const { setRental } = useCartStore();
 
   const addItem = useCallback(
     (params: {
@@ -21,7 +21,6 @@ export function useAddToCart() {
       withDriver?: boolean;
       driverDays?: number;
       selectedOptions?: string[];
-      quantity?: number;
     }) => {
       try {
         // Validate dates
@@ -41,8 +40,8 @@ export function useAddToCart() {
           return false;
         }
 
-        const cartItem: CartItem = {
-          id: '', // Will be set by store
+        const rentalItem: RentalItem = {
+          id: `rental-${params.car.id}-${Date.now()}`,
           car: params.car,
           rentalDays,
           startDate: params.startDate,
@@ -54,11 +53,10 @@ export function useAddToCart() {
           selectedOptions: params.selectedOptions ?? [],
           pricePerDay: params.pricePerDay,
           totalPrice: 0, // Will be calculated by store
-          quantity: params.quantity ?? 1,
           addedAt: Date.now(),
         };
 
-        addToCart(cartItem);
+        setRental(rentalItem);
         showSuccessNotification(`${params.car.name} به سبد خرید اضافه شد`);
         return true;
       } catch (error) {
@@ -67,7 +65,7 @@ export function useAddToCart() {
         return false;
       }
     },
-    [addToCart]
+    [setRental]
   );
 
   return { addItem };

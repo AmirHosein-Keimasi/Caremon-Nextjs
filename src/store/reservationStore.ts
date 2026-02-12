@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { CartItem } from './cartStore';
+import { RentalItem } from './cartStore';
 
 /**
  * Reservation Status Enum
@@ -21,10 +21,9 @@ export enum ReservationStatus {
 export interface Reservation {
   id: string;
   userId: string;
-  items: CartItem[];
+  rental: RentalItem;
   status: ReservationStatus;
   totalPrice: number;
-  totalItems: number;
   
   // Personal Info
   firstName: string;
