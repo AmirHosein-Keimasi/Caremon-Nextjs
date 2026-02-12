@@ -14,8 +14,10 @@ interface InputFieldProps {
   className?: string;
   required?: boolean;
   disabled?: boolean;
+  readOnly?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLInputElement>) => void;
   autoComplete?: string;
 }
 
@@ -34,8 +36,10 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       className = "",
       required = false,
       disabled = false,
+      readOnly = false,
       onChange,
       onBlur,
+      onClick,
       autoComplete,
     },
     ref,
@@ -74,8 +78,10 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
           defaultValue={defaultValue}
           required={required}
           disabled={disabled}
+          readOnly={readOnly}
           onChange={onChange}
           onBlur={onBlur}
+          onClick={onClick}
           autoComplete={autoComplete}
         />
         {showError && errorText && (
