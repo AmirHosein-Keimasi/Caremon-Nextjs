@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { notFound } from "next/navigation";
 
-import { cars } from "@/db/cars";
+import { getCarById } from "@/lib/cars";
 import { CommentModel } from "@/models/comment.model";
 
 import styles from "./page.module.css";
@@ -185,8 +185,8 @@ const comments: CommentModel[] = [
     text: "ساعت ۱۰ شب برای فردا صبح به خودرو نیاز داشتیم. با وجود اینکه انتظار نداشتیم، خودرویی با شرایط مناسب برایمان پیدا کردند. ممنون از پیگیری سریع.",
   },
 ];
-export default function Page({ params }: Props): ReactElement {
-  const car = cars.find((x) => x.id === params.id);
+export default async function Page({ params }: Props): Promise<ReactElement> {
+  const car = await getCarById(params.id);
 
   if (!car) {
     return notFound();

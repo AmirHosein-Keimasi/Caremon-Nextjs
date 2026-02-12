@@ -1,8 +1,11 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
+import * as bcrypt from "bcryptjs";
+
+import { cars } from "../src/db/cars";
 
 const prisma = new PrismaClient();
 
-const users: Prisma.UserCreateInput[] = [
+const users = [
   {
     name: "امیرحسین کیماسی ",
     username: "amir",
@@ -11,9 +14,43 @@ const users: Prisma.UserCreateInput[] = [
   },
 ];
 
+function carToPrisma(car: (typeof cars)[number]) {
+  return {
+    id: car.id,
+    name: car.name,
+    model: car.model,
+    img: car.img,
+    location: car.location,
+    reviewCount: car.reviewCount,
+    ratingNumber: car.ratingNumber,
+    withDriver: car.with_driver,
+    rental: car.rental as object,
+    capacity: car.capacity as object,
+    features: car.features as object,
+    engine: car.engine as object,
+    driverRental: car.driver_rental as object,
+  };
+}
+
 export async function main() {
   for (const user of users) {
-    await prisma.user.create({ data: user });
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    await prisma.user.create({
+      data: {
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        password: hashedPassword,
+      },
+    });
+  }
+
+  for (const car of cars) {
+    await prisma.car.upsert({
+      where: { id: car.id },
+      create: carToPrisma(car),
+      update: carToPrisma(car),
+    });
   }
 }
 

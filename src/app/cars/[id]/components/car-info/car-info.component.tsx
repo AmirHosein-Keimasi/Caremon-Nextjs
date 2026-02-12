@@ -34,7 +34,7 @@ const CarInfo = ({ car }: Props) => {
                 {Math.floor(car.ratingNumber * 10) / 10} از 5
               </span>
               <span className={styles.totalvotes}>
-                ({car.ratingNumber.toLocaleString()} نظر)
+                ({car.reviewCount.toLocaleString("fa-IR")} نظر)
               </span>
             </div>
           </div>

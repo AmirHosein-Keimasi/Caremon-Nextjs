@@ -1,0 +1,13 @@
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-block-end: 0.5rem;
+  color: var(--color-text-700);
+}
+
+.description {
+  font-size: var(--fz-300);
+  color: var(--color-text-400);
+  margin-block-end: 1rem;
+  line-height: 1.6;
+}

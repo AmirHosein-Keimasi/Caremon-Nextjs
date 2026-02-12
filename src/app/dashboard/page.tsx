@@ -1,4 +1,4 @@
-"use cleint";
+"use client";
 
 import { ReactElement } from "react";
 

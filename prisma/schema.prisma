@@ -20,3 +20,31 @@ model User {
   email    String @unique
   password String
 }
+
+model Car {
+  id           String   @id
+  name         String
+  model        String
+  img          String
+  location     String
+  reviewCount  Int      @map("review_count")
+  ratingNumber Float    @map("rating_number")
+  withDriver   String   @map("with_driver")
+  rental       Json
+  capacity     Json
+  features     Json
+  engine       Json
+  driverRental Json     @map("driver_rental")
+}
+
+model Reservation {
+  id        String   @id @default(uuid())
+  carId     String   @map("car_id")
+  carName   String   @map("car_name")
+  name      String
+  phone     String
+  email     String
+  startDate DateTime @map("start_date")
+  endDate   DateTime @map("end_date")
+  createdAt DateTime @default(now()) @map("created_at")
+}

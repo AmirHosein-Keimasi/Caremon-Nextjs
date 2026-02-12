@@ -17,7 +17,7 @@ import CarsProvider from "./providers/cars.provider";
 
 import SortComponent from "./components/sort/sort.component";
 
-import { cars } from "@/db/cars";
+import { getCars } from "@/lib/cars";
 
 import styles from "./page.module.css";
 
@@ -27,15 +27,21 @@ type Props = {
   searchParams: SearchParams;
 };
 
-export default function Page({ searchParams }: Props): ReactElement {
+export default async function Page({ searchParams }: Props): Promise<ReactElement> {
   const defaultFilters = generateDefaultFilters(searchParams);
+  const cars = await getCars();
 
   return (
-    <FiltersProvider defaultFilters={defaultFilters}>
+    <FiltersProvider
+      key={JSON.stringify(defaultFilters)}
+      defaultFilters={defaultFilters}
+    >
       <CarsProvider cars={cars}>
         <div className={styles.page}>
           <div className={styles.search}>
-            <GlobalSearchBoxComponent />
+            <GlobalSearchBoxComponent
+              initialQuery={defaultFilters.query}
+            />
           </div>
           <div className={styles.filters}>
             <FiltersSummaryComponent />
