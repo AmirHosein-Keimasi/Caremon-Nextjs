@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
 /**
  * Error Notification System
  * سیستم اعلان خطاهای API
  */
 
-import { useCallback } from 'react';
-import { toast } from 'react-toastify';
-import { isApiException, ApiErrorCode } from '@/lib/exceptions';
-import type { ApiException } from '@/lib/exceptions';
+import { useCallback } from "react";
+import { toast } from "react-toastify";
+import { isApiException, ApiErrorCode } from "@/lib/exceptions";
+import type { ApiException } from "@/lib/exceptions";
 
 /**
  * Get user-friendly error message
@@ -16,31 +16,31 @@ import type { ApiException } from '@/lib/exceptions';
 function getErrorMessage(error: ApiException): string {
   switch (error.code) {
     case ApiErrorCode.NETWORK_ERROR:
-      return 'خطای شبکه - اتصال انترنت را بررسی کنید';
+      return "خطای شبکه - اتصال انترنت را بررسی کنید";
     case ApiErrorCode.TIMEOUT:
-      return 'درخواست منقضی شد - دوباره تلاش کنید';
+      return "درخواست منقضی شد - دوباره تلاش کنید";
     case ApiErrorCode.UNAUTHORIZED:
-      return 'احراز هویت ناموفق';
+      return "احراز هویت ناموفق";
     case ApiErrorCode.FORBIDDEN:
-      return 'دسترسی رد شد';
+      return "دسترسی رد شد";
     case ApiErrorCode.TOKEN_EXPIRED:
-      return 'جلسه شما منقضی شده است';
+      return "جلسه شما منقضی شده است";
     case ApiErrorCode.SESSION_EXPIRED:
-      return 'جلسه شما به پایان رسیده است';
+      return "جلسه شما به پایان رسیده است";
     case ApiErrorCode.VALIDATION_ERROR:
-      return 'داده‌های ارسالی نامعتبر است';
+      return "داده‌های ارسالی نامعتبر است";
     case ApiErrorCode.NOT_FOUND:
-      return 'منبع درخواستی یافت نشد';
+      return "منبع درخواستی یافت نشد";
     case ApiErrorCode.CONFLICT:
-      return 'تضادی در درخواست';
+      return "تضادی در درخواست";
     case ApiErrorCode.INTERNAL_SERVER_ERROR:
-      return 'خطای سرور - بعداً تلاش کنید';
+      return "خطای سرور - بعداً تلاش کنید";
     case ApiErrorCode.SERVICE_UNAVAILABLE:
-      return 'سرویس در دسترس نیست';
+      return "سرویس در دسترس نیست";
     case ApiErrorCode.RETRY_EXHAUSTED:
-      return 'تلاش‌های مجدد تمام شد';
+      return "تلاش‌های مجدد تمام شد";
     default:
-      return error.message || 'خطایی پیش آمد';
+      return error.message || "خطایی پیش آمد";
   }
 }
 
@@ -49,13 +49,13 @@ function getErrorMessage(error: ApiException): string {
  */
 export function showErrorNotification(error: unknown): void {
   if (!isApiException(error)) {
-    toast.error('خطایی پیش آمد');
+    toast.error("خطایی پیش آمد");
     return;
   }
 
   const message = getErrorMessage(error);
   toast.error(message, {
-    position: 'top-right',
+    position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -69,7 +69,7 @@ export function showErrorNotification(error: unknown): void {
  */
 export function showSuccessNotification(message: string): void {
   toast.success(message, {
-    position: 'top-right',
+    position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -83,7 +83,7 @@ export function showSuccessNotification(message: string): void {
  */
 export function showInfoNotification(message: string): void {
   toast.info(message, {
-    position: 'top-right',
+    position: "top-right",
     autoClose: 4000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -97,7 +97,7 @@ export function showInfoNotification(message: string): void {
  */
 export function showWarningNotification(message: string): void {
   toast.warning(message, {
-    position: 'top-right',
+    position: "top-right",
     autoClose: 4000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -112,19 +112,19 @@ export function showWarningNotification(message: string): void {
 export function useErrorHandler() {
   const handleError = useCallback((error: unknown, showNotification = true) => {
     if (isApiException(error)) {
-      console.error('[API Error]', error.code, error.message, error.details);
+      console.error("[API Error]", error.code, error.message, error.details);
       if (showNotification) {
         showErrorNotification(error);
       }
     } else if (error instanceof Error) {
-      console.error('[Error]', error.message);
+      console.error("[Error]", error.message);
       if (showNotification) {
         toast.error(error.message);
       }
     } else {
-      console.error('[Unknown Error]', error);
+      console.error("[Unknown Error]", error);
       if (showNotification) {
-        toast.error('خطایی پیش آمد');
+        toast.error("خطایی پیش آمد");
       }
     }
   }, []);

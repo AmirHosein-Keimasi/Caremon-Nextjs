@@ -5,32 +5,32 @@
 
 export enum ApiErrorCode {
   // Network errors
-  NETWORK_ERROR = 'NETWORK_ERROR',
-  TIMEOUT = 'TIMEOUT',
-  NO_INTERNET = 'NO_INTERNET',
+  NETWORK_ERROR = "NETWORK_ERROR",
+  TIMEOUT = "TIMEOUT",
+  NO_INTERNET = "NO_INTERNET",
 
   // Authentication errors
-  UNAUTHORIZED = 'UNAUTHORIZED',
-  FORBIDDEN = 'FORBIDDEN',
-  TOKEN_EXPIRED = 'TOKEN_EXPIRED',
-  INVALID_TOKEN = 'INVALID_TOKEN',
-  SESSION_EXPIRED = 'SESSION_EXPIRED',
+  UNAUTHORIZED = "UNAUTHORIZED",
+  FORBIDDEN = "FORBIDDEN",
+  TOKEN_EXPIRED = "TOKEN_EXPIRED",
+  INVALID_TOKEN = "INVALID_TOKEN",
+  SESSION_EXPIRED = "SESSION_EXPIRED",
 
   // Validation errors
-  BAD_REQUEST = 'BAD_REQUEST',
-  VALIDATION_ERROR = 'VALIDATION_ERROR',
-  INVALID_INPUT = 'INVALID_INPUT',
+  BAD_REQUEST = "BAD_REQUEST",
+  VALIDATION_ERROR = "VALIDATION_ERROR",
+  INVALID_INPUT = "INVALID_INPUT",
 
   // Server errors
-  NOT_FOUND = 'NOT_FOUND',
-  CONFLICT = 'CONFLICT',
-  INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR',
-  SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
+  NOT_FOUND = "NOT_FOUND",
+  CONFLICT = "CONFLICT",
+  INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR",
+  SERVICE_UNAVAILABLE = "SERVICE_UNAVAILABLE",
 
   // Custom errors
-  UNKNOWN_ERROR = 'UNKNOWN_ERROR',
-  RETRY_EXHAUSTED = 'RETRY_EXHAUSTED',
-  OPERATION_CANCELLED = 'OPERATION_CANCELLED',
+  UNKNOWN_ERROR = "UNKNOWN_ERROR",
+  RETRY_EXHAUSTED = "RETRY_EXHAUSTED",
+  OPERATION_CANCELLED = "OPERATION_CANCELLED",
 }
 
 /**
@@ -50,7 +50,7 @@ export class ApiException extends Error {
     isRetryable: boolean = false,
   ) {
     super(message);
-    this.name = 'ApiException';
+    this.name = "ApiException";
     this.code = code;
     this.statusCode = statusCode;
     this.details = details;
@@ -65,9 +65,12 @@ export class ApiException extends Error {
  * Network Exception
  */
 export class NetworkException extends ApiException {
-  constructor(message: string = 'خطای شبکه', details?: Record<string, unknown>) {
+  constructor(
+    message: string = "خطای شبکه",
+    details?: Record<string, unknown>,
+  ) {
     super(ApiErrorCode.NETWORK_ERROR, message, 0, details, true);
-    this.name = 'NetworkException';
+    this.name = "NetworkException";
     Object.setPrototypeOf(this, NetworkException.prototype);
   }
 }
@@ -76,9 +79,9 @@ export class NetworkException extends ApiException {
  * Timeout Exception
  */
 export class TimeoutException extends ApiException {
-  constructor(message: string = 'درخواست منقضی شد') {
+  constructor(message: string = "درخواست منقضی شد") {
     super(ApiErrorCode.TIMEOUT, message, 408, undefined, true);
-    this.name = 'TimeoutException';
+    this.name = "TimeoutException";
     Object.setPrototypeOf(this, TimeoutException.prototype);
   }
 }
@@ -89,11 +92,11 @@ export class TimeoutException extends ApiException {
 export class AuthenticationException extends ApiException {
   constructor(
     code: ApiErrorCode = ApiErrorCode.UNAUTHORIZED,
-    message: string = 'احراز هویت ناموفق',
+    message: string = "احراز هویت ناموفق",
     details?: Record<string, unknown>,
   ) {
     super(code, message, 401, details, false);
-    this.name = 'AuthenticationException';
+    this.name = "AuthenticationException";
     Object.setPrototypeOf(this, AuthenticationException.prototype);
   }
 }
@@ -102,9 +105,9 @@ export class AuthenticationException extends ApiException {
  * Authorization Exception
  */
 export class AuthorizationException extends ApiException {
-  constructor(message: string = 'دسترسی رد شد') {
+  constructor(message: string = "دسترسی رد شد") {
     super(ApiErrorCode.FORBIDDEN, message, 403, undefined, false);
-    this.name = 'AuthorizationException';
+    this.name = "AuthorizationException";
     Object.setPrototypeOf(this, AuthorizationException.prototype);
   }
 }
@@ -113,9 +116,12 @@ export class AuthorizationException extends ApiException {
  * Validation Exception
  */
 export class ValidationException extends ApiException {
-  constructor(message: string = 'داده‌های ارسالی نامعتبر', details?: Record<string, unknown>) {
+  constructor(
+    message: string = "داده‌های ارسالی نامعتبر",
+    details?: Record<string, unknown>,
+  ) {
     super(ApiErrorCode.VALIDATION_ERROR, message, 400, details, false);
-    this.name = 'ValidationException';
+    this.name = "ValidationException";
     Object.setPrototypeOf(this, ValidationException.prototype);
   }
 }
@@ -124,9 +130,9 @@ export class ValidationException extends ApiException {
  * Not Found Exception
  */
 export class NotFoundException extends ApiException {
-  constructor(message: string = 'منبع درخواستی یافت نشد') {
+  constructor(message: string = "منبع درخواستی یافت نشد") {
     super(ApiErrorCode.NOT_FOUND, message, 404, undefined, false);
-    this.name = 'NotFoundException';
+    this.name = "NotFoundException";
     Object.setPrototypeOf(this, NotFoundException.prototype);
   }
 }
@@ -135,9 +141,12 @@ export class NotFoundException extends ApiException {
  * Conflict Exception
  */
 export class ConflictException extends ApiException {
-  constructor(message: string = 'تضادی در درخواست', details?: Record<string, unknown>) {
+  constructor(
+    message: string = "تضادی در درخواست",
+    details?: Record<string, unknown>,
+  ) {
     super(ApiErrorCode.CONFLICT, message, 409, details, false);
-    this.name = 'ConflictException';
+    this.name = "ConflictException";
     Object.setPrototypeOf(this, ConflictException.prototype);
   }
 }
@@ -146,9 +155,12 @@ export class ConflictException extends ApiException {
  * Server Exception
  */
 export class ServerException extends ApiException {
-  constructor(message: string = 'خطای سرور', details?: Record<string, unknown>) {
+  constructor(
+    message: string = "خطای سرور",
+    details?: Record<string, unknown>,
+  ) {
     super(ApiErrorCode.INTERNAL_SERVER_ERROR, message, 500, details, true);
-    this.name = 'ServerException';
+    this.name = "ServerException";
     Object.setPrototypeOf(this, ServerException.prototype);
   }
 }
@@ -157,9 +169,9 @@ export class ServerException extends ApiException {
  * Service Unavailable Exception
  */
 export class ServiceUnavailableException extends ApiException {
-  constructor(message: string = 'سرویس در دسترس نیست') {
+  constructor(message: string = "سرویس در دسترس نیست") {
     super(ApiErrorCode.SERVICE_UNAVAILABLE, message, 503, undefined, true);
-    this.name = 'ServiceUnavailableException';
+    this.name = "ServiceUnavailableException";
     Object.setPrototypeOf(this, ServiceUnavailableException.prototype);
   }
 }
@@ -168,7 +180,10 @@ export class ServiceUnavailableException extends ApiException {
  * Retry Exhausted Exception
  */
 export class RetryExhaustedException extends ApiException {
-  constructor(message: string = 'تلاش‌های مجدد تمام شد', originalError?: ApiException) {
+  constructor(
+    message: string = "تلاش‌های مجدد تمام شد",
+    originalError?: ApiException,
+  ) {
     super(
       ApiErrorCode.RETRY_EXHAUSTED,
       message,
@@ -176,7 +191,7 @@ export class RetryExhaustedException extends ApiException {
       originalError?.details,
       false,
     );
-    this.name = 'RetryExhaustedException';
+    this.name = "RetryExhaustedException";
     Object.setPrototypeOf(this, RetryExhaustedException.prototype);
   }
 }
@@ -200,7 +215,11 @@ export function createExceptionFromStatusCode(
     case 400:
       return new ValidationException(message, details);
     case 401:
-      return new AuthenticationException(ApiErrorCode.UNAUTHORIZED, message, details);
+      return new AuthenticationException(
+        ApiErrorCode.UNAUTHORIZED,
+        message,
+        details,
+      );
     case 403:
       return new AuthorizationException(message);
     case 404:

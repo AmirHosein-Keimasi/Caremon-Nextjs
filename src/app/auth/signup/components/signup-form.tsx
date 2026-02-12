@@ -91,11 +91,7 @@ export default function SignupForm() {
         required
       />
 
-      <button
-        type="submit"
-        className={styles.submitBtn}
-        disabled={isLoading}
-      >
+      <button type="submit" className={styles.submitBtn} disabled={isLoading}>
         {isLoading ? "در حال ثبت..." : "ثبت نام"}
       </button>
 

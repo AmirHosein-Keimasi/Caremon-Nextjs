@@ -115,11 +115,7 @@ export default function ReserveForm({ carId, carName }: Props): ReactElement {
       <form onSubmit={handleSubmit} className={styles.form}>
         <h3 className={styles.title}>فرم رزرو</h3>
 
-        {error && (
-          <p className={styles.errorMessage}>
-            {error}
-          </p>
-        )}
+        {error && <p className={styles.errorMessage}>{error}</p>}
 
         <div className={styles.field}>
           <label htmlFor="name">نام و نام خانوادگی</label>

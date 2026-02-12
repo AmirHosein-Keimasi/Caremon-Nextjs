@@ -6,10 +6,18 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { carId, carName, name, phone, email, startDate, endDate } = body;
 
-    if (!carId || !carName || !name || !phone || !email || !startDate || !endDate) {
+    if (
+      !carId ||
+      !carName ||
+      !name ||
+      !phone ||
+      !email ||
+      !startDate ||
+      !endDate
+    ) {
       return NextResponse.json(
         { error: "تمام فیلدها الزامی است" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -25,12 +33,12 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({ success: true, message: "رزرو با موفقیت ثبت شد" });
+    return NextResponse.json({
+      success: true,
+      message: "رزرو با موفقیت ثبت شد",
+    });
   } catch (error) {
     console.error("Reserve error:", error);
-    return NextResponse.json(
-      { error: "خطا در ثبت رزرو" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "خطا در ثبت رزرو" }, { status: 500 });
   }
 }

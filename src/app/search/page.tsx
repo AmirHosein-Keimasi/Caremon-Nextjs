@@ -27,7 +27,9 @@ type Props = {
   searchParams: SearchParams;
 };
 
-export default async function Page({ searchParams }: Props): Promise<ReactElement> {
+export default async function Page({
+  searchParams,
+}: Props): Promise<ReactElement> {
   const defaultFilters = generateDefaultFilters(searchParams);
   const cars = await getCars();
 
@@ -39,9 +41,7 @@ export default async function Page({ searchParams }: Props): Promise<ReactElemen
       <CarsProvider cars={cars}>
         <div className={styles.page}>
           <div className={styles.search}>
-            <GlobalSearchBoxComponent
-              initialQuery={defaultFilters.query}
-            />
+            <GlobalSearchBoxComponent initialQuery={defaultFilters.query} />
           </div>
           <div className={styles.filters}>
             <FiltersSummaryComponent />

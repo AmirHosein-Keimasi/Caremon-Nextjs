@@ -3,23 +3,24 @@
  * تنظیم و کانفیگ Axios با Interceptor ها برای مدیریت درخواست‌ها و خطاها
  */
 
-import axios from 'axios';
-import type { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
-import Cookies from 'js-cookie';
+import axios from "axios";
+import type { AxiosInstance, InternalAxiosRequestConfig } from "axios";
+import Cookies from "js-cookie";
 import {
   AuthenticationException,
   TimeoutException,
   NetworkException,
   createExceptionFromStatusCode,
   ApiErrorCode,
-} from './exceptions';
+} from "./exceptions";
 
 // API Base URL
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
 
 // Token cookie names
-const TOKEN_COOKIE_NAME = 'caremon_token';
-const REFRESH_TOKEN_COOKIE_NAME = 'caremon_refresh_token';
+const TOKEN_COOKIE_NAME = "caremon_token";
+const REFRESH_TOKEN_COOKIE_NAME = "caremon_refresh_token";
 
 // Type for request metadata
 interface RequestMetadata {
@@ -43,14 +44,17 @@ export function createAxiosInstance(): AxiosInstance {
     baseURL: API_BASE_URL,
     timeout: 30000,
     headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
+      "Content-Type": "application/json",
+      Accept: "application/json",
     },
     withCredentials: true,
   });
 
   // Store request metadata for retry logic
-  const requestMetadata = new WeakMap<InternalAxiosRequestConfig, RequestMetadata>();
+  const requestMetadata = new WeakMap<
+    InternalAxiosRequestConfig,
+    RequestMetadata
+  >();
 
   /**
    * REQUEST INTERCEPTOR - افزودن توکن و هدرهای اضافی
@@ -70,10 +74,10 @@ export function createAxiosInstance(): AxiosInstance {
       }
 
       // Add custom headers
-      config.headers['X-Client-Version'] = '1.0.0';
-      config.headers['X-Requested-With'] = 'XMLHttpRequest';
+      config.headers["X-Client-Version"] = "1.0.0";
+      config.headers["X-Requested-With"] = "XMLHttpRequest";
 
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === "development") {
         console.debug(
           `[API Request] ${config.method?.toUpperCase()} ${config.url}`,
           config,
@@ -83,8 +87,8 @@ export function createAxiosInstance(): AxiosInstance {
       return config;
     },
     (error: unknown) => {
-      console.error('[Request Interceptor Error]', error);
-      return Promise.reject(new NetworkException('خطا در درخواست'));
+      console.error("[Request Interceptor Error]", error);
+      return Promise.reject(new NetworkException("خطا در درخواست"));
     },
   );
 
@@ -96,7 +100,7 @@ export function createAxiosInstance(): AxiosInstance {
       const metadata = requestMetadata.get(response.config);
       const elapsed = metadata ? Date.now() - metadata.startTime : 0;
 
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === "development") {
         console.debug(
           `[API Response] ${response.status} ${response.config.method?.toUpperCase()} ${response.config.url} (${elapsed}ms)`,
           response.data,
@@ -110,7 +114,7 @@ export function createAxiosInstance(): AxiosInstance {
           return Promise.reject(
             createExceptionFromStatusCode(
               error?.statusCode || 400,
-              error?.message || 'خطای نامشخص',
+              error?.message || "خطای نامشخص",
               error?.details,
             ),
           );
@@ -121,14 +125,14 @@ export function createAxiosInstance(): AxiosInstance {
     },
     async (error: unknown) => {
       if (!axios.isAxiosError(error)) {
-        return Promise.reject(new NetworkException('خطای نامشخص'));
+        return Promise.reject(new NetworkException("خطای نامشخص"));
       }
 
       const { config, response } = error;
       const metadata = config ? requestMetadata.get(config) : undefined;
       const retryCount = metadata?.retryCount ?? 0;
 
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === "development") {
         console.error(
           `[API Error] ${response?.status} ${config?.method?.toUpperCase()} ${config?.url}`,
           error.message,
@@ -137,7 +141,7 @@ export function createAxiosInstance(): AxiosInstance {
 
       // No network response
       if (!response) {
-        if (error.code === 'ECONNABORTED') {
+        if (error.code === "ECONNABORTED") {
           return Promise.reject(new TimeoutException());
         }
         return Promise.reject(new NetworkException(error.message));
@@ -153,7 +157,7 @@ export function createAxiosInstance(): AxiosInstance {
         // Try refresh token
         if (
           errorCode === ApiErrorCode.TOKEN_EXPIRED ||
-          errorCode === 'TOKEN_EXPIRED'
+          errorCode === "TOKEN_EXPIRED"
         ) {
           if (retryCount < 1 && config) {
             try {
@@ -172,7 +176,7 @@ export function createAxiosInstance(): AxiosInstance {
               return Promise.reject(
                 new AuthenticationException(
                   ApiErrorCode.SESSION_EXPIRED,
-                  'جلسه شما منقضی شده است',
+                  "جلسه شما منقضی شده است",
                 ),
               );
             }
@@ -183,7 +187,7 @@ export function createAxiosInstance(): AxiosInstance {
         return Promise.reject(
           new AuthenticationException(
             ApiErrorCode.UNAUTHORIZED,
-            errorData?.message || 'احراز هویت ناموفق',
+            errorData?.message || "احراز هویت ناموفق",
           ),
         );
       }
@@ -205,7 +209,7 @@ export function createAxiosInstance(): AxiosInstance {
       return Promise.reject(
         createExceptionFromStatusCode(
           status,
-          errorData?.message || error.message || 'خطای نامشخص',
+          errorData?.message || error.message || "خطای نامشخص",
           errorData?.details,
         ),
       );
@@ -236,14 +240,14 @@ async function refreshAccessToken(): Promise<boolean> {
     if (accessToken) {
       Cookies.set(TOKEN_COOKIE_NAME, accessToken, {
         secure: true,
-        sameSite: 'lax',
+        sameSite: "lax",
         expires: 3,
       });
 
       if (newRefreshToken) {
         Cookies.set(REFRESH_TOKEN_COOKIE_NAME, newRefreshToken, {
           secure: true,
-          sameSite: 'lax',
+          sameSite: "lax",
           expires: 7,
         });
       }
@@ -253,7 +257,7 @@ async function refreshAccessToken(): Promise<boolean> {
 
     return false;
   } catch (error) {
-    console.error('[Token Refresh Failed]', error);
+    console.error("[Token Refresh Failed]", error);
     return false;
   }
 }
@@ -267,7 +271,10 @@ function handleAuthenticationFailure(): void {
   Cookies.remove(REFRESH_TOKEN_COOKIE_NAME);
 
   // Redirect to login (if not already there)
-  if (typeof window !== 'undefined' && !window.location.pathname.includes('/auth/signin')) {
+  if (
+    typeof window !== "undefined" &&
+    !window.location.pathname.includes("/auth/signin")
+  ) {
     window.location.href = `/auth/signin?redirect=${encodeURIComponent(window.location.pathname)}`;
   }
 }
@@ -283,7 +290,7 @@ export const tokenUtils = {
   setToken: (token: string, expiresIn?: number) => {
     Cookies.set(TOKEN_COOKIE_NAME, token, {
       secure: true,
-      sameSite: 'lax',
+      sameSite: "lax",
       expires: expiresIn ? expiresIn / (24 * 60 * 60) : 3, // Convert seconds to days
     });
   },

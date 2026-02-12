@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     if (!email || !password) {
       return NextResponse.json(
         { error: "ایمیل و رمز عبور الزامی است" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     if (!user) {
       return NextResponse.json(
         { error: "ایمیل یا رمز عبور اشتباه است" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     if (!valid) {
       return NextResponse.json(
         { error: "ایمیل یا رمز عبور اشتباه است" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -41,9 +41,6 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Signin error:", error);
-    return NextResponse.json(
-      { error: "خطا در ورود" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "خطا در ورود" }, { status: 500 });
   }
 }

@@ -1,23 +1,20 @@
-'use client';
+"use client";
 
 /**
  * API Hooks - React hooks for API consumption
  * هوک‌های React برای مصرف API با مدیریت state، loading، error
  */
 
-import { useCallback, useRef, useState } from 'react';
-import { apiClient } from '@/lib/api-client';
-import { isApiException, type ApiException } from '@/lib/exceptions';
-import type { AxiosRequestConfig } from 'axios';
+import { useCallback, useRef, useState } from "react";
+import { apiClient } from "@/lib/api-client";
+import { isApiException, type ApiException } from "@/lib/exceptions";
+import type { AxiosRequestConfig } from "axios";
 
 /**
  * Hook for API queries (GET requests)
  * برای درخواست‌های GET و دریافت داده
  */
-export function useApi<T>(
-  url: string,
-  options?: AxiosRequestConfig,
-) {
+export function useApi<T>(url: string, options?: AxiosRequestConfig) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ApiException | null>(null);
@@ -38,7 +35,9 @@ export function useApi<T>(
       setData(response.data as T);
       return response.data as T;
     } catch (err) {
-      const apiError = isApiException(err) ? err : new Error(String(err)) as unknown as ApiException;
+      const apiError = isApiException(err)
+        ? err
+        : (new Error(String(err)) as unknown as ApiException);
       setError(apiError as ApiException);
       throw apiError;
     } finally {
@@ -64,7 +63,7 @@ export function useApi<T>(
  * برای درخواست‌های تغیییری (POST، PUT، DELETE)
  */
 export function useMutation<TData, TResponse>(
-  method: 'post' | 'put' | 'delete' | 'patch',
+  method: "post" | "put" | "delete" | "patch",
   url?: string,
   options?: AxiosRequestConfig,
 ) {
@@ -74,7 +73,11 @@ export function useMutation<TData, TResponse>(
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const mutate = useCallback(
-    async (payload?: TData, customUrl?: string, customOptions?: AxiosRequestConfig) => {
+    async (
+      payload?: TData,
+      customUrl?: string,
+      customOptions?: AxiosRequestConfig,
+    ) => {
       try {
         setLoading(true);
         setError(null);
@@ -83,22 +86,28 @@ export function useMutation<TData, TResponse>(
 
         const finalUrl = customUrl || url;
         if (!finalUrl) {
-          throw new Error('URL must be provided to useMutation');
+          throw new Error("URL must be provided to useMutation");
         }
 
         const finalOptions = { ...options, ...customOptions };
-        
+
         let response;
-        if (method === 'delete') {
+        if (method === "delete") {
           response = await apiClient[method]<TResponse>(finalUrl, finalOptions);
         } else {
-          response = await apiClient[method]<TResponse>(finalUrl, payload, finalOptions);
+          response = await apiClient[method]<TResponse>(
+            finalUrl,
+            payload,
+            finalOptions,
+          );
         }
 
         setData(response.data as TResponse);
         return response.data as TResponse;
       } catch (err) {
-        const apiError = isApiException(err) ? err : (new Error(String(err)) as unknown as ApiException);
+        const apiError = isApiException(err)
+          ? err
+          : (new Error(String(err)) as unknown as ApiException);
         setError(apiError as ApiException);
         throw apiError;
       } finally {
@@ -128,7 +137,7 @@ export function usePost<TData, TResponse>(
   url: string,
   options?: AxiosRequestConfig,
 ) {
-  return useMutation<TData, TResponse>('post', url, options);
+  return useMutation<TData, TResponse>("post", url, options);
 }
 
 /**
@@ -138,7 +147,7 @@ export function usePut<TData, TResponse>(
   url: string,
   options?: AxiosRequestConfig,
 ) {
-  return useMutation<TData, TResponse>('put', url, options);
+  return useMutation<TData, TResponse>("put", url, options);
 }
 
 /**
@@ -148,7 +157,7 @@ export function useDelete<TResponse>(
   url: string,
   options?: AxiosRequestConfig,
 ) {
-  return useMutation<void, TResponse>('delete', url, options);
+  return useMutation<void, TResponse>("delete", url, options);
 }
 
 /**
@@ -158,5 +167,5 @@ export function usePatch<TData, TResponse>(
   url: string,
   options?: AxiosRequestConfig,
 ) {
-  return useMutation<TData, TResponse>('patch', url, options);
+  return useMutation<TData, TResponse>("patch", url, options);
 }

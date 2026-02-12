@@ -111,7 +111,9 @@ export default function CheckoutPage() {
       return;
     }
 
-    if (requiredFields.some((field) => normalizedInfo[field] !== profile[field])) {
+    if (
+      requiredFields.some((field) => normalizedInfo[field] !== profile[field])
+    ) {
       updateProfile(normalizedInfo);
     }
 
@@ -158,7 +160,9 @@ export default function CheckoutPage() {
               <div className={styles.detailRow}>
                 <span>تاریخ شروع</span>
                 <strong>
-                  {new Date(currentRental.startDate).toLocaleDateString("fa-IR")}
+                  {new Date(currentRental.startDate).toLocaleDateString(
+                    "fa-IR",
+                  )}
                 </strong>
               </div>
               <div className={styles.detailRow}>
@@ -212,10 +216,13 @@ export default function CheckoutPage() {
             {needsCustomerInfo ? (
               <>
                 <p className={styles.infoHint}>
-                  اطلاعات مشتری از پروفایل خوانده می‌شود. لطفا فقط موارد ناقص را تکمیل
-                  کنید.
+                  اطلاعات مشتری از پروفایل خوانده می‌شود. لطفا فقط موارد ناقص را
+                  تکمیل کنید.
                 </p>
-                <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+                <form
+                  className={styles.form}
+                  onSubmit={(e) => e.preventDefault()}
+                >
                   {missingFields.map((field) => (
                     <div key={field} className={styles.formGroup}>
                       <label htmlFor={field}>{fieldMeta[field].label}</label>
@@ -251,7 +258,9 @@ export default function CheckoutPage() {
 
           <div className={styles.pricingRow}>
             <span>قیمت روزانه</span>
-            <strong>{currentRental.pricePerDay.toLocaleString("fa-IR")} تومان</strong>
+            <strong>
+              {currentRental.pricePerDay.toLocaleString("fa-IR")} تومان
+            </strong>
           </div>
 
           <div className={styles.pricingRow}>
@@ -268,7 +277,9 @@ export default function CheckoutPage() {
 
           <div className={`${styles.pricingRow} ${styles.totalRow}`}>
             <span>جمع کل</span>
-            <strong>{currentRental.totalPrice.toLocaleString("fa-IR")} تومان</strong>
+            <strong>
+              {currentRental.totalPrice.toLocaleString("fa-IR")} تومان
+            </strong>
           </div>
 
           <div className={styles.actionStack}>

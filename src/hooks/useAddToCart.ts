@@ -1,7 +1,10 @@
-import { useCartStore, RentalItem } from '@/store/cartStore';
-import { useCallback } from 'react';
-import { showSuccessNotification, showErrorNotification } from '@/lib/error-notifications';
-import { CarsModel } from '@/models/cars.model';
+import { useCartStore, RentalItem } from "@/store/cartStore";
+import { useCallback } from "react";
+import {
+  showSuccessNotification,
+  showErrorNotification,
+} from "@/lib/error-notifications";
+import { CarsModel } from "@/models/cars.model";
 
 /**
  * Hook to add cars to cart with reservation options (Single Rental)
@@ -28,15 +31,17 @@ export function useAddToCart() {
         const end = new Date(params.endDate);
 
         if (start >= end) {
-          showErrorNotification('تاریخ پایان باید بعد از تاریخ شروع باشد');
+          showErrorNotification("تاریخ پایان باید بعد از تاریخ شروع باشد");
           return false;
         }
 
         // Calculate rental days
-        const rentalDays = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+        const rentalDays = Math.ceil(
+          (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24),
+        );
 
         if (rentalDays <= 0) {
-          showErrorNotification('مدت اجاره باید حداقل 1 روز باشد');
+          showErrorNotification("مدت اجاره باید حداقل 1 روز باشد");
           return false;
         }
 
@@ -60,12 +65,12 @@ export function useAddToCart() {
         showSuccessNotification(`${params.car.name} به سبد خرید اضافه شد`);
         return true;
       } catch (error) {
-        console.error('Error adding to cart:', error);
-        showErrorNotification('خطا در اضافه کردن به سبد خرید');
+        console.error("Error adding to cart:", error);
+        showErrorNotification("خطا در اضافه کردن به سبد خرید");
         return false;
       }
     },
-    [setRental]
+    [setRental],
   );
 
   return { addItem };

@@ -15,7 +15,9 @@ type Props = {
   params: { id: string };
 };
 
-export default async function ReservePage({ params }: Props): Promise<ReactElement> {
+export default async function ReservePage({
+  params,
+}: Props): Promise<ReactElement> {
   const car = await getCarById(params.id);
 
   if (!car) {

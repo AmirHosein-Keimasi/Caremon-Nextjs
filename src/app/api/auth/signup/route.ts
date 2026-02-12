@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     if (!name || !username || !email || !password) {
       return NextResponse.json(
         { error: "نام، نام کاربری، ایمیل و رمز عبور الزامی است" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     if (existing) {
       return NextResponse.json(
         { error: "این ایمیل یا نام کاربری قبلاً ثبت شده است" },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
@@ -34,9 +34,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ user, success: true });
   } catch (error) {
     console.error("Signup error:", error);
-    return NextResponse.json(
-      { error: "خطا در ثبت نام" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "خطا در ثبت نام" }, { status: 500 });
   }
 }

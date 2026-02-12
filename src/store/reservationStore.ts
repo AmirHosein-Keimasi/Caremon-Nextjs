@@ -1,17 +1,17 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { RentalItem } from './cartStore';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { RentalItem } from "./cartStore";
 
 /**
  * Reservation Status Enum
  * حالت رزرو
  */
 export enum ReservationStatus {
-  PENDING = 'pending',
-  CONFIRMED = 'confirmed',
-  ACTIVE = 'active',
-  COMPLETED = 'completed',
-  CANCELLED = 'cancelled',
+  PENDING = "pending",
+  CONFIRMED = "confirmed",
+  ACTIVE = "active",
+  COMPLETED = "completed",
+  CANCELLED = "cancelled",
 }
 
 /**
@@ -24,23 +24,23 @@ export interface Reservation {
   rental: RentalItem;
   status: ReservationStatus;
   totalPrice: number;
-  
+
   // Personal Info
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  
+
   // Dates
   createdAt: number;
   reservationStartDate: string;
   reservationEndDate: string;
-  
+
   // Payment
-  paymentStatus: 'pending' | 'completed' | 'failed';
-  paymentMethod?: 'card' | 'bank_transfer' | 'cash';
+  paymentStatus: "pending" | "completed" | "failed";
+  paymentMethod?: "card" | "bank_transfer" | "cash";
   paidAmount: number;
-  
+
   // Additional Info
   notes?: string;
   cancellationReason?: string;
@@ -55,17 +55,23 @@ interface ReservationStore {
   currentReservation: Reservation | null;
 
   // Actions
-  createReservation: (reservation: Omit<Reservation, 'id' | 'createdAt'>) => string;
+  createReservation: (
+    reservation: Omit<Reservation, "id" | "createdAt">,
+  ) => string;
   updateReservation: (id: string, updates: Partial<Reservation>) => void;
   deleteReservation: (id: string) => void;
   setCurrentReservation: (reservation: Reservation | null) => void;
   getReservation: (id: string) => Reservation | undefined;
   getReservationsByStatus: (status: ReservationStatus) => Reservation[];
   getReservationsByUserId: (userId: string) => Reservation[];
-  
+
   // Payment
-  updatePaymentStatus: (id: string, paymentStatus: 'pending' | 'completed' | 'failed', amount: number) => void;
-  
+  updatePaymentStatus: (
+    id: string,
+    paymentStatus: "pending" | "completed" | "failed",
+    amount: number,
+  ) => void;
+
   // Status
   updateStatus: (id: string, status: ReservationStatus) => void;
   cancelReservation: (id: string, reason: string) => void;
@@ -80,7 +86,9 @@ export const useReservationStore = create<ReservationStore>()(
       reservations: [],
       currentReservation: null,
 
-      createReservation: (reservation: Omit<Reservation, 'id' | 'createdAt'>) => {
+      createReservation: (
+        reservation: Omit<Reservation, "id" | "createdAt">,
+      ) => {
         const id = `RES-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
         const newReservation: Reservation = {
           ...reservation,
@@ -99,7 +107,7 @@ export const useReservationStore = create<ReservationStore>()(
       updateReservation: (id: string, updates: Partial<Reservation>) =>
         set((state) => {
           const newReservations = state.reservations.map((res) =>
-            res.id === id ? { ...res, ...updates } : res
+            res.id === id ? { ...res, ...updates } : res,
           );
 
           return {
@@ -113,11 +121,15 @@ export const useReservationStore = create<ReservationStore>()(
 
       deleteReservation: (id: string) =>
         set((state) => {
-          const newReservations = state.reservations.filter((res) => res.id !== id);
+          const newReservations = state.reservations.filter(
+            (res) => res.id !== id,
+          );
           return {
             reservations: newReservations,
             currentReservation:
-              state.currentReservation?.id === id ? null : state.currentReservation,
+              state.currentReservation?.id === id
+                ? null
+                : state.currentReservation,
           };
         }),
 
@@ -126,7 +138,8 @@ export const useReservationStore = create<ReservationStore>()(
           currentReservation: reservation,
         }),
 
-      getReservation: (id: string) => get().reservations.find((res) => res.id === id),
+      getReservation: (id: string) =>
+        get().reservations.find((res) => res.id === id),
 
       getReservationsByStatus: (status: ReservationStatus) =>
         get().reservations.filter((res) => res.status === status),
@@ -136,8 +149,8 @@ export const useReservationStore = create<ReservationStore>()(
 
       updatePaymentStatus: (
         id: string,
-        paymentStatus: 'pending' | 'completed' | 'failed',
-        amount: number
+        paymentStatus: "pending" | "completed" | "failed",
+        amount: number,
       ) =>
         set((state) => {
           const newReservations = state.reservations.map((res) =>
@@ -147,11 +160,11 @@ export const useReservationStore = create<ReservationStore>()(
                   paymentStatus,
                   paidAmount: amount,
                   status:
-                    paymentStatus === 'completed'
+                    paymentStatus === "completed"
                       ? ReservationStatus.CONFIRMED
                       : res.status,
                 }
-              : res
+              : res,
           );
 
           return {
@@ -166,7 +179,7 @@ export const useReservationStore = create<ReservationStore>()(
       updateStatus: (id: string, status: ReservationStatus) =>
         set((state) => {
           const newReservations = state.reservations.map((res) =>
-            res.id === id ? { ...res, status } : res
+            res.id === id ? { ...res, status } : res,
           );
 
           return {
@@ -188,7 +201,7 @@ export const useReservationStore = create<ReservationStore>()(
                   cancellationReason: reason,
                   cancelledAt: Date.now(),
                 }
-              : res
+              : res,
           );
 
           return {
@@ -201,8 +214,8 @@ export const useReservationStore = create<ReservationStore>()(
         }),
     }),
     {
-      name: 'caremon-reservations',
+      name: "caremon-reservations",
       version: 1,
-    }
-  )
+    },
+  ),
 );

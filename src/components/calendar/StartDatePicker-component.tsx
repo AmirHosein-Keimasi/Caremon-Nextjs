@@ -26,7 +26,9 @@ const StartDatePicker = forwardRef<HTMLInputElement, StartDatePickerProps>(
         calendarPosition="bottom-right"
         minDate={minDate}
         format="YYYY/MM/DD HH:mm"
-        plugins={[<TimePicker key="start-time" position="bottom" hideSeconds />]}
+        plugins={[
+          <TimePicker key="start-time" position="bottom" hideSeconds />,
+        ]}
         render={(value, openCalendar) => (
           <InputField
             ref={ref}

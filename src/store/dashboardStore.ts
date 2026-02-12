@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { useReservationStore, ReservationStatus } from './reservationStore';
-import { useCartStore } from './cartStore';
+import { create } from "zustand";
+import { useReservationStore, ReservationStatus } from "./reservationStore";
+import { useCartStore } from "./cartStore";
 
 /**
  * Dashboard Stats
@@ -57,18 +57,18 @@ export const useDashboardStore = create<DashboardStore>((set, get) => ({
     // Calculate stats
     const totalReservations = reservations.length;
     const activeReservations = reservations.filter(
-      (res) => res.status === ReservationStatus.ACTIVE
+      (res) => res.status === ReservationStatus.ACTIVE,
     ).length;
     const completedReservations = reservations.filter(
-      (res) => res.status === ReservationStatus.COMPLETED
+      (res) => res.status === ReservationStatus.COMPLETED,
     ).length;
     const cancelledReservations = reservations.filter(
-      (res) => res.status === ReservationStatus.CANCELLED
+      (res) => res.status === ReservationStatus.CANCELLED,
     ).length;
 
     // Revenue calculation
     const totalRevenue = reservations
-      .filter((res) => res.paymentStatus === 'completed')
+      .filter((res) => res.paymentStatus === "completed")
       .reduce((sum, res) => sum + res.paidAmount, 0);
 
     const averageReservationValue =
@@ -76,7 +76,7 @@ export const useDashboardStore = create<DashboardStore>((set, get) => ({
 
     // Pending payments
     const pendingPayments = reservations.filter(
-      (res) => res.paymentStatus === 'pending'
+      (res) => res.paymentStatus === "pending",
     ).length;
 
     // Cart stats
@@ -103,7 +103,8 @@ export const useDashboardStore = create<DashboardStore>((set, get) => ({
       newStats.completedReservations !== currentStats.completedReservations ||
       newStats.cancelledReservations !== currentStats.cancelledReservations ||
       newStats.totalRevenue !== currentStats.totalRevenue ||
-      newStats.averageReservationValue !== currentStats.averageReservationValue ||
+      newStats.averageReservationValue !==
+        currentStats.averageReservationValue ||
       newStats.pendingPayments !== currentStats.pendingPayments ||
       newStats.cartValue !== currentStats.cartValue ||
       newStats.cartItemCount !== currentStats.cartItemCount;

@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { CarsModel } from '@/models/cars.model';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { CarsModel } from "@/models/cars.model";
 
 /**
  * Rental Item Type (Single Car Rental)
@@ -35,7 +35,7 @@ interface CartStore {
   setRental: (item: RentalItem) => void;
   clearRental: () => void;
   updateRental: (updates: Partial<RentalItem>) => void;
-  
+
   // Computed
   getRental: () => RentalItem | null;
   getTotal: () => number;
@@ -44,7 +44,7 @@ interface CartStore {
 /**
  * Calculate total price for rental item
  */
-const calculateRentalTotal = (item: Omit<RentalItem, 'totalPrice'>) => {
+const calculateRentalTotal = (item: Omit<RentalItem, "totalPrice">) => {
   let total = item.pricePerDay * item.rentalDays;
 
   if (item.withDriver && item.driverDays) {
@@ -131,8 +131,8 @@ export const useCartStore = create<CartStore>()(
       getTotal: () => get().totalPrice,
     }),
     {
-      name: 'caremon-rental', // Name of the storage
+      name: "caremon-rental", // Name of the storage
       version: 1,
-    }
-  )
+    },
+  ),
 );

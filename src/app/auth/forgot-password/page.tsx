@@ -11,7 +11,9 @@ import styles from "./page.module.css";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -50,8 +52,9 @@ export default function ForgotPasswordPage() {
 
           {status === "success" && (
             <p className={styles.successMessage}>
-              اگر حساب فعالی با این ایمیل وجود داشته باشد، لینک بازیابی برای شما ارسال خواهد شد.
-              این بخش فعلاً به بک‌اند متصل نیست و در نسخه‌های بعدی تکمیل می‌شود.
+              اگر حساب فعالی با این ایمیل وجود داشته باشد، لینک بازیابی برای شما
+              ارسال خواهد شد. این بخش فعلاً به بک‌اند متصل نیست و در نسخه‌های
+              بعدی تکمیل می‌شود.
             </p>
           )}
 
