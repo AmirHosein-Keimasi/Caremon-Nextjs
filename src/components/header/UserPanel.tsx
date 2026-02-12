@@ -44,6 +44,7 @@ export default function UserPanel() {
   };
 
   const userName = "کاربر";
+  const profileImageSrc = "/images/avatar-placeholder.svg";
 
   return (
     <div className={styles.userPanel} ref={menuRef}>
@@ -53,22 +54,21 @@ export default function UserPanel() {
         aria-expanded={isOpen}
         aria-label="منوی کاربری"
       >
-        <span className={styles.userName}>{userName}</span>
-        <svg
-          className={`${styles.chevron} ${isOpen ? styles.open : ""}`}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
+        <img
+          src={profileImageSrc}
+          alt="User profile"
+          className={styles.profileImage}
+        />
       </button>
 
       {isOpen && (
         <div className={styles.dropdown}>
           <div className={styles.userInfo}>
-            <div className={styles.avatar}>{userName.charAt(0)}</div>
+            <img
+              src={profileImageSrc}
+              alt="User profile"
+              className={styles.avatar}
+            />
             <div>
               <p className={styles.name}>{userName}</p>
             </div>
@@ -77,7 +77,7 @@ export default function UserPanel() {
           <div className={styles.divider}></div>
 
           <nav className={styles.menu}>
-            <Link href="/dashboard" className={styles.menuItem}>
+            <Link href="/profile" className={styles.menuItem}>
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
