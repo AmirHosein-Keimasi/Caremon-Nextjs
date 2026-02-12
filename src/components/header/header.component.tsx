@@ -41,7 +41,9 @@ export default function HeaderComponent(): ReactElement {
         </ul>
       </nav>
       {isLoggedIn ? (
-        <UserPanel />
+        <div className={styles.userPanelWrapper}>
+          <UserPanel />
+        </div>
       ) : (
         <Link href="/auth/signin" className={styles.cta}>
           ورود | ثبت‌نام

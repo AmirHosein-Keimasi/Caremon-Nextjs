@@ -39,4 +39,9 @@
       color: var(--color-primary-opposite);
     }
   }
+
+  .userPanelWrapper {
+    margin-inline-start: auto;
+    flex-shrink: 0;
+  }
 }
