@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 import InputField from "../../components/normal-input/normal-input.component";
 import PasswordInput from "../../components/password-input/password-input.component";
@@ -37,6 +38,12 @@ export default function SigninForm() {
         setError(data.error || "خطا در ورود");
         return;
       }
+
+      // فعلاً بدون بک‌اند واقعی، فقط یک توکن نمایشی ست می‌کنیم
+      // تا هدر و useAuth بتوانند وضعیت ورود کاربر را تشخیص دهند.
+      Cookies.set("token", "dummy-token", {
+        expires: 7,
+      });
 
       router.push("/dashboard");
     } catch {

@@ -2,10 +2,9 @@
 
 import { MouseEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-
 import Link from "next/link";
-
-import { fetchWithToast } from "@/utils/fetch-utils";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 import ConfirmationDialog from "../confirmation-dialog/confirmation-dialog.component";
 
@@ -21,18 +20,15 @@ export default function LogOutButton() {
   };
 
   const confirmLogout = async () => {
-    const result = await fetchWithToast<null>(
-      "/api/auth/sign-out",
-      {
-        method: "POST",
-      },
-      "خروج با موفقیت انجام شد",
-    );
+    // فعلاً بدون اندپوینت بک‌اند، فقط کوکی نمایشی را پاک می‌کنیم
+    Cookies.remove("token");
 
-    if (!result.error) {
-      router.push("/");
-    }
+    toast.success("خروج با موفقیت انجام شد", {
+      position: "bottom-right",
+    });
+
     setShowDialog(false);
+    router.push("/");
   };
 
   return (

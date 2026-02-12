@@ -24,10 +24,6 @@ const useAuth = () => {
   useEffect(() => {
     // بررسی اولیه بلافاصله پس از mount
     verifyToken();
-
-    // پولینگ هر 1 ثانیه برای تغییرات (اختیاری)
-    const interval = setInterval(verifyToken, 1000);
-    return () => clearInterval(interval);
   }, [verifyToken]);
 
   return {
