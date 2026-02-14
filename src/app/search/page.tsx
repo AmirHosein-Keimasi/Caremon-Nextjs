@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-import GlobalSearchBoxComponent from "@/components/globall-search-box/globall-search-box.component";
+import SearchQueryBox from "./components/search-query-box/search-query-box.component";
 
 import { FiltersType } from "@/types/filter.type";
 
@@ -41,7 +41,7 @@ export default async function Page({
       <CarsProvider cars={cars}>
         <div className={styles.page}>
           <div className={styles.search}>
-            <GlobalSearchBoxComponent initialQuery={defaultFilters.query} />
+            <SearchQueryBox />
           </div>
           <div className={styles.filters}>
             <FiltersSummaryComponent />
