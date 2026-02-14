@@ -3,8 +3,9 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import { useUserProfileStore } from "@/store/userProfileStore";
+import { tokenUtils } from "@/lib/api-client";
+import Spinner from "@/components/Spinner/Spinner";
 
 import InputField from "../../components/normal-input/normal-input.component";
 import PasswordInput from "../../components/password-input/password-input.component";
@@ -53,11 +54,12 @@ export default function SigninForm() {
         email: String(data?.user?.email || email).trim(),
       });
 
-      // فعلا بدون بک‌اند واقعی، فقط یک توکن نمایشی ست می‌کنیم
-      // تا هدر و useAuth بتوانند وضعیت ورود کاربر را تشخیص دهند.
-      Cookies.set("token", "dummy-token", {
-        expires: 7,
-      });
+      // فعلا بدون بک‌اند واقعی، فقط یک توکن ذخیره می‌شود تا UI وضعیت ورود را بداند
+      const token =
+        (data && (data.accessToken as string | undefined)) || "dummy-token";
+      const expiresIn =
+        (data && (data.expiresIn as number | undefined)) || 7 * 24 * 60 * 60;
+      tokenUtils.setToken(token, expiresIn);
 
       router.push("/dashboard");
     } catch {
@@ -97,7 +99,14 @@ export default function SigninForm() {
       </div>
 
       <button type="submit" className={styles.submitBtn} disabled={isLoading}>
-        {isLoading ? "در حال ورود..." : "ورود"}
+        {isLoading ? (
+          <>
+            <Spinner size={18} />
+            <span>در حال ورود...</span>
+          </>
+        ) : (
+          "ورود"
+        )}
       </button>
 
       <div className={styles.divider}>

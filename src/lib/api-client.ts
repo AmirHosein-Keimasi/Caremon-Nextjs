@@ -21,6 +21,15 @@ const API_BASE_URL =
 // Token cookie names
 const TOKEN_COOKIE_NAME = "caremon_token";
 const REFRESH_TOKEN_COOKIE_NAME = "caremon_refresh_token";
+const AUTH_CHANGE_EVENT = "auth-change";
+
+function broadcastAuthChange(token: string | null) {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(
+      new CustomEvent(AUTH_CHANGE_EVENT, { detail: { token } }),
+    );
+  }
+}
 
 // Type for request metadata
 interface RequestMetadata {
@@ -293,7 +302,16 @@ export const tokenUtils = {
       sameSite: "lax",
       expires: expiresIn ? expiresIn / (24 * 60 * 60) : 3, // Convert seconds to days
     });
+    Cookies.set("token", token, {
+      sameSite: "lax",
+      expires: expiresIn ? expiresIn / (24 * 60 * 60) : 3,
+    });
+    broadcastAuthChange(token);
   },
-  removeToken: () => Cookies.remove(TOKEN_COOKIE_NAME),
+  removeToken: () => {
+    Cookies.remove(TOKEN_COOKIE_NAME);
+    Cookies.remove("token");
+    broadcastAuthChange(null);
+  },
   hasToken: () => !!Cookies.get(TOKEN_COOKIE_NAME),
 };

@@ -3,9 +3,9 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import useAuth from "@/utils/useAuth";
+import { tokenUtils } from "@/lib/api-client";
 import styles from "./UserPanel.module.css";
 
 export default function UserPanel() {
@@ -35,7 +35,7 @@ export default function UserPanel() {
   }
 
   const handleLogout = async () => {
-    Cookies.remove("token");
+    tokenUtils.removeToken();
     toast.success("خروج با موفقیت انجام شد", {
       position: "bottom-right",
     });

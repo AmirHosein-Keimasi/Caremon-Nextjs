@@ -30,6 +30,10 @@
   cursor: pointer;
   transition: background-color var(--animation-duration-normal) ease;
   box-shadow: var(--shadow-400);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .submitBtn:hover {
