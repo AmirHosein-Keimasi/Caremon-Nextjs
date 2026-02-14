@@ -1,12 +1,13 @@
-import { fetchDataType } from "@/types/api.response.tyle";
-
+ 
 import { toast } from "react-toastify";
+
+type FetchDataType<T> = T | { error: string };
 
 export async function fetchWithToast<T>(
   input: string | URL | globalThis.Request,
   init: RequestInit = {},
   successMessage?: string,
-): Promise<fetchDataType<T>> {
+): Promise<FetchDataType<T>> {
   const response = await fetch(input, {
     headers: { "Content-Type": "application/json" },
     ...init,

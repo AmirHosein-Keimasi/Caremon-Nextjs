@@ -44,7 +44,10 @@ const useAuth = () => {
     };
 
     window.addEventListener("focus", handleAuthChange);
-    window.addEventListener(AUTH_CHANGE_EVENT, handleAuthChange as EventListener);
+    window.addEventListener(
+      AUTH_CHANGE_EVENT,
+      handleAuthChange as EventListener,
+    );
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {

@@ -1,10 +1,11 @@
-import { ApiResponseType } from "@/types/api.response.tyle";
 import { NextRequest, NextResponse } from "next/server";
 
 import { cookies } from "next/headers";
 import * as jose from "jose";
 
 type ParseBodyResult<T> = [error: null, data: T] | [error: string, data: null];
+type ApiResponseType<T> = NextResponse<T | { error: string }>;
+
 export async function parseBody<T>(
   request: Request,
 ): Promise<ParseBodyResult<T>> {
