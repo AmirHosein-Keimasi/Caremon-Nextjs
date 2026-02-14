@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 
 import SearchQueryBox from "./components/search-query-box/search-query-box.component";
+import SavedFiltersComponent from "./components/saved-filters/saved-filters.component";
 
 import { FiltersType } from "@/types/filter.type";
 
@@ -16,6 +17,7 @@ import FiltersProvider from "./providers/filter.providers";
 import CarsProvider from "./providers/cars.provider";
 
 import SortComponent from "./components/sort/sort.component";
+import { normalizeSearchFilters } from "./utils/search-filters";
 
 import { getCars } from "@/lib/cars";
 
@@ -44,6 +46,7 @@ export default async function Page({
             <SearchQueryBox />
           </div>
           <div className={styles.filters}>
+            <SavedFiltersComponent />
             <FiltersSummaryComponent />
             <LocationFilterComponent />
             <ModelFilterComponent />
@@ -66,15 +69,17 @@ export default async function Page({
 }
 
 function generateDefaultFilters(searchParams: SearchParams): FiltersType {
-  const { query, model, transmission, location, with_driver } = searchParams;
+  const { query, model, transmission, location, with_driver, sortType } =
+    searchParams;
 
-  return {
+  return normalizeSearchFilters({
     query: normalizeFilter(query),
     model: normalizeFilter(model),
     transmission: normalizeFilter(transmission),
     location: normalizeFilter(location),
     with_driver: normalizeFilter(with_driver),
-  };
+    sortType: normalizeFilter(sortType),
+  });
 }
 
 function normalizeFilter(

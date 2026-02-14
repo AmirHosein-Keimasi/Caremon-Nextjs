@@ -12,6 +12,10 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 
 import { FiltersType } from "@/types/filter.type";
+import {
+  buildSearchParams,
+  normalizeSearchFilters,
+} from "@/app/search/utils/search-filters";
 
 import { FiltersAction, filtersReducer } from "../reducers/filters.reducer";
 
@@ -25,26 +29,6 @@ export const FiltersContext = createContext<Value>({
   dispatchFilters: () => {},
 });
 
-const URL_FILTER_KEYS: (keyof FiltersType)[] = [
-  "query",
-  "model",
-  "transmission",
-  "location",
-  "with_driver",
-  "sortType",
-];
-
-function buildSearchParams(filters: FiltersType): string {
-  const params = new URLSearchParams();
-  for (const key of URL_FILTER_KEYS) {
-    const value = filters[key];
-    if (value != null && value !== "") {
-      params.set(key, String(value));
-    }
-  }
-  return params.toString();
-}
-
 type Props = PropsWithChildren & {
   defaultFilters: FiltersType;
 };
@@ -55,7 +39,10 @@ export default function FiltersProvider({
 }: Props): ReactElement {
   const router = useRouter();
   const pathname = usePathname();
-  const [filters, dispatchFilters] = useReducer(filtersReducer, defaultFilters);
+  const [filters, dispatchFilters] = useReducer(
+    filtersReducer,
+    normalizeSearchFilters(defaultFilters),
+  );
 
   useEffect(() => {
     const search = buildSearchParams(filters);

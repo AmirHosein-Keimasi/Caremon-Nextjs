@@ -5,29 +5,26 @@ import { ReactElement, useContext, useMemo } from "react";
 import CardComponent from "@/components/card-component/card-component";
 
 import { FiltersContext } from "../../providers/filter.providers";
-
-import { FiltersType } from "@/types/filter.type";
+import {
+  getActiveSearchFilters,
+  isSearchFiltersEmpty,
+  SEARCH_FILTER_LABELS,
+  SearchFilterKey,
+} from "@/app/search/utils/search-filters";
 
 import styles from "./filters-summary.module.css";
 
 export default function FiltersSummaryComponent(): ReactElement | null {
   const { filters, dispatchFilters } = useContext(FiltersContext);
 
-  const isEmpty = useMemo(() => {
-    return (
-      !filters.query &&
-      !filters.model &&
-      !filters.transmission &&
-      !filters.location &&
-      !filters.with_driver
-    );
-  }, [filters]);
+  const activeFilters = useMemo(() => getActiveSearchFilters(filters), [filters]);
+  const isEmpty = useMemo(() => isSearchFiltersEmpty(filters), [filters]);
 
   const removeAllButtonClickHandler = (): void => {
     dispatchFilters({ type: "removed_all" });
   };
 
-  const filterClickHandler = (key: keyof FiltersType): void => {
+  const filterClickHandler = (key: SearchFilterKey): void => {
     dispatchFilters({ type: "removed_filter", key });
   };
 
@@ -38,34 +35,18 @@ export default function FiltersSummaryComponent(): ReactElement | null {
   return (
     <CardComponent>
       <div className={styles["filters-summary"]}>
-        <div className={styles.title}>فیلترهای انتخاب‌شده</div>
+        <div className={styles.title}>Active filters</div>
 
         <button type="button" onClick={removeAllButtonClickHandler}>
-          حذف همه
+          Clear all
         </button>
 
         <ul className={styles.filters}>
-          {filters.query && (
-            <li onClick={() => filterClickHandler("query")}>{filters.query}</li>
-          )}
-          {filters.model && (
-            <li onClick={() => filterClickHandler("model")}>{filters.model}</li>
-          )}
-          {filters.transmission && (
-            <li onClick={() => filterClickHandler("transmission")}>
-              {filters.transmission}
+          {activeFilters.map((filter) => (
+            <li key={filter.key} onClick={() => filterClickHandler(filter.key)}>
+              {SEARCH_FILTER_LABELS[filter.key]}: {filter.value}
             </li>
-          )}
-          {filters.location && (
-            <li onClick={() => filterClickHandler("location")}>
-              {filters.location}
-            </li>
-          )}
-          {filters.with_driver && (
-            <li onClick={() => filterClickHandler("with_driver")}>
-              {filters.with_driver}
-            </li>
-          )}
+          ))}
         </ul>
       </div>
     </CardComponent>

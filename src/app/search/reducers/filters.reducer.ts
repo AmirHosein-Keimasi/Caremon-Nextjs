@@ -12,12 +12,24 @@ export type FiltersAction =
     }
   | {
       type: "removed_all";
+    }
+  | {
+      type: "replaced_filters";
+      filters: FiltersType;
     };
 
 export function filtersReducer(filters: FiltersType, action: FiltersAction) {
   switch (action.type) {
     case "updated_filter": {
-      return { ...filters, [action.key]: action.value };
+      const value = action.value.trim();
+
+      if (!value) {
+        const clonedFilters = { ...filters };
+        delete clonedFilters[action.key];
+        return clonedFilters;
+      }
+
+      return { ...filters, [action.key]: value };
     }
     case "removed_filter": {
       const clonedFilters = { ...filters };
@@ -26,6 +38,9 @@ export function filtersReducer(filters: FiltersType, action: FiltersAction) {
     }
     case "removed_all": {
       return {};
+    }
+    case "replaced_filters": {
+      return { ...action.filters };
     }
   }
 }
