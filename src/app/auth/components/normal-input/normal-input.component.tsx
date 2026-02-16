@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./normal-input.module.css"; // مسیر فایل استایل‌های شما
 
 interface InputFieldProps {
   type?: "text" | "email" | "tel" | "number" | "date";
@@ -60,9 +59,12 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
     const inputName = name || id;
 
     return (
-      <div className={`${styles.inputGroup} ${className}`}>
+      <div className={`flex flex-col ${className}`}>
         {label && (
-          <label htmlFor={id} className={styles.label}>
+          <label
+            htmlFor={id}
+            className="block mb-2 text-[var(--fz-300)] leading-5 font-medium text-[var(--color-text-700)]"
+          >
             {label}
             {/* {required && <span className={styles.required}>*</span>} */}
           </label>
@@ -72,7 +74,9 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
           type={type}
           id={id}
           name={inputName}
-          className={`${styles.input} ${showError ? styles.error : ""}`}
+          className={`bg-[var(--color-surface-400)] text-[var(--color-text-700)] rounded-[var(--border-radius)] block w-full border-none outline-none py-2.5 px-2.5 text-[var(--fz-300)] leading-5 border border-[var(--color-border)] focus:border-[var(--color-primary)] focus:shadow-[0_0_0_1px_var(--color-primary)] placeholder:text-[var(--color-gray-70)] placeholder:text-[var(--fz-300)] ${
+            showError ? "border-[var(--color-danger)]" : ""
+          }`}
           placeholder={inputPlaceholder}
           value={value}
           defaultValue={defaultValue}
@@ -85,7 +89,9 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
           autoComplete={autoComplete}
         />
         {showError && errorText && (
-          <p className={styles.errorText}>{errorText}</p>
+          <p className="text-[var(--color-danger)] text-[var(--fz-200)] leading-4 mt-1">
+            {errorText}
+          </p>
         )}
       </div>
     );

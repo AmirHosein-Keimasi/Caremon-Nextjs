@@ -7,8 +7,6 @@ import { useRouter } from "next/navigation";
 import InputField from "../../components/normal-input/normal-input.component";
 import PasswordInput from "../../components/password-input/password-input.component";
 
-import styles from "../page.module.css";
-
 export default function SignupForm() {
   const router = useRouter();
   const [error, setError] = useState("");
@@ -50,7 +48,7 @@ export default function SignupForm() {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
       {error && (
         <p style={{ color: "var(--color-danger)", fontSize: "0.875rem" }}>
           {error}
@@ -91,21 +89,32 @@ export default function SignupForm() {
         required
       />
 
-      <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+      <button
+        type="submit"
+        className="w-full py-3 rounded-[var(--border-radius)] bg-[var(--color-primary)] text-[var(--color-primary-opposite)] font-medium text-[var(--fz-300)] uppercase border-none cursor-pointer transition-[background-color] duration-[var(--animation-duration-normal)] ease-in-out shadow-[var(--shadow-400)] inline-flex items-center justify-center gap-2 hover:bg-[var(--color-primary-lighter)]"
+        disabled={isLoading}
+      >
         {isLoading ? "در حال ثبت..." : "ثبت نام"}
       </button>
 
-      <div className={styles.divider}>
-        <span className={styles.dividerText}>یا</span>
+      <div className="flex items-center my-4 text-[var(--color-text-400)] text-[var(--fz-300)] before:content-[''] before:flex-1 before:border-t before:border-[var(--color-border)] before:mx-2 after:content-[''] after:flex-1 after:border-t after:border-[var(--color-border)] after:mx-2">
+        <span className="px-2 font-semibold text-[var(--fz-300)]">یا</span>
       </div>
 
-      <button type="button" className={styles.googleBtn} disabled>
+      <button
+        type="button"
+        className="w-full py-3 flex justify-center items-center gap-2 bg-[#4285f4] text-white border-none rounded-[var(--border-radius)] cursor-pointer text-[var(--fz-300)] transition-[background-color] duration-[var(--animation-duration-normal)] ease-in-out shadow-[var(--shadow-400)] hover:bg-[#357ae8]"
+        disabled
+      >
         ثبت نام با گوگل (به زودی)
       </button>
 
-      <p className={styles.loginText}>
+      <p className="text-right text-[var(--color-text-400)] text-[var(--fz-300)]">
         قبلاً حساب کاربری دارید؟{" "}
-        <Link href="/auth/signin" className={styles.loginLink}>
+        <Link
+          href="/auth/signin"
+          className="text-[var(--color-primary)] font-medium text-[var(--fz-300)] transition-[color] duration-[var(--animation-duration-normal)] ease-in-out hover:underline hover:text-[var(--color-primary-lighter)]"
+        >
           ورود
         </Link>
       </p>

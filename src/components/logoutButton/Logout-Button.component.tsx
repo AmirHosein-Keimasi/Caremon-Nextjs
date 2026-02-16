@@ -8,8 +8,6 @@ import { toast } from "react-toastify";
 
 import ConfirmationDialog from "../confirmation-dialog/confirmation-dialog.component";
 
-import styles from "./Logout-Button.module.css";
-
 export default function LogOutButton() {
   const router = useRouter();
   const [showDialog, setShowDialog] = useState(false);
@@ -35,7 +33,7 @@ export default function LogOutButton() {
     <>
       <Link
         href="/auth/signout"
-        className={styles.cta}
+        className="bg-transparent text-[var(--color-danger)] ms-auto px-4 py-2 border border-[var(--color-danger)] rounded-[var(--border-radius)] font-bold cursor-pointer hover:bg-[var(--color-danger)] hover:text-[var(--color-primary-opposite)]"
         onClick={signOutButtonHandler}
       >
         خروج

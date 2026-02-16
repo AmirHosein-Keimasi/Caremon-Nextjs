@@ -1,5 +1,4 @@
 import React, { PropsWithChildren } from "react";
-import styles from "./Peugeot206RentalInfo.module.css";
 import { CarsModel } from "@/models/cars.model";
 
 type Props = PropsWithChildren & {
@@ -33,14 +32,14 @@ const FAQ = ({ car }: Props) => {
   ];
 
   return (
-    <section className={styles.section}>
-      <h2 className={styles.sectionTitle}>سؤالات متداول درباره {car.name}</h2>
+    <section className="mb-12">
+      <h2 className="text-2xl text-[var(--color-text-700)] mb-6 pb-2 border-b-2 border-[var(--color-primary)] max-md:text-xl">سؤالات متداول درباره {car.name}</h2>
 
-      <div className={styles.faqContainer}>
+      <div className="flex flex-col gap-6">
         {faqItems.map((item, index) => (
-          <div key={index} className={styles.faqItem}>
-            <h3 className={styles.faqQuestion}>{item.question}</h3>
-            <p className={styles.faqAnswer}>{item.answer}</p>
+          <div key={index} className="bg-[var(--color-surface-400)] p-6 rounded-[var(--border-radius)] shadow-[var(--shadow-400)]">
+            <h3 className="text-xl text-[var(--color-text-700)] mb-3 font-semibold">{item.question}</h3>
+            <p className="text-[var(--color-text-400)] leading-relaxed">{item.answer}</p>
           </div>
         ))}
       </div>

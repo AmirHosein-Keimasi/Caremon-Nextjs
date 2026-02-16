@@ -9,64 +9,66 @@ import MingcuteLocationLine from "@/icons/MingcuteLocationLine";
 import MingcuteMailFill from "@/icons/MingcuteMailFill";
 import MingcutePhoneFill from "@/icons/MingcutePhoneFill";
 
-import styles from "./footer.module.css";
-
 export default function FooterComponent(): ReactElement {
   return (
-    <footer className={styles.footer}>
-      <div className={styles.socialContainer}>
-        <div className={styles.socialText}>
+    <footer className="text-[var(--color-text-400)] text-center">
+      <div className="flex items-center justify-center border-b border-[var(--color-border)] py-4 lg:justify-between">
+        <div className="hidden lg:block">
           <span>ما را در شبکه‌های اجتماعی دنبال کنید</span>
         </div>
-        <div className={styles.socialIcons}>
-          <a href="#" className={styles.socialIcon}>
-            <MingcuteGithubFill className={styles.icon} />
+        <div className="flex">
+          <a href="#" className="mr-3">
+            <MingcuteGithubFill className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
           </a>
-          <a href="#" className={styles.socialIcon}>
-            <MingcuteSocialXLine className={styles.icon} />
+          <a href="#" className="mr-3">
+            <MingcuteSocialXLine className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
           </a>
-          <a href="#" className={styles.socialIcon}>
-            <MingcuteLinkedinFill className={styles.icon} />
+          <a href="#" className="mr-3">
+            <MingcuteLinkedinFill className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
           </a>
-          <a href="#" className={styles.socialIcon}>
-            <MingcuteInstagramFill className={styles.icon} />
+          <a href="#" className="mr-3">
+            <MingcuteInstagramFill className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
           </a>
-          <a href="#" className={styles.socialIcon}>
-            <MingcuteTelegramFill className={styles.icon} />
+          <a href="#" className="mr-3">
+            <MingcuteTelegramFill className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
           </a>
         </div>
       </div>
 
-      <div className={styles.contentContainer}>
-        <div className={styles.gridContainer}>
-          <div className={styles.gridItem}>
-            <h6 className={styles.title}>آدرس ما</h6>
-            <p className={styles.infoItem}>
-              <span className={styles.infoIcon}>
-                <MingcuteLocationLine className={styles.icon} />
+      <div>
+        <div className="grid mt-4 text-center md:grid-cols-3">
+          <div className="text-left pb-8">
+            <h6 className="mb-2 flex justify-center font-semibold text-[var(--fz-400)] text-[var(--color-text-400)] md:justify-start">
+              آدرس ما
+            </h6>
+            <p className="flex justify-start text-[var(--fz-300)] text-[var(--color-text-700)] md:justify-start">
+              <span className="ml-2">
+                <MingcuteLocationLine className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-5 w-5" />
               </span>
               تهران، خیابان آزادی، بلوار کشاورز، پلاک ۱۲۳
             </p>
           </div>
 
-          <div className={styles.gridItem}>
-            <h6 className={styles.title}>تماس با ما</h6>
+          <div className="text-left pb-8">
+            <h6 className="mb-2 flex justify-center font-semibold text-[var(--fz-400)] text-[var(--color-text-400)] md:justify-start">
+              تماس با ما
+            </h6>
 
-            <p className={styles.infoItem}>
-              <span className={styles.infoIcon}>
-                <MingcuteMailFill className={styles.icon} />
+            <p className="flex justify-start text-[var(--fz-300)] text-[var(--color-text-700)] md:justify-start">
+              <span className="ml-2">
+                <MingcuteMailFill className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-5 w-5" />
               </span>
               info@example.com
             </p>
-            <p className={styles.infoItem}>
-              <span className={styles.infoIcon}>
-                <MingcutePhoneFill className={styles.icon} />
+            <p className="flex justify-start text-[var(--fz-300)] text-[var(--color-text-700)] md:justify-start">
+              <span className="ml-2">
+                <MingcutePhoneFill className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-5 w-5" />
               </span>
               ۰۲۱-۱۲۳۴۵۶۷۸
             </p>
           </div>
-          <div className={styles.gridItem}>
-            <p className={styles.target}>
+          <div className="text-left pb-8">
+            <p className="text-[var(--color-text-700)]">
               پلتفرمی یکپارچه برای اجاره خودرو و رزرو آنلاین ماشین در سراسر
               ایران
             </p>

@@ -7,7 +7,6 @@ import { useUserProfileStore, UserProfileData } from "@/store/userProfileStore";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { toPersianOptionLabel } from "@/utils/rentalOptions";
-import styles from "./page.module.css";
 
 const requiredFields: Array<keyof UserProfileData> = [
   "firstName",
@@ -77,7 +76,7 @@ export default function CheckoutPage() {
   const needsCustomerInfo = missingFields.length > 0;
 
   if (!currentRental) {
-    return <div className={styles.loading}>در حال بارگذاری...</div>;
+    return <div className="flex items-center justify-center min-h-screen text-[var(--color-gray-99)] text-lg">در حال بارگذاری...</div>;
   }
 
   const rentalBasePrice = currentRental.pricePerDay * currentRental.rentalDays;
@@ -133,70 +132,70 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className={styles.checkoutPage}>
-      <div className={styles.pageHeader}>
-        <h1>تایید و پرداخت رزرو</h1>
-        <p>مشخصات رزرو را بررسی کنید و پرداخت را نهایی کنید.</p>
+    <div className="rtl max-w-[1200px] mx-auto p-[clamp(1rem,2vw,2rem)] min-h-screen bg-[var(--color-surface-300)]">
+      <div className="mb-5">
+        <h1 className="text-[var(--color-gray-99)] m-0 text-[clamp(1.7rem,2.4vw,2.2rem)]">تایید و پرداخت رزرو</h1>
+        <p className="m-2.5 mt-0 text-[var(--color-gray-70)] text-sm">مشخصات رزرو را بررسی کنید و پرداخت را نهایی کنید.</p>
       </div>
 
-      <div className={styles.layout}>
-        <div className={styles.mainColumn}>
-          <section className={styles.section}>
-            <h2>خلاصه رزرو</h2>
+      <div className="grid grid-cols-[minmax(0,1fr)_340px] gap-5 items-start max-[1024px]:grid-cols-1">
+        <div className="flex flex-col gap-4">
+          <section className="bg-[var(--color-surface-400)] rounded-2xl p-[clamp(0.95rem,1.6vw,1.3rem)] shadow-[0_12px_28px_rgba(12,17,29,0.08)]">
+            <h2 className="m-0 mb-4 text-[var(--color-gray-99)] text-lg">خلاصه رزرو</h2>
 
-            <div className={styles.carInfo}>
+            <div className="flex gap-4 p-3 bg-[var(--color-surface-300)] rounded-xl mb-4">
               <img
                 src={currentRental.car.img}
                 alt={currentRental.car.model}
-                className={styles.carImage}
+                className="w-[116px] h-[88px] object-cover rounded-[10px] flex-shrink-0"
               />
               <div>
-                <h3>{currentRental.car.model}</h3>
-                <p>{currentRental.car.name}</p>
+                <h3 className="m-0 text-[var(--color-gray-99)] text-base">{currentRental.car.model}</h3>
+                <p className="m-1.5 mt-0 text-[var(--color-gray-70)] text-sm">{currentRental.car.name}</p>
               </div>
             </div>
 
-            <div className={styles.rentalDetails}>
-              <div className={styles.detailRow}>
-                <span>تاریخ شروع</span>
-                <strong>
+            <div className="grid grid-cols-2 gap-3 max-[700px]:grid-cols-1">
+              <div className="flex items-center justify-between gap-3 rounded-[10px] bg-[rgba(130,138,156,0.12)] px-3 py-2.5">
+                <span className="text-[var(--color-gray-70)] text-sm">تاریخ شروع</span>
+                <strong className="text-[var(--color-gray-99)] text-sm">
                   {new Date(currentRental.startDate).toLocaleDateString(
                     "fa-IR",
                   )}
                 </strong>
               </div>
-              <div className={styles.detailRow}>
-                <span>تاریخ پایان</span>
-                <strong>
+              <div className="flex items-center justify-between gap-3 rounded-[10px] bg-[rgba(130,138,156,0.12)] px-3 py-2.5">
+                <span className="text-[var(--color-gray-70)] text-sm">تاریخ پایان</span>
+                <strong className="text-[var(--color-gray-99)] text-sm">
                   {new Date(currentRental.endDate).toLocaleDateString("fa-IR")}
                 </strong>
               </div>
-              <div className={styles.detailRow}>
-                <span>مدت اجاره</span>
-                <strong>{currentRental.rentalDays} روز</strong>
+              <div className="flex items-center justify-between gap-3 rounded-[10px] bg-[rgba(130,138,156,0.12)] px-3 py-2.5">
+                <span className="text-[var(--color-gray-70)] text-sm">مدت اجاره</span>
+                <strong className="text-[var(--color-gray-99)] text-sm">{currentRental.rentalDays} روز</strong>
               </div>
-              <div className={styles.detailRow}>
-                <span>محل تحویل</span>
-                <strong>{currentRental.pickupLocation}</strong>
+              <div className="flex items-center justify-between gap-3 rounded-[10px] bg-[rgba(130,138,156,0.12)] px-3 py-2.5">
+                <span className="text-[var(--color-gray-70)] text-sm">محل تحویل</span>
+                <strong className="text-[var(--color-gray-99)] text-sm">{currentRental.pickupLocation}</strong>
               </div>
-              <div className={styles.detailRow}>
-                <span>محل تسلیم</span>
-                <strong>{currentRental.dropoffLocation}</strong>
+              <div className="flex items-center justify-between gap-3 rounded-[10px] bg-[rgba(130,138,156,0.12)] px-3 py-2.5">
+                <span className="text-[var(--color-gray-70)] text-sm">محل تسلیم</span>
+                <strong className="text-[var(--color-gray-99)] text-sm">{currentRental.dropoffLocation}</strong>
               </div>
               {currentRental.withDriver && (
-                <div className={styles.detailRow}>
-                  <span>راننده</span>
-                  <strong>بله ({currentRental.driverDays} روز)</strong>
+                <div className="flex items-center justify-between gap-3 rounded-[10px] bg-[rgba(130,138,156,0.12)] px-3 py-2.5">
+                  <span className="text-[var(--color-gray-70)] text-sm">راننده</span>
+                  <strong className="text-[var(--color-gray-99)] text-sm">بله ({currentRental.driverDays} روز)</strong>
                 </div>
               )}
             </div>
 
             {currentRental.selectedOptions.length > 0 && (
-              <div className={styles.optionsBlock}>
-                <span className={styles.optionsLabel}>خدمات اضافی:</span>
-                <div className={styles.optionChips}>
+              <div className="mt-4 flex flex-col gap-2">
+                <span className="text-[var(--color-gray-70)] text-sm">خدمات اضافی:</span>
+                <div className="flex flex-wrap gap-2">
                   {currentRental.selectedOptions.map((option) => (
-                    <span key={option} className={styles.optionChip}>
+                    <span key={option} className="inline-flex items-center rounded-full px-3 py-1 bg-[rgba(31,122,77,0.15)] text-[#205f42] text-sm font-semibold">
                       {toPersianOptionLabel(option)}
                     </span>
                   ))}
@@ -205,27 +204,27 @@ export default function CheckoutPage() {
             )}
           </section>
 
-          <section className={styles.section}>
-            <div className={styles.sectionHeader}>
-              <h2>اطلاعات مشتری</h2>
-              <Link href="/profile" className={styles.profileLink}>
+          <section className="bg-[var(--color-surface-400)] rounded-2xl p-[clamp(0.95rem,1.6vw,1.3rem)] shadow-[0_12px_28px_rgba(12,17,29,0.08)]">
+            <div className="flex justify-between items-center gap-3 mb-4">
+              <h2 className="m-0 text-[var(--color-gray-99)] text-lg">اطلاعات مشتری</h2>
+              <Link href="/profile" className="text-[#1f7a4d] no-underline text-sm font-semibold hover:underline">
                 ویرایش در پروفایل
               </Link>
             </div>
 
             {needsCustomerInfo ? (
               <>
-                <p className={styles.infoHint}>
+                <p className="m-0 mb-4 text-[var(--color-gray-70)] text-sm leading-relaxed">
                   اطلاعات مشتری از پروفایل خوانده می‌شود. لطفا فقط موارد ناقص را
                   تکمیل کنید.
                 </p>
                 <form
-                  className={styles.form}
+                  className="grid grid-cols-2 gap-3 max-[700px]:grid-cols-1"
                   onSubmit={(e) => e.preventDefault()}
                 >
                   {missingFields.map((field) => (
-                    <div key={field} className={styles.formGroup}>
-                      <label htmlFor={field}>{fieldMeta[field].label}</label>
+                    <div key={field} className="flex flex-col gap-2">
+                      <label htmlFor={field} className="text-[var(--color-gray-99)] text-sm">{fieldMeta[field].label}</label>
                       <input
                         id={field}
                         type={fieldMeta[field].type}
@@ -233,15 +232,16 @@ export default function CheckoutPage() {
                         value={customerInfo[field]}
                         onChange={handleInputChange}
                         placeholder={fieldMeta[field].placeholder}
+                        className="border-none rounded-[10px] bg-[var(--color-surface-300)] shadow-[inset_0_0_0_1px_rgba(136,145,164,0.34)] text-[var(--color-gray-99)] text-sm font-inherit px-3 py-3 focus:outline-none focus:shadow-[inset_0_0_0_2px_rgba(31,122,77,0.45)]"
                       />
                     </div>
                   ))}
                 </form>
               </>
             ) : (
-              <div className={styles.profileSummary}>
-                <p>تمام اطلاعات مشتری از پروفایل تکمیل شده است.</p>
-                <div className={styles.profileGrid}>
+              <div className="rounded-xl bg-[rgba(31,122,77,0.12)] p-4">
+                <p className="m-0 text-[#205f42] text-sm">تمام اطلاعات مشتری از پروفایل تکمیل شده است.</p>
+                <div className="mt-3 grid grid-cols-1 gap-2 text-[var(--color-gray-99)] text-sm">
                   <span>
                     {customerInfo.firstName} {customerInfo.lastName}
                   </span>
@@ -253,45 +253,47 @@ export default function CheckoutPage() {
           </section>
         </div>
 
-        <aside className={styles.invoiceCard}>
-          <h2>صورتحساب</h2>
+        <aside className="sticky top-5 bg-[var(--color-surface-400)] rounded-2xl p-4 shadow-[0_12px_30px_rgba(12,17,29,0.1)] max-[1024px]:static">
+          <h2 className="m-0 mb-4 text-[var(--color-gray-99)] text-base">صورتحساب</h2>
 
-          <div className={styles.pricingRow}>
+          <div className="flex items-center justify-between gap-3 py-2.5 text-[var(--color-gray-70)] text-sm">
             <span>قیمت روزانه</span>
-            <strong>
+            <strong className="text-[var(--color-gray-99)] text-sm">
               {currentRental.pricePerDay.toLocaleString("fa-IR")} تومان
             </strong>
           </div>
 
-          <div className={styles.pricingRow}>
+          <div className="flex items-center justify-between gap-3 py-2.5 text-[var(--color-gray-70)] text-sm">
             <span>اجاره {currentRental.rentalDays} روز</span>
-            <strong>{rentalBasePrice.toLocaleString("fa-IR")} تومان</strong>
+            <strong className="text-[var(--color-gray-99)] text-sm">{rentalBasePrice.toLocaleString("fa-IR")} تومان</strong>
           </div>
 
           {currentRental.withDriver && (
-            <div className={styles.pricingRow}>
+            <div className="flex items-center justify-between gap-3 py-2.5 text-[var(--color-gray-70)] text-sm">
               <span>هزینه راننده</span>
-              <strong>{driverCost.toLocaleString("fa-IR")} تومان</strong>
+              <strong className="text-[var(--color-gray-99)] text-sm">{driverCost.toLocaleString("fa-IR")} تومان</strong>
             </div>
           )}
 
-          <div className={`${styles.pricingRow} ${styles.totalRow}`}>
-            <span>جمع کل</span>
-            <strong>
-              {currentRental.totalPrice.toLocaleString("fa-IR")} تومان
-            </strong>
+          <div className="mt-1 px-3 py-3 rounded-[10px] bg-[rgba(31,122,77,0.14)]">
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-[#205f42] font-bold">جمع کل</span>
+              <strong className="text-[#205f42] font-bold">
+                {currentRental.totalPrice.toLocaleString("fa-IR")} تومان
+              </strong>
+            </div>
           </div>
 
-          <div className={styles.actionStack}>
+          <div className="mt-3 flex flex-col gap-2">
             <button
-              className={styles.checkoutBtn}
+              className="border-none rounded-[11px] px-4 py-3 text-sm font-semibold cursor-pointer transition-all bg-[#1f7a4d] text-white hover:bg-[#19623f] disabled:opacity-65 disabled:cursor-not-allowed"
               onClick={handleCheckout}
               disabled={loading}
             >
               {loading ? "در حال پردازش..." : "تایید و ادامه برای پرداخت"}
             </button>
             <button
-              className={styles.backBtn}
+              className="border-none rounded-[11px] px-4 py-3 text-sm font-semibold cursor-pointer transition-all bg-[rgba(130,138,156,0.2)] text-[var(--color-gray-99)] hover:bg-[rgba(130,138,156,0.32)] disabled:opacity-65 disabled:cursor-not-allowed"
               onClick={() => router.back()}
               disabled={loading}
             >

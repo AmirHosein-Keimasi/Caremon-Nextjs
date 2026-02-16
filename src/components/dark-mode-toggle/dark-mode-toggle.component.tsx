@@ -1,7 +1,6 @@
 "use client";
 import { ReactElement } from "react";
 import { useState, useEffect } from "react";
-import styles from "./dark-mode-toggle.module.css";
 import { MoonIcon } from "@/icons/MoonIcon";
 import { SunIcon } from "@/icons/SunIcon";
 
@@ -27,9 +26,16 @@ export default function DarkModeToggleComponent(): ReactElement {
   };
 
   return (
-    <button className={styles.button} onClick={toggleDarkMode}>
+    <button
+      className="w-16 h-8 flex items-center transition-all duration-300 ease-in-out rtl outline-none bg-transparent text-[var(--color-primary)] border border-current rounded-[var(--border-radius)] cursor-pointer hover:bg-[var(--color-primary)] hover:text-[var(--color-primary-opposite)]"
+      onClick={toggleDarkMode}
+    >
       <div
-        className={`${styles.toggle} ${darkMode ? styles.dark : styles.light}`}
+        className={`w-8 h-8 rounded-[var(--border-radius)] transition-[transform,background-color] duration-500 ease-in-out relative flex items-center justify-center p-1 text-[var(--color-gray-10)] ${
+          darkMode
+            ? "bg-[var(--color-gray-30)] -translate-x-8"
+            : "bg-[#ffd9009c] translate-x-0"
+        }`}
       >
         {darkMode ? <MoonIcon></MoonIcon> : <SunIcon></SunIcon>}
       </div>

@@ -20,8 +20,6 @@ import {
   useSearchPresetsStore,
 } from "@/store/searchPresetsStore";
 
-import styles from "./saved-filters.module.css";
-
 export default function SavedFiltersComponent(): ReactElement {
   const { filters, dispatchFilters } = useContext(FiltersContext);
   const [presetName, setPresetName] = useState("");
@@ -50,26 +48,28 @@ export default function SavedFiltersComponent(): ReactElement {
 
   return (
     <CardComponent>
-      <div className={styles.savedFilters}>
-        <div className={styles.header}>
-          <div className={styles.title}>Saved filters</div>
-          <div className={styles.activeBadge}>{activeFiltersCount} active</div>
+      <div className="grid gap-3">
+        <div className="flex items-center justify-between gap-2">
+          <div className="font-black">Saved filters</div>
+          <div className="bg-[var(--color-surface-700)] text-[var(--color-text-700)] rounded-full px-2.5 py-0.5 text-[var(--fz-300)]">
+            {activeFiltersCount} active
+          </div>
         </div>
 
-        <div className={styles.form}>
+        <div className="grid grid-cols-[1fr_auto] gap-2 max-[48rem]:grid-cols-1">
           <input
             type="text"
             value={presetName}
             onChange={inputChangeHandler}
             maxLength={40}
             placeholder="Preset name (optional)"
-            className={styles.nameInput}
+            className="bg-[var(--color-surface-700)] text-[var(--color-text-400)] border border-[var(--color-border)] rounded-[var(--border-radius)] px-2.5 py-1.5 focus-visible:border-[var(--color-primary)] focus-visible:outline-none"
           />
 
           <button
             type="button"
             onClick={saveClickHandler}
-            className={styles.saveButton}
+            className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-primary)] text-[var(--color-primary-opposite)] px-2.5 py-1.5 disabled:hover:brightness-100"
             disabled={activeFiltersCount === 0}
           >
             Save
@@ -77,34 +77,42 @@ export default function SavedFiltersComponent(): ReactElement {
         </div>
 
         {!presets.length && (
-          <div className={styles.empty}>No saved presets yet.</div>
+          <div className="text-[var(--color-text-700)] text-[var(--fz-300)]">
+            No saved presets yet.
+          </div>
         )}
 
         {presets.length > 0 && (
           <>
-            <ul className={styles.list}>
+            <ul className="grid gap-2">
               {presets.map((preset) => (
-                <li key={preset.id} className={styles.item}>
-                  <div className={styles.itemHead}>
-                    <div className={styles.itemName}>{preset.name}</div>
-                    <div className={styles.meta}>
+                <li
+                  key={preset.id}
+                  className="bg-[var(--color-surface-700)] border border-[var(--color-border)] rounded-[var(--border-radius)] p-2.5 grid gap-1.5"
+                >
+                  <div className="flex items-center justify-between gap-2 max-[48rem]:items-start max-[48rem]:flex-col">
+                    <div className="font-bold">{preset.name}</div>
+                    <div className="text-[var(--fz-300)] text-[var(--color-text-700)]">
                       {countActiveSearchFilters(preset.filters)} filters | used{" "}
                       {preset.usageCount}
                     </div>
                   </div>
 
-                  <div className={styles.tags}>
+                  <div className="flex flex-wrap gap-1">
                     {getActiveSearchFilters(preset.filters).map((filter) => (
-                      <span key={`${preset.id}-${filter.key}`}>
+                      <span
+                        key={`${preset.id}-${filter.key}`}
+                        className="bg-[var(--color-surface-300)] rounded-full px-2 py-0.5 text-[var(--fz-300)]"
+                      >
                         {filter.value}
                       </span>
                     ))}
                   </div>
 
-                  <div className={styles.actions}>
+                  <div className="flex gap-1.5">
                     <button
                       type="button"
-                      className={styles.applyButton}
+                      className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-primary)] text-[var(--color-primary-opposite)] px-2 py-1 text-[var(--fz-300)] disabled:hover:brightness-100"
                       onClick={() => applyClickHandler(preset)}
                     >
                       Apply
@@ -112,7 +120,7 @@ export default function SavedFiltersComponent(): ReactElement {
 
                     <button
                       type="button"
-                      className={styles.removeButton}
+                      className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-danger)] text-[var(--color-gray-93)] px-2 py-1 text-[var(--fz-300)] disabled:hover:brightness-100"
                       onClick={() => removePreset(preset.id)}
                     >
                       Delete
@@ -124,7 +132,7 @@ export default function SavedFiltersComponent(): ReactElement {
 
             <button
               type="button"
-              className={styles.clearButton}
+              className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-danger)] text-[var(--color-gray-93)] px-2.5 py-1.5 disabled:hover:brightness-100"
               onClick={clearPresets}
             >
               Clear presets

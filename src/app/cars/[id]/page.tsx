@@ -4,8 +4,6 @@ import { notFound } from "next/navigation";
 import { getCarById } from "@/lib/cars";
 import { CommentModel } from "@/models/comment.model";
 
-import styles from "./page.module.css";
-
 import CarInfo from "./components/car-info/car-info.component";
 import PriceCar from "./components/price-car/price-car.component";
 import LocationCar from "./components/location-car/location-car.component";
@@ -194,18 +192,18 @@ export default async function Page({ params }: Props): Promise<ReactElement> {
   }
 
   return (
-    <div className={styles.page}>
-      <div className={styles.carInfo}>
+    <div className="grid grid-cols-[1fr_1.3fr] gap-4 items-stretch max-md:grid-cols-1" style={{ gridTemplateAreas: '"carInfo Prices" "locationCar SpecsAndFeatures" "rentalInfo rentalInfo"' }}>
+      <div style={{ gridArea: 'carInfo' }}>
         <CarInfo car={car} />
       </div>
 
-      <div className={styles.Prices}>
+      <div style={{ gridArea: 'Prices' }} className="grid grid-cols-2 gap-4">
         <PriceCar car={car} />
         <DriverPriceCar car={car} />
         <ReserveButton car={car} />
       </div>
 
-      <div className={styles.locationCar}>
+      <div style={{ gridArea: 'locationCar' }} className="flex flex-col gap-4 min-h-full">
         <LocationCar car={car} />
         <Features features={car.features} />
         {comments.map((comment) => (
@@ -213,9 +211,9 @@ export default async function Page({ params }: Props): Promise<ReactElement> {
         ))}
       </div>
 
-      <div className={styles.SpecsAndFeatures}>
+      <div style={{ gridArea: 'SpecsAndFeatures' }} className="min-h-full">
         <SpecsAndFeatures car={car} />
-        <div className={styles.rentalInfo}>
+        <div style={{ gridArea: 'rentalInfo' }}>
           <Peugeot206RentalInfo car={car} />
         </div>
       </div>

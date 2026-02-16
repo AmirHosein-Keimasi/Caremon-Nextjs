@@ -4,8 +4,6 @@ import { ReactElement, useState } from "react";
 
 import CardComponent from "@/components/card-component/card-component";
 
-import styles from "./reserve-form.module.css";
-
 type Props = {
   carId: string;
   carName: string;
@@ -102,9 +100,9 @@ export default function ReserveForm({ carId, carName }: Props): ReactElement {
   if (isSuccess) {
     return (
       <CardComponent>
-        <div className={styles.success}>
-          <h3>درخواست رزرو ثبت شد</h3>
-          <p>کارشناسان ما به زودی با شما تماس خواهند گرفت.</p>
+        <div className="p-8 text-center">
+          <h3 className="text-[var(--color-text-700)] mb-2">درخواست رزرو ثبت شد</h3>
+          <p className="text-[var(--color-text-400)] text-sm">کارشناسان ما به زودی با شما تماس خواهند گرفت.</p>
         </div>
       </CardComponent>
     );
@@ -112,57 +110,72 @@ export default function ReserveForm({ carId, carName }: Props): ReactElement {
 
   return (
     <CardComponent>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <h3 className={styles.title}>فرم رزرو</h3>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <h3 className="text-lg font-semibold mb-2 text-[var(--color-text-700)]">فرم رزرو</h3>
 
-        {error && <p className={styles.errorMessage}>{error}</p>}
+        {error && <p className="text-red-500 text-sm">{error}</p>}
 
-        <div className={styles.field}>
-          <label htmlFor="name">نام و نام خانوادگی</label>
+        <div className="flex flex-col gap-1">
+          <label htmlFor="name" className="text-sm text-[var(--color-text-400)]">نام و نام خانوادگی</label>
           <input
             type="text"
             id="name"
             name="name"
             required
             placeholder="نام کامل"
+            className="px-3 py-2 border border-[var(--color-border)] rounded-[var(--border-radius)] bg-[var(--color-surface-400)] text-[var(--color-text-700)] focus:outline-2 focus:outline-[var(--color-primary)] focus:outline-offset-2"
           />
         </div>
 
-        <div className={styles.field}>
-          <label htmlFor="phone">شماره تماس</label>
+        <div className="flex flex-col gap-1">
+          <label htmlFor="phone" className="text-sm text-[var(--color-text-400)]">شماره تماس</label>
           <input
             type="tel"
             id="phone"
             name="phone"
             required
             placeholder="09123456789"
+            className="px-3 py-2 border border-[var(--color-border)] rounded-[var(--border-radius)] bg-[var(--color-surface-400)] text-[var(--color-text-700)] focus:outline-2 focus:outline-[var(--color-primary)] focus:outline-offset-2"
           />
         </div>
 
-        <div className={styles.field}>
-          <label htmlFor="email">ایمیل</label>
+        <div className="flex flex-col gap-1">
+          <label htmlFor="email" className="text-sm text-[var(--color-text-400)]">ایمیل</label>
           <input
             type="email"
             id="email"
             name="email"
             required
             placeholder="example@example.com"
+            className="px-3 py-2 border border-[var(--color-border)] rounded-[var(--border-radius)] bg-[var(--color-surface-400)] text-[var(--color-text-700)] focus:outline-2 focus:outline-[var(--color-primary)] focus:outline-offset-2"
           />
         </div>
 
-        <div className={styles.field}>
-          <label htmlFor="startDate">تاریخ تحویل</label>
-          <input type="date" id="startDate" name="startDate" required />
+        <div className="flex flex-col gap-1">
+          <label htmlFor="startDate" className="text-sm text-[var(--color-text-400)]">تاریخ تحویل</label>
+          <input 
+            type="date" 
+            id="startDate" 
+            name="startDate" 
+            required 
+            className="px-3 py-2 border border-[var(--color-border)] rounded-[var(--border-radius)] bg-[var(--color-surface-400)] text-[var(--color-text-700)] focus:outline-2 focus:outline-[var(--color-primary)] focus:outline-offset-2"
+          />
         </div>
 
-        <div className={styles.field}>
-          <label htmlFor="endDate">تاریخ بازگرداندن</label>
-          <input type="date" id="endDate" name="endDate" required />
+        <div className="flex flex-col gap-1">
+          <label htmlFor="endDate" className="text-sm text-[var(--color-text-400)]">تاریخ بازگرداندن</label>
+          <input 
+            type="date" 
+            id="endDate" 
+            name="endDate" 
+            required 
+            className="px-3 py-2 border border-[var(--color-border)] rounded-[var(--border-radius)] bg-[var(--color-surface-400)] text-[var(--color-text-700)] focus:outline-2 focus:outline-[var(--color-primary)] focus:outline-offset-2"
+          />
         </div>
 
         <button
           type="submit"
-          className={styles.submitBtn}
+          className="px-4 py-3 rounded-[var(--border-radius)] bg-[var(--color-primary)] text-[var(--color-primary-opposite)] font-medium border-none cursor-pointer transition-colors mt-2 hover:bg-[var(--color-primary-lighter)] disabled:opacity-70 disabled:cursor-not-allowed"
           disabled={isSubmitting}
         >
           {isSubmitting ? "در حال ثبت..." : "ثبت درخواست رزرو"}

@@ -5,8 +5,6 @@ import MingcuteSuitcaseFill from "@/icons/MingcuteSuitcaseFill";
 import MingcuteCarWindowFill from "@/icons/MingcuteCarWindowFill";
 import MaterialSymbolsAutoTransmission from "@/icons/MaterialSymbolsAutoTransmission";
 
-import styles from "./car-infoIcon.module.css";
-
 interface CarInfoProps {
   doors: number;
   passengers: number;
@@ -33,21 +31,21 @@ const CarInfoIcon: React.FC<CarInfoProps> = ({
   luggage,
   transmission,
 }) => (
-  <div className={styles.info}>
+  <div className="flex justify-center items-center gap-8 text-[var(--fz-400)] flex-wrap text-[var(--color-text-400)]">
     <span>
-      <MingcuteCarWindowFill className={styles.icon} />{" "}
+      <MingcuteCarWindowFill className="text-[var(--color-primary)]" />{" "}
       {toPersianNumbers(doors)}
     </span>
     <span>
-      <MingcuteUser2Fill className={styles.icon} />{" "}
+      <MingcuteUser2Fill className="text-[var(--color-primary)]" />{" "}
       {toPersianNumbers(passengers)}
     </span>
     <span>
-      <MingcuteSuitcaseFill className={styles.icon} />{" "}
+      <MingcuteSuitcaseFill className="text-[var(--color-primary)]" />{" "}
       {toPersianNumbers(luggage)}
     </span>
     <span>
-      <MaterialSymbolsAutoTransmission className={styles.icon} />{" "}
+      <MaterialSymbolsAutoTransmission className="text-[var(--color-primary)]" />{" "}
       {toPersianNumbers(transmission)}
     </span>
   </div>

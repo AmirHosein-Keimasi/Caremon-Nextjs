@@ -6,8 +6,6 @@ import CardComponent from "@/components/card-component/card-component";
 
 import { SelectOptionType } from "@/types/select-option.type";
 
-import styles from "./radio-filter.module.css";
-
 type Props = {
   title: string;
   name: string;
@@ -29,10 +27,13 @@ export default function RadioFilterComponent({
 
   return (
     <CardComponent>
-      <div className={styles["radio-filter"]}>
-        <div className={styles.title}>{title}</div>
+      <div>
+        <div className="mb-2 font-black">{title}</div>
         {options.map((x) => (
-          <label key={x.value}>
+          <label
+            key={x.value}
+            className="flex gap-2 py-1 px-2 hover:bg-[var(--color-surface-400)] hover:rounded-[var(--border-radius)]"
+          >
             <input
               type="radio"
               name={name}

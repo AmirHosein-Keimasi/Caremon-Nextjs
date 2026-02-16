@@ -379,7 +379,24 @@ Created with ❤️ for Caremon
 
 ## Version History
 
-- **v1.0** (Feb 12, 2026) - Initial release
+- **v0.2.0** (Feb 16, 2026) - CSS Modules to Tailwind Migration
+  - ✅ Complete migration from CSS Modules to Tailwind CSS
+  - ✅ Removed all `.module.css` files (60+ files)
+  - ✅ Converted all components to use Tailwind utility classes
+  - ✅ Maintained UI consistency and responsive design
+  - ✅ Preserved dark/light theme support using CSS variables
+  - ✅ Added fadeIn animation to globals.css
+  - ✅ Updated all components:
+    - ShoppingCart, ReservationOptions, Invoice
+    - Dashboard, Checkout, Reserve pages
+    - Car detail pages and components
+    - Auth pages and components
+    - Search components
+    - All shared components
+  - ✅ Zero breaking changes - UI remains identical
+  - ✅ Improved maintainability and consistency
+
+- **v0.1.0** (Feb 12, 2026) - Initial release
   - Zustand stores
   - Shopping cart component
   - Invoice component
@@ -395,5 +412,5 @@ Same as main project
 
 ---
 
-**Last Updated**: February 12, 2026  
+**Last Updated**: February 16, 2026  
 **Status**: ✅ Production Ready

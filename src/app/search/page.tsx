@@ -21,8 +21,6 @@ import { normalizeSearchFilters } from "./utils/search-filters";
 
 import { getCars } from "@/lib/cars";
 
-import styles from "./page.module.css";
-
 type SearchParams = { [key: string]: string | string[] | undefined };
 
 type Props = {
@@ -41,11 +39,11 @@ export default async function Page({
       defaultFilters={defaultFilters}
     >
       <CarsProvider cars={cars}>
-        <div className={styles.page}>
-          <div className={styles.search}>
+        <div className="grid grid-areas-[._search;_filters_toolbar;_filters_results] grid-cols-[1fr_3.5fr] grid-rows-[auto_auto_1fr] items-start gap-4">
+          <div className="[grid-area:search]">
             <SearchQueryBox />
           </div>
-          <div className={styles.filters}>
+          <div className="[grid-area:filters] grid gap-4">
             <SavedFiltersComponent />
             <FiltersSummaryComponent />
             <LocationFilterComponent />
@@ -53,13 +51,13 @@ export default async function Page({
             <TransmissionFilterComponent />
             <WithDriverFilterComponent />
           </div>
-          <div className={styles.toolbar}>
+          <div className="[grid-area:toolbar] flex items-center gap-4">
             <SortComponent />
-            <div className={styles.stats}>
+            <div className="ms-auto">
               <StatsComponent />
             </div>
           </div>
-          <div className={styles.results}>
+          <div className="[grid-area:results]">
             <ResultsComponent />
           </div>
         </div>

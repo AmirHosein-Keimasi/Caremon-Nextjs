@@ -12,8 +12,6 @@ import SelectHourComponent from "../selectHourComponent/selectHour.component";
 
 import MingcuteCheckboxFill from "@/icons/MingcuteCheckboxFill";
 
-import styles from "./search-form.module.css";
-
 const SearchFormComponent = () => {
   const [startDate, setStartDate] = useState<DateObject | null>(null);
   const [endDate, setEndDate] = useState<DateObject | null>(null);
@@ -36,14 +34,14 @@ const SearchFormComponent = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className="flex gap-2 items-end justify-between py-4 max-md:flex-col max-md:items-stretch">
       <StartDatePicker
         ref={startDateRef}
         value={startDate}
         onChange={handleStartDateChange}
         minDate={today}
       />
-      <div className={styles.inputGroup}>
+      <div className="flex flex-col gap-2 min-w-[10rem] flex-1 me-8">
         <SelectHourComponent />
       </div>
 
@@ -54,16 +52,21 @@ const SearchFormComponent = () => {
         minDate={startDate || today}
         disabled={!startDate}
       />
-      <div className={styles.inputGroup}>
+      <div className="flex flex-col gap-2 min-w-[10rem] flex-1 me-8">
         <SelectHourComponent />
       </div>
 
-      <div className={styles.inputGroup}>
-        <label className={styles.label}>موقعیت</label>
+      <div className="flex flex-col gap-2 min-w-[10rem] flex-1 me-8">
+        <label className="text-[var(--fz-300)] leading-5 font-medium">
+          موقعیت
+        </label>
         <SelectLocationComponent />
       </div>
 
-      <Link className={styles.detailsLink} href={`/search`}>
+      <Link
+        className="px-8 py-2 rounded-[var(--border-radius)] text-[var(--color-default-background)] text-center font-bold flex items-center justify-center gap-2 mt-2 transition-[color] duration-[var(--animation-duration-normal)] bg-[var(--color-primary)] text-[var(--color-gray-93)]"
+        href={`/search`}
+      >
         همین الان رزرو کنید <MingcuteCheckboxFill />
       </Link>
     </div>

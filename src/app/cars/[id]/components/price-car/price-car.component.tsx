@@ -1,6 +1,5 @@
 import React, { PropsWithChildren } from "react";
 
-import styles from "./price-car.module.css";
 import { CarsModel } from "@/models/cars.model";
 
 type Props = PropsWithChildren & {
@@ -15,15 +14,24 @@ const PriceCar = ({ car }: Props) => {
   ];
 
   return (
-    <div className={styles.card}>
-      <div className={styles.header}>اجاره بدون راننده </div>
-      <div className={styles.model}>هزینه اجاره {car.name}</div>{" "}
-      <span className={styles.year}>{car.model}</span>
-      <div className={styles.priceList}>
+    <div className="bg-[var(--color-surface-400)] rounded-[var(--border-radius)] p-4 shadow-[var(--shadow-500)] mt-auto">
+      <div className="text-[var(--color-primary)] py-2 text-start font-bold mb-4">
+        اجاره بدون راننده{" "}
+      </div>
+      <div className="text-[var(--color-text-400)] text-[var(--fz-300)]">
+        هزینه اجاره {car.name}
+      </div>{" "}
+      <span className="text-[var(--fz-200)] text-[var(--color-gray-70)]">
+        {car.model}
+      </span>
+      <div className="mt-2">
         {prices.map((item, index) => (
-          <div key={index} className={styles.priceItem}>
+          <div
+            key={index}
+            className="flex justify-between py-3 border-b border-[var(--color-border)]"
+          >
             <span>{item.daysRange}:</span>
-            <span className={styles.price}>
+            <span className="font-bold text-[var(--color-primary)]">
               {item.price.toLocaleString("fa-IR")} تومان
             </span>
           </div>

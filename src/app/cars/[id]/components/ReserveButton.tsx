@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import StartDatePicker from "@/components/calendar/StartDatePicker-component";
 import EndDatePicker from "@/components/calendar/EndDatePicker-component";
-import styles from "./ReserveButton.module.css";
 
 interface ReserveButtonProps {
   car: CarsModel;
@@ -180,32 +179,38 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
   return (
     <>
       <button
-        className={styles.reserveBtn}
+        className="px-8 py-3 bg-[var(--color-primary-darkeMod)] text-white border-none rounded-md text-base font-semibold cursor-pointer transition-all duration-300 hover:bg-[var(--color-primary)] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(33,150,243,0.3)]"
         onClick={() => setShowReservationForm(true)}
       >
         رزرو کنید
       </button>
 
       {showReservationForm && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <div className={styles.modalHeader}>
-              <h2>رزرو {car.model}</h2>
+        <div className="fixed top-0 left-0 right-0 bottom-0 bg-[rgba(7,10,18,0.52)] backdrop-blur-sm flex items-center justify-center z-[1000] rtl">
+          <div className="bg-[var(--color-surface-400)] rounded-2xl max-w-[600px] w-[90%] max-h-[90vh] overflow-y-auto shadow-[0_18px_48px_rgba(0,0,0,0.28)]">
+            <div className="flex justify-between items-center p-6 shadow-[inset_0_-1px_0_rgba(148,163,184,0.2)]">
+              <h2 className="m-0 text-[var(--color-gray-99)] text-[1.3rem]">
+                رزرو {car.model}
+              </h2>
               <button
-                className={styles.closeBtn}
+                className="bg-none border-none text-2xl text-[var(--color-gray-70)] cursor-pointer p-0 transition-[color] duration-300 hover:text-[var(--color-gray-99)]"
                 onClick={() => setShowReservationForm(false)}
               >
                 ✕
               </button>
             </div>
 
-            <div className={styles.modalBody}>
+            <div className="p-6 grid gap-4">
               {/* Dates */}
-              <div className={styles.section}>
-                <h3>تاریخ‌های رزرو</h3>
-                <div className={styles.dateRow}>
-                  <div className={styles.formGroup}>
-                    <label>تاریخ شروع</label>
+              <div className="m-0 p-4 rounded-xl bg-[var(--color-surface-300)]">
+                <h3 className="m-0 mb-4 text-[var(--color-gray-99)] text-[1.1rem] font-semibold">
+                  تاریخ‌های رزرو
+                </h3>
+                <div className="grid grid-cols-2 gap-4 max-[600px]:grid-cols-1">
+                  <div className="flex flex-col gap-2 mb-4">
+                    <label className="font-medium text-[var(--color-gray-99)] text-[0.95rem]">
+                      تاریخ شروع
+                    </label>
                     <StartDatePicker
                       ref={startDateRef}
                       value={startDate}
@@ -213,8 +218,10 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                       minDate={today}
                     />
                   </div>
-                  <div className={styles.formGroup}>
-                    <label>تاریخ پایان</label>
+                  <div className="flex flex-col gap-2 mb-4">
+                    <label className="font-medium text-[var(--color-gray-99)] text-[0.95rem]">
+                      تاریخ پایان
+                    </label>
                     <EndDatePicker
                       ref={endDateRef}
                       value={endDate}
@@ -227,15 +234,20 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
               </div>
 
               {/* Locations */}
-              <div className={styles.section}>
-                <h3>محل تحویل و تسلیم</h3>
-                <div className={styles.locationRow}>
-                  <div className={styles.formGroup}>
-                    <label>محل تحویل</label>
+              <div className="m-0 p-4 rounded-xl bg-[var(--color-surface-300)]">
+                <h3 className="m-0 mb-4 text-[var(--color-gray-99)] text-[1.1rem] font-semibold">
+                  محل تحویل و تسلیم
+                </h3>
+                <div className="grid grid-cols-[1fr_50px_1fr] gap-4 items-end max-[600px]:grid-cols-1">
+                  <div className="flex flex-col gap-2 mb-4">
+                    <label className="font-medium text-[var(--color-gray-99)] text-[0.95rem]">
+                      محل تحویل
+                    </label>
                     <select
                       name="pickupLocation"
                       value={formData.pickupLocation}
                       onChange={handleLocationChange}
+                      className="py-3 px-3 border-none rounded-[10px] bg-[var(--color-surface-300)] text-[var(--color-gray-99)] text-base font-inherit shadow-[inset_0_0_0_1px_rgba(148,163,184,0.28)] focus:outline-none focus:shadow-[inset_0_0_0_1px_var(--color-primary-darkeMod),0_0_0_3px_rgba(33,150,243,0.12)]"
                     >
                       {locations.map((loc) => (
                         <option key={loc} value={loc}>
@@ -245,7 +257,7 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                     </select>
                   </div>
                   <button
-                    className={styles.swapBtn}
+                    className="py-3 px-3 border-none bg-[var(--color-surface-300)] rounded-[10px] cursor-pointer text-xl transition-all duration-300 text-[var(--color-gray-99)] shadow-[inset_0_0_0_1px_rgba(148,163,184,0.28)] hover:bg-[var(--color-surface-400)] hover:-translate-y-0.5"
                     onClick={() => {
                       setFormData((prev) => ({
                         ...prev,
@@ -256,12 +268,15 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                   >
                     ⇄
                   </button>
-                  <div className={styles.formGroup}>
-                    <label>محل تسلیم</label>
+                  <div className="flex flex-col gap-2 mb-4">
+                    <label className="font-medium text-[var(--color-gray-99)] text-[0.95rem]">
+                      محل تسلیم
+                    </label>
                     <select
                       name="dropoffLocation"
                       value={formData.dropoffLocation}
                       onChange={handleLocationChange}
+                      className="py-3 px-3 border-none rounded-[10px] bg-[var(--color-surface-300)] text-[var(--color-gray-99)] text-base font-inherit shadow-[inset_0_0_0_1px_rgba(148,163,184,0.28)] focus:outline-none focus:shadow-[inset_0_0_0_1px_var(--color-primary-darkeMod),0_0_0_3px_rgba(33,150,243,0.12)]"
                     >
                       {locations.map((loc) => (
                         <option key={loc} value={loc}>
@@ -274,20 +289,25 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
               </div>
 
               {/* Driver */}
-              <div className={styles.section}>
-                <h3>راننده</h3>
-                <label className={styles.checkboxLabel}>
+              <div className="m-0 p-4 rounded-xl bg-[var(--color-surface-300)]">
+                <h3 className="m-0 mb-4 text-[var(--color-gray-99)] text-[1.1rem] font-semibold">
+                  راننده
+                </h3>
+                <label className="flex items-center gap-3 cursor-pointer text-base text-[var(--color-gray-99)] mb-4">
                   <input
                     type="checkbox"
                     name="withDriver"
                     checked={formData.withDriver}
                     onChange={handleDriverChange}
+                    className="w-5 h-5 cursor-pointer"
                   />
                   <span>می‌خواهم راننده اختصاصی داشته باشم</span>
                 </label>
                 {formData.withDriver && (
-                  <div className={styles.driverDays}>
-                    <label>تعداد روزهایی که راننده را نیاز دارید</label>
+                  <div className="flex flex-col gap-2 p-4 bg-[var(--color-surface-300)] rounded-[10px]">
+                    <label className="font-medium text-[var(--color-gray-99)]">
+                      تعداد روزهایی که راننده را نیاز دارید
+                    </label>
                     <input
                       type="number"
                       name="driverDays"
@@ -295,23 +315,32 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                       max={calculateRentalDays()}
                       value={formData.driverDays || 1}
                       onChange={handleDriverChange}
+                      className="py-3 px-3 border-none rounded-[10px] bg-[var(--color-surface-300)] text-[var(--color-gray-99)] shadow-[inset_0_0_0_1px_rgba(148,163,184,0.28)]"
                     />
                   </div>
                 )}
               </div>
 
               {/* Options */}
-              <div className={styles.section}>
-                <h3>خدمات اضافی</h3>
-                <div className={styles.optionsGrid}>
+              <div className="m-0 p-4 rounded-xl bg-[var(--color-surface-300)]">
+                <h3 className="m-0 mb-4 text-[var(--color-gray-99)] text-[1.1rem] font-semibold">
+                  خدمات اضافی
+                </h3>
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-4 max-[600px]:grid-cols-1">
                   {options.map((option) => (
-                    <label key={option.id} className={styles.optionCheckbox}>
+                    <label
+                      key={option.id}
+                      className="flex items-center gap-2 py-3 px-3 bg-[var(--color-surface-300)] border-none rounded-[10px] cursor-pointer transition-all duration-300 shadow-[inset_0_0_0_1px_rgba(148,163,184,0.28)] hover:bg-[var(--color-surface-400)] hover:-translate-y-0.5"
+                    >
                       <input
                         type="checkbox"
                         checked={formData.selectedOptions.includes(option.id)}
                         onChange={() => handleOptionChange(option.id)}
+                        className="w-[18px] h-[18px] cursor-pointer"
                       />
-                      <span>{option.label}</span>
+                      <span className="text-[var(--color-gray-99)] font-medium">
+                        {option.label}
+                      </span>
                     </label>
                   ))}
                 </div>
@@ -319,24 +348,26 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
 
               {/* Summary */}
               {formData.startDate && formData.endDate && (
-                <div className={styles.summary}>
-                  <div className={styles.summaryRow}>
-                    <span>قیمت روزانه:</span>
-                    <span>
+                <div className="bg-[var(--color-surface-300)] p-6 rounded-xl my-8 shadow-[inset_0_0_0_1px_rgba(148,163,184,0.2)]">
+                  <div className="flex justify-between py-3 text-[var(--color-gray-70)]">
+                    <span className="font-medium">قیمت روزانه:</span>
+                    <span className="text-[var(--color-gray-99)]">
                       {(car.rental.days_3_to_14 || 100000).toLocaleString(
                         "fa-IR",
                       )}{" "}
                       تومان
                     </span>
                   </div>
-                  <div className={styles.summaryRow}>
-                    <span>تعداد روز:</span>
-                    <span>{calculateRentalDays()} روز</span>
+                  <div className="flex justify-between py-3 text-[var(--color-gray-70)]">
+                    <span className="font-medium">تعداد روز:</span>
+                    <span className="text-[var(--color-gray-99)]">
+                      {calculateRentalDays()} روز
+                    </span>
                   </div>
                   {formData.withDriver && (
-                    <div className={styles.summaryRow}>
-                      <span>هزینه راننده (روزانه):</span>
-                      <span>
+                    <div className="flex justify-between py-3 text-[var(--color-gray-70)]">
+                      <span className="font-medium">هزینه راننده (روزانه):</span>
+                      <span className="text-[var(--color-gray-99)]">
                         {(
                           (car.rental.days_3_to_14 || 100000) *
                           0.5 *
@@ -346,9 +377,9 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                       </span>
                     </div>
                   )}
-                  <div className={styles.summaryRow + " " + styles.total}>
+                  <div className="shadow-[inset_0_1px_0_rgba(148,163,184,0.2),inset_0_-1px_0_rgba(148,163,184,0.2)] py-4 my-2 text-[1.1rem] font-bold flex justify-between">
                     <span>جمع کل:</span>
-                    <span>
+                    <span className="text-[var(--color-primary-darkeMod)]">
                       {(
                         (car.rental.days_3_to_14 || 100000) *
                           calculateRentalDays() +
@@ -365,16 +396,16 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
               )}
             </div>
 
-            <div className={styles.modalFooter}>
+            <div className="flex gap-4 justify-center p-6 shadow-[inset_0_1px_0_rgba(148,163,184,0.2)] bg-[var(--color-surface-300)]">
               <button
-                className={styles.cancelBtn}
+                className="px-8 py-3 border-none rounded-md text-base font-semibold cursor-pointer transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed bg-[var(--color-surface-400)] text-[var(--color-gray-99)] shadow-[inset_0_0_0_1px_rgba(148,163,184,0.32)] hover:bg-[var(--color-surface-300)] disabled:hover:bg-[var(--color-surface-400)]"
                 onClick={() => setShowReservationForm(false)}
                 disabled={loading}
               >
                 انصراف
               </button>
               <button
-                className={styles.submitBtn}
+                className="px-8 py-3 border-none rounded-md text-base font-semibold cursor-pointer transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed bg-[#4caf50] text-white hover:bg-[#45a049] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(76,175,80,0.3)] disabled:hover:bg-[#4caf50] disabled:hover:translate-y-0 disabled:hover:shadow-none"
                 onClick={handleReserve}
                 disabled={loading}
               >

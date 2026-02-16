@@ -5,13 +5,12 @@ import CarmonLogo from "@/logo/CarmonLogo";
 import StatsComponents from "@/components/stats/stats.component";
 import SearchFormComponent from "@/components/searchFormComponent/search-form.component";
 
-import styles from "./page.module.css";
 import HomeSearchBox from "./HomeSearchBox";
 
 export default function Home(): ReactElement {
   return (
-    <div className={styles.home}>
-      <h1>
+    <div className="grid justify-items-center content-center gap-8 min-h-full">
+      <h1 className="inline-flex items-center text-[var(--fz-700)]">
         <CarmonLogo />
         کا‌‌‌‌رِمون{" "}
       </h1>

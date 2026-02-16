@@ -10,8 +10,6 @@ import Spinner from "@/components/Spinner/Spinner";
 import InputField from "../../components/normal-input/normal-input.component";
 import PasswordInput from "../../components/password-input/password-input.component";
 
-import styles from "../../signup/page.module.css";
-
 export default function SigninForm() {
   const router = useRouter();
   const updateProfile = useUserProfileStore((state) => state.updateProfile);
@@ -70,7 +68,7 @@ export default function SigninForm() {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
       {error && (
         <p style={{ color: "var(--color-danger)", fontSize: "0.875rem" }}>
           {error}
@@ -92,13 +90,20 @@ export default function SigninForm() {
         placeholder="رمز عبور خود را وارد کنید"
         required
       />
-      <div className={styles.forgotPassword}>
-        <Link href="/auth/forgot-password" className={styles.forgotLink}>
+      <div className="text-right -mt-2 mb-2">
+        <Link
+          href="/auth/forgot-password"
+          className="text-sm text-[var(--color-primary)] transition-[color] duration-[var(--animation-duration-normal)] ease-in-out hover:underline hover:text-[var(--color-primary-lighter)]"
+        >
           رمز عبور را فراموش کرده‌اید؟
         </Link>
       </div>
 
-      <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+      <button
+        type="submit"
+        className="w-full py-3 rounded-[var(--border-radius)] bg-[var(--color-primary)] text-[var(--color-primary-opposite)] font-medium uppercase border-none cursor-pointer transition-[background-color] duration-[var(--animation-duration-normal)] ease-in-out shadow-[var(--shadow-400)] hover:bg-[var(--color-primary-lighter)]"
+        disabled={isLoading}
+      >
         {isLoading ? (
           <>
             <Spinner size={18} />
@@ -109,17 +114,24 @@ export default function SigninForm() {
         )}
       </button>
 
-      <div className={styles.divider}>
-        <span className={styles.dividerText}>یا</span>
+      <div className="flex items-center my-4 text-[var(--color-text-400)] before:content-[''] before:flex-1 before:border-t before:border-[var(--color-border)] before:mx-2 after:content-[''] after:flex-1 after:border-t after:border-[var(--color-border)] after:mx-2">
+        <span className="px-2 font-semibold">یا</span>
       </div>
 
-      <button type="button" className={styles.googleBtn} disabled>
+      <button
+        type="button"
+        className="w-full py-3 flex justify-center items-center gap-2 bg-[#4285f4] text-white border-none rounded-[var(--border-radius)] cursor-pointer transition-[background-color] duration-[var(--animation-duration-normal)] ease-in-out shadow-[var(--shadow-400)] hover:bg-[#357ae8]"
+        disabled
+      >
         ورود با گوگل (به زودی)
       </button>
 
-      <p className={styles.loginText}>
+      <p className="text-center text-sm text-[var(--color-text-400)]">
         حساب کاربری ندارید؟{" "}
-        <Link href="/auth/signup" className={styles.loginLink}>
+        <Link
+          href="/auth/signup"
+          className="text-[var(--color-primary)] font-medium transition-[color] duration-[var(--animation-duration-normal)] ease-in-out hover:underline hover:text-[var(--color-primary-lighter)]"
+        >
           ثبت نام
         </Link>
       </p>

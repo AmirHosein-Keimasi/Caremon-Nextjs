@@ -10,7 +10,6 @@ import {
 
 import clsx from "clsx";
 
-import styles from "./select.module.css";
 import { SelectOptionType } from "@/types/select-option.type";
 
 type Props = {
@@ -135,15 +134,23 @@ export default function SelectComponent({
       onClick={() => setIsOpen((old) => !old)}
       tabIndex={0}
       className={clsx(
-        styles.container,
-        isOpen && styles.open,
-        floating && styles.floating,
+        "[scrollbar-color:#888_var(--color-surface-300)] [scrollbar-width:thin] relative flex items-center gap-2 p-2 rounded-[var(--border-radius)] outline-none cursor-default",
+        (isOpen || containerRef.current === document.activeElement) &&
+          "border border-[var(--color-border)]",
+        floating &&
+          "bg-[var(--color-surface-700)] shadow-[var(--shadow-400)]",
+        floating &&
+          !isOpen &&
+          containerRef.current !== document.activeElement &&
+          "border-transparent",
       )}
     >
-      {title && <span className={styles.title}>{title}: </span>}
+      {title && (
+        <span className="text-[var(--fz-300)] font-bold">{title}: </span>
+      )}
 
       <span
-        className={styles.value}
+        className="flex-1"
         style={{
           minInlineSize: `${maximumCharactersCount}ch`,
         }}
@@ -151,24 +158,27 @@ export default function SelectComponent({
         {selectedOption?.label ?? placeholder ?? String.fromCharCode(160)}
       </span>
 
-      <div className={styles.caret}></div>
+      <div className="border-[0.25em] border-transparent border-t-[var(--color-border)] translate-y-[25%] [&]:border-t-[var(--color-primary)]"></div>
 
-      <ul className={styles.options}>
-        {options.map((option, index) => (
-          <li
-            key={option.value}
-            className={clsx(
-              styles.option,
-              option === selectedOption && styles.selected,
-              index === highlightedIndex && styles.highlighted,
-            )}
-            onMouseEnter={() => setHighlightedIndex(index)}
-            onClick={(e) => optionClickHandler(e, option)}
-          >
-            {option.label}
-          </li>
-        ))}
-      </ul>
+      {isOpen && (
+        <ul className="bg-[var(--color-surface-700)] shadow-[var(--shadow-400)] absolute top-[calc(100%+0.5rem)] left-0 overflow-y-auto z-[100] max-h-[20rem] min-w-full w-max border border-[var(--color-border)] rounded-[var(--border-radius)]">
+          {options.map((option, index) => (
+            <li
+              key={option.value}
+              className={clsx(
+                "py-1 px-2 cursor-pointer",
+                index === highlightedIndex && "bg-[var(--color-surface-300)]",
+                option === selectedOption &&
+                  "bg-[var(--color-primary)] text-[var(--color-primary-opposite)]",
+              )}
+              onMouseEnter={() => setHighlightedIndex(index)}
+              onClick={(e) => optionClickHandler(e, option)}
+            >
+              {option.label}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

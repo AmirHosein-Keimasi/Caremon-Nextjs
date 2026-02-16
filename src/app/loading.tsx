@@ -1,11 +1,10 @@
 import React from "react";
-import styles from "./loading.module.css";
 
 const Loading: React.FC = () => {
   return (
-    <div className={styles.loader}>
+    <div className="fixed top-0 left-0 w-full h-full bg-white/80 backdrop-blur-sm flex justify-center items-center z-[9999]">
       <svg
-        className={styles.car}
+        className="w-[200px] animate-[moveCar_1.5s_ease-in-out_infinite_alternate]"
         width="204"
         height="80"
         viewBox="0 0 204 80"
@@ -19,12 +18,12 @@ const Loading: React.FC = () => {
           strokeLinejoin="round"
         >
           <path
-            className={styles.car__body}
+            className="animate-[shake_0.3s_ease-in-out_infinite_alternate]"
             d="M47.293 2.375C52.927.792 54.017.805 54.017.805c2.613-.445 6.838-.337 9.42.237l8.381 1.863c2.59.576 6.164 2.606 7.98 4.531l6.348 6.732 6.245 1.877c3.098.508 5.609 3.431 5.609 6.507v4.206c0 .29-2.536 4.189-5.687 4.189H36.808c-2.655 0-4.34-2.1-3.688-4.67 0 0 3.71-19.944 14.173-23.902zM36.5 15.5h54.01"
             strokeWidth="3"
           />
           <ellipse
-            className={styles.car__wheel__left}
+            className="animate-[spin_1s_linear_infinite]"
             strokeWidth="3.2"
             fill="#FFF"
             cx="83.493"
@@ -33,7 +32,7 @@ const Loading: React.FC = () => {
             ry="6.808"
           />
           <ellipse
-            className={styles.car__wheel__right}
+            className="animate-[spin_1s_linear_infinite]"
             strokeWidth="3.2"
             fill="#FFF"
             cx="46.511"
@@ -42,17 +41,17 @@ const Loading: React.FC = () => {
             ry="6.808"
           />
           <path
-            className={styles.car__line__top}
+            className="stroke-dash-[22] animate-[line_0.8s_ease-in-out_infinite]"
             d="M22.5 16.5H2.475"
             strokeWidth="3"
           />
           <path
-            className={styles.car__line__middle}
+            className="stroke-dash-[22] animate-[line_0.8s_ease-in-out_infinite_0.2s]"
             d="M20.5 23.5H.4755"
             strokeWidth="3"
           />
           <path
-            className={styles.car__line__bottom}
+            className="stroke-dash-[22] animate-[line_0.8s_ease-in-out_infinite_0.4s]"
             d="M25.5 9.5h-19"
             strokeWidth="3"
           />

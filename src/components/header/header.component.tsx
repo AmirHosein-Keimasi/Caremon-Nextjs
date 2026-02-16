@@ -10,7 +10,6 @@ import UserPanel from "./UserPanel";
 
 import clsx from "clsx";
 
-import styles from "./header.module.css";
 import useAuth from "@/utils/useAuth";
 
 const links = [
@@ -25,14 +24,16 @@ export default function HeaderComponent(): ReactElement {
   const { isLoggedIn } = useAuth();
 
   return (
-    <header className={styles.header}>
+    <header className="flex items-center gap-8 py-4">
       <nav>
-        <ul>
+        <ul className="flex gap-8">
           {links.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={clsx(pathname === link.href && styles.active)}
+                className={clsx(
+                  pathname === link.href && "text-[var(--color-primary)]",
+                )}
               >
                 {link.title}
               </Link>
@@ -41,11 +42,14 @@ export default function HeaderComponent(): ReactElement {
         </ul>
       </nav>
       {isLoggedIn ? (
-        <div className={styles.userPanelWrapper}>
+        <div className="ms-auto flex-shrink-0">
           <UserPanel />
         </div>
       ) : (
-        <Link href="/auth/signin" className={styles.cta}>
+        <Link
+          href="/auth/signin"
+          className="bg-transparent text-[var(--color-primary)] ms-auto px-4 py-2 border border-current rounded-[var(--border-radius)] font-bold cursor-pointer hover:bg-[var(--color-primary)] hover:text-[var(--color-primary-opposite)]"
+        >
           ورود | ثبت‌نام
         </Link>
       )}

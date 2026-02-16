@@ -13,8 +13,6 @@ import MingcuteSettings4Line from "@/icons/MingcuteSettings4Line";
 import MingcuteLocationLine from "@/icons/MingcuteLocationLine";
 import MingcuteCheckboxFill from "@/icons/MingcuteCheckboxFill";
 
-import styles from "./results.module.css";
-
 const toPersianNumbers = (num: number | string): string => {
   const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
   const numStr = num.toString();
@@ -33,39 +31,52 @@ interface BadgeProps {
 const Badge = ({ label }: BadgeProps) => {
   const displayValue =
     typeof label === "boolean" ? (label ? "بله" : "خیر") : label.toString();
-  return <div className={styles.badge}>{displayValue}</div>;
+  return (
+    <div className="px-2 py-1 bg-[var(--color-surface-400)] rounded-md text-sm">
+      {displayValue}
+    </div>
+  );
 };
 
 export default function ResultsComponent(): ReactElement {
   const { filteredCars } = useContext(CarsContext);
 
   if (!filteredCars?.length) {
-    return <div className={styles.noResults}>نتیجه‌ای یافت نشد</div>;
+    return (
+      <div className="text-center py-8 text-[var(--color-text-700)]">
+        نتیجه‌ای یافت نشد
+      </div>
+    );
   }
 
   return (
-    <ul className={styles.results}>
+    <ul className="grid grid-cols-[repeat(3,minmax(280px,1fr))] gap-4 justify-center">
       {filteredCars.map((car) => (
-        <li key={car.id} className={styles.card}>
-          <div className={styles.locationBadge}>
-            <MingcuteLocationLine className={styles.LocIcon} />
+        <li
+          key={car.id}
+          className="bg-[var(--color-surface-700)] rounded-[var(--border-radius)] shadow-[var(--shadow-400)] p-8 text-center transition-[box-shadow] duration-[var(--animation-duration-normal)] relative hover:shadow-[var(--shadow-700)]"
+        >
+          <div className="flex items-center gap-2 absolute top-4 right-4 rounded-[var(--border-radius)] text-[var(--fz-300)] text-[var(--color-text-700)]">
+            <MingcuteLocationLine className="text-[var(--color-star)] text-[var(--fz-400)] mb-[-0.05em]" />
             <Badge label={car.location} />
           </div>
 
-          <div className={styles.imageWrapper}>
+          <div>
             <Image
               src={`https://cafeerent.com/storage/www/cars/single/${car.img}`}
               alt={`${car.name} - ${car.model}`}
-              className={styles.image}
+              className="rounded-[var(--border-radius)] object-contain"
               width={270}
               height={160}
               priority={false}
             />
           </div>
 
-          <div className={styles.cardModel}>
-            <h3 className={styles.title}>{car.name}</h3>
-            <p className={styles.model}>{car.model}</p>
+          <div className="flex justify-between items-center p-2 relative">
+            <h3 className="text-[var(--fz-500)] font-bold my-1.5 mx-0 text-[var(--color-primary)]">
+              {car.name}
+            </h3>
+            <p className="flex justify-between items-center p-2 relative">{car.model}</p>
           </div>
 
           <CarInfoIcon
@@ -75,20 +86,20 @@ export default function ResultsComponent(): ReactElement {
             transmission={car.features.transmission}
           />
 
-          <div className={styles.rental}>
-            <div className={styles.minimum_rental}>
-              <span>حداقل اجاره: </span>{" "}
+          <div className="flex flex-col items-start p-3 mt-4">
+            <div className="flex justify-between w-full text-[var(--fz-400)]">
+              <span>حداقل اجاره: </span>
               <span>
-                <span className={styles.span2}>
+                <span className="font-semibold pl-0.5 text-[var(--color-text-400)]">
                   {toPersianNumbers(car.rental.minimum_rental)}
                 </span>
                 روز{" "}
               </span>
             </div>
-            <div className={styles.days_3_to_14}>
+            <div className="flex justify-between w-full text-[var(--fz-400)]">
               <span>۳ تا ۱۴ روز:</span>
               <span>
-                <span className={styles.redPrice}>
+                <span className="font-semibold pl-0.5 text-[var(--color-text-400)]">
                   {toPersianNumbers(car.rental.days_3_to_14)}
                 </span>{" "}
                 تومان
@@ -96,11 +107,17 @@ export default function ResultsComponent(): ReactElement {
             </div>
           </div>
 
-          <Link className={styles.detailsLink} href={`/cars/${car.id}`}>
+          <Link
+            className="px-8 py-2 rounded-[var(--border-radius)] text-[var(--color-default-background)] text-center font-bold flex items-center justify-center gap-2 mt-2 transition-[color] duration-[var(--animation-duration-normal)] bg-[var(--color-primary)] text-[var(--color-gray-93)]"
+            href={`/cars/${car.id}`}
+          >
             بیشتر... <MingcuteSettings4Line />
           </Link>
 
-          <Link className={styles.receiveLink} href={`/reserve/${car.id}`}>
+          <Link
+            className="px-8 py-2 rounded-[var(--border-radius)] text-[var(--color-default-background)] text-center font-bold flex items-center justify-center gap-2 mt-2 transition-[color] duration-[var(--animation-duration-normal)] bg-[var(--color-danger)] text-[var(--color-gray-93)]"
+            href={`/reserve/${car.id}`}
+          >
             همین الان رزرو کنید <MingcuteCheckboxFill />
           </Link>
         </li>

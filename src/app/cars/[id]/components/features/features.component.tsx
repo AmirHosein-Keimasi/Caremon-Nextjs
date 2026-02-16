@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./features.module.css";
 import CardComponent from "@/components/card-component/card-component";
 import MingcuteCarLine from "@/icons/MingcuteCarLine";
 
@@ -52,19 +51,25 @@ const Features: React.FC<FeaturesProps> = ({ features }) => {
 
   return (
     <CardComponent>
-      <div className={styles.container}>
-        <div className={styles.title}>
+      <div>
+        <div className="text-[var(--fz-500)] font-bold flex items-center mb-2">
           <MingcuteCarLine />
           امکانات
         </div>
-        <div className={styles.featuresList}>
+        <div className="flex flex-wrap gap-2">
           {enabledFeatures.map((feature, index) => (
-            <div key={index} className={styles.featureItem}>
+            <div
+              key={index}
+              className="py-2 px-3 bg-[var(--color-surface-700)] rounded-[var(--border-radius)] text-[var(--fz-300)] text-[var(--color-text-400)]"
+            >
               {feature}
             </div>
           ))}
           {extraFeatures.map((feature, index) => (
-            <div key={`extra-${index}`} className={styles.featureItem}>
+            <div
+              key={`extra-${index}`}
+              className="py-2 px-3 bg-[var(--color-surface-700)] rounded-[var(--border-radius)] text-[var(--fz-300)] text-[var(--color-text-400)]"
+            >
               {feature}
             </div>
           ))}

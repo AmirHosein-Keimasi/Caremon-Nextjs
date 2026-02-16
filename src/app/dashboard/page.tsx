@@ -9,7 +9,6 @@ import {
 } from "@/store/reservationStore";
 import { useDashboardStore } from "@/store/dashboardStore";
 import Invoice from "@/components/Invoice/Invoice";
-import styles from "./page.module.css";
 
 /**
  * Enhanced Dashboard Page
@@ -46,15 +45,15 @@ export default function DashboardPage() {
         );
 
   return (
-    <div className={styles.dashboardPage}>
+    <div className="rtl p-8 max-w-[1400px] mx-auto bg-[var(--color-surface-300)] min-h-screen">
       {/* Header */}
-      <div className={styles.header}>
-        <h1>داشبورد</h1>
-        <p>خوش‌آمدید به پنل مدیریت</p>
+      <div className="mb-12">
+        <h1 className="text-3xl m-0 text-[var(--color-gray-99)]">داشبورد</h1>
+        <p className="m-2.5 mt-0 text-[var(--color-gray-70)]">خوش‌آمدید به پنل مدیریت</p>
       </div>
 
       {/* Stats Cards */}
-      <div className={styles.statsGrid}>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 mb-12">
         <StatCard
           title="سبد خرید"
           value={stats.cartItemCount}
@@ -86,27 +85,27 @@ export default function DashboardPage() {
       </div>
 
       {/* Tabs */}
-      <div className={styles.tabs}>
+      <div className="flex gap-0 border-b-2 border-[var(--color-gray-80)] mb-8 bg-[var(--color-surface-400)] rounded-t-lg overflow-hidden">
         <button
-          className={`${styles.tab} ${activeTab === "overview" ? styles.active : ""}`}
+          className={`px-8 py-4 border-none bg-[var(--color-surface-400)] text-[var(--color-gray-70)] text-base font-medium cursor-pointer transition-all relative hover:bg-[var(--color-surface-300)] hover:text-[var(--color-gray-99)] ${activeTab === "overview" ? "text-[var(--color-primary-darkeMod)] bg-[var(--color-surface-300)] border-b-[3px] border-[var(--color-primary-darkeMod)] mb-[-2px]" : ""}`}
           onClick={() => setActiveTab("overview")}
         >
           نمای کلی
         </button>
         <button
-          className={`${styles.tab} ${activeTab === "rental" ? styles.active : ""}`}
+          className={`px-8 py-4 border-none bg-[var(--color-surface-400)] text-[var(--color-gray-70)] text-base font-medium cursor-pointer transition-all relative hover:bg-[var(--color-surface-300)] hover:text-[var(--color-gray-99)] ${activeTab === "rental" ? "text-[var(--color-primary-darkeMod)] bg-[var(--color-surface-300)] border-b-[3px] border-[var(--color-primary-darkeMod)] mb-[-2px]" : ""}`}
           onClick={() => setActiveTab("rental")}
         >
           رزرو فعلی ({cartStore.currentRental ? 1 : 0})
         </button>
         <button
-          className={`${styles.tab} ${activeTab === "reservations" ? styles.active : ""}`}
+          className={`px-8 py-4 border-none bg-[var(--color-surface-400)] text-[var(--color-gray-70)] text-base font-medium cursor-pointer transition-all relative hover:bg-[var(--color-surface-300)] hover:text-[var(--color-gray-99)] ${activeTab === "reservations" ? "text-[var(--color-primary-darkeMod)] bg-[var(--color-surface-300)] border-b-[3px] border-[var(--color-primary-darkeMod)] mb-[-2px]" : ""}`}
           onClick={() => setActiveTab("reservations")}
         >
           رزروها ({stats.totalReservations})
         </button>
         <button
-          className={`${styles.tab} ${activeTab === "invoice" ? styles.active : ""}`}
+          className={`px-8 py-4 border-none bg-[var(--color-surface-400)] text-[var(--color-gray-70)] text-base font-medium cursor-pointer transition-all relative hover:bg-[var(--color-surface-300)] hover:text-[var(--color-gray-99)] ${activeTab === "invoice" ? "text-[var(--color-primary-darkeMod)] bg-[var(--color-surface-300)] border-b-[3px] border-[var(--color-primary-darkeMod)] mb-[-2px]" : ""}`}
           onClick={() => setActiveTab("invoice")}
         >
           فاکتور
@@ -114,38 +113,38 @@ export default function DashboardPage() {
       </div>
 
       {/* Tab Content */}
-      <div className={styles.tabContent}>
+      <div className="bg-[var(--color-surface-400)] rounded-b-lg p-8 shadow-[var(--shadow-400)]">
         {/* Overview Tab */}
         {activeTab === "overview" && (
-          <div className={styles.overviewTab}>
-            <div className={styles.section}>
-              <h2>آمار سفارشات</h2>
-              <div className={styles.statsTable}>
-                <div className={styles.statsRow}>
-                  <span>مجموع رزروها:</span>
-                  <strong>{stats.totalReservations}</strong>
+          <div className="animate-[fadeIn_0.3s_ease-in_forwards]">
+            <div className="mb-12 last:mb-0">
+              <h2 className="text-xl m-0 mb-6 text-[var(--color-gray-99)] pb-2 border-b-2 border-[var(--color-gray-80)]">آمار سفارشات</h2>
+              <div className="flex flex-col gap-0 bg-[var(--color-surface-300)] rounded-md overflow-hidden">
+                <div className="flex justify-between p-4 border-b border-[var(--color-gray-80)] last:border-b-0">
+                  <span className="text-[var(--color-gray-70)]">مجموع رزروها:</span>
+                  <strong className="text-[var(--color-gray-99)] font-semibold">{stats.totalReservations}</strong>
                 </div>
-                <div className={styles.statsRow}>
-                  <span>تکمیل شده:</span>
-                  <strong className={styles.completed}>
+                <div className="flex justify-between p-4 border-b border-[var(--color-gray-80)] last:border-b-0">
+                  <span className="text-[var(--color-gray-70)]">تکمیل شده:</span>
+                  <strong className="text-[#4caf50] font-semibold">
                     {stats.completedReservations}
                   </strong>
                 </div>
-                <div className={styles.statsRow}>
-                  <span>فعال:</span>
-                  <strong className={styles.active}>
+                <div className="flex justify-between p-4 border-b border-[var(--color-gray-80)] last:border-b-0">
+                  <span className="text-[var(--color-gray-70)]">فعال:</span>
+                  <strong className="text-[#ff9800] font-semibold">
                     {stats.activeReservations}
                   </strong>
                 </div>
-                <div className={styles.statsRow}>
-                  <span>لغو شده:</span>
-                  <strong className={styles.cancelled}>
+                <div className="flex justify-between p-4 border-b border-[var(--color-gray-80)] last:border-b-0">
+                  <span className="text-[var(--color-gray-70)]">لغو شده:</span>
+                  <strong className="text-[#f44336] font-semibold">
                     {stats.cancelledReservations}
                   </strong>
                 </div>
-                <div className={styles.statsRow + " " + styles.highlighted}>
-                  <span>میانگین ارزش رزرو:</span>
-                  <strong>
+                <div className="flex justify-between p-4 bg-[rgba(33,150,243,0.1)] border-t border-[var(--color-gray-80)] mt-2">
+                  <span className="text-[var(--color-gray-70)]">میانگین ارزش رزرو:</span>
+                  <strong className="text-[var(--color-primary-darkeMod)] font-semibold">
                     {stats.averageReservationValue.toLocaleString("fa-IR")}{" "}
                     تومان
                   </strong>
@@ -153,8 +152,8 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className={styles.section}>
-              <h2>رزروهای اخیر</h2>
+            <div className="mb-12 last:mb-0">
+              <h2 className="text-xl m-0 mb-6 text-[var(--color-gray-99)] pb-2 border-b-2 border-[var(--color-gray-80)]">رزروهای اخیر</h2>
               <RecentReservationsList
                 reservations={reservationStore.reservations.slice(0, 5)}
                 onSelect={(res) => {
@@ -168,12 +167,12 @@ export default function DashboardPage() {
 
         {/* Rental Tab */}
         {activeTab === "rental" && (
-          <div className={styles.rentalTab}>
+          <div className="animate-[fadeIn_0.3s_ease-in_forwards]">
             {cartStore.currentRental ? (
               <RentalDisplay rental={cartStore.currentRental} />
             ) : (
-              <div className={styles.empty}>
-                <p>هیچ رزروی فعالی وجود ندارد</p>
+              <div className="text-center py-12 px-8 text-[var(--color-gray-70)]">
+                <p className="text-lg m-0">هیچ رزروی فعالی وجود ندارد</p>
               </div>
             )}
           </div>
@@ -181,14 +180,15 @@ export default function DashboardPage() {
 
         {/* Reservations Tab */}
         {activeTab === "reservations" && (
-          <div className={styles.reservationsTab}>
-            <div className={styles.filterBar}>
-              <label>فیلتر بر اساس وضعیت:</label>
+          <div className="animate-[fadeIn_0.3s_ease-in_forwards]">
+            <div className="flex gap-4 items-center mb-6 p-4 bg-[var(--color-surface-300)] rounded-md">
+              <label className="font-semibold text-[var(--color-gray-99)]">فیلتر بر اساس وضعیت:</label>
               <select
                 value={filterStatus}
                 onChange={(e) =>
                   setFilterStatus(e.target.value as ReservationStatus | "all")
                 }
+                className="px-4 py-2 border border-[var(--color-gray-80)] rounded bg-[var(--color-surface-400)] text-[var(--color-gray-99)] text-sm cursor-pointer"
               >
                 <option value="all">همه</option>
                 <option value={ReservationStatus.PENDING}>
@@ -210,8 +210,8 @@ export default function DashboardPage() {
                 }}
               />
             ) : (
-              <div className={styles.empty}>
-                <p>رزروی برای این وضعیت وجود ندارد</p>
+              <div className="text-center py-12 px-8 text-[var(--color-gray-70)]">
+                <p className="text-lg m-0">رزروی برای این وضعیت وجود ندارد</p>
               </div>
             )}
           </div>
@@ -219,12 +219,12 @@ export default function DashboardPage() {
 
         {/* Invoice Tab */}
         {activeTab === "invoice" && (
-          <div className={styles.invoiceTab}>
+          <div className="animate-[fadeIn_0.3s_ease-in] py-8">
             {selectedReservation ? (
               <Invoice reservation={selectedReservation} />
             ) : (
-              <div className={styles.empty}>
-                <p>لطفا یک رزرو انتخاب کنید</p>
+              <div className="text-center py-12 px-8 text-[var(--color-gray-70)]">
+                <p className="text-lg m-0">لطفا یک رزرو انتخاب کنید</p>
               </div>
             )}
           </div>
@@ -250,13 +250,20 @@ function StatCard({
   color: "blue" | "green" | "purple" | "orange";
   icon: string;
 }) {
+  const colorBorders: Record<string, string> = {
+    blue: "border-r-4 border-[#2196f3]",
+    green: "border-r-4 border-[#4caf50]",
+    purple: "border-r-4 border-[#9c27b0]",
+    orange: "border-r-4 border-[#ff9800]",
+  };
+
   return (
-    <div className={`${styles.statCard} ${styles[`stat-${color}`]}`}>
-      <div className={styles.statIcon}>{icon}</div>
-      <div className={styles.statContent}>
-        <p className={styles.statTitle}>{title}</p>
-        <h3 className={styles.statValue}>{value}</h3>
-        <p className={styles.statSubtitle}>{subtitle}</p>
+    <div className={`flex items-center gap-6 p-6 bg-[var(--color-surface-400)] rounded-lg shadow-[var(--shadow-400)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-500)] ${colorBorders[color]}`}>
+      <div className="text-4xl">{icon}</div>
+      <div className="flex-1">
+        <p className="m-0 text-sm text-[var(--color-gray-70)] font-medium">{title}</p>
+        <h3 className="m-2.5 mt-0 text-3xl text-[var(--color-gray-99)] font-bold">{value}</h3>
+        <p className="m-1 mt-0 text-sm text-[var(--color-gray-80)]">{subtitle}</p>
       </div>
     </div>
   );
@@ -273,25 +280,25 @@ function RecentReservationsList({
   onSelect: (res: Reservation) => void;
 }) {
   return (
-    <div className={styles.list}>
+    <div className="flex flex-col gap-4">
       {reservations.length === 0 ? (
-        <p className={styles.empty}>هیچ رزروی وجود ندارد</p>
+        <p className="text-center py-12 px-8 text-[var(--color-gray-70)] text-lg m-0">هیچ رزروی وجود ندارد</p>
       ) : (
         reservations.map((res) => (
           <div
             key={res.id}
-            className={styles.listItem}
+            className="p-4 bg-[var(--color-surface-300)] border border-[var(--color-gray-80)] rounded-md cursor-pointer transition-all hover:bg-[var(--color-surface-400)] hover:border-[var(--color-primary-darkeMod)] hover:shadow-[0_2px_6px_rgba(33,150,243,0.2)]"
             onClick={() => onSelect(res)}
           >
-            <div className={styles.listItemHeader}>
-              <span className={styles.listItemId}>{res.id}</span>
-              <span className={styles.listItemName}>
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm text-[var(--color-gray-70)] font-mono">{res.id}</span>
+              <span className="font-semibold text-[var(--color-gray-99)]">
                 {res.firstName} {res.lastName}
               </span>
             </div>
-            <div className={styles.listItemFooter}>
+            <div className="flex justify-between text-sm text-[var(--color-gray-70)]">
               <span>1 خودرو</span>
-              <span className={styles.listItemAmount}>
+              <span className="text-[var(--color-primary-darkeMod)] font-semibold">
                 {res.totalPrice.toLocaleString("fa-IR")} تومان
               </span>
             </div>
@@ -320,39 +327,48 @@ function ReservationsList({
     [ReservationStatus.CANCELLED]: "لغو شده",
   };
 
+  const getBadgeClass = (status: ReservationStatus) => {
+    const badgeClasses: Record<ReservationStatus, string> = {
+      [ReservationStatus.PENDING]: "inline-block px-3 py-1.5 rounded-xl text-sm font-semibold bg-[#fff3cd] text-[#856404]",
+      [ReservationStatus.CONFIRMED]: "inline-block px-3 py-1.5 rounded-xl text-sm font-semibold bg-[#cfe2ff] text-[#084298]",
+      [ReservationStatus.ACTIVE]: "inline-block px-3 py-1.5 rounded-xl text-sm font-semibold bg-[#d1e7dd] text-[#0f5132]",
+      [ReservationStatus.COMPLETED]: "inline-block px-3 py-1.5 rounded-xl text-sm font-semibold bg-[#d1e7dd] text-[#0f5132]",
+      [ReservationStatus.CANCELLED]: "inline-block px-3 py-1.5 rounded-xl text-sm font-semibold bg-[#f8d7da] text-[#842029]",
+    };
+    return badgeClasses[status] || "";
+  };
+
   return (
-    <div className={styles.table}>
-      <table>
-        <thead>
+    <div className="overflow-x-auto">
+      <table className="w-full border-collapse">
+        <thead className="bg-[var(--color-surface-300)]">
           <tr>
-            <th>شماره رزرو</th>
-            <th>نام مشتری</th>
-            <th>تعداد خودرو</th>
-            <th>مبلغ</th>
-            <th>وضعیت</th>
-            <th>اقدام</th>
+            <th className="p-4 text-right font-semibold text-[var(--color-gray-99)] border-b-2 border-[var(--color-gray-80)]">شماره رزرو</th>
+            <th className="p-4 text-right font-semibold text-[var(--color-gray-99)] border-b-2 border-[var(--color-gray-80)]">نام مشتری</th>
+            <th className="p-4 text-right font-semibold text-[var(--color-gray-99)] border-b-2 border-[var(--color-gray-80)]">تعداد خودرو</th>
+            <th className="p-4 text-right font-semibold text-[var(--color-gray-99)] border-b-2 border-[var(--color-gray-80)]">مبلغ</th>
+            <th className="p-4 text-right font-semibold text-[var(--color-gray-99)] border-b-2 border-[var(--color-gray-80)]">وضعیت</th>
+            <th className="p-4 text-right font-semibold text-[var(--color-gray-99)] border-b-2 border-[var(--color-gray-80)]">اقدام</th>
           </tr>
         </thead>
         <tbody>
           {reservations.map((res) => (
-            <tr key={res.id}>
-              <td>{res.id}</td>
-              <td>
+            <tr key={res.id} className="hover:bg-[var(--color-surface-300)]">
+              <td className="p-4 border-b border-[var(--color-gray-80)] text-[var(--color-gray-70)]">{res.id}</td>
+              <td className="p-4 border-b border-[var(--color-gray-80)] text-[var(--color-gray-70)]">
                 {res.firstName} {res.lastName}
               </td>
-              <td>1</td>
-              <td>{res.totalPrice.toLocaleString("fa-IR")} تومان</td>
-              <td>
-                <span
-                  className={`${styles.badge} ${styles[`badge-${res.status}`]}`}
-                >
+              <td className="p-4 border-b border-[var(--color-gray-80)] text-[var(--color-gray-70)]">1</td>
+              <td className="p-4 border-b border-[var(--color-gray-80)] text-[var(--color-gray-70)]">{res.totalPrice.toLocaleString("fa-IR")} تومان</td>
+              <td className="p-4 border-b border-[var(--color-gray-80)] text-[var(--color-gray-70)]">
+                <span className={getBadgeClass(res.status)}>
                   {statusLabel[res.status]}
                 </span>
               </td>
-              <td>
+              <td className="p-4 border-b border-[var(--color-gray-80)] text-[var(--color-gray-70)]">
                 <button
                   onClick={() => onSelect(res)}
-                  className={styles.viewBtn}
+                  className="px-4 py-2 bg-[var(--color-primary-darkeMod)] text-white border-none rounded cursor-pointer text-sm transition-all hover:bg-[var(--color-primary)]"
                 >
                   مشاهده
                 </button>
@@ -370,47 +386,47 @@ function ReservationsList({
  */
 function RentalDisplay({ rental }: { rental: RentalItem }) {
   return (
-    <div className={styles.rentalDisplay}>
-      <div className={styles.section}>
-        <h2>جزئیات رزرو فعلی</h2>
-        <div className={styles.rentalInfo}>
-          <div className={styles.rentalRow}>
-            <span>مدل ماشین:</span>
-            <strong>{rental.car.name}</strong>
+    <div>
+      <div className="mb-12 last:mb-0">
+        <h2 className="text-xl m-0 mb-6 text-[var(--color-gray-99)] pb-2 border-b-2 border-[var(--color-gray-80)]">جزئیات رزرو فعلی</h2>
+        <div className="flex flex-col gap-4">
+          <div className="flex justify-between items-center p-4 bg-[var(--color-surface-300)] rounded-md">
+            <span className="text-[var(--color-gray-70)]">مدل ماشین:</span>
+            <strong className="text-[var(--color-gray-99)] font-semibold">{rental.car.name}</strong>
           </div>
-          <div className={styles.rentalRow}>
-            <span>تاریخ شروع:</span>
-            <strong>
+          <div className="flex justify-between items-center p-4 bg-[var(--color-surface-300)] rounded-md">
+            <span className="text-[var(--color-gray-70)]">تاریخ شروع:</span>
+            <strong className="text-[var(--color-gray-99)] font-semibold">
               {new Date(rental.startDate).toLocaleDateString("fa-IR")}
             </strong>
           </div>
-          <div className={styles.rentalRow}>
-            <span>تاریخ پایان:</span>
-            <strong>
+          <div className="flex justify-between items-center p-4 bg-[var(--color-surface-300)] rounded-md">
+            <span className="text-[var(--color-gray-70)]">تاریخ پایان:</span>
+            <strong className="text-[var(--color-gray-99)] font-semibold">
               {new Date(rental.endDate).toLocaleDateString("fa-IR")}
             </strong>
           </div>
-          <div className={styles.rentalRow}>
-            <span>تعداد روز:</span>
-            <strong>{rental.rentalDays}</strong>
+          <div className="flex justify-between items-center p-4 bg-[var(--color-surface-300)] rounded-md">
+            <span className="text-[var(--color-gray-70)]">تعداد روز:</span>
+            <strong className="text-[var(--color-gray-99)] font-semibold">{rental.rentalDays}</strong>
           </div>
-          <div className={styles.rentalRow}>
-            <span>محل تحویل:</span>
-            <strong>{rental.pickupLocation}</strong>
+          <div className="flex justify-between items-center p-4 bg-[var(--color-surface-300)] rounded-md">
+            <span className="text-[var(--color-gray-70)]">محل تحویل:</span>
+            <strong className="text-[var(--color-gray-99)] font-semibold">{rental.pickupLocation}</strong>
           </div>
-          <div className={styles.rentalRow}>
-            <span>محل تسلیم:</span>
-            <strong>{rental.dropoffLocation}</strong>
+          <div className="flex justify-between items-center p-4 bg-[var(--color-surface-300)] rounded-md">
+            <span className="text-[var(--color-gray-70)]">محل تسلیم:</span>
+            <strong className="text-[var(--color-gray-99)] font-semibold">{rental.dropoffLocation}</strong>
           </div>
           {rental.withDriver && (
-            <div className={styles.rentalRow}>
-              <span>راننده:</span>
-              <strong>بلی ({rental.driverDays} روز)</strong>
+            <div className="flex justify-between items-center p-4 bg-[var(--color-surface-300)] rounded-md">
+              <span className="text-[var(--color-gray-70)]">راننده:</span>
+              <strong className="text-[var(--color-gray-99)] font-semibold">بلی ({rental.driverDays} روز)</strong>
             </div>
           )}
-          <div className={styles.rentalRow}>
-            <span>قیمت کل:</span>
-            <strong className={styles.price}>
+          <div className="flex justify-between items-center p-4 bg-[var(--color-surface-300)] rounded-md">
+            <span className="text-[var(--color-gray-70)]">قیمت کل:</span>
+            <strong className="text-[var(--color-primary-darkeMod)] font-semibold">
               {rental.totalPrice.toLocaleString("fa-IR")} تومان
             </strong>
           </div>

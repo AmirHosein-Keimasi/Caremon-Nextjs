@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { CarsModel } from "@/models/cars.model";
 import { useAddToCart } from "@/hooks/useAddToCart";
 import { useRouter } from "next/navigation";
-import styles from "./ReservationOptions.module.css";
 
 interface ReservationOptionsProps {
   car: CarsModel;
@@ -105,44 +104,47 @@ export default function ReservationOptions({
   const minDate = new Date().toISOString().split("T")[0];
 
   return (
-    <form onSubmit={handleAddToCart} className={styles.reservationOptions}>
-      <h3>گزینه های رزرو</h3>
+    <form onSubmit={handleAddToCart} className="bg-[var(--color-surface-400)] p-8 rounded-lg shadow-[var(--shadow-400)] rtl">
+      <h3 className="m-0 mb-6 text-xl text-[var(--color-gray-99)]">گزینه های رزرو</h3>
 
       {/* Dates Section */}
-      <div className={styles.section}>
-        <h4>تاریخ و محل</h4>
+      <div className="mb-8 pb-6 border-b border-[var(--color-gray-80)] last:border-b-0">
+        <h4 className="m-0 mb-4 text-lg text-[var(--color-gray-99)] font-semibold">تاریخ و محل</h4>
 
-        <div className={styles.dateRow}>
-          <div className={styles.formGroup}>
-            <label>تاریخ شروع</label>
+        <div className="grid grid-cols-2 gap-4 mb-4 max-[600px]:grid-cols-1">
+          <div className="flex flex-col gap-2">
+            <label className="font-medium text-[var(--color-gray-99)] text-sm">تاریخ شروع</label>
             <input
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               min={minDate}
               required
+              className="p-3 border border-[var(--color-gray-80)] rounded bg-[var(--color-surface-300)] text-[var(--color-gray-99)] text-base font-inherit focus:outline-none focus:border-[var(--color-primary-darkeMod)] focus:shadow-[0_0_0_3px_rgba(33,150,243,0.1)]"
             />
           </div>
 
-          <div className={styles.formGroup}>
-            <label>تاریخ پایان</label>
+          <div className="flex flex-col gap-2">
+            <label className="font-medium text-[var(--color-gray-99)] text-sm">تاریخ پایان</label>
             <input
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
               min={startDate || minDate}
               required
+              className="p-3 border border-[var(--color-gray-80)] rounded bg-[var(--color-surface-300)] text-[var(--color-gray-99)] text-base font-inherit focus:outline-none focus:border-[var(--color-primary-darkeMod)] focus:shadow-[0_0_0_3px_rgba(33,150,243,0.1)]"
             />
           </div>
         </div>
 
-        <div className={styles.locationRow}>
-          <div className={styles.formGroup}>
-            <label>محل تحویل</label>
+        <div className="grid grid-cols-[1fr_50px_1fr] gap-4 items-end max-[600px]:grid-cols-1">
+          <div className="flex flex-col gap-2">
+            <label className="font-medium text-[var(--color-gray-99)] text-sm">محل تحویل</label>
             <select
               value={pickupLocation}
               onChange={(e) => setPickupLocation(e.target.value)}
               required
+              className="p-3 border border-[var(--color-gray-80)] rounded bg-[var(--color-surface-300)] text-[var(--color-gray-99)] text-base font-inherit focus:outline-none focus:border-[var(--color-primary-darkeMod)] focus:shadow-[0_0_0_3px_rgba(33,150,243,0.1)]"
             >
               <option value="">انتخاب کنید</option>
               <option value="تهران-مرکز">تهران - مرکز</option>
@@ -157,18 +159,19 @@ export default function ReservationOptions({
           <button
             type="button"
             onClick={handleLocationSwap}
-            className={styles.swapBtn}
+            className="p-3 border border-[var(--color-gray-80)] bg-[var(--color-surface-300)] rounded cursor-pointer text-xl transition-all text-[var(--color-gray-99)] hover:bg-[var(--color-surface-300)] hover:border-[var(--color-primary-darkeMod)]"
             title="تعویض مکان"
           >
             ⇄
           </button>
 
-          <div className={styles.formGroup}>
-            <label>محل تحویل</label>
+          <div className="flex flex-col gap-2">
+            <label className="font-medium text-[var(--color-gray-99)] text-sm">محل تحویل</label>
             <select
               value={dropoffLocation}
               onChange={(e) => setDropoffLocation(e.target.value)}
               required
+              className="p-3 border border-[var(--color-gray-80)] rounded bg-[var(--color-surface-300)] text-[var(--color-gray-99)] text-base font-inherit focus:outline-none focus:border-[var(--color-primary-darkeMod)] focus:shadow-[0_0_0_3px_rgba(33,150,243,0.1)]"
             >
               <option value="">انتخاب کنید</option>
               <option value="تهران-مرکز">تهران - مرکز</option>
@@ -183,27 +186,29 @@ export default function ReservationOptions({
       </div>
 
       {/* Driver Section */}
-      <div className={styles.section}>
-        <h4>خدمات اضافی</h4>
+      <div className="mb-8 pb-6 border-b border-[var(--color-gray-80)] last:border-b-0">
+        <h4 className="m-0 mb-4 text-lg text-[var(--color-gray-99)] font-semibold">خدمات اضافی</h4>
 
-        <div className={styles.driverOption}>
-          <label className={styles.checkboxLabel}>
+        <div className="flex flex-col gap-4">
+          <label className="flex items-center gap-3 cursor-pointer text-base text-[var(--color-gray-99)]">
             <input
               type="checkbox"
               checked={withDriver}
               onChange={(e) => setWithDriver(e.target.checked)}
+              className="w-5 h-5 cursor-pointer"
             />
             <span>درخواست راننده</span>
           </label>
 
           {withDriver && (
-            <div className={styles.driverDays}>
-              <label>تعداد روزهای راننده</label>
+            <div className="flex flex-col gap-2 p-4 bg-[var(--color-surface-300)] rounded">
+              <label className="font-medium text-[var(--color-gray-99)]">تعداد روزهای راننده</label>
               <input
                 type="number"
                 min="1"
                 value={driverDays}
                 onChange={(e) => setDriverDays(parseInt(e.target.value))}
+                className="p-3 border border-[var(--color-gray-80)] rounded bg-[var(--color-surface-300)] text-[var(--color-gray-99)]"
               />
             </div>
           )}
@@ -212,18 +217,19 @@ export default function ReservationOptions({
 
       {/* Options Section */}
       {availableOptions.length > 0 && (
-        <div className={styles.section}>
-          <h4>اپشن‌های اضافی</h4>
+        <div className="mb-8 pb-6 border-b border-[var(--color-gray-80)] last:border-b-0">
+          <h4 className="m-0 mb-4 text-lg text-[var(--color-gray-99)] font-semibold">اپشن‌های اضافی</h4>
 
-          <div className={styles.optionsGrid}>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-4 max-[600px]:grid-cols-1">
             {availableOptions.map((option) => (
-              <label key={option.key} className={styles.optionCheckbox}>
+              <label key={option.key} className="flex items-center gap-2 p-3 bg-[var(--color-surface-300)] border border-[var(--color-gray-80)] rounded cursor-pointer transition-all hover:bg-[var(--color-surface-400)] hover:border-[var(--color-primary-darkeMod)]">
                 <input
                   type="checkbox"
                   checked={selectedOptions.includes(option.label)}
                   onChange={() => toggleOption(option.label)}
+                  className="w-[18px] h-[18px] cursor-pointer"
                 />
-                <span>{option.label}</span>
+                <span className="text-[var(--color-gray-99)] font-medium">{option.label}</span>
               </label>
             ))}
           </div>
@@ -231,16 +237,16 @@ export default function ReservationOptions({
       )}
 
       {/* Summary */}
-      <div className={styles.summary}>
-        <div className={styles.summaryRow}>
-          <span>قیمت روزانه:</span>
-          <span>{car.rental.minimum_rental.toLocaleString("fa-IR")} تومان</span>
+      <div className="bg-[var(--color-surface-300)] p-6 rounded-md border-r-4 border-[var(--color-primary-darkeMod)] my-8">
+        <div className="flex justify-between py-3 text-[var(--color-gray-70)]">
+          <span className="font-medium">قیمت روزانه:</span>
+          <span className="text-[var(--color-gray-99)] font-medium">{car.rental.minimum_rental.toLocaleString("fa-IR")} تومان</span>
         </div>
         {startDate && endDate && (
           <>
-            <div className={styles.summaryRow}>
-              <span>روزهای اجاره:</span>
-              <span>
+            <div className="flex justify-between py-3 text-[var(--color-gray-70)]">
+              <span className="font-medium">روزهای اجاره:</span>
+              <span className="text-[var(--color-gray-99)] font-medium">
                 {Math.ceil(
                   (new Date(endDate).getTime() -
                     new Date(startDate).getTime()) /
@@ -249,9 +255,9 @@ export default function ReservationOptions({
                 روز
               </span>
             </div>
-            <div className={styles.summaryRow + " " + styles.total}>
-              <span>تخمین هزینه:</span>
-              <span>
+            <div className="flex justify-between py-4 border-t-2 border-b-2 border-[var(--color-gray-80)] my-2 text-lg">
+              <span className="font-medium">تخمین هزینه:</span>
+              <span className="text-[var(--color-primary-darkeMod)] font-bold">
                 {(
                   car.rental.minimum_rental *
                   Math.ceil(
@@ -268,8 +274,8 @@ export default function ReservationOptions({
       </div>
 
       {/* Action Buttons */}
-      <div className={styles.actions}>
-        <button type="submit" disabled={loading} className={styles.addBtn}>
+      <div className="flex gap-4 mt-8">
+        <button type="submit" disabled={loading} className="flex-1 p-4 bg-[#4caf50] text-white border-none rounded-md text-base font-semibold cursor-pointer transition-all hover:bg-[#45a049] disabled:bg-[#ccc] disabled:cursor-not-allowed disabled:opacity-60">
           {loading ? "در حال اضافه کردن..." : "اضافه به سبد خرید"}
         </button>
       </div>

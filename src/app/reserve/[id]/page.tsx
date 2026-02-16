@@ -9,8 +9,6 @@ import PriceCar from "@/app/cars/[id]/components/price-car/price-car.component";
 
 import ReserveForm from "./components/reserve-form";
 
-import styles from "./page.module.css";
-
 type Props = {
   params: { id: string };
 };
@@ -25,21 +23,21 @@ export default async function ReservePage({
   }
 
   return (
-    <div className={styles.page}>
-      <div className={styles.header}>
-        <h1>رزرو خودرو: {car.name}</h1>
-        <Link href={`/cars/${car.id}`} className={styles.backLink}>
+    <div className="py-8 max-w-[var(--full-width)] mx-auto">
+      <div className="flex flex-col gap-2 mb-8">
+        <h1 className="text-2xl text-[var(--color-text-700)]">رزرو خودرو: {car.name}</h1>
+        <Link href={`/cars/${car.id}`} className="text-[var(--color-primary)] text-sm transition-colors hover:text-[var(--color-primary-lighter)] hover:underline">
           بازگشت به جزئیات خودرو
         </Link>
       </div>
 
-      <div className={styles.content}>
-        <div className={styles.carSummary}>
+      <div className="grid grid-cols-2 gap-8 items-start max-md:grid-cols-1">
+        <div className="flex flex-col gap-4">
           <CarInfo car={car} />
           <PriceCar car={car} />
         </div>
 
-        <div className={styles.formSection}>
+        <div className="sticky top-4">
           <ReserveForm carId={car.id} carName={car.name} />
         </div>
       </div>
