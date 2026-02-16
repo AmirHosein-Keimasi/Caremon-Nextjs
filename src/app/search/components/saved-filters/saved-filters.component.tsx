@@ -1,6 +1,12 @@
 "use client";
 
-import { ChangeEvent, ReactElement, useContext, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  ReactElement,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
 import CardComponent from "@/components/card-component/card-component";
 
@@ -82,7 +88,8 @@ export default function SavedFiltersComponent(): ReactElement {
                   <div className={styles.itemHead}>
                     <div className={styles.itemName}>{preset.name}</div>
                     <div className={styles.meta}>
-                      {countActiveSearchFilters(preset.filters)} filters | used {preset.usageCount}
+                      {countActiveSearchFilters(preset.filters)} filters | used{" "}
+                      {preset.usageCount}
                     </div>
                   </div>
 

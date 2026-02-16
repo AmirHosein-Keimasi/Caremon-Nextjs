@@ -1,4 +1,3 @@
- 
 import { toast } from "react-toastify";
 
 type FetchDataType<T> = T | { error: string };

@@ -48,7 +48,8 @@ export const useSearchPresetsStore = create<SearchPresetsStore>()(
           }
 
           const now = Date.now();
-          const normalizedName = name.trim() || `Preset ${state.presets.length + 1}`;
+          const normalizedName =
+            name.trim() || `Preset ${state.presets.length + 1}`;
           const serializedFilters = serializeFilters(normalizedFilters);
 
           const existingPreset = state.presets.find(
@@ -66,7 +67,9 @@ export const useSearchPresetsStore = create<SearchPresetsStore>()(
             return {
               presets: [
                 updatedPreset,
-                ...state.presets.filter((preset) => preset.id !== existingPreset.id),
+                ...state.presets.filter(
+                  (preset) => preset.id !== existingPreset.id,
+                ),
               ].slice(0, MAX_PRESETS),
             };
           }

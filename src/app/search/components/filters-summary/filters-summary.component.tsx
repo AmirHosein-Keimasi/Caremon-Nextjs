@@ -17,7 +17,10 @@ import styles from "./filters-summary.module.css";
 export default function FiltersSummaryComponent(): ReactElement | null {
   const { filters, dispatchFilters } = useContext(FiltersContext);
 
-  const activeFilters = useMemo(() => getActiveSearchFilters(filters), [filters]);
+  const activeFilters = useMemo(
+    () => getActiveSearchFilters(filters),
+    [filters],
+  );
   const isEmpty = useMemo(() => isSearchFiltersEmpty(filters), [filters]);
 
   const removeAllButtonClickHandler = (): void => {

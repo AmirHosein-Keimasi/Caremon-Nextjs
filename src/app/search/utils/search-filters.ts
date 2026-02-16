@@ -51,7 +51,9 @@ export function normalizeSearchFilters(
   return normalized;
 }
 
-export function buildSearchParams(filters: Partial<SearchFilterValues>): string {
+export function buildSearchParams(
+  filters: Partial<SearchFilterValues>,
+): string {
   const normalized = normalizeSearchFilters(filters);
   const params = new URLSearchParams();
 
