@@ -50,7 +50,7 @@ export default function UserPanel() {
       <Button
         variant="outline"
         size="icon"
-        className="rounded-full w-12 h-12 overflow-hidden p-0"
+        className="rounded-full w-11 h-11 overflow-hidden p-0 border-primary hover:bg-muted/50"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-label="منوی کاربری"

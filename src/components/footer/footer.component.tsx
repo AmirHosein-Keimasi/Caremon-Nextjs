@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 
 import Link from "next/link";
+import LayoutContainer from "@/components/layout-container/layout-container.component";
 import {
   Github,
   Instagram,
@@ -12,68 +13,70 @@ import {
   X,
 } from "lucide-react";
 
+const iconClass =
+  "text-muted-foreground hover:text-foreground transition-all duration-300 ease-in-out hover:scale-125 size-4";
+
 export default function FooterComponent(): ReactElement {
   return (
-    <footer className="text-foreground text-center">
-      <div className="flex items-center justify-center border-b border-border py-4 lg:justify-between">
-        <div className="hidden lg:block">
-          <span>ما را در شبکه‌های اجتماعی دنبال کنید</span>
+    <footer className="text-foreground mt-auto w-full flex flex-col items-center bg-background ">
+      <LayoutContainer>
+        {/* بخش شبکه‌های اجتماعی */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:justify-between sm:gap-12 border-b border-border  ">
+          <span className="text-sm text-muted-foreground order-1 sm:order-1">
+            ما را در شبکه‌های اجتماعی دنبال کنید
+          </span>
+          <div className="flex items-center gap-5 order-2 sm:order-2">
+            <a href="#" title="تلگرام" className={iconClass}>
+              <Send className="size-4" />
+            </a>
+            <a href="#" title="اینستاگرام" className={iconClass}>
+              <Instagram className="size-4" />
+            </a>
+            <a href="#" title="لینکدین" className={iconClass}>
+              <Linkedin className="size-4" />
+            </a>
+            <a href="#" title="ایکس" className={iconClass}>
+              <X className="size-4" />
+            </a>
+            <a href="#" title="گیت‌هاب" className={iconClass}>
+              <Github className="size-4" />
+            </a>
+          </div>
         </div>
-        <div className="flex">
-          <a href="#" className="mr-3">
-            <Github className="text-foreground opacity-75 transition-all duration-300 ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
-          </a>
-          <a href="#" className="mr-3">
-            <X className="text-foreground opacity-75 transition-all duration-300 ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
-          </a>
-          <a href="#" className="mr-3">
-            <Linkedin className="text-foreground opacity-75 transition-all duration-300 ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
-          </a>
-          <a href="#" className="mr-3">
-            <Instagram className="text-foreground opacity-75 transition-all duration-300 ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
-          </a>
-          <a href="#" className="mr-3">
-            <span title="تلگرام">
-              <Send className="text-foreground opacity-75 transition-all duration-300 ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
-            </span>
-          </a>
-        </div>
-      </div>
 
-      <div>
-        <div className="grid mt-4 text-center md:grid-cols-3">
-          <div className="text-left pb-8">
-            <h6 className="mb-2 flex justify-center font-semibold text-base text-foreground md:justify-start">
+        {/* بخش سه ستونی */}
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.5fr] gap-12 md:gap-16 py-10 sm:py-12 text-center md:text-start">
+          {/* آدرس ما */}
+          <div className="flex flex-col items-center md:items-start gap-4">
+            <h6 className="text-base font-semibold text-foreground">
               آدرس ما
             </h6>
-            <p className="flex justify-start text-sm text-foreground md:justify-start">
-              <span className="ml-2">
-                <MapPin className="text-foreground opacity-75 transition-all duration-300 ease-in-out hover:opacity-100 hover:scale-125 h-5 w-5" />
-              </span>
+            <p className="text-sm text-muted-foreground flex items-start gap-2 justify-center md:justify-start leading-relaxed">
+              <MapPin className="size-5 shrink-0 mt-0.5" />
               تهران، خیابان آزادی، بلوار کشاورز، پلاک ۱۲۳
             </p>
           </div>
 
-          <div className="text-left pb-8">
-            <h6 className="mb-2 flex justify-center font-semibold text-base text-foreground md:justify-start">
+          {/* تماس با ما */}
+          <div className="flex flex-col items-center md:items-start gap-4">
+            <h6 className="text-base font-semibold text-foreground">
               تماس با ما
             </h6>
-
-            <p className="flex justify-start text-sm text-foreground md:justify-start">
-              <span className="ml-2">
-                <Mail className="text-foreground opacity-75 transition-all duration-300 ease-in-out hover:opacity-100 hover:scale-125 h-5 w-5" />
-              </span>
-              info@example.com
-            </p>
-            <p className="flex justify-start text-sm text-foreground md:justify-start">
-              <span className="ml-2">
-                <Phone className="text-foreground opacity-75 transition-all duration-300 ease-in-out hover:opacity-100 hover:scale-125 h-5 w-5" />
-              </span>
-              ۰۲۱-۱۲۳۴۵۶۷۸
-            </p>
+            <div className="flex flex-col gap-4 text-sm text-muted-foreground">
+              <p className="flex items-center gap-2 justify-center md:justify-start">
+                <Mail className="size-5 shrink-0" />
+                info@example.com
+              </p>
+              <p className="flex items-center gap-2 justify-center md:justify-start">
+                <Phone className="size-5 shrink-0" />
+                ۰۲۱-۱۲۳۴۵۶۷۸
+              </p>
+            </div>
           </div>
-          <div className="text-left pb-8">
-            <p className="text-foreground mb-2">
+
+          {/* توضیحات و لینک */}
+          <div className="flex flex-col items-center md:items-start gap-4">
+            <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
               پلتفرمی یکپارچه برای اجاره خودرو و رزرو آنلاین ماشین در سراسر
               ایران
             </p>
@@ -85,7 +88,7 @@ export default function FooterComponent(): ReactElement {
             </Link>
           </div>
         </div>
-      </div>
+      </LayoutContainer>
     </footer>
   );
 }
