@@ -34,7 +34,7 @@ const SearchFormComponent = () => {
   };
 
   return (
-    <div className="flex gap-2 items-end justify-between py-4 max-md:flex-col max-md:items-stretch">
+    <div className="flex gap-2 items-end justify-center py-4 max-md:flex-col max-md:items-stretch">
       <StartDatePicker
         ref={startDateRef}
         value={startDate}

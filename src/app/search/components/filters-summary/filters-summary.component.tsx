@@ -2,15 +2,12 @@
 
 import { ReactElement, useContext, useMemo } from "react";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import CardComponent from "@/components/card-component/card-component";
 
 import { FiltersContext } from "../../providers/filter.providers";
 import {
   getActiveSearchFilters,
   isSearchFiltersEmpty,
-  formatFilterDisplayValue,
   SEARCH_FILTER_LABELS,
   SearchFilterKey,
 } from "@/app/search/utils/search-filters";
@@ -38,35 +35,30 @@ export default function FiltersSummaryComponent(): ReactElement | null {
   }
 
   return (
-    <Card>
-      <CardContent className="p-4">
+    <CardComponent>
       <div className="flex flex-col gap-4">
-        <div className="text-lg font-semibold">فیلترهای فعال</div>
+        <div className="text-lg font-semibold">Active filters</div>
 
-        <Button
+        <button
           type="button"
-          variant="outline"
-          size="sm"
-          className="self-end"
           onClick={removeAllButtonClickHandler}
+          className="self-end px-4 py-2 bg-transparent text-[var(--color-primary)] border border-[var(--color-primary)] rounded-md hover:bg-[var(--color-primary)] hover:text-[var(--color-primary-opposite)] transition-colors"
         >
-          پاک کردن همه
-        </Button>
+          Clear all
+        </button>
 
         <ul className="flex flex-wrap gap-2 list-none">
           {activeFilters.map((filter) => (
-            <Badge
+            <li
               key={filter.key}
-              variant="secondary"
-              className="cursor-pointer hover:bg-accent/80 transition-colors"
               onClick={() => filterClickHandler(filter.key)}
+              className="px-3 py-1 bg-[var(--color-surface-400)] text-[var(--color-text-400)] rounded-md cursor-pointer hover:bg-[var(--color-surface-300)] transition-colors"
             >
-              {SEARCH_FILTER_LABELS[filter.key]}: {formatFilterDisplayValue(filter.key, filter.value)}
-            </Badge>
+              {SEARCH_FILTER_LABELS[filter.key]}: {filter.value}
+            </li>
           ))}
         </ul>
       </div>
-      </CardContent>
-    </Card>
+    </CardComponent>
   );
 }
