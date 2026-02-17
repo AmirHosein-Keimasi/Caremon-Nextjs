@@ -3,9 +3,11 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Loader2Icon } from "lucide-react";
 import { useUserProfileStore } from "@/store/userProfileStore";
 import { tokenUtils } from "@/lib/api-client";
-import Spinner from "@/components/Spinner/Spinner";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 import InputField from "../../components/normal-input/normal-input.component";
 import PasswordInput from "../../components/password-input/password-input.component";
@@ -70,9 +72,9 @@ export default function SigninForm() {
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
       {error && (
-        <p style={{ color: "var(--color-danger)", fontSize: "0.875rem" }}>
-          {error}
-        </p>
+        <Alert variant="destructive">
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
       )}
 
       <InputField
@@ -99,32 +101,33 @@ export default function SigninForm() {
         </Link>
       </div>
 
-      <button
+      <Button
         type="submit"
-        className="w-full py-3 rounded-[var(--border-radius)] bg-[var(--color-primary)] text-[var(--color-primary-opposite)] font-medium uppercase border-none cursor-pointer transition-[background-color] duration-[var(--animation-duration-normal)] ease-in-out shadow-[var(--shadow-400)] hover:bg-[var(--color-primary-lighter)]"
+        className="w-full"
         disabled={isLoading}
       >
         {isLoading ? (
           <>
-            <Spinner size={18} />
+            <Loader2Icon className="size-4 animate-spin" />
             <span>در حال ورود...</span>
           </>
         ) : (
           "ورود"
         )}
-      </button>
+      </Button>
 
-      <div className="flex items-center my-4 text-[var(--color-text-400)] before:content-[''] before:flex-1 before:border-t before:border-[var(--color-border)] before:mx-2 after:content-[''] after:flex-1 after:border-t after:border-[var(--color-border)] after:mx-2">
+      <div className="flex items-center my-4 text-muted-foreground before:content-[''] before:flex-1 before:border-t before:border-border before:mx-2 after:content-[''] after:flex-1 after:border-t after:border-border after:mx-2">
         <span className="px-2 font-semibold">یا</span>
       </div>
 
-      <button
+      <Button
         type="button"
-        className="w-full py-3 flex justify-center items-center gap-2 bg-[#4285f4] text-white border-none rounded-[var(--border-radius)] cursor-pointer transition-[background-color] duration-[var(--animation-duration-normal)] ease-in-out shadow-[var(--shadow-400)] hover:bg-[#357ae8]"
+        variant="outline"
+        className="w-full bg-[#4285f4] text-white hover:bg-[#357ae8] hover:text-white"
         disabled
       >
         ورود با گوگل (به زودی)
-      </button>
+      </Button>
 
       <p className="text-center text-sm text-[var(--color-text-400)]">
         حساب کاربری ندارید؟{" "}

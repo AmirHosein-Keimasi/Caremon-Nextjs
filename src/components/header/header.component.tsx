@@ -1,15 +1,14 @@
 "use client";
 
 import { ReactElement } from "react";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { Button } from "@/components/ui/button";
 import DarkModeToggleComponent from "../dark-mode-toggle/dark-mode-toggle.component";
 import UserPanel from "./UserPanel";
 
 import clsx from "clsx";
-
 import useAuth from "@/utils/useAuth";
 
 const links = [
@@ -46,12 +45,9 @@ export default function HeaderComponent(): ReactElement {
           <UserPanel />
         </div>
       ) : (
-        <Link
-          href="/auth/signin"
-          className="bg-transparent text-[var(--color-primary)] ms-auto px-4 py-2 border border-current rounded-[var(--border-radius)] font-bold cursor-pointer hover:bg-[var(--color-primary)] hover:text-[var(--color-primary-opposite)]"
-        >
-          ورود | ثبت‌نام
-        </Link>
+        <Button variant="outline" asChild className="ms-auto">
+          <Link href="/auth/signin">ورود | ثبت‌نام</Link>
+        </Button>
       )}
 
       <DarkModeToggleComponent />

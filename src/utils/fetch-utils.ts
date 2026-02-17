@@ -1,4 +1,4 @@
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 type FetchDataType<T> = T | { error: string };
 

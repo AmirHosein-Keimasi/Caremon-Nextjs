@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import InputField from "../components/normal-input/normal-input.component";
 
 export default function ForgotPasswordPage() {
@@ -46,17 +48,19 @@ export default function ForgotPasswordPage() {
           </p>
 
           {errorMessage && (
-            <p className="text-center bg-[var(--color-danger)] py-4 mb-6 rounded-[var(--border-radius)] text-[var(--color-gray-99)] text-[var(--fz-300)]">
-              {errorMessage}
-            </p>
+            <Alert variant="destructive" className="mb-6">
+              <AlertDescription>{errorMessage}</AlertDescription>
+            </Alert>
           )}
 
           {status === "success" && (
-            <p className="text-center bg-[var(--color-success)] py-4 mb-6 rounded-[var(--border-radius)] text-white text-[var(--fz-300)]">
-              اگر حساب فعالی با این ایمیل وجود داشته باشد، لینک بازیابی برای شما
-              ارسال خواهد شد. این بخش فعلاً به بک‌اند متصل نیست و در نسخه‌های
-              بعدی تکمیل می‌شود.
-            </p>
+            <Alert className="mb-6 bg-[var(--color-success)] text-white border-0">
+              <AlertDescription>
+                اگر حساب فعالی با این ایمیل وجود داشته باشد، لینک بازیابی برای شما
+                ارسال خواهد شد. این بخش فعلاً به بک‌اند متصل نیست و در نسخه‌های
+                بعدی تکمیل می‌شود.
+              </AlertDescription>
+            </Alert>
           )}
 
           <InputField
@@ -72,13 +76,13 @@ export default function ForgotPasswordPage() {
             }
           />
 
-          <button
+          <Button
             type="submit"
-            className="w-full py-3 rounded-[var(--border-radius)] bg-[var(--color-primary)] text-[var(--color-primary-opposite)] font-medium uppercase border-none cursor-pointer transition-[background-color] duration-[var(--animation-duration-normal)] ease-in-out shadow-[var(--shadow-400)] hover:bg-[var(--color-primary-lighter)]"
+            className="w-full"
             disabled={status === "submitting"}
           >
             {status === "submitting" ? "در حال ارسال..." : "ارسال لینک بازیابی"}
-          </button>
+          </Button>
 
           <p className="text-right text-[var(--color-text-400)] text-[var(--fz-300)]">
             رمز عبور را به یاد آوردید؟{" "}

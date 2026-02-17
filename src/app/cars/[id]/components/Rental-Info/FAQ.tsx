@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import { CarsModel } from "@/models/cars.model";
+import Accordion from "@/components/Accordion/Accordion.component";
 
 type Props = PropsWithChildren & {
   car: CarsModel;
@@ -33,16 +34,10 @@ const FAQ = ({ car }: Props) => {
 
   return (
     <section className="mb-12">
-      <h2 className="text-2xl text-[var(--color-text-700)] mb-6 pb-2 border-b-2 border-[var(--color-primary)] max-md:text-xl">سؤالات متداول درباره {car.name}</h2>
-
-      <div className="flex flex-col gap-6">
-        {faqItems.map((item, index) => (
-          <div key={index} className="bg-[var(--color-surface-400)] p-6 rounded-[var(--border-radius)] shadow-[var(--shadow-400)]">
-            <h3 className="text-xl text-[var(--color-text-700)] mb-3 font-semibold">{item.question}</h3>
-            <p className="text-[var(--color-text-400)] leading-relaxed">{item.answer}</p>
-          </div>
-        ))}
-      </div>
+      <h2 className="text-2xl text-[var(--color-text-700)] mb-6 pb-2 border-b-2 border-[var(--color-primary)] max-md:text-xl">
+        سؤالات متداول درباره {car.name}
+      </h2>
+      <Accordion items={faqItems} />
     </section>
   );
 };

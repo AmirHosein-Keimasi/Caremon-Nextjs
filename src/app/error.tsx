@@ -1,9 +1,9 @@
 "use client";
 
 import { ReactElement } from "react";
-
 import Image from "next/image";
 
+import { Button } from "@/components/ui/button";
 import errorImage from "@/assets/illustrations/errorImage.png";
 
 type Props = {
@@ -22,12 +22,9 @@ export default function Error({ error, reset }: Props): ReactElement {
           بگیرید.
         </p>
         <div className="[grid-area:actions] col-span-2">
-          <button
-            onClick={reset}
-            className="bg-[var(--color-primary)] text-[var(--color-primary-opposite)] px-8 py-2 border-none rounded-[var(--border-radius)] text-base font-black mt-4 cursor-pointer"
-          >
+          <Button onClick={reset} className="mt-4">
             تلاش مجدد
-          </button>
+          </Button>
         </div>
       </div>
       <div className="[grid-area:visuals] object-contain">

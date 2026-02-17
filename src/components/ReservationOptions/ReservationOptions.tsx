@@ -1,9 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
+import { Loader2Icon } from "lucide-react";
 import { CarsModel } from "@/models/cars.model";
 import { useAddToCart } from "@/hooks/useAddToCart";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface ReservationOptionsProps {
   car: CarsModel;
@@ -156,14 +161,15 @@ export default function ReservationOptions({
             </select>
           </div>
 
-          <button
+          <Button
             type="button"
+            variant="outline"
+            size="icon"
             onClick={handleLocationSwap}
-            className="p-3 border border-[var(--color-gray-80)] bg-[var(--color-surface-300)] rounded cursor-pointer text-xl transition-all text-[var(--color-gray-99)] hover:bg-[var(--color-surface-300)] hover:border-[var(--color-primary-darkeMod)]"
             title="تعویض مکان"
           >
             ⇄
-          </button>
+          </Button>
 
           <div className="flex flex-col gap-2">
             <label className="font-medium text-[var(--color-gray-99)] text-sm">محل تحویل</label>
@@ -190,25 +196,24 @@ export default function ReservationOptions({
         <h4 className="m-0 mb-4 text-lg text-[var(--color-gray-99)] font-semibold">خدمات اضافی</h4>
 
         <div className="flex flex-col gap-4">
-          <label className="flex items-center gap-3 cursor-pointer text-base text-[var(--color-gray-99)]">
-            <input
-              type="checkbox"
+          <div className="flex items-center gap-3">
+            <Checkbox
+              id="withDriver"
               checked={withDriver}
-              onChange={(e) => setWithDriver(e.target.checked)}
-              className="w-5 h-5 cursor-pointer"
+              onCheckedChange={(checked) => setWithDriver(!!checked)}
             />
-            <span>درخواست راننده</span>
-          </label>
+            <Label htmlFor="withDriver" className="cursor-pointer">درخواست راننده</Label>
+          </div>
 
           {withDriver && (
             <div className="flex flex-col gap-2 p-4 bg-[var(--color-surface-300)] rounded">
-              <label className="font-medium text-[var(--color-gray-99)]">تعداد روزهای راننده</label>
-              <input
+              <Label htmlFor="driverDays">تعداد روزهای راننده</Label>
+              <Input
+                id="driverDays"
                 type="number"
-                min="1"
+                min={1}
                 value={driverDays}
-                onChange={(e) => setDriverDays(parseInt(e.target.value))}
-                className="p-3 border border-[var(--color-gray-80)] rounded bg-[var(--color-surface-300)] text-[var(--color-gray-99)]"
+                onChange={(e) => setDriverDays(parseInt(e.target.value) || 0)}
               />
             </div>
           )}
@@ -222,15 +227,18 @@ export default function ReservationOptions({
 
           <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-4 max-[600px]:grid-cols-1">
             {availableOptions.map((option) => (
-              <label key={option.key} className="flex items-center gap-2 p-3 bg-[var(--color-surface-300)] border border-[var(--color-gray-80)] rounded cursor-pointer transition-all hover:bg-[var(--color-surface-400)] hover:border-[var(--color-primary-darkeMod)]">
-                <input
-                  type="checkbox"
+              <div
+                key={option.key}
+                className="flex items-center gap-2 p-3 bg-[var(--color-surface-300)] border border-[var(--color-gray-80)] rounded cursor-pointer transition-all hover:bg-[var(--color-surface-400)] hover:border-[var(--color-primary-darkeMod)]"
+                onClick={() => toggleOption(option.label)}
+              >
+                <Checkbox
+                  id={option.key}
                   checked={selectedOptions.includes(option.label)}
-                  onChange={() => toggleOption(option.label)}
-                  className="w-[18px] h-[18px] cursor-pointer"
+                  onCheckedChange={() => toggleOption(option.label)}
                 />
-                <span className="text-[var(--color-gray-99)] font-medium">{option.label}</span>
-              </label>
+                <Label htmlFor={option.key} className="cursor-pointer font-medium">{option.label}</Label>
+              </div>
             ))}
           </div>
         </div>
@@ -275,9 +283,16 @@ export default function ReservationOptions({
 
       {/* Action Buttons */}
       <div className="flex gap-4 mt-8">
-        <button type="submit" disabled={loading} className="flex-1 p-4 bg-[#4caf50] text-white border-none rounded-md text-base font-semibold cursor-pointer transition-all hover:bg-[#45a049] disabled:bg-[#ccc] disabled:cursor-not-allowed disabled:opacity-60">
-          {loading ? "در حال اضافه کردن..." : "اضافه به سبد خرید"}
-        </button>
+        <Button type="submit" disabled={loading} className="flex-1 bg-[#4caf50] hover:bg-[#45a049]">
+          {loading ? (
+            <>
+              <Loader2Icon className="size-4 animate-spin" />
+              در حال اضافه کردن...
+            </>
+          ) : (
+            "اضافه به سبد خرید"
+          )}
+        </Button>
       </div>
     </form>
   );

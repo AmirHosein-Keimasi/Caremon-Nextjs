@@ -1,16 +1,16 @@
 "use client";
 import React, { useState, useRef } from "react";
 import { DateObject } from "react-multi-date-picker";
-
 import Link from "next/link";
 
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import StartDatePicker from "../calendar/StartDatePicker-component";
 import EndDatePicker from "../calendar/EndDatePicker-component";
-
 import SelectLocationComponent from "../selectLocationComponent/SelectLocation.component";
 import SelectHourComponent from "../selectHourComponent/selectHour.component";
 
-import MingcuteCheckboxFill from "@/icons/MingcuteCheckboxFill";
+import { Check } from "lucide-react";
 
 const SearchFormComponent = () => {
   const [startDate, setStartDate] = useState<DateObject | null>(null);
@@ -57,18 +57,15 @@ const SearchFormComponent = () => {
       </div>
 
       <div className="flex flex-col gap-2 min-w-[10rem] flex-1 me-8">
-        <label className="text-[var(--fz-300)] leading-5 font-medium">
-          موقعیت
-        </label>
+        <Label className="text-[var(--fz-300)]">موقعیت</Label>
         <SelectLocationComponent />
       </div>
 
-      <Link
-        className="px-8 py-2 rounded-[var(--border-radius)] text-[var(--color-default-background)] text-center font-bold flex items-center justify-center gap-2 mt-2 transition-[color] duration-[var(--animation-duration-normal)] bg-[var(--color-primary)] text-[var(--color-gray-93)]"
-        href={`/search`}
-      >
-        همین الان رزرو کنید <MingcuteCheckboxFill />
-      </Link>
+      <Button asChild className="mt-2">
+        <Link href="/search" className="gap-2">
+          همین الان رزرو کنید <Check />
+        </Link>
+      </Button>
     </div>
   );
 };

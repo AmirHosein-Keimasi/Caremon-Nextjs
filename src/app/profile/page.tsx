@@ -2,7 +2,11 @@
 
 import type { ReactElement } from "react";
 import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
-import { toast } from "react-toastify";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
+import { toast } from "sonner";
 import { useUserProfileStore, UserProfileData } from "@/store/userProfileStore";
 
 const requiredFields: Array<keyof UserProfileData> = [
@@ -92,45 +96,35 @@ export default function ProfilePage(): ReactElement {
             {completionCount} از {requiredFields.length}
           </strong>
         </div>
-        <div className="w-full h-2 rounded-full bg-[rgba(130,138,156,0.26)] overflow-hidden mb-5">
-          <div
-            className="h-full rounded-[inherit] bg-gradient-to-r from-[#1f7a4d] to-[#2ca56b] transition-[width] duration-300 ease-in-out"
-            style={{
-              width: `${(completionCount / requiredFields.length) * 100}%`,
-            }}
-          />
-        </div>
+        <Progress
+          value={(completionCount / requiredFields.length) * 100}
+          className="mb-5 h-2"
+        />
 
         <form
           className="grid grid-cols-2 gap-[0.95rem] max-[720px]:grid-cols-1"
           onSubmit={handleSubmit}
         >
           {requiredFields.map((field) => (
-            <div key={field} className="flex flex-col gap-[0.45rem]">
-              <label
-                htmlFor={field}
-                className="text-[var(--color-gray-99)] text-[0.92rem]"
-              >
-                {fieldMeta[field].label}
-              </label>
-              <input
+            <div key={field} className="flex flex-col gap-2">
+              <Label htmlFor={field}>{fieldMeta[field].label}</Label>
+              <Input
                 id={field}
                 type={fieldMeta[field].type}
                 name={field}
                 value={formData[field]}
                 onChange={handleInputChange}
                 placeholder={fieldMeta[field].placeholder}
-                className="w-full border-none rounded-[10px] bg-[var(--color-surface-300)] shadow-[inset_0_0_0_1px_rgba(136,145,164,0.34)] text-[var(--color-gray-99)] py-[0.7rem] px-[0.8rem] text-[0.96rem] font-inherit focus:outline-none focus:shadow-[inset_0_0_0_2px_rgba(31,122,77,0.45)]"
               />
             </div>
           ))}
 
-          <button
-            className="col-span-2 max-[720px]:col-span-1 mt-[0.45rem] border-none rounded-xl bg-[#1f7a4d] text-white py-[0.8rem] px-4 text-[0.96rem] font-semibold cursor-pointer transition-[background] duration-200 ease-in-out hover:bg-[#19623f]"
+          <Button
             type="submit"
+            className="col-span-2 max-[720px]:col-span-1 mt-2 bg-[#1f7a4d] hover:bg-[#19623f]"
           >
             ذخیره اطلاعات پروفایل
-          </button>
+          </Button>
         </form>
       </section>
     </main>

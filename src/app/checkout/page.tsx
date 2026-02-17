@@ -2,10 +2,14 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { Loader2Icon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useCartStore } from "@/store/cartStore";
 import { useUserProfileStore, UserProfileData } from "@/store/userProfileStore";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { toPersianOptionLabel } from "@/utils/rentalOptions";
 
 const requiredFields: Array<keyof UserProfileData> = [
@@ -224,15 +228,14 @@ export default function CheckoutPage() {
                 >
                   {missingFields.map((field) => (
                     <div key={field} className="flex flex-col gap-2">
-                      <label htmlFor={field} className="text-[var(--color-gray-99)] text-sm">{fieldMeta[field].label}</label>
-                      <input
+                      <Label htmlFor={field}>{fieldMeta[field].label}</Label>
+                      <Input
                         id={field}
                         type={fieldMeta[field].type}
                         name={field}
                         value={customerInfo[field]}
                         onChange={handleInputChange}
                         placeholder={fieldMeta[field].placeholder}
-                        className="border-none rounded-[10px] bg-[var(--color-surface-300)] shadow-[inset_0_0_0_1px_rgba(136,145,164,0.34)] text-[var(--color-gray-99)] text-sm font-inherit px-3 py-3 focus:outline-none focus:shadow-[inset_0_0_0_2px_rgba(31,122,77,0.45)]"
                       />
                     </div>
                   ))}
@@ -285,20 +288,27 @@ export default function CheckoutPage() {
           </div>
 
           <div className="mt-3 flex flex-col gap-2">
-            <button
-              className="border-none rounded-[11px] px-4 py-3 text-sm font-semibold cursor-pointer transition-all bg-[#1f7a4d] text-white hover:bg-[#19623f] disabled:opacity-65 disabled:cursor-not-allowed"
+            <Button
+              className="bg-[#1f7a4d] hover:bg-[#19623f]"
               onClick={handleCheckout}
               disabled={loading}
             >
-              {loading ? "در حال پردازش..." : "تایید و ادامه برای پرداخت"}
-            </button>
-            <button
-              className="border-none rounded-[11px] px-4 py-3 text-sm font-semibold cursor-pointer transition-all bg-[rgba(130,138,156,0.2)] text-[var(--color-gray-99)] hover:bg-[rgba(130,138,156,0.32)] disabled:opacity-65 disabled:cursor-not-allowed"
+              {loading ? (
+                <>
+                  <Loader2Icon className="size-4 animate-spin" />
+                  در حال پردازش...
+                </>
+              ) : (
+                "تایید و ادامه برای پرداخت"
+              )}
+            </Button>
+            <Button
+              variant="outline"
               onClick={() => router.back()}
               disabled={loading}
             >
               بازگشت
-            </button>
+            </Button>
           </div>
         </aside>
       </div>

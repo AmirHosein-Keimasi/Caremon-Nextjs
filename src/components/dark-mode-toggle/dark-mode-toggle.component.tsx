@@ -1,8 +1,8 @@
 "use client";
 import { ReactElement } from "react";
 import { useState, useEffect } from "react";
-import { MoonIcon } from "@/icons/MoonIcon";
-import { SunIcon } from "@/icons/SunIcon";
+import { Button } from "@/components/ui/button";
+import { Moon, Sun } from "lucide-react";
 
 export default function DarkModeToggleComponent(): ReactElement {
   const [darkMode, setDarkMode] = useState(true);
@@ -26,8 +26,10 @@ export default function DarkModeToggleComponent(): ReactElement {
   };
 
   return (
-    <button
-      className="w-16 h-8 flex items-center transition-all duration-300 ease-in-out rtl outline-none bg-transparent text-[var(--color-primary)] border border-current rounded-[var(--border-radius)] cursor-pointer hover:bg-[var(--color-primary)] hover:text-[var(--color-primary-opposite)]"
+    <Button
+      variant="outline"
+      size="sm"
+      className="w-16 h-8 flex items-center p-0 overflow-hidden"
       onClick={toggleDarkMode}
     >
       <div
@@ -37,8 +39,8 @@ export default function DarkModeToggleComponent(): ReactElement {
             : "bg-[#ffd9009c] translate-x-0"
         }`}
       >
-        {darkMode ? <MoonIcon></MoonIcon> : <SunIcon></SunIcon>}
+        {darkMode ? <Moon /> : <Sun />}
       </div>
-    </button>
+    </Button>
   );
 }

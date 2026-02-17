@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-import MingcuteStarFill from "@/icons/MingcuteStarFill";
+import { Star } from "lucide-react";
 
 import { CommentModel } from "@/models/comment.model";
 
@@ -32,7 +32,7 @@ export default function CommentComponent({ comment }: Props): ReactElement {
           </div>
           <div className="[grid-area:rating] rounded-[var(--border-radius)] text-[var(--fz-500)] font-bold">
             {comment.rating}{" "}
-            <MingcuteStarFill className="text-[var(--color-star)] mb-[-0.15em]" />
+            <Star className="text-[var(--color-star)] mb-[-0.15em]" />
           </div>
         </div>
         <div className="whitespace-pre-line">{comment.text}</div>

@@ -6,6 +6,7 @@
  */
 
 import React, { type ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 import { isApiException } from "@/lib/exceptions";
 import type { ApiException } from "@/lib/exceptions";
 
@@ -85,12 +86,13 @@ function DefaultErrorFallback({
             <pre>{JSON.stringify(apiError.details, null, 2)}</pre>
           </div>
         )}
-        <button
+        <Button
           onClick={reset}
-          className="w-full rounded bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+          variant="destructive"
+          className="w-full"
         >
           تلاش دوباره
-        </button>
+        </Button>
       </div>
     </div>
   );

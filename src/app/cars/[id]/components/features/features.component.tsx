@@ -1,6 +1,6 @@
 import React from "react";
 import CardComponent from "@/components/card-component/card-component";
-import MingcuteCarLine from "@/icons/MingcuteCarLine";
+import { Car } from "lucide-react";
 
 type FeaturesProps = {
   features: {
@@ -53,7 +53,7 @@ const Features: React.FC<FeaturesProps> = ({ features }) => {
     <CardComponent>
       <div>
         <div className="text-[var(--fz-500)] font-bold flex items-center mb-2">
-          <MingcuteCarLine />
+          <Car />
           امکانات
         </div>
         <div className="flex flex-wrap gap-2">

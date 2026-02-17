@@ -8,7 +8,10 @@ import {
   useState,
 } from "react";
 
-import CardComponent from "@/components/card-component/card-component";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 import { FiltersContext } from "../../providers/filter.providers";
 import {
@@ -47,33 +50,31 @@ export default function SavedFiltersComponent(): ReactElement {
   };
 
   return (
-    <CardComponent>
+    <Card>
+      <CardContent className="p-4">
       <div className="grid gap-3">
         <div className="flex items-center justify-between gap-2">
           <div className="font-black">Saved filters</div>
-          <div className="bg-[var(--color-surface-700)] text-[var(--color-text-700)] rounded-full px-2.5 py-0.5 text-[var(--fz-300)]">
-            {activeFiltersCount} active
-          </div>
+          <Badge variant="secondary">{activeFiltersCount} active</Badge>
         </div>
 
         <div className="grid grid-cols-[1fr_auto] gap-2 max-[48rem]:grid-cols-1">
-          <input
+          <Input
             type="text"
             value={presetName}
             onChange={inputChangeHandler}
             maxLength={40}
             placeholder="Preset name (optional)"
-            className="bg-[var(--color-surface-700)] text-[var(--color-text-400)] border border-[var(--color-border)] rounded-[var(--border-radius)] px-2.5 py-1.5 focus-visible:border-[var(--color-primary)] focus-visible:outline-none"
           />
 
-          <button
+          <Button
             type="button"
+            size="sm"
             onClick={saveClickHandler}
-            className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-primary)] text-[var(--color-primary-opposite)] px-2.5 py-1.5 disabled:hover:brightness-100"
             disabled={activeFiltersCount === 0}
           >
             Save
-          </button>
+          </Button>
         </div>
 
         {!presets.length && (
@@ -110,36 +111,39 @@ export default function SavedFiltersComponent(): ReactElement {
                   </div>
 
                   <div className="flex gap-1.5">
-                    <button
+                    <Button
                       type="button"
-                      className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-primary)] text-[var(--color-primary-opposite)] px-2 py-1 text-[var(--fz-300)] disabled:hover:brightness-100"
+                      size="sm"
                       onClick={() => applyClickHandler(preset)}
                     >
                       Apply
-                    </button>
+                    </Button>
 
-                    <button
+                    <Button
                       type="button"
-                      className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-danger)] text-[var(--color-gray-93)] px-2 py-1 text-[var(--fz-300)] disabled:hover:brightness-100"
+                      size="sm"
+                      variant="destructive"
                       onClick={() => removePreset(preset.id)}
                     >
                       Delete
-                    </button>
+                    </Button>
                   </div>
                 </li>
               ))}
             </ul>
 
-            <button
+            <Button
               type="button"
-              className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-danger)] text-[var(--color-gray-93)] px-2.5 py-1.5 disabled:hover:brightness-100"
+              size="sm"
+              variant="destructive"
               onClick={clearPresets}
             >
               Clear presets
-            </button>
+            </Button>
           </>
         )}
       </div>
-    </CardComponent>
+      </CardContent>
+    </Card>
   );
 }

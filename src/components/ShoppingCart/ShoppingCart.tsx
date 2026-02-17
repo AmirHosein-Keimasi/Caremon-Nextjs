@@ -3,6 +3,9 @@
 import React from "react";
 import { useCartStore } from "@/store/cartStore";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 /**
  * Shopping Cart Component (Updated for Single Rental)
@@ -24,15 +27,14 @@ export default function ShoppingCart() {
 
   if (!currentRental) {
     return (
-      <div className="text-center py-16 px-8 bg-[var(--color-surface-300)] rounded-lg">
-        <p className="text-lg text-[var(--color-gray-70)] mb-6">سبد خرید خالی است</p>
-        <button
-          onClick={() => router.push("/search")}
-          className="px-8 py-3 bg-[var(--color-surface-300)] text-[var(--color-gray-99)] border border-[var(--color-gray-80)] rounded-md hover:bg-[var(--color-surface-400)] hover:border-[var(--color-gray-70)] transition-all"
-        >
-          جستجوی خودرو
-        </button>
-      </div>
+      <Card className="text-center py-16 px-8">
+        <CardContent>
+          <p className="text-lg text-muted-foreground mb-6">سبد خرید خالی است</p>
+          <Button variant="outline" onClick={() => router.push("/search")}>
+            جستجوی خودرو
+          </Button>
+        </CardContent>
+      </Card>
     );
   }
 
@@ -41,7 +43,9 @@ export default function ShoppingCart() {
       <h2 className="text-2xl mb-8 text-[var(--color-gray-99)]">رزرو فعلی</h2>
 
       <div className="flex flex-col gap-6 mb-8">
-        <div className="grid grid-cols-[120px_1fr_200px_120px_50px] gap-6 items-center p-6 bg-[var(--color-surface-400)] border border-[var(--color-gray-80)] rounded-lg shadow-[var(--shadow-400)] max-lg:grid-cols-1 max-lg:gap-4">
+        <Card>
+          <CardContent className="p-6">
+        <div className="grid grid-cols-[120px_1fr_200px_120px_50px] gap-6 items-center max-lg:grid-cols-1 max-lg:gap-4">
           <div className="relative w-[120px] h-[100px] overflow-hidden rounded bg-[var(--color-surface-300)]">
             <img
               src={currentRental.car.img}
@@ -63,7 +67,7 @@ export default function ShoppingCart() {
               </span>
             </div>
             {currentRental.withDriver && (
-              <span className="inline-block px-3 py-1 bg-[rgba(33,150,243,0.1)] text-[var(--color-primary-darkeMod)] rounded-xl text-sm mr-2">راننده شامل</span>
+              <Badge variant="secondary" className="mr-2">راننده شامل</Badge>
             )}
             {currentRental.selectedOptions.length > 0 && (
               <div className="flex gap-2 mt-2 flex-wrap">
@@ -96,14 +100,18 @@ export default function ShoppingCart() {
             </div>
           </div>
 
-          <button
-            className="w-10 h-10 border-none bg-[rgba(220,53,69,0.1)] text-[#dc3545] rounded cursor-pointer text-xl transition-all hover:bg-[rgba(220,53,69,0.2)]"
+          <Button
+            variant="destructive"
+            size="icon"
+            className="w-10 h-10"
             onClick={handleClearRental}
             title="حذف از سبد"
           >
             ✕
-          </button>
+          </Button>
         </div>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="bg-[var(--color-surface-300)] p-6 rounded-lg mb-8 border-r-4 border-[var(--color-primary-darkeMod)]">
@@ -118,15 +126,12 @@ export default function ShoppingCart() {
       </div>
 
       <div className="flex gap-4 justify-center flex-wrap">
-        <button
-          onClick={() => router.push("/search")}
-          className="px-8 py-3 bg-[var(--color-surface-300)] text-[var(--color-gray-99)] border border-[var(--color-gray-80)] rounded-md font-semibold cursor-pointer transition-all hover:bg-[var(--color-surface-400)] hover:border-[var(--color-gray-70)]"
-        >
+        <Button variant="outline" onClick={() => router.push("/search")}>
           جستجوی خودروهای دیگر
-        </button>
-        <button onClick={handleCheckout} className="px-8 py-3 bg-[#4caf50] text-white border-none rounded-md font-semibold cursor-pointer transition-all hover:bg-[#45a049]">
+        </Button>
+        <Button onClick={handleCheckout} className="bg-[#4caf50] hover:bg-[#45a049]">
           ادامه برای پرداخت
-        </button>
+        </Button>
       </div>
     </div>
   );

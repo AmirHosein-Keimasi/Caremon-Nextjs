@@ -1,9 +1,6 @@
 import React from "react";
 
-import MingcuteUser2Fill from "@/icons/MingcuteUser2Fill";
-import MingcuteSuitcaseFill from "@/icons/MingcuteSuitcaseFill";
-import MingcuteCarWindowFill from "@/icons/MingcuteCarWindowFill";
-import MaterialSymbolsAutoTransmission from "@/icons/MaterialSymbolsAutoTransmission";
+import { Briefcase, CarFront, Gauge, Users } from "lucide-react";
 
 interface CarInfoProps {
   doors: number;
@@ -33,19 +30,19 @@ const CarInfoIcon: React.FC<CarInfoProps> = ({
 }) => (
   <div className="flex justify-center items-center gap-8 text-[var(--fz-400)] flex-wrap text-[var(--color-text-400)]">
     <span>
-      <MingcuteCarWindowFill className="text-[var(--color-primary)]" />{" "}
+      <CarFront className="text-[var(--color-primary)]" />{" "}
       {toPersianNumbers(doors)}
     </span>
     <span>
-      <MingcuteUser2Fill className="text-[var(--color-primary)]" />{" "}
+      <Users className="text-[var(--color-primary)]" />{" "}
       {toPersianNumbers(passengers)}
     </span>
     <span>
-      <MingcuteSuitcaseFill className="text-[var(--color-primary)]" />{" "}
+      <Briefcase className="text-[var(--color-primary)]" />{" "}
       {toPersianNumbers(luggage)}
     </span>
     <span>
-      <MaterialSymbolsAutoTransmission className="text-[var(--color-primary)]" />{" "}
+      <Gauge className="text-[var(--color-primary)]" />{" "}
       {toPersianNumbers(transmission)}
     </span>
   </div>

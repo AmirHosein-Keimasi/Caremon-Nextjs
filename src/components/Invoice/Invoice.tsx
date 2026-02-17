@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { Button } from "@/components/ui/button";
 import { Reservation, ReservationStatus } from "@/store/reservationStore";
 import { toPersianOptionLabel } from "@/utils/rentalOptions";
 
@@ -64,9 +65,9 @@ export default function Invoice({
   return (
     <div className="rtl max-w-[900px] mx-auto p-8 print:p-0">
       {showPrintButton && (
-        <button onClick={handlePrint} className="block mb-8 px-8 py-3 bg-[var(--color-primary-darkeMod)] text-white border-none rounded-md text-base font-semibold cursor-pointer transition-all hover:bg-[var(--color-primary)] print:hidden">
+        <Button onClick={handlePrint} className="block mb-8 print:hidden">
           چاپ فاکتور
-        </button>
+        </Button>
       )}
 
       <div className="bg-[var(--color-surface-400)] p-8 border border-[var(--color-gray-80)] rounded-lg shadow-[var(--shadow-400)] print:shadow-none print:border-none">

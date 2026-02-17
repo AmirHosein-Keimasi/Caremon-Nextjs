@@ -4,40 +4,38 @@ import { MouseEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
+import { Button } from "@/components/ui/button";
 import ConfirmationDialog from "../confirmation-dialog/confirmation-dialog.component";
 
 export default function LogOutButton() {
   const router = useRouter();
   const [showDialog, setShowDialog] = useState(false);
 
-  const signOutButtonHandler = async (e: MouseEvent<HTMLAnchorElement>) => {
+  const signOutButtonHandler = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowDialog(true);
   };
 
   const confirmLogout = async () => {
-    // فعلاً بدون اندپوینت بک‌اند، فقط کوکی نمایشی را پاک می‌کنیم
     Cookies.remove("token");
-
-    toast.success("خروج با موفقیت انجام شد", {
-      position: "bottom-right",
-    });
-
+    toast.success("خروج با موفقیت انجام شد");
     setShowDialog(false);
     router.push("/");
   };
 
   return (
     <>
-      <Link
-        href="/auth/signout"
-        className="bg-transparent text-[var(--color-danger)] ms-auto px-4 py-2 border border-[var(--color-danger)] rounded-[var(--border-radius)] font-bold cursor-pointer hover:bg-[var(--color-danger)] hover:text-[var(--color-primary-opposite)]"
-        onClick={signOutButtonHandler}
-      >
-        خروج
-      </Link>
+      <Button variant="outline" asChild>
+        <Link
+          href="/auth/signout"
+          className="text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground"
+          onClick={signOutButtonHandler}
+        >
+          خروج
+        </Link>
+      </Button>
 
       <ConfirmationDialog
         isOpen={showDialog}

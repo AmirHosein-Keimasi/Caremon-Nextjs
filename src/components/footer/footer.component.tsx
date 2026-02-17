@@ -1,13 +1,15 @@
 import { ReactElement } from "react";
 
-import MingcuteInstagramFill from "@/icons/MingcuteInstagramFill";
-import MingcuteSocialXLine from "@/icons/MingcuteSocialXLine";
-import MingcuteGithubFill from "@/icons/MingcuteGithubFill";
-import MingcuteLinkedinFill from "@/icons/MingcuteLinkedinFill";
-import MingcuteTelegramFill from "@/icons/MingcuteTelegramFill";
-import MingcuteLocationLine from "@/icons/MingcuteLocationLine";
-import MingcuteMailFill from "@/icons/MingcuteMailFill";
-import MingcutePhoneFill from "@/icons/MingcutePhoneFill";
+import {
+  Github,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  Send,
+  X,
+} from "lucide-react";
 
 export default function FooterComponent(): ReactElement {
   return (
@@ -18,19 +20,19 @@ export default function FooterComponent(): ReactElement {
         </div>
         <div className="flex">
           <a href="#" className="mr-3">
-            <MingcuteGithubFill className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
+            <Github className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
           </a>
           <a href="#" className="mr-3">
-            <MingcuteSocialXLine className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
+            <X className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
           </a>
           <a href="#" className="mr-3">
-            <MingcuteLinkedinFill className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
+            <Linkedin className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
           </a>
           <a href="#" className="mr-3">
-            <MingcuteInstagramFill className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
+            <Instagram className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
           </a>
           <a href="#" className="mr-3">
-            <MingcuteTelegramFill className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
+            <Send className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" title="Telegram" />
           </a>
         </div>
       </div>
@@ -43,7 +45,7 @@ export default function FooterComponent(): ReactElement {
             </h6>
             <p className="flex justify-start text-[var(--fz-300)] text-[var(--color-text-700)] md:justify-start">
               <span className="ml-2">
-                <MingcuteLocationLine className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-5 w-5" />
+                <MapPin className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-5 w-5" />
               </span>
               تهران، خیابان آزادی، بلوار کشاورز، پلاک ۱۲۳
             </p>
@@ -56,13 +58,13 @@ export default function FooterComponent(): ReactElement {
 
             <p className="flex justify-start text-[var(--fz-300)] text-[var(--color-text-700)] md:justify-start">
               <span className="ml-2">
-                <MingcuteMailFill className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-5 w-5" />
+                <Mail className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-5 w-5" />
               </span>
               info@example.com
             </p>
             <p className="flex justify-start text-[var(--fz-300)] text-[var(--color-text-700)] md:justify-start">
               <span className="ml-2">
-                <MingcutePhoneFill className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-5 w-5" />
+                <Phone className="text-[var(--color-text-700)] opacity-75 transition-all duration-[var(--animation-duration-normal)] ease-in-out hover:opacity-100 hover:scale-125 h-5 w-5" />
               </span>
               ۰۲۱-۱۲۳۴۵۶۷۸
             </p>

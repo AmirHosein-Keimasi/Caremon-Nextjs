@@ -1,6 +1,15 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useCartStore, RentalItem } from "@/store/cartStore";
 import {
   useReservationStore,
@@ -85,32 +94,21 @@ export default function DashboardPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-0 border-b-2 border-[var(--color-gray-80)] mb-8 bg-[var(--color-surface-400)] rounded-t-lg overflow-hidden">
-        <button
-          className={`px-8 py-4 border-none bg-[var(--color-surface-400)] text-[var(--color-gray-70)] text-base font-medium cursor-pointer transition-all relative hover:bg-[var(--color-surface-300)] hover:text-[var(--color-gray-99)] ${activeTab === "overview" ? "text-[var(--color-primary-darkeMod)] bg-[var(--color-surface-300)] border-b-[3px] border-[var(--color-primary-darkeMod)] mb-[-2px]" : ""}`}
-          onClick={() => setActiveTab("overview")}
-        >
-          نمای کلی
-        </button>
-        <button
-          className={`px-8 py-4 border-none bg-[var(--color-surface-400)] text-[var(--color-gray-70)] text-base font-medium cursor-pointer transition-all relative hover:bg-[var(--color-surface-300)] hover:text-[var(--color-gray-99)] ${activeTab === "rental" ? "text-[var(--color-primary-darkeMod)] bg-[var(--color-surface-300)] border-b-[3px] border-[var(--color-primary-darkeMod)] mb-[-2px]" : ""}`}
-          onClick={() => setActiveTab("rental")}
-        >
-          رزرو فعلی ({cartStore.currentRental ? 1 : 0})
-        </button>
-        <button
-          className={`px-8 py-4 border-none bg-[var(--color-surface-400)] text-[var(--color-gray-70)] text-base font-medium cursor-pointer transition-all relative hover:bg-[var(--color-surface-300)] hover:text-[var(--color-gray-99)] ${activeTab === "reservations" ? "text-[var(--color-primary-darkeMod)] bg-[var(--color-surface-300)] border-b-[3px] border-[var(--color-primary-darkeMod)] mb-[-2px]" : ""}`}
-          onClick={() => setActiveTab("reservations")}
-        >
-          رزروها ({stats.totalReservations})
-        </button>
-        <button
-          className={`px-8 py-4 border-none bg-[var(--color-surface-400)] text-[var(--color-gray-70)] text-base font-medium cursor-pointer transition-all relative hover:bg-[var(--color-surface-300)] hover:text-[var(--color-gray-99)] ${activeTab === "invoice" ? "text-[var(--color-primary-darkeMod)] bg-[var(--color-surface-300)] border-b-[3px] border-[var(--color-primary-darkeMod)] mb-[-2px]" : ""}`}
-          onClick={() => setActiveTab("invoice")}
-        >
-          فاکتور
-        </button>
-      </div>
+      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)} className="mb-8">
+        <TabsList className="w-full justify-start rounded-t-lg rounded-b-none h-auto p-0 bg-[var(--color-surface-400)] border-b-2 border-[var(--color-gray-80)]">
+          <TabsTrigger value="overview" className="px-8 py-4 rounded-t-lg data-[state=active]:border-b-[3px] data-[state=active]:border-[var(--color-primary-darkeMod)]">
+            نمای کلی
+          </TabsTrigger>
+          <TabsTrigger value="rental" className="px-8 py-4 rounded-t-lg data-[state=active]:border-b-[3px] data-[state=active]:border-[var(--color-primary-darkeMod)]">
+            رزرو فعلی ({cartStore.currentRental ? 1 : 0})
+          </TabsTrigger>
+          <TabsTrigger value="reservations" className="px-8 py-4 rounded-t-lg data-[state=active]:border-b-[3px] data-[state=active]:border-[var(--color-primary-darkeMod)]">
+            رزروها ({stats.totalReservations})
+          </TabsTrigger>
+          <TabsTrigger value="invoice" className="px-8 py-4 rounded-t-lg data-[state=active]:border-b-[3px] data-[state=active]:border-[var(--color-primary-darkeMod)]">
+            فاکتور
+          </TabsTrigger>
+        </TabsList>
 
       {/* Tab Content */}
       <div className="bg-[var(--color-surface-400)] rounded-b-lg p-8 shadow-[var(--shadow-400)]">
@@ -183,22 +181,22 @@ export default function DashboardPage() {
           <div className="animate-[fadeIn_0.3s_ease-in_forwards]">
             <div className="flex gap-4 items-center mb-6 p-4 bg-[var(--color-surface-300)] rounded-md">
               <label className="font-semibold text-[var(--color-gray-99)]">فیلتر بر اساس وضعیت:</label>
-              <select
+              <Select
                 value={filterStatus}
-                onChange={(e) =>
-                  setFilterStatus(e.target.value as ReservationStatus | "all")
-                }
-                className="px-4 py-2 border border-[var(--color-gray-80)] rounded bg-[var(--color-surface-400)] text-[var(--color-gray-99)] text-sm cursor-pointer"
+                onValueChange={(v) => setFilterStatus(v as ReservationStatus | "all")}
               >
-                <option value="all">همه</option>
-                <option value={ReservationStatus.PENDING}>
-                  در انتظار تایید
-                </option>
-                <option value={ReservationStatus.CONFIRMED}>تایید شده</option>
-                <option value={ReservationStatus.ACTIVE}>فعال</option>
-                <option value={ReservationStatus.COMPLETED}>تکمیل شده</option>
-                <option value={ReservationStatus.CANCELLED}>لغو شده</option>
-              </select>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">همه</SelectItem>
+                  <SelectItem value={ReservationStatus.PENDING}>در انتظار تایید</SelectItem>
+                  <SelectItem value={ReservationStatus.CONFIRMED}>تایید شده</SelectItem>
+                  <SelectItem value={ReservationStatus.ACTIVE}>فعال</SelectItem>
+                  <SelectItem value={ReservationStatus.COMPLETED}>تکمیل شده</SelectItem>
+                  <SelectItem value={ReservationStatus.CANCELLED}>لغو شده</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {filteredReservations.length > 0 ? (
@@ -230,6 +228,7 @@ export default function DashboardPage() {
           </div>
         )}
       </div>
+      </Tabs>
     </div>
   );
 }
@@ -366,12 +365,12 @@ function ReservationsList({
                 </span>
               </td>
               <td className="p-4 border-b border-[var(--color-gray-80)] text-[var(--color-gray-70)]">
-                <button
+                <Button
+                  size="sm"
                   onClick={() => onSelect(res)}
-                  className="px-4 py-2 bg-[var(--color-primary-darkeMod)] text-white border-none rounded cursor-pointer text-sm transition-all hover:bg-[var(--color-primary)]"
                 >
                   مشاهده
-                </button>
+                </Button>
               </td>
             </tr>
           ))}

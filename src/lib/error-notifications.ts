@@ -6,7 +6,7 @@
  */
 
 import { useCallback } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { isApiException, ApiErrorCode } from "@/lib/exceptions";
 import type { ApiException } from "@/lib/exceptions";
 
