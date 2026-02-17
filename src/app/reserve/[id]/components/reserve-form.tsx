@@ -105,7 +105,7 @@ export default function ReserveForm({ carId, carName }: Props): ReactElement {
     return (
       <Card>
         <CardContent className="p-8 text-center">
-          <h3 className="text-[var(--color-text-700)] mb-2">درخواست رزرو ثبت شد</h3>
+          <h3 className="text-foreground mb-2">درخواست رزرو ثبت شد</h3>
           <p className="text-muted-foreground text-sm">کارشناسان ما به زودی با شما تماس خواهند گرفت.</p>
         </CardContent>
       </Card>
@@ -116,7 +116,7 @@ export default function ReserveForm({ carId, carName }: Props): ReactElement {
     <Card>
       <CardContent className="p-4">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <h3 className="text-lg font-semibold text-[var(--color-text-700)]">فرم رزرو</h3>
+          <h3 className="text-lg font-semibold text-foreground">فرم رزرو</h3>
 
           {error && (
             <Alert variant="destructive">

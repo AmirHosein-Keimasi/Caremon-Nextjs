@@ -5,14 +5,14 @@ type Props = PropsWithChildren & {
 const InsuranceInfo = ({ carName }: Props) => {
   return (
     <section className="mb-12">
-      <h2 className="text-2xl text-[var(--color-text-700)] mb-6 pb-2 max-md:text-xl">
+      <h2 className="text-2xl text-foreground mb-6 pb-2 max-md:text-xl">
         بیمه اجاره&nbsp;
         {carName}
         &nbsp; در تهران
       </h2>
 
       <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 max-md:grid-cols-1">
-        <div className="p-6 rounded-[var(--border-radius)] shadow-[var(--shadow-400)] bg-[var(--color-surface-700)]">
+        <div className="p-6 rounded-lg shadow-md bg-card">
           <h3 className="text-xl mb-4">بیمه پایه</h3>
           <p>
             بیمه پایه حداقل پوشش مالی و تعهد مالی را فراهم می‌کند. مسئولیت مالی
@@ -20,7 +20,7 @@ const InsuranceInfo = ({ carName }: Props) => {
           </p>
         </div>
 
-        <div className="p-6 rounded-[var(--border-radius)] shadow-[var(--shadow-400)] bg-[var(--color-primary-fade)] text-[var(--color-gray-12)]">
+        <div className="p-6 rounded-lg shadow-md bg-primary-100 text-primary-900">
           <h3 className="text-xl mb-4">بیمه متوسط</h3>
           <ul className="list-disc pr-6 mb-6 leading-relaxed [&_li]:mb-2">
             <li>امداد جاده ای گسترده (ERA)</li>
@@ -30,12 +30,12 @@ const InsuranceInfo = ({ carName }: Props) => {
             <li>پوشش بیمه سرنشینان خودرو</li>
             <li>حق توقف خودرو (CCI)</li>
           </ul>
-          <div className="font-bold text-lg text-center py-2 bg-[var(--color-gray-70)] text-[var(--color-gray-12)] rounded-[var(--border-radius)]">
+          <div className="font-bold text-lg text-center py-2 bg-muted-foreground text-muted rounded-lg">
             ۲۵۰,۰۰۰ تومان روزانه
           </div>
         </div>
 
-        <div className="p-6 rounded-[var(--border-radius)] shadow-[var(--shadow-400)] bg-[var(--color-primary)] text-[var(--color-primary-opposite)]">
+        <div className="p-6 rounded-lg shadow-md bg-primary text-primary-foreground">
           <h3 className="text-xl mb-4">بیمه کامل</h3>
           <ul className="list-disc pr-6 mb-6 leading-relaxed [&_li]:mb-2">
             <li>امداد جاده‌ای گسترده (ERA)</li>
@@ -45,7 +45,7 @@ const InsuranceInfo = ({ carName }: Props) => {
             <li>حداقل معافیت افت قیمت</li>
             <li>بیمه بدنه و حداقل مسئولیت (LDW)</li>
           </ul>
-          <div className="font-bold text-lg text-center py-2 bg-[var(--color-gray-70)] text-[var(--color-gray-12)] rounded-[var(--border-radius)]">
+          <div className="font-bold text-lg text-center py-2 bg-muted-foreground text-muted rounded-lg">
             ۵۵۰,۰۰۰ تومان روزانه
           </div>
         </div>

@@ -3,7 +3,6 @@
   "version": "0.2.0",
   "private": true,
   "scripts": {
-    "shadcn:install-all": "npx shadcn@latest add -y accordion alert alert-dialog aspect-ratio avatar badge breadcrumb button button-group calendar card carousel chart checkbox collapsible combobox command context-menu dialog drawer dropdown-menu empty field form hover-card input input-group input-otp item label menubar navigation-menu pagination popover progress radio-group resizable scroll-area select separator sheet sidebar skeleton slider sonner spinner switch table tabs textarea toggle toggle-group tooltip kbd native-select direction",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

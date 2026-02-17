@@ -40,13 +40,13 @@ export default function ShoppingCart() {
 
   return (
     <div className="rtl p-8 max-w-[1200px] mx-auto">
-      <h2 className="text-2xl mb-8 text-[var(--color-gray-99)]">رزرو فعلی</h2>
+      <h2 className="text-2xl mb-8 text-foreground">رزرو فعلی</h2>
 
       <div className="flex flex-col gap-6 mb-8">
         <Card>
           <CardContent className="p-6">
         <div className="grid grid-cols-[120px_1fr_200px_120px_50px] gap-6 items-center max-lg:grid-cols-1 max-lg:gap-4">
-          <div className="relative w-[120px] h-[100px] overflow-hidden rounded bg-[var(--color-surface-300)]">
+          <div className="relative w-[120px] h-[100px] overflow-hidden rounded bg-muted">
             <img
               src={currentRental.car.img}
               alt={currentRental.car.name}
@@ -55,9 +55,9 @@ export default function ShoppingCart() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-2 text-[var(--color-gray-99)]">{currentRental.car.name}</h3>
-            <p className="text-[var(--color-gray-70)] text-sm mb-2">{currentRental.car.model}</p>
-            <div className="flex gap-2 text-sm text-[var(--color-gray-70)] mb-2">
+            <h3 className="text-lg font-semibold mb-2 text-foreground">{currentRental.car.name}</h3>
+            <p className="text-muted-foreground text-sm mb-2">{currentRental.car.model}</p>
+            <div className="flex gap-2 text-sm text-muted-foreground mb-2">
               <span>
                 {new Date(currentRental.startDate).toLocaleDateString("fa-IR")}
               </span>
@@ -73,7 +73,7 @@ export default function ShoppingCart() {
               <div className="flex gap-2 mt-2 flex-wrap">
                 <span>خدمات:</span>
                 {currentRental.selectedOptions.map((opt) => (
-                  <span key={opt} className="inline-block px-2 py-1 bg-[var(--color-surface-300)] rounded text-xs text-[var(--color-gray-70)]">
+                  <span key={opt} className="inline-block px-2 py-1 bg-muted rounded text-xs text-muted-foreground">
                     {opt}
                   </span>
                 ))}
@@ -83,18 +83,18 @@ export default function ShoppingCart() {
 
           <div className="flex flex-col gap-2 text-right">
             <div className="flex justify-between gap-4 text-sm">
-              <span className="text-[var(--color-gray-70)]">قیمت روزانه:</span>
-              <span className="font-medium text-[var(--color-gray-99)]">
+              <span className="text-muted-foreground">قیمت روزانه:</span>
+              <span className="font-medium text-foreground">
                 {currentRental.pricePerDay.toLocaleString("fa-IR")} تومان
               </span>
             </div>
             <div className="flex justify-between gap-4 text-sm">
-              <span className="text-[var(--color-gray-70)]">روزها:</span>
-              <span className="font-medium text-[var(--color-gray-99)]">{currentRental.rentalDays}</span>
+              <span className="text-muted-foreground">روزها:</span>
+              <span className="font-medium text-foreground">{currentRental.rentalDays}</span>
             </div>
-            <div className="flex justify-between gap-4 border-t border-[var(--color-gray-80)] pt-2 mt-2">
-              <span className="text-[var(--color-gray-70)]">مجموع:</span>
-              <span className="text-[var(--color-primary-darkeMod)] text-lg font-medium">
+            <div className="flex justify-between gap-4 border-t border-border pt-2 mt-2">
+              <span className="text-muted-foreground">مجموع:</span>
+              <span className="text-primary text-lg font-medium">
                 {currentRental.totalPrice.toLocaleString("fa-IR")} تومان
               </span>
             </div>
@@ -114,12 +114,12 @@ export default function ShoppingCart() {
         </Card>
       </div>
 
-      <div className="bg-[var(--color-surface-300)] p-6 rounded-lg mb-8 border-r-4 border-[var(--color-primary-darkeMod)]">
-        <div className="flex justify-between py-3 text-base text-[var(--color-gray-70)]">
+      <div className="bg-muted p-6 rounded-lg mb-8 border-r-4 border-primary">
+        <div className="flex justify-between py-3 text-base text-muted-foreground">
           <span>تعداد روزهای اجاره:</span>
           <span>{currentRental.rentalDays}</span>
         </div>
-        <div className="flex justify-between py-3 border-t border-[var(--color-gray-80)] pt-4 mt-4 text-xl font-semibold text-[var(--color-primary-darkeMod)]">
+        <div className="flex justify-between py-3 border-t border-border pt-4 mt-4 text-xl font-semibold text-primary">
           <span>مجموع:</span>
           <span>{totalPrice.toLocaleString("fa-IR")} تومان</span>
         </div>
@@ -129,7 +129,7 @@ export default function ShoppingCart() {
         <Button variant="outline" onClick={() => router.push("/search")}>
           جستجوی خودروهای دیگر
         </Button>
-        <Button onClick={handleCheckout} className="bg-[#4caf50] hover:bg-[#45a049]">
+        <Button onClick={handleCheckout} className="bg-success text-success-foreground hover:bg-success/90">
           ادامه برای پرداخت
         </Button>
       </div>

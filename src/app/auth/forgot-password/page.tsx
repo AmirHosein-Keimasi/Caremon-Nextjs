@@ -40,10 +40,10 @@ export default function ForgotPasswordPage() {
     <div className="flex flex-wrap items-center justify-center lg:justify-between lg:p-16">
       <div className="w-full max-w-[28rem]">
         <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-          <h2 className="text-xl font-semibold mb-2 text-[var(--color-text-700)]">
+          <h2 className="text-xl font-semibold mb-2 text-foreground">
             بازیابی رمز عبور
           </h2>
-          <p className="text-[var(--fz-300)] text-[var(--color-text-400)] mb-4 leading-relaxed">
+          <p className="text-sm text-foreground mb-4 leading-relaxed">
             ایمیل خود را وارد کنید تا لینک بازیابی رمز عبور برایتان ارسال شود.
           </p>
 
@@ -54,7 +54,7 @@ export default function ForgotPasswordPage() {
           )}
 
           {status === "success" && (
-            <Alert className="mb-6 bg-[var(--color-success)] text-white border-0">
+            <Alert className="mb-6 bg-success text-success-foreground border-0">
               <AlertDescription>
                 اگر حساب فعالی با این ایمیل وجود داشته باشد، لینک بازیابی برای شما
                 ارسال خواهد شد. این بخش فعلاً به بک‌اند متصل نیست و در نسخه‌های
@@ -84,11 +84,11 @@ export default function ForgotPasswordPage() {
             {status === "submitting" ? "در حال ارسال..." : "ارسال لینک بازیابی"}
           </Button>
 
-          <p className="text-right text-[var(--color-text-400)] text-[var(--fz-300)]">
+          <p className="text-right text-foreground text-sm">
             رمز عبور را به یاد آوردید؟{" "}
             <Link
               href="/auth/signin"
-              className="text-[var(--color-primary)] font-medium text-[var(--fz-300)] transition-[color] duration-[var(--animation-duration-normal)] ease-in-out hover:underline hover:text-[var(--color-primary-lighter)]"
+              className="text-primary font-medium text-sm transition-colors duration-300 ease-in-out hover:underline hover:text-primary-400"
             >
               ورود
             </Link>

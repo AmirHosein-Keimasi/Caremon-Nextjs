@@ -11,10 +11,10 @@ const LuggageGuide = ({ luggage }: Props) => {
   if (isNaN(luggageNumber) || luggageNumber <= 0) {
     return (
       <section className="mb-12">
-        <h2 className="text-2xl text-[var(--color-text-700)] mb-6 pb-2 max-md:text-xl">
+        <h2 className="text-2xl text-foreground mb-6 pb-2 max-md:text-xl">
           راهنمای چمدان
         </h2>
-        <div className="bg-[var(--color-surface-400)] p-6 rounded-[var(--border-radius)] shadow-[var(--shadow-400)] leading-relaxed">
+        <div className="bg-card p-6 rounded-lg shadow-md leading-relaxed">
           <p>ظرفیت صندوق عقب این مدل حدود ۲۳۰ لیتر است.</p>
         </div>
       </section>
@@ -23,10 +23,10 @@ const LuggageGuide = ({ luggage }: Props) => {
 
   return (
     <section className="mb-12">
-      <h2 className="text-2xl text-[var(--color-text-700)] mb-6 pb-2 max-md:text-xl">
+      <h2 className="text-2xl text-foreground mb-6 pb-2 max-md:text-xl">
         راهنمای چمدان
       </h2>
-      <div className="bg-[var(--color-surface-400)] p-6 rounded-[var(--border-radius)] shadow-[var(--shadow-400)] leading-relaxed">
+      <div className="bg-card p-6 rounded-lg shadow-md leading-relaxed">
         <p>
           ظرفیت صندوق عقب این مدل حدود ۲۳۰ لیتر است. این مقدار فضا به اندازه‌ای
           است که می‌توانید در آن {luggageNumber.toLocaleString("fa-IR")} چمدان

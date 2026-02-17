@@ -70,17 +70,17 @@ export default function Invoice({
         </Button>
       )}
 
-      <div className="bg-[var(--color-surface-400)] p-8 border border-[var(--color-gray-80)] rounded-lg shadow-[var(--shadow-400)] print:shadow-none print:border-none">
+      <div className="bg-card p-8 border border-border rounded-lg shadow-md print:shadow-none print:border-none">
         {/* Header */}
-        <div className="grid grid-cols-2 gap-8 pb-8 border-b-2 border-[var(--color-gray-80)] mb-8">
+        <div className="grid grid-cols-2 gap-8 pb-8 border-b-2 border-border mb-8">
           <div>
-            <h1 className="text-3xl m-0 text-[var(--color-primary-darkeMod)]">کارمون</h1>
-            <p className="m-2.5 mt-0 text-[var(--color-gray-70)]">خدمات اجاره خودرو</p>
+            <h1 className="text-3xl m-0 text-primary">کارمون</h1>
+            <p className="m-2.5 mt-0 text-muted-foreground">خدمات اجاره خودرو</p>
           </div>
           <div className="text-left">
-            <h2 className="text-2xl m-0 text-[var(--color-gray-99)]">فاکتور</h2>
-            <p className="m-2.5 mt-0 text-[var(--color-gray-70)] text-sm">شماره: {reservation.id}</p>
-            <p className="m-2.5 mt-0 text-[var(--color-gray-70)] text-sm">
+            <h2 className="text-2xl m-0 text-foreground">فاکتور</h2>
+            <p className="m-2.5 mt-0 text-muted-foreground text-sm">شماره: {reservation.id}</p>
+            <p className="m-2.5 mt-0 text-muted-foreground text-sm">
               تاریخ:{" "}
               {new Date(reservation.createdAt).toLocaleDateString("fa-IR")}
             </p>
@@ -88,31 +88,31 @@ export default function Invoice({
         </div>
 
         {/* Customer Info */}
-        <div className="grid grid-cols-2 gap-8 py-6 mb-8 border-b border-[var(--color-gray-80)]">
+        <div className="grid grid-cols-2 gap-8 py-6 mb-8 border-b border-border">
           <div>
-            <h3 className="text-lg m-0 mb-4 text-[var(--color-gray-99)] border-b-2 border-[var(--color-gray-80)] pb-2">اطلاعات مشتری</h3>
-            <p className="m-3 mt-0 text-[var(--color-gray-70)] leading-relaxed">
-              <strong className="text-[var(--color-gray-99)]">نام:</strong> {reservation.firstName}{" "}
+            <h3 className="text-lg m-0 mb-4 text-foreground border-b-2 border-border pb-2">اطلاعات مشتری</h3>
+            <p className="m-3 mt-0 text-muted-foreground leading-relaxed">
+              <strong className="text-foreground">نام:</strong> {reservation.firstName}{" "}
               {reservation.lastName}
             </p>
-            <p className="m-3 mt-0 text-[var(--color-gray-70)] leading-relaxed">
-              <strong className="text-[var(--color-gray-99)]">ایمیل:</strong> {reservation.email}
+            <p className="m-3 mt-0 text-muted-foreground leading-relaxed">
+              <strong className="text-foreground">ایمیل:</strong> {reservation.email}
             </p>
-            <p className="m-3 mt-0 text-[var(--color-gray-70)] leading-relaxed">
-              <strong className="text-[var(--color-gray-99)]">تلفن:</strong> {reservation.phone}
+            <p className="m-3 mt-0 text-muted-foreground leading-relaxed">
+              <strong className="text-foreground">تلفن:</strong> {reservation.phone}
             </p>
           </div>
 
           <div>
-            <h3 className="text-lg m-0 mb-4 text-[var(--color-gray-99)] border-b-2 border-[var(--color-gray-80)] pb-2">وضعیت سفارش</h3>
-            <p className="m-3 mt-0 text-[var(--color-gray-70)] leading-relaxed">
-              <strong className="text-[var(--color-gray-99)]">وضعیت:</strong>{" "}
+            <h3 className="text-lg m-0 mb-4 text-foreground border-b-2 border-border pb-2">وضعیت سفارش</h3>
+            <p className="m-3 mt-0 text-muted-foreground leading-relaxed">
+              <strong className="text-foreground">وضعیت:</strong>{" "}
               <span className={getStatusClass(reservation.status)}>
                 {statusLabel[reservation.status]}
               </span>
             </p>
-            <p className="m-3 mt-0 text-[var(--color-gray-70)] leading-relaxed">
-              <strong className="text-[var(--color-gray-99)]">پرداخت:</strong>{" "}
+            <p className="m-3 mt-0 text-muted-foreground leading-relaxed">
+              <strong className="text-foreground">پرداخت:</strong>{" "}
               <span className={getPaymentStatusClass(reservation.paymentStatus)}>
                 {paymentStatusLabel[reservation.paymentStatus]}
               </span>
@@ -122,35 +122,35 @@ export default function Invoice({
 
         {/* Items Section */}
         <div className="my-8">
-          <h3 className="text-lg mb-4 text-[var(--color-gray-99)]">جزئیات خودرو</h3>
+          <h3 className="text-lg mb-4 text-foreground">جزئیات خودرو</h3>
           <table className="w-full border-collapse mb-8">
-            <thead className="bg-[var(--color-surface-300)]">
+            <thead className="bg-muted">
               <tr>
-                <th className="p-4 text-right font-semibold text-[var(--color-gray-99)] border-b-2 border-[var(--color-gray-80)]">نام خودرو</th>
-                <th className="p-4 text-right font-semibold text-[var(--color-gray-99)] border-b-2 border-[var(--color-gray-80)]">روزهای اجاره</th>
-                <th className="p-4 text-right font-semibold text-[var(--color-gray-99)] border-b-2 border-[var(--color-gray-80)]">قیمت روزانه</th>
-                <th className="p-4 text-right font-semibold text-[var(--color-gray-99)] border-b-2 border-[var(--color-gray-80)]">روزها</th>
-                <th className="p-4 text-right font-semibold text-[var(--color-gray-99)] border-b-2 border-[var(--color-gray-80)]">مجموع</th>
+                <th className="p-4 text-right font-semibold text-foreground border-b-2 border-border">نام خودرو</th>
+                <th className="p-4 text-right font-semibold text-foreground border-b-2 border-border">روزهای اجاره</th>
+                <th className="p-4 text-right font-semibold text-foreground border-b-2 border-border">قیمت روزانه</th>
+                <th className="p-4 text-right font-semibold text-foreground border-b-2 border-border">روزها</th>
+                <th className="p-4 text-right font-semibold text-foreground border-b-2 border-border">مجموع</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="p-4 border-b border-[var(--color-gray-80)] text-[var(--color-gray-70)]">
+                <td className="p-4 border-b border-border text-muted-foreground">
                   <div>
-                    <strong className="block text-[var(--color-gray-99)] text-base">{rental.car.name}</strong>
-                    <p className="text-[var(--color-gray-70)] text-sm m-1 mt-0">{rental.car.model}</p>
+                    <strong className="block text-foreground text-base">{rental.car.name}</strong>
+                    <p className="text-muted-foreground text-sm m-1 mt-0">{rental.car.model}</p>
                     {rental.withDriver && (
-                      <span className="inline-block px-2.5 py-1 bg-[rgba(33,150,243,0.1)] text-[var(--color-primary-darkeMod)] rounded text-xs mt-1">راننده شامل</span>
+                      <span className="inline-block px-2.5 py-1 bg-primary/10 text-primary rounded text-xs mt-1">راننده شامل</span>
                     )}
                   </div>
                 </td>
-                <td className="p-4 border-b border-[var(--color-gray-80)] text-[var(--color-gray-70)]">
+                <td className="p-4 border-b border-border text-muted-foreground">
                   {new Date(rental.startDate).toLocaleDateString("fa-IR")} تا{" "}
                   {new Date(rental.endDate).toLocaleDateString("fa-IR")}
                 </td>
-                <td className="p-4 border-b border-[var(--color-gray-80)] text-[var(--color-gray-70)]">{rental.pricePerDay.toLocaleString("fa-IR")} تومان</td>
-                <td className="p-4 border-b border-[var(--color-gray-80)] text-[var(--color-gray-70)]">{rental.rentalDays}</td>
-                <td className="p-4 border-b border-[var(--color-gray-80)] text-[var(--color-primary-darkeMod)] font-semibold">
+                <td className="p-4 border-b border-border text-muted-foreground">{rental.pricePerDay.toLocaleString("fa-IR")} تومان</td>
+                <td className="p-4 border-b border-border text-muted-foreground">{rental.rentalDays}</td>
+                <td className="p-4 border-b border-border text-primary font-semibold">
                   {rental.totalPrice.toLocaleString("fa-IR")} تومان
                 </td>
               </tr>
@@ -160,13 +160,13 @@ export default function Invoice({
 
         {/* Options */}
         {rental.selectedOptions.length > 0 && (
-          <div className="bg-[var(--color-surface-300)] p-6 rounded-md my-8">
-            <h3 className="mt-0 text-lg mb-4 text-[var(--color-gray-99)]">خدمات و اپشن‌های انتخاب شده</h3>
+          <div className="bg-muted p-6 rounded-md my-8">
+            <h3 className="mt-0 text-lg mb-4 text-foreground">خدمات و اپشن‌های انتخاب شده</h3>
             <div className="flex flex-col gap-3">
               {rental.selectedOptions.map((option: string) => (
-                <div key={option} className="flex gap-4 p-2 bg-[var(--color-surface-400)] rounded">
-                  <span className="text-[var(--color-gray-70)]">{rental.car.name}:</span>
-                  <strong className="text-[var(--color-gray-99)]">{toPersianOptionLabel(option)}</strong>
+                <div key={option} className="flex gap-4 p-2 bg-card rounded">
+                  <span className="text-muted-foreground">{rental.car.name}:</span>
+                  <strong className="text-foreground">{toPersianOptionLabel(option)}</strong>
                 </div>
               ))}
             </div>
@@ -174,24 +174,24 @@ export default function Invoice({
         )}
 
         {/* Summary */}
-        <div className="bg-[var(--color-surface-300)] p-6 rounded-md border-r-4 border-[var(--color-primary-darkeMod)] my-8">
-          <div className="flex justify-between py-3 text-[var(--color-gray-70)] text-base">
+        <div className="bg-muted p-6 rounded-md border-r-4 border-primary my-8">
+          <div className="flex justify-between py-3 text-muted-foreground text-base">
             <span className="font-medium">جمع اجاره:</span>
-            <span className="text-[var(--color-gray-99)]">{subtotal.toLocaleString("fa-IR")} تومان</span>
+            <span className="text-foreground">{subtotal.toLocaleString("fa-IR")} تومان</span>
           </div>
-          <div className="flex justify-between py-3 text-[var(--color-gray-70)] text-base">
+          <div className="flex justify-between py-3 text-muted-foreground text-base">
             <span className="font-medium">مالیات (9%):</span>
-            <span className="text-[var(--color-gray-99)]">{tax.toLocaleString("fa-IR")} تومان</span>
+            <span className="text-foreground">{tax.toLocaleString("fa-IR")} تومان</span>
           </div>
-          <div className="flex justify-between py-4 border-t-2 border-b-2 border-[var(--color-gray-80)] my-4 text-xl font-bold">
+          <div className="flex justify-between py-4 border-t-2 border-b-2 border-border my-4 text-xl font-bold">
             <span className="font-medium">مجموع کل:</span>
-            <span className="text-[var(--color-primary-darkeMod)]">{total.toLocaleString("fa-IR")} تومان</span>
+            <span className="text-primary">{total.toLocaleString("fa-IR")} تومان</span>
           </div>
           {reservation.paidAmount > 0 && (
             <>
-              <div className="flex justify-between py-3 text-[var(--color-gray-70)] text-base">
+              <div className="flex justify-between py-3 text-muted-foreground text-base">
                 <span className="font-medium">مبلغ پرداخت شده:</span>
-                <span className="text-[var(--color-gray-99)]">
+                <span className="text-foreground">
                   {reservation.paidAmount.toLocaleString("fa-IR")} تومان
                 </span>
               </div>
@@ -209,7 +209,7 @@ export default function Invoice({
         </div>
 
         {/* Terms */}
-        <div className="bg-[var(--color-surface-300)] p-4 rounded-md my-8 text-center text-[var(--color-gray-70)] text-sm leading-relaxed">
+        <div className="bg-muted p-4 rounded-md my-8 text-center text-muted-foreground text-sm leading-relaxed">
           <p className="m-0">
             این فاکتور به منزله توافق‌نامه اجاره است. لطفا شرایط و ضوابط خدمات
             را بررسی کنید.
@@ -217,7 +217,7 @@ export default function Invoice({
         </div>
 
         {/* Footer */}
-        <div className="text-center pt-8 border-t border-[var(--color-gray-80)] text-[var(--color-gray-70)] text-sm">
+        <div className="text-center pt-8 border-t border-border text-muted-foreground text-sm">
           <p className="m-2.5 mt-0">تشکر از انتخاب خدمات کارمون</p>
           <p className="m-2.5 mt-0">تلفن پشتیبانی: 021-1234-5678 | ایمیل: support@caremon.ir</p>
         </div>

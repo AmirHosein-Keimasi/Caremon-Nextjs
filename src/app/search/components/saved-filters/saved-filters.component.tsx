@@ -78,7 +78,7 @@ export default function SavedFiltersComponent(): ReactElement {
         </div>
 
         {!presets.length && (
-          <div className="text-[var(--color-text-700)] text-[var(--fz-300)]">
+          <div className="text-foreground text-sm">
             No saved presets yet.
           </div>
         )}
@@ -89,11 +89,11 @@ export default function SavedFiltersComponent(): ReactElement {
               {presets.map((preset) => (
                 <li
                   key={preset.id}
-                  className="bg-[var(--color-surface-700)] border border-[var(--color-border)] rounded-[var(--border-radius)] p-2.5 grid gap-1.5"
+                  className="bg-card border border-border rounded-lg p-2.5 grid gap-1.5"
                 >
                   <div className="flex items-center justify-between gap-2 max-[48rem]:items-start max-[48rem]:flex-col">
                     <div className="font-bold">{preset.name}</div>
-                    <div className="text-[var(--fz-300)] text-[var(--color-text-700)]">
+                    <div className="text-sm text-foreground">
                       {countActiveSearchFilters(preset.filters)} filters | used{" "}
                       {preset.usageCount}
                     </div>
@@ -103,7 +103,7 @@ export default function SavedFiltersComponent(): ReactElement {
                     {getActiveSearchFilters(preset.filters).map((filter) => (
                       <span
                         key={`${preset.id}-${filter.key}`}
-                        className="bg-[var(--color-surface-300)] rounded-full px-2 py-0.5 text-[var(--fz-300)]"
+                        className="bg-muted rounded-full px-2 py-0.5 text-sm"
                       >
                         {filter.value}
                       </span>

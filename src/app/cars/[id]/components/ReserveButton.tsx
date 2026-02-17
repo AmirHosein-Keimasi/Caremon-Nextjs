@@ -175,9 +175,9 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
 
       {showReservationForm && (
         <div className="fixed top-0 left-0 right-0 bottom-0 bg-[rgba(7,10,18,0.52)] backdrop-blur-sm flex items-center justify-center z-[1000] rtl">
-          <div className="bg-[var(--color-surface-400)] rounded-2xl max-w-[600px] w-[90%] max-h-[90vh] overflow-y-auto shadow-[0_18px_48px_rgba(0,0,0,0.28)]">
-            <div className="flex justify-between items-center p-6 shadow-[inset_0_-1px_0_rgba(148,163,184,0.2)]">
-              <h2 className="m-0 text-[var(--color-gray-99)] text-[1.3rem]">
+          <div className="bg-card rounded-2xl max-w-[600px] w-[90%] max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div className="flex justify-between items-center p-6 border-b border-border/20">
+              <h2 className="m-0 text-foreground text-[1.3rem]">
                 رزرو {car.model}
               </h2>
               <Button
@@ -192,13 +192,13 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
 
             <div className="p-6 grid gap-4">
               {/* Dates */}
-              <div className="m-0 p-4 rounded-xl bg-[var(--color-surface-300)]">
-                <h3 className="m-0 mb-4 text-[var(--color-gray-99)] text-[1.1rem] font-semibold">
+              <div className="m-0 p-4 rounded-xl bg-muted">
+                <h3 className="m-0 mb-4 text-foreground text-[1.1rem] font-semibold">
                   تاریخ‌های رزرو
                 </h3>
                 <div className="grid grid-cols-2 gap-4 max-[600px]:grid-cols-1">
                   <div className="flex flex-col gap-2 mb-4">
-                    <label className="font-medium text-[var(--color-gray-99)] text-[0.95rem]">
+                    <label className="font-medium text-foreground text-[0.95rem]">
                       تاریخ شروع
                     </label>
                     <StartDatePicker
@@ -209,7 +209,7 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                     />
                   </div>
                   <div className="flex flex-col gap-2 mb-4">
-                    <label className="font-medium text-[var(--color-gray-99)] text-[0.95rem]">
+                    <label className="font-medium text-foreground text-[0.95rem]">
                       تاریخ پایان
                     </label>
                     <EndDatePicker
@@ -224,8 +224,8 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
               </div>
 
               {/* Locations */}
-              <div className="m-0 p-4 rounded-xl bg-[var(--color-surface-300)]">
-                <h3 className="m-0 mb-4 text-[var(--color-gray-99)] text-[1.1rem] font-semibold">
+              <div className="m-0 p-4 rounded-xl bg-muted">
+                <h3 className="m-0 mb-4 text-foreground text-[1.1rem] font-semibold">
                   محل تحویل و تسلیم
                 </h3>
                 <div className="grid grid-cols-[1fr_50px_1fr] gap-4 items-end max-[600px]:grid-cols-1">
@@ -288,8 +288,8 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
               </div>
 
               {/* Driver */}
-              <div className="m-0 p-4 rounded-xl bg-[var(--color-surface-300)]">
-                <h3 className="m-0 mb-4 text-[var(--color-gray-99)] text-[1.1rem] font-semibold">
+              <div className="m-0 p-4 rounded-xl bg-muted">
+                <h3 className="m-0 mb-4 text-foreground text-[1.1rem] font-semibold">
                   راننده
                 </h3>
                 <div className="flex items-center gap-3 mb-4">
@@ -306,7 +306,7 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                   </Label>
                 </div>
                 {formData.withDriver && (
-                  <div className="flex flex-col gap-2 p-4 bg-[var(--color-surface-300)] rounded-[10px]">
+                  <div className="flex flex-col gap-2 p-4 bg-muted rounded-[10px]">
                     <Label htmlFor="driverDays">تعداد روزهایی که راننده را نیاز دارید</Label>
                     <Input
                       id="driverDays"
@@ -326,15 +326,15 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
               </div>
 
               {/* Options */}
-              <div className="m-0 p-4 rounded-xl bg-[var(--color-surface-300)]">
-                <h3 className="m-0 mb-4 text-[var(--color-gray-99)] text-[1.1rem] font-semibold">
+              <div className="m-0 p-4 rounded-xl bg-muted">
+                <h3 className="m-0 mb-4 text-foreground text-[1.1rem] font-semibold">
                   خدمات اضافی
                 </h3>
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-4 max-[600px]:grid-cols-1">
                   {options.map((option) => (
                     <div
                       key={option.id}
-                      className="flex items-center gap-2 py-3 px-3 bg-[var(--color-surface-300)] rounded-[10px] cursor-pointer transition-all duration-300 shadow-[inset_0_0_0_1px_rgba(148,163,184,0.28)] hover:bg-[var(--color-surface-400)]"
+                      className="flex items-center gap-2 py-3 px-3 bg-muted rounded-[10px] cursor-pointer transition-all duration-300 border border-border/30 hover:bg-card"
                       onClick={() => handleOptionChange(option.id)}
                     >
                       <Checkbox
@@ -352,26 +352,26 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
 
               {/* Summary */}
               {formData.startDate && formData.endDate && (
-                <div className="bg-[var(--color-surface-300)] p-6 rounded-xl my-8 shadow-[inset_0_0_0_1px_rgba(148,163,184,0.2)]">
-                  <div className="flex justify-between py-3 text-[var(--color-gray-70)]">
+                <div className="bg-muted p-6 rounded-xl my-8 border border-border/20">
+                  <div className="flex justify-between py-3 text-muted-foreground">
                     <span className="font-medium">قیمت روزانه:</span>
-                    <span className="text-[var(--color-gray-99)]">
+                    <span className="text-foreground">
                       {(car.rental.days_3_to_14 || 100000).toLocaleString(
                         "fa-IR",
                       )}{" "}
                       تومان
                     </span>
                   </div>
-                  <div className="flex justify-between py-3 text-[var(--color-gray-70)]">
+                  <div className="flex justify-between py-3 text-muted-foreground">
                     <span className="font-medium">تعداد روز:</span>
-                    <span className="text-[var(--color-gray-99)]">
+                    <span className="text-foreground">
                       {calculateRentalDays()} روز
                     </span>
                   </div>
                   {formData.withDriver && (
-                    <div className="flex justify-between py-3 text-[var(--color-gray-70)]">
+                    <div className="flex justify-between py-3 text-muted-foreground">
                       <span className="font-medium">هزینه راننده (روزانه):</span>
-                      <span className="text-[var(--color-gray-99)]">
+                      <span className="text-foreground">
                         {(
                           (car.rental.days_3_to_14 || 100000) *
                           0.5 *
@@ -381,9 +381,9 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                       </span>
                     </div>
                   )}
-                  <div className="shadow-[inset_0_1px_0_rgba(148,163,184,0.2),inset_0_-1px_0_rgba(148,163,184,0.2)] py-4 my-2 text-[1.1rem] font-bold flex justify-between">
+                  <div className="border-y border-border/20 py-4 my-2 text-[1.1rem] font-bold flex justify-between">
                     <span>جمع کل:</span>
-                    <span className="text-[var(--color-primary-darkeMod)]">
+                    <span className="text-primary">
                       {(
                         (car.rental.days_3_to_14 || 100000) *
                           calculateRentalDays() +
@@ -400,7 +400,7 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
               )}
             </div>
 
-            <div className="flex gap-4 justify-center p-6 shadow-[inset_0_1px_0_rgba(148,163,184,0.2)] bg-[var(--color-surface-300)]">
+            <div className="flex gap-4 justify-center p-6 border-t border-border/20 bg-muted">
               <Button
                 variant="outline"
                 onClick={() => setShowReservationForm(false)}
@@ -409,7 +409,7 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                 انصراف
               </Button>
               <Button
-                className="bg-[#4caf50] hover:bg-[#45a049]"
+                className="bg-success text-success-foreground hover:bg-success/90"
                 onClick={handleReserve}
                 disabled={loading}
               >

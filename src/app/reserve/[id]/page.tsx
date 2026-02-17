@@ -23,10 +23,10 @@ export default async function ReservePage({
   }
 
   return (
-    <div className="py-8 max-w-[var(--full-width)] mx-auto">
+    <div className="py-8 max-w-[85rem] mx-auto">
       <div className="flex flex-col gap-2 mb-8">
-        <h1 className="text-2xl text-[var(--color-text-700)]">رزرو خودرو: {car.name}</h1>
-        <Link href={`/cars/${car.id}`} className="text-[var(--color-primary)] text-sm transition-colors hover:text-[var(--color-primary-lighter)] hover:underline">
+        <h1 className="text-2xl text-foreground">رزرو خودرو: {car.name}</h1>
+        <Link href={`/cars/${car.id}`} className="text-primary text-sm transition-colors hover:text-primary-400 hover:underline">
           بازگشت به جزئیات خودرو
         </Link>
       </div>

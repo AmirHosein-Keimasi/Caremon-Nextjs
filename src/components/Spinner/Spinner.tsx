@@ -8,7 +8,7 @@ interface LoaderProps {
 
 const Spinner: React.FC<LoaderProps> = ({
   size = 30,
-  color = "var(--color-primary-opposite)",
+  color = "var(--primary-foreground)",
   className = "",
 }) => {
   const loaderStyle = {

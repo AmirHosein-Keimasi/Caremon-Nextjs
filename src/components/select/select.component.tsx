@@ -39,7 +39,7 @@ export default function SelectComponent({
   return (
     <div className={title ? "flex flex-row-reverse items-center gap-2" : ""}>
       {title && (
-        <span className="text-[var(--fz-300)] font-bold">{title}: </span>
+        <span className="text-sm font-bold">{title}: </span>
       )}
       <Select
         value={selectedOption?.value ?? ""}
@@ -48,7 +48,7 @@ export default function SelectComponent({
         <SelectTrigger
           className={
             floating
-              ? "min-w-[8rem] bg-[var(--color-surface-700)] shadow-[var(--shadow-400)]"
+              ? "min-w-[8rem] bg-card shadow-md"
               : "min-w-[8rem]"
           }
         >

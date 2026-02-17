@@ -31,7 +31,7 @@ export default function HeaderComponent(): ReactElement {
               <Link
                 href={link.href}
                 className={clsx(
-                  pathname === link.href && "text-[var(--color-primary)]",
+                  pathname === link.href && "text-primary",
                 )}
               >
                 {link.title}

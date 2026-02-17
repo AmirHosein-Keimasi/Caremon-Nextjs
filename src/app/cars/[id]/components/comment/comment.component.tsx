@@ -21,18 +21,18 @@ export default function CommentComponent({ comment }: Props): ReactElement {
     <CardComponent>
       <div className="grid gap-4">
         <div className="grid grid-areas-[image_name_rating;image_date_rating] grid-cols-[auto_1fr_auto] items-start gap-x-3">
-          <div className="[grid-area:image] bg-[var(--color-primary)] text-[var(--color-primary-opposite)] grid place-content-center min-h-full h-0 aspect-square rounded-full text-[var(--fz-500)]">
+          <div className="[grid-area:image] bg-primary text-primary-foreground grid place-content-center min-h-full h-0 aspect-square rounded-full text-lg">
             {comment.user.name[0].toUpperCase()}
           </div>
-          <div className="[grid-area:name] text-[var(--fz-500)] font-bold">
+          <div className="[grid-area:name] text-lg font-bold">
             {comment.user.name}
           </div>
-          <div className="[grid-area:date] text-[var(--fz-300)]">
+          <div className="[grid-area:date] text-sm">
             {formatter.format(relativeTimeInDays, "days")}
           </div>
-          <div className="[grid-area:rating] rounded-[var(--border-radius)] text-[var(--fz-500)] font-bold">
+          <div className="[grid-area:rating] rounded-lg text-lg font-bold">
             {comment.rating}{" "}
-            <Star className="text-[var(--color-star)] mb-[-0.15em]" />
+            <Star className="text-amber-500 mb-[-0.15em]" />
           </div>
         </div>
         <div className="whitespace-pre-line">{comment.text}</div>

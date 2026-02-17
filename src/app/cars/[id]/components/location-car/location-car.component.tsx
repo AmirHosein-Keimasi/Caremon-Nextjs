@@ -16,7 +16,7 @@ const LocationCar = ({ car }: Props) => {
             محل خودرو و تحویل
           </p>
           <p className="mb-2">{car.location}</p>
-          <p className="text-[var(--color-text-400)]">
+          <p className="text-foreground">
             در محدوده {car.location}، خودرو در محل شما تحویل می‌شود.
           </p>
         </span>

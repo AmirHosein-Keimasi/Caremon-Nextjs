@@ -120,11 +120,11 @@ export default function SignupForm() {
         ثبت نام با گوگل (به زودی)
       </Button>
 
-      <p className="text-right text-[var(--color-text-400)] text-[var(--fz-300)]">
+      <p className="text-right text-foreground text-sm">
         قبلاً حساب کاربری دارید؟{" "}
         <Link
           href="/auth/signin"
-          className="text-[var(--color-primary)] font-medium text-[var(--fz-300)] transition-[color] duration-[var(--animation-duration-normal)] ease-in-out hover:underline hover:text-[var(--color-primary-lighter)]"
+          className="text-primary font-medium text-sm transition-colors duration-300 ease-in-out hover:underline hover:text-primary-400"
         >
           ورود
         </Link>

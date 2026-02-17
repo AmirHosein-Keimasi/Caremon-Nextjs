@@ -95,7 +95,7 @@ export default function SigninForm() {
       <div className="text-right -mt-2 mb-2">
         <Link
           href="/auth/forgot-password"
-          className="text-sm text-[var(--color-primary)] transition-[color] duration-[var(--animation-duration-normal)] ease-in-out hover:underline hover:text-[var(--color-primary-lighter)]"
+          className="text-sm text-primary transition-colors duration-300 ease-in-out hover:underline hover:text-primary-400"
         >
           رمز عبور را فراموش کرده‌اید؟
         </Link>
@@ -129,11 +129,11 @@ export default function SigninForm() {
         ورود با گوگل (به زودی)
       </Button>
 
-      <p className="text-center text-sm text-[var(--color-text-400)]">
+      <p className="text-center text-sm text-foreground">
         حساب کاربری ندارید؟{" "}
         <Link
           href="/auth/signup"
-          className="text-[var(--color-primary)] font-medium transition-[color] duration-[var(--animation-duration-normal)] ease-in-out hover:underline hover:text-[var(--color-primary-lighter)]"
+          className="text-primary font-medium transition-colors duration-300 ease-in-out hover:underline hover:text-primary-400"
         >
           ثبت نام
         </Link>

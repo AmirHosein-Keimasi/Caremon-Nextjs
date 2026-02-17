@@ -22,16 +22,16 @@ const CarInfo = ({ car }: Props) => {
             <Image
               src={`https://cafeerent.com/storage/www/cars/single/${car.img}`}
               alt={`${car.name} - ${car.model}`}
-              className="rounded-[var(--border-radius)] object-contain"
+              className="rounded-lg object-contain"
               width={290}
               height={175}
               priority={false}
             />
-            <div className="bg-[var(--color-star)] flex items-baseline gap-1 justify-between py-1 px-3 rounded-full absolute top-2 left-2 text-[var(--color-gray-16)]">
+            <div className="bg-amber-500 flex items-baseline gap-1 justify-between py-1 px-3 rounded-full absolute top-2 left-2 text-foreground">
               <span className="font-bold">
                 {Math.floor(car.ratingNumber * 10) / 10} از 5
               </span>
-              <span className="text-[var(--fz-300)]">
+              <span className="text-sm">
                 ({car.reviewCount.toLocaleString("fa-IR")} نظر)
               </span>
             </div>

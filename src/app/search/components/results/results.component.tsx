@@ -34,7 +34,7 @@ export default function ResultsComponent(): ReactElement {
 
   if (!filteredCars?.length) {
     return (
-      <div className="text-center py-8 text-[var(--color-text-700)]">
+      <div className="text-center py-8 text-foreground">
         نتیجه‌ای یافت نشد
       </div>
     );
@@ -46,7 +46,7 @@ export default function ResultsComponent(): ReactElement {
         <Card key={car.id} className="relative overflow-hidden">
           <CardContent className="p-8 text-center">
             <div className="flex items-center gap-2 absolute top-4 right-4">
-              <MapPin className="text-[var(--color-star)] text-[var(--fz-400)] mb-[-0.05em]" />
+              <MapPin className="text-amber-500 text-base mb-[-0.05em]" />
               <LocationBadge label={car.location} />
             </div>
 
@@ -54,7 +54,7 @@ export default function ResultsComponent(): ReactElement {
               <Image
                 src={`https://cafeerent.com/storage/www/cars/single/${car.img}`}
                 alt={`${car.name} - ${car.model}`}
-                className="rounded-[var(--border-radius)] object-contain"
+                className="rounded-lg object-contain"
                 width={270}
                 height={160}
                 priority={false}
@@ -62,7 +62,7 @@ export default function ResultsComponent(): ReactElement {
             </div>
 
             <div className="flex justify-between items-center p-2 relative">
-              <h3 className="text-[var(--fz-500)] font-bold my-1.5 mx-0 text-[var(--color-primary)]">
+              <h3 className="text-lg font-bold my-1.5 mx-0 text-primary">
                 {car.name}
               </h3>
               <p className="flex justify-between items-center p-2 relative">{car.model}</p>
@@ -76,19 +76,19 @@ export default function ResultsComponent(): ReactElement {
             />
 
             <div className="flex flex-col items-start p-3 mt-4">
-              <div className="flex justify-between w-full text-[var(--fz-400)]">
+              <div className="flex justify-between w-full text-base">
                 <span>حداقل اجاره: </span>
                 <span>
-                  <span className="font-semibold pl-0.5 text-[var(--color-text-400)]">
+                  <span className="font-semibold pl-0.5 text-foreground">
                     {toPersianNumbers(car.rental.minimum_rental)}
                   </span>
                   روز{" "}
                 </span>
               </div>
-              <div className="flex justify-between w-full text-[var(--fz-400)]">
+              <div className="flex justify-between w-full text-base">
                 <span>۳ تا ۱۴ روز:</span>
                 <span>
-                  <span className="font-semibold pl-0.5 text-[var(--color-text-400)]">
+                  <span className="font-semibold pl-0.5 text-foreground">
                     {toPersianNumbers(car.rental.days_3_to_14)}
                   </span>{" "}
                   تومان

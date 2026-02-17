@@ -14,7 +14,9 @@ export default function DarkModeToggleComponent(): ReactElement {
     }
   }, []);
   useEffect(() => {
-    document.documentElement.dataset.theme = darkMode ? "dark" : "light";
+    const html = document.documentElement;
+    html.dataset.theme = darkMode ? "dark" : "light";
+    darkMode ? html.classList.add("dark") : html.classList.remove("dark");
   }, [darkMode]);
 
   const toggleDarkMode = () => {
@@ -33,10 +35,10 @@ export default function DarkModeToggleComponent(): ReactElement {
       onClick={toggleDarkMode}
     >
       <div
-        className={`w-8 h-8 rounded-[var(--border-radius)] transition-[transform,background-color] duration-500 ease-in-out relative flex items-center justify-center p-1 text-[var(--color-gray-10)] ${
+        className={`w-8 h-8 rounded-lg transition-[transform,background-color] duration-500 ease-in-out relative flex items-center justify-center p-1 ${
           darkMode
-            ? "bg-[var(--color-gray-30)] -translate-x-8"
-            : "bg-[#ffd9009c] translate-x-0"
+            ? "bg-muted text-muted-foreground -translate-x-8"
+            : "bg-amber-400/60 text-amber-950 translate-x-0"
         }`}
       >
         {darkMode ? <Moon /> : <Sun />}

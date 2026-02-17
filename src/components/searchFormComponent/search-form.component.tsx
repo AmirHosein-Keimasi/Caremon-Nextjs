@@ -41,7 +41,7 @@ const SearchFormComponent = () => {
         onChange={handleStartDateChange}
         minDate={today}
       />
-      <div className="flex flex-col gap-2 min-w-[10rem] flex-1 me-8">
+      <div className="flex flex-col gap-2 min-w-40 flex-1 me-8">
         <SelectHourComponent />
       </div>
 
@@ -52,12 +52,12 @@ const SearchFormComponent = () => {
         minDate={startDate || today}
         disabled={!startDate}
       />
-      <div className="flex flex-col gap-2 min-w-[10rem] flex-1 me-8">
+      <div className="flex flex-col gap-2 min-w-40 flex-1 me-8">
         <SelectHourComponent />
       </div>
 
-      <div className="flex flex-col gap-2 min-w-[10rem] flex-1 me-8">
-        <Label className="text-[var(--fz-300)]">موقعیت</Label>
+      <div className="flex flex-col gap-2 min-w-40] flex-1 me-8">
+        <Label className="text-sm">موقعیت</Label>
         <SelectLocationComponent />
       </div>
 

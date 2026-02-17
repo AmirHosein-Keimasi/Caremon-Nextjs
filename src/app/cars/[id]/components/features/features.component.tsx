@@ -52,7 +52,7 @@ const Features: React.FC<FeaturesProps> = ({ features }) => {
   return (
     <CardComponent>
       <div>
-        <div className="text-[var(--fz-500)] font-bold flex items-center mb-2">
+        <div className="text-lg font-bold flex items-center mb-2">
           <Car />
           امکانات
         </div>
@@ -60,7 +60,7 @@ const Features: React.FC<FeaturesProps> = ({ features }) => {
           {enabledFeatures.map((feature, index) => (
             <div
               key={index}
-              className="py-2 px-3 bg-[var(--color-surface-700)] rounded-[var(--border-radius)] text-[var(--fz-300)] text-[var(--color-text-400)]"
+              className="py-2 px-3 bg-card rounded-lg text-sm text-foreground"
             >
               {feature}
             </div>
@@ -68,7 +68,7 @@ const Features: React.FC<FeaturesProps> = ({ features }) => {
           {extraFeatures.map((feature, index) => (
             <div
               key={`extra-${index}`}
-              className="py-2 px-3 bg-[var(--color-surface-700)] rounded-[var(--border-radius)] text-[var(--fz-300)] text-[var(--color-text-400)]"
+              className="py-2 px-3 bg-card rounded-lg text-sm text-foreground"
             >
               {feature}
             </div>

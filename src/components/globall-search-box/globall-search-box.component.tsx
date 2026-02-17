@@ -25,8 +25,8 @@ export default function GlobalSearchBoxComponent({
   };
 
   return (
-    <div className="flex items-center gap-2 w-[min(50rem,100%)] px-4 border border-[var(--color-gray-20)] rounded-full focus-within:border-[var(--color-primary)] focus-within:ring-2 focus-within:ring-primary/20">
-      <div className="grid items-center text-[var(--fz-500)] focus-within:text-[var(--color-primary)]">
+    <div className="flex items-center gap-2 w-[min(50rem,100%)] px-4 border border-border rounded-full focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+      <div className="grid items-center text-lg focus-within:text-primary">
         <Search />
       </div>
       <Input
@@ -37,13 +37,13 @@ export default function GlobalSearchBoxComponent({
         onKeyDown={handleKeyDown}
         className="flex-1 border-0 bg-transparent py-4 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
       />
-      <div className="bg-[var(--color-gray-20)] h-8 w-px"></div>
+      <div className="bg-border h-8 w-px"></div>
       <Button
         type="button"
         variant="ghost"
         size="sm"
         onClick={onSubmit}
-        className="gap-1 text-[var(--color-gray-98)] flex items-center"
+        className="gap-1 text-foreground flex items-center"
       >
         <MapPin className="text-[1.5em]" />
         همه شهرها

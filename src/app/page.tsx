@@ -10,7 +10,7 @@ import HomeSearchBox from "./HomeSearchBox";
 export default function Home(): ReactElement {
   return (
     <div className="grid justify-items-center content-center gap-8 min-h-full">
-      <h1 className="inline-flex items-center text-[var(--fz-700)]">
+      <h1 className="inline-flex items-center text-2xl">
         <CarmonLogo />
         کا‌‌‌‌رِمون{" "}
       </h1>

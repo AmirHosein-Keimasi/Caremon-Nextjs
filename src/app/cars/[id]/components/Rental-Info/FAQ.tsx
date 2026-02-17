@@ -34,7 +34,7 @@ const FAQ = ({ car }: Props) => {
 
   return (
     <section className="mb-12">
-      <h2 className="text-2xl text-[var(--color-text-700)] mb-6 pb-2 border-b-2 border-[var(--color-primary)] max-md:text-xl">
+      <h2 className="text-2xl text-foreground mb-6 pb-2 border-b-2 border-primary max-md:text-xl">
         سؤالات متداول درباره {car.name}
       </h2>
       <Accordion items={faqItems} />

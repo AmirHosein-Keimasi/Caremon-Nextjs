@@ -81,16 +81,16 @@ export default function ProfilePage(): ReactElement {
   return (
     <main className="rtl max-w-[860px] mx-auto p-[clamp(1.2rem,2vw,2rem)] min-h-screen">
       <div className="mb-5">
-        <h1 className="m-0 text-[var(--color-gray-99)] text-[clamp(1.6rem,2vw,2rem)]">
+        <h1 className="m-0 text-foreground text-[clamp(1.6rem,2vw,2rem)]">
           پروفایل کاربر
         </h1>
-        <p className="mt-[0.7rem] mb-0 text-[var(--color-gray-70)]">
+        <p className="mt-[0.7rem] mb-0 text-muted-foreground">
           اطلاعات اصلی خود را اینجا ثبت کنید تا در رزرو تکرار نشود.
         </p>
       </div>
 
-      <section className="bg-[var(--color-surface-400)] rounded-2xl p-[clamp(1rem,2vw,1.5rem)] shadow-[0_12px_30px_rgba(12,17,29,0.08)]">
-        <div className="flex items-center justify-between text-[var(--color-gray-99)] mb-[0.65rem] text-[0.95rem]">
+      <section className="bg-card rounded-2xl p-[clamp(1rem,2vw,1.5rem)] shadow-lg">
+        <div className="flex items-center justify-between text-foreground mb-[0.65rem] text-[0.95rem]">
           <span>تکمیل اطلاعات</span>
           <strong>
             {completionCount} از {requiredFields.length}

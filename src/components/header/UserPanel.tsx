@@ -61,33 +61,33 @@ export default function UserPanel() {
       </Button>
 
       {isOpen && (
-        <div className="absolute top-full left-auto -right-5 mt-3 bg-[var(--color-surface-400)] border border-[var(--color-gray-80)] rounded-lg shadow-[0_4px_24px_rgba(0,0,0,0.15)] overflow-hidden z-[100] min-w-[200px] animate-[slideDown_0.2s_ease-out] max-[600px]:right-0">
-          <div className="flex items-center gap-4 p-4 bg-[var(--color-surface-300)]">
+        <div className="absolute top-full left-auto -right-5 mt-3 bg-card border border-border rounded-lg shadow-lg overflow-hidden z-[100] min-w-[200px] animate-[slideDown_0.2s_ease-out] max-[600px]:right-0">
+          <div className="flex items-center gap-4 p-4 bg-muted">
             <img
               src={profileImageSrc}
               alt="User profile"
-              className="w-10 h-10 rounded-full object-cover flex-shrink-0 border border-[var(--color-gray-80)]"
+              className="w-10 h-10 rounded-full object-cover flex-shrink-0 border border-border"
             />
             <div className="overflow-hidden">
-              <p className="m-0 text-[var(--color-gray-99)] font-semibold text-[0.95rem] whitespace-nowrap overflow-hidden text-ellipsis">
+              <p className="m-0 text-foreground font-semibold text-[0.95rem] whitespace-nowrap overflow-hidden text-ellipsis">
                 {userName}
               </p>
             </div>
           </div>
 
-          <div className="h-px bg-[var(--color-gray-80)]"></div>
+          <div className="h-px bg-border"></div>
 
           <nav className="flex flex-col list-none m-0 p-0">
             <Link
               href="/dashboard"
-              className="flex items-center gap-3 px-4 py-3 text-[var(--color-gray-99)] no-underline transition-all duration-200 border-l-[3px] border-l-transparent hover:bg-[var(--color-surface-300)] hover:border-l-[var(--color-primary-darkeMod)]"
+              className="flex items-center gap-3 px-4 py-3 text-foreground no-underline transition-all duration-200 border-l-[3px] border-l-transparent hover:bg-muted hover:border-l-primary"
             >
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
-                className="w-5 h-5 flex-shrink-0 text-[var(--color-primary-darkeMod)]"
+                className="w-5 h-5 flex-shrink-0 text-primary"
               >
                 <rect x="3" y="3" width="7" height="7"></rect>
                 <rect x="14" y="3" width="7" height="7"></rect>
@@ -99,14 +99,14 @@ export default function UserPanel() {
 
             <Link
               href="/profile"
-              className="flex items-center gap-3 px-4 py-3 text-[var(--color-gray-99)] no-underline transition-all duration-200 border-l-[3px] border-l-transparent hover:bg-[var(--color-surface-300)] hover:border-l-[var(--color-primary-darkeMod)]"
+              className="flex items-center gap-3 px-4 py-3 text-foreground no-underline transition-all duration-200 border-l-[3px] border-l-transparent hover:bg-muted hover:border-l-primary"
             >
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
-                className="w-5 h-5 flex-shrink-0 text-[var(--color-primary-darkeMod)]"
+                className="w-5 h-5 flex-shrink-0 text-primary"
               >
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
@@ -115,7 +115,7 @@ export default function UserPanel() {
             </Link>
           </nav>
 
-          <div className="h-px bg-[var(--color-gray-80)]"></div>
+          <div className="h-px bg-border"></div>
 
           <Button
             variant="ghost"

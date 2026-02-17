@@ -80,7 +80,7 @@ export default function CheckoutPage() {
   const needsCustomerInfo = missingFields.length > 0;
 
   if (!currentRental) {
-    return <div className="flex items-center justify-center min-h-screen text-[var(--color-gray-99)] text-lg">در حال بارگذاری...</div>;
+    return <div className="flex items-center justify-center min-h-screen text-foreground text-lg">در حال بارگذاری...</div>;
   }
 
   const rentalBasePrice = currentRental.pricePerDay * currentRental.rentalDays;
@@ -136,67 +136,67 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="rtl max-w-[1200px] mx-auto p-[clamp(1rem,2vw,2rem)] min-h-screen bg-[var(--color-surface-300)]">
+    <div className="rtl max-w-[1200px] mx-auto p-[clamp(1rem,2vw,2rem)] min-h-screen bg-background">
       <div className="mb-5">
-        <h1 className="text-[var(--color-gray-99)] m-0 text-[clamp(1.7rem,2.4vw,2.2rem)]">تایید و پرداخت رزرو</h1>
-        <p className="m-2.5 mt-0 text-[var(--color-gray-70)] text-sm">مشخصات رزرو را بررسی کنید و پرداخت را نهایی کنید.</p>
+        <h1 className="text-foreground m-0 text-[clamp(1.7rem,2.4vw,2.2rem)]">تایید و پرداخت رزرو</h1>
+        <p className="m-2.5 mt-0 text-muted-foreground text-sm">مشخصات رزرو را بررسی کنید و پرداخت را نهایی کنید.</p>
       </div>
 
       <div className="grid grid-cols-[minmax(0,1fr)_340px] gap-5 items-start max-[1024px]:grid-cols-1">
         <div className="flex flex-col gap-4">
-          <section className="bg-[var(--color-surface-400)] rounded-2xl p-[clamp(0.95rem,1.6vw,1.3rem)] shadow-[0_12px_28px_rgba(12,17,29,0.08)]">
-            <h2 className="m-0 mb-4 text-[var(--color-gray-99)] text-lg">خلاصه رزرو</h2>
+          <section className="bg-card rounded-2xl p-[clamp(0.95rem,1.6vw,1.3rem)] shadow-lg">
+            <h2 className="m-0 mb-4 text-foreground text-lg">خلاصه رزرو</h2>
 
-            <div className="flex gap-4 p-3 bg-[var(--color-surface-300)] rounded-xl mb-4">
+            <div className="flex gap-4 p-3 bg-muted rounded-xl mb-4">
               <img
                 src={currentRental.car.img}
                 alt={currentRental.car.model}
                 className="w-[116px] h-[88px] object-cover rounded-[10px] flex-shrink-0"
               />
               <div>
-                <h3 className="m-0 text-[var(--color-gray-99)] text-base">{currentRental.car.model}</h3>
-                <p className="m-1.5 mt-0 text-[var(--color-gray-70)] text-sm">{currentRental.car.name}</p>
+                <h3 className="m-0 text-foreground text-base">{currentRental.car.model}</h3>
+                <p className="m-1.5 mt-0 text-muted-foreground text-sm">{currentRental.car.name}</p>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3 max-[700px]:grid-cols-1">
               <div className="flex items-center justify-between gap-3 rounded-[10px] bg-[rgba(130,138,156,0.12)] px-3 py-2.5">
-                <span className="text-[var(--color-gray-70)] text-sm">تاریخ شروع</span>
-                <strong className="text-[var(--color-gray-99)] text-sm">
+                <span className="text-muted-foreground text-sm">تاریخ شروع</span>
+                <strong className="text-foreground text-sm">
                   {new Date(currentRental.startDate).toLocaleDateString(
                     "fa-IR",
                   )}
                 </strong>
               </div>
               <div className="flex items-center justify-between gap-3 rounded-[10px] bg-[rgba(130,138,156,0.12)] px-3 py-2.5">
-                <span className="text-[var(--color-gray-70)] text-sm">تاریخ پایان</span>
-                <strong className="text-[var(--color-gray-99)] text-sm">
+                <span className="text-muted-foreground text-sm">تاریخ پایان</span>
+                <strong className="text-foreground text-sm">
                   {new Date(currentRental.endDate).toLocaleDateString("fa-IR")}
                 </strong>
               </div>
               <div className="flex items-center justify-between gap-3 rounded-[10px] bg-[rgba(130,138,156,0.12)] px-3 py-2.5">
-                <span className="text-[var(--color-gray-70)] text-sm">مدت اجاره</span>
-                <strong className="text-[var(--color-gray-99)] text-sm">{currentRental.rentalDays} روز</strong>
+                <span className="text-muted-foreground text-sm">مدت اجاره</span>
+                <strong className="text-foreground text-sm">{currentRental.rentalDays} روز</strong>
               </div>
               <div className="flex items-center justify-between gap-3 rounded-[10px] bg-[rgba(130,138,156,0.12)] px-3 py-2.5">
-                <span className="text-[var(--color-gray-70)] text-sm">محل تحویل</span>
-                <strong className="text-[var(--color-gray-99)] text-sm">{currentRental.pickupLocation}</strong>
+                <span className="text-muted-foreground text-sm">محل تحویل</span>
+                <strong className="text-foreground text-sm">{currentRental.pickupLocation}</strong>
               </div>
               <div className="flex items-center justify-between gap-3 rounded-[10px] bg-[rgba(130,138,156,0.12)] px-3 py-2.5">
-                <span className="text-[var(--color-gray-70)] text-sm">محل تسلیم</span>
-                <strong className="text-[var(--color-gray-99)] text-sm">{currentRental.dropoffLocation}</strong>
+                <span className="text-muted-foreground text-sm">محل تسلیم</span>
+                <strong className="text-foreground text-sm">{currentRental.dropoffLocation}</strong>
               </div>
               {currentRental.withDriver && (
                 <div className="flex items-center justify-between gap-3 rounded-[10px] bg-[rgba(130,138,156,0.12)] px-3 py-2.5">
-                  <span className="text-[var(--color-gray-70)] text-sm">راننده</span>
-                  <strong className="text-[var(--color-gray-99)] text-sm">بله ({currentRental.driverDays} روز)</strong>
+                  <span className="text-muted-foreground text-sm">راننده</span>
+                  <strong className="text-foreground text-sm">بله ({currentRental.driverDays} روز)</strong>
                 </div>
               )}
             </div>
 
             {currentRental.selectedOptions.length > 0 && (
               <div className="mt-4 flex flex-col gap-2">
-                <span className="text-[var(--color-gray-70)] text-sm">خدمات اضافی:</span>
+                <span className="text-muted-foreground text-sm">خدمات اضافی:</span>
                 <div className="flex flex-wrap gap-2">
                   {currentRental.selectedOptions.map((option) => (
                     <span key={option} className="inline-flex items-center rounded-full px-3 py-1 bg-[rgba(31,122,77,0.15)] text-[#205f42] text-sm font-semibold">
@@ -208,9 +208,9 @@ export default function CheckoutPage() {
             )}
           </section>
 
-          <section className="bg-[var(--color-surface-400)] rounded-2xl p-[clamp(0.95rem,1.6vw,1.3rem)] shadow-[0_12px_28px_rgba(12,17,29,0.08)]">
+          <section className="bg-card rounded-2xl p-[clamp(0.95rem,1.6vw,1.3rem)] shadow-lg">
             <div className="flex justify-between items-center gap-3 mb-4">
-              <h2 className="m-0 text-[var(--color-gray-99)] text-lg">اطلاعات مشتری</h2>
+              <h2 className="m-0 text-foreground text-lg">اطلاعات مشتری</h2>
               <Link href="/profile" className="text-[#1f7a4d] no-underline text-sm font-semibold hover:underline">
                 ویرایش در پروفایل
               </Link>
@@ -218,7 +218,7 @@ export default function CheckoutPage() {
 
             {needsCustomerInfo ? (
               <>
-                <p className="m-0 mb-4 text-[var(--color-gray-70)] text-sm leading-relaxed">
+                <p className="m-0 mb-4 text-muted-foreground text-sm leading-relaxed">
                   اطلاعات مشتری از پروفایل خوانده می‌شود. لطفا فقط موارد ناقص را
                   تکمیل کنید.
                 </p>
@@ -244,7 +244,7 @@ export default function CheckoutPage() {
             ) : (
               <div className="rounded-xl bg-[rgba(31,122,77,0.12)] p-4">
                 <p className="m-0 text-[#205f42] text-sm">تمام اطلاعات مشتری از پروفایل تکمیل شده است.</p>
-                <div className="mt-3 grid grid-cols-1 gap-2 text-[var(--color-gray-99)] text-sm">
+                <div className="mt-3 grid grid-cols-1 gap-2 text-foreground text-sm">
                   <span>
                     {customerInfo.firstName} {customerInfo.lastName}
                   </span>
@@ -256,25 +256,25 @@ export default function CheckoutPage() {
           </section>
         </div>
 
-        <aside className="sticky top-5 bg-[var(--color-surface-400)] rounded-2xl p-4 shadow-[0_12px_30px_rgba(12,17,29,0.1)] max-[1024px]:static">
-          <h2 className="m-0 mb-4 text-[var(--color-gray-99)] text-base">صورتحساب</h2>
+        <aside className="sticky top-5 bg-card rounded-2xl p-4 shadow-lg max-[1024px]:static">
+          <h2 className="m-0 mb-4 text-foreground text-base">صورتحساب</h2>
 
-          <div className="flex items-center justify-between gap-3 py-2.5 text-[var(--color-gray-70)] text-sm">
+          <div className="flex items-center justify-between gap-3 py-2.5 text-muted-foreground text-sm">
             <span>قیمت روزانه</span>
-            <strong className="text-[var(--color-gray-99)] text-sm">
+            <strong className="text-foreground text-sm">
               {currentRental.pricePerDay.toLocaleString("fa-IR")} تومان
             </strong>
           </div>
 
-          <div className="flex items-center justify-between gap-3 py-2.5 text-[var(--color-gray-70)] text-sm">
+          <div className="flex items-center justify-between gap-3 py-2.5 text-muted-foreground text-sm">
             <span>اجاره {currentRental.rentalDays} روز</span>
-            <strong className="text-[var(--color-gray-99)] text-sm">{rentalBasePrice.toLocaleString("fa-IR")} تومان</strong>
+            <strong className="text-foreground text-sm">{rentalBasePrice.toLocaleString("fa-IR")} تومان</strong>
           </div>
 
           {currentRental.withDriver && (
-            <div className="flex items-center justify-between gap-3 py-2.5 text-[var(--color-gray-70)] text-sm">
+            <div className="flex items-center justify-between gap-3 py-2.5 text-muted-foreground text-sm">
               <span>هزینه راننده</span>
-              <strong className="text-[var(--color-gray-99)] text-sm">{driverCost.toLocaleString("fa-IR")} تومان</strong>
+              <strong className="text-foreground text-sm">{driverCost.toLocaleString("fa-IR")} تومان</strong>
             </div>
           )}
 

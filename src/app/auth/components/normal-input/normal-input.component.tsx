@@ -64,7 +64,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
         {label && (
           <Label
             htmlFor={id}
-            className="text-[var(--fz-300)] font-medium text-[var(--color-text-700)]"
+            className="text-sm font-medium text-foreground"
           >
             {label}
           </Label>
@@ -87,7 +87,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
           autoComplete={autoComplete}
         />
         {showError && errorText && (
-          <p className="text-destructive text-[var(--fz-200)] leading-4">
+          <p className="text-destructive text-xs leading-4">
             {errorText}
           </p>
         )}

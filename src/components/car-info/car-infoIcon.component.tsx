@@ -28,21 +28,21 @@ const CarInfoIcon: React.FC<CarInfoProps> = ({
   luggage,
   transmission,
 }) => (
-  <div className="flex justify-center items-center gap-8 text-[var(--fz-400)] flex-wrap text-[var(--color-text-400)]">
+  <div className="flex justify-center items-center gap-8 text-base flex-wrap text-foreground">
     <span>
-      <CarFront className="text-[var(--color-primary)]" />{" "}
+      <CarFront className="text-primary" />{" "}
       {toPersianNumbers(doors)}
     </span>
     <span>
-      <Users className="text-[var(--color-primary)]" />{" "}
+      <Users className="text-primary" />{" "}
       {toPersianNumbers(passengers)}
     </span>
     <span>
-      <Briefcase className="text-[var(--color-primary)]" />{" "}
+      <Briefcase className="text-primary" />{" "}
       {toPersianNumbers(luggage)}
     </span>
     <span>
-      <Gauge className="text-[var(--color-primary)]" />{" "}
+      <Gauge className="text-primary" />{" "}
       {toPersianNumbers(transmission)}
     </span>
   </div>

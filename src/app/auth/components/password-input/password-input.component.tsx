@@ -25,7 +25,7 @@ const PasswordInput = forwardRef(
 
     return (
       <div className={className}>
-        <Label className="mb-2 block text-[var(--fz-300)] font-medium text-[var(--color-text-700)]">
+        <Label className="mb-2 block text-sm font-medium text-foreground">
           {label}
         </Label>
         <div className="relative flex items-center">

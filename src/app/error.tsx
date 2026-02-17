@@ -15,8 +15,8 @@ export default function Error({ error, reset }: Props): ReactElement {
   return (
     <div className="grid grid-areas-[writings_visuals;actions_actions;trace_trace] grid-cols-2 place-content-center gap-x-20 mb-12 min-h-full">
       <div className="[grid-area:writings]">
-        <div className="text-[var(--fz-700)] font-bold">مشکل پیش آمده!</div>
-        <h1 className="mb-8 text-[var(--fz-500)]">یک خطای غیرمنتظره رخ داده است.</h1>
+        <div className="text-2xl font-bold">مشکل پیش آمده!</div>
+        <h1 className="mb-8 text-lg">یک خطای غیرمنتظره رخ داده است.</h1>
         <p>
           با عرض پوزش، لطفاً با تیم پشتیبانی سایت <span>کا‌‌‌‌رِمون</span> تماس
           بگیرید.

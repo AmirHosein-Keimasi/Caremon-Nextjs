@@ -9,62 +9,62 @@ type Props = {
 const SpecsAndFeatures = ({ car }: Props) => {
   return (
     <CardComponent>
-      <div className="grid text-[var(--color-text-400)] max-md:grid-cols-1">
+      <div className="grid text-foreground max-md:grid-cols-1">
         <div className="flex flex-col gap-4">
-          <h2 className="text-xl font-semibold text-[var(--color-text-700)] mb-2 pb-2 border-b-2 border-[var(--color-border)]">
+          <h2 className="text-xl font-semibold text-foreground mb-2 pb-2 border-b-2 border-border">
             مشخصات فنی
           </h2>
 
-          <div className="flex justify-between py-2 border-b border-dashed border-[var(--color-border)]">
-            <span className="font-medium text-[var(--color-text-400)]">
+          <div className="flex justify-between py-2 border-b border-dashed border-border">
+            <span className="font-medium text-foreground">
               نوع موتور
             </span>
-            <span className="font-normal text-[var(--color-text-700)]">
+            <span className="font-normal text-foreground">
               {car.engine.type}
             </span>
           </div>
 
-          <div className="flex justify-between py-2 border-b border-dashed border-[var(--color-border)]">
-            <span className="font-medium text-[var(--color-text-400)]">
+          <div className="flex justify-between py-2 border-b border-dashed border-border">
+            <span className="font-medium text-foreground">
               حجم موتور (لیتر)
             </span>
-            <span className="font-normal text-[var(--color-text-700)]">
+            <span className="font-normal text-foreground">
               {car.engine.capacity}
             </span>
           </div>
 
-          <div className="flex justify-between py-2 border-b border-dashed border-[var(--color-border)]">
-            <span className="font-medium text-[var(--color-text-400)]">
+          <div className="flex justify-between py-2 border-b border-dashed border-border">
+            <span className="font-medium text-foreground">
               سیستم انتقال قدرت
             </span>
-            <span className="font-normal text-[var(--color-text-700)]">
+            <span className="font-normal text-foreground">
               {car.features.transmission}
             </span>
           </div>
 
-          <div className="flex justify-between py-2 border-b border-dashed border-[var(--color-border)]">
-            <span className="font-medium text-[var(--color-text-400)]">
+          <div className="flex justify-between py-2 border-b border-dashed border-border">
+            <span className="font-medium text-foreground">
               تعداد سیلندر
             </span>
-            <span className="font-normal text-[var(--color-text-700)]">
+            <span className="font-normal text-foreground">
               {car.engine.cylinders}
             </span>
           </div>
 
-          <div className="flex justify-between py-2 border-b border-dashed border-[var(--color-border)]">
-            <span className="font-medium text-[var(--color-text-400)]">
+          <div className="flex justify-between py-2 border-b border-dashed border-border">
+            <span className="font-medium text-foreground">
               ظرفیت سرنشین
             </span>
-            <span className="font-normal text-[var(--color-text-700)]">
+            <span className="font-normal text-foreground">
               {car.capacity.passengers} نفر
             </span>
           </div>
 
-          <div className="flex justify-between py-2 border-b border-dashed border-[var(--color-border)]">
-            <span className="font-medium text-[var(--color-text-400)]">
+          <div className="flex justify-between py-2 border-b border-dashed border-border">
+            <span className="font-medium text-foreground">
               حجم صندوق عقب
             </span>
-            <span className="font-normal text-[var(--color-text-700)]">
+            <span className="font-normal text-foreground">
               {car.capacity.luggage} چمدان
             </span>
           </div>

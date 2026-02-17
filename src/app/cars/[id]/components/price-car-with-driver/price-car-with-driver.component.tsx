@@ -16,24 +16,24 @@ const DriverPriceCar = ({ car }: Props) => {
     { label: "ترانسفر فرودگاهی", price: car.driver_rental.airport_transfer },
   ];
   return (
-    <div className="bg-[var(--color-surface-400)] rounded-[var(--border-radius)] p-4 shadow-[var(--shadow-500)] mt-auto">
-      <div className="text-[var(--color-primary)] py-2 text-start font-bold mb-4">
+    <div className="bg-card rounded-lg p-4 shadow-lg mt-auto">
+      <div className="text-primary py-2 text-start font-bold mb-4">
         اجاره همراه با راننده{" "}
       </div>
-      <div className="text-[var(--color-text-400)] text-[var(--fz-300)]">
+      <div className="text-foreground text-sm">
         هزینه اجاره {car.name}
       </div>{" "}
-      <span className="text-[var(--fz-200)] text-[var(--color-gray-70)]">
+      <span className="text-xs text-muted-foreground">
         {car.model}
       </span>
       <div className="mt-2">
         {rentalOptions.map((option, index) => (
           <div
             key={index}
-            className="flex justify-between py-3 border-b border-[var(--color-border)]"
+            className="flex justify-between py-3 border-b border-border"
           >
             <span>{option.label}:</span>
-            <span className="font-bold text-[var(--color-primary)]">
+            <span className="font-bold text-primary">
               {option.price.toLocaleString("fa-IR")} تومان
             </span>
           </div>

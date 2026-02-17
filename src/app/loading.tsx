@@ -12,7 +12,7 @@ const Loading: React.FC = () => {
       >
         <g
           transform="translate(4 2) scale(1.5)"
-          stroke="var(--color-primary)"
+          stroke="var(--primary)"
           fill="none"
           strokeLinecap="round"
           strokeLinejoin="round"

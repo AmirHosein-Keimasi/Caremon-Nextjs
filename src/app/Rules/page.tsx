@@ -2,11 +2,11 @@ export default function page() {
   return (
     <>
       <main className="flex flex-col max-w-[90%] mx-auto my-8 px-4">
-        <h2 className="text-[2rem] font-bold text-[var(--color-text-100)] my-8 text-center relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-[35%] after:w-[30%] after:h-0.5 after:bg-[var(--color-primary)]">
+        <h2 className="text-[2rem] font-bold text-foreground my-8 text-center relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-[35%] after:w-[30%] after:h-0.5 after:bg-primary">
           قوانین و مقررات{" "}
         </h2>
 
-        <p className="text-[var(--color-gray-60)] leading-[1.75] mb-6">
+        <p className="text-muted-foreground leading-[1.75] mb-6">
           برای اجاره انواع خودرو در نمایش‌های مختلف کا‌‌‌‌رِمون وظیفه قوانین و
           مقررات الزامی است. در ادامه مطلب قوانین و مقررات اجاره خودرو در شعب
           مختلف، کا‌‌‌‌رِمون را آورده‌ایم تا با اطلاع از معادل این قوانین به
@@ -16,11 +16,11 @@ export default function page() {
           برخی از این موارد به صورت کلی اشاره می‌کنیم.
         </p>
 
-        <h2 className="font-bold text-[var(--color-text-100)] my-8 relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-[55%] after:w-[45%] after:h-0.5 after:bg-[var(--color-primary)]">
+        <h2 className="font-bold text-foreground my-8 relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-[55%] after:w-[45%] after:h-0.5 after:bg-primary">
           قوانین و مقررات اجاره خودرو در کا‌‌‌‌رِمون
         </h2>
 
-        <ul className="list-disc pr-6 mb-6 [&_li]:mb-2 [&_li]:text-[var(--color-gray-60)] [&_li::marker]:text-[var(--color-primary)]">
+        <ul className="list-disc pr-6 mb-6 [&_li]:mb-2 [&_li]:text-muted-foreground [&_li::marker]:text-primary">
           <li>
             تمامی خودروها با مقدار بنزین مشخص تحویل می‌شود و شخص اجاره کننده
             خودرو موظف است بنزین را با همان میزان بنزین عودت دهد.
@@ -76,10 +76,10 @@ export default function page() {
             کند.
           </li>
         </ul>
-        <h2 className="font-bold text-[var(--color-text-100)] my-8 relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-[55%] after:w-[45%] after:h-0.5 after:bg-[var(--color-primary)]">
+        <h2 className="font-bold text-foreground my-8 relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-[55%] after:w-[45%] after:h-0.5 after:bg-primary">
           موارد ممنوع برای خودروی اجاره‌ای{" "}
         </h2>
-        <ol className="py-2 px-4 mb-4 text-[var(--color-gray-60)] [&_li]:mb-2">
+        <ol className="py-2 px-4 mb-4 text-muted-foreground [&_li]:mb-2">
           <li>استعمال دخانیات داخل خودرو </li>
           <li>
             انتقال خودرو به شخص حقیقی یا حقوقی به هر عنوان (اجاره، امانت، صلح و

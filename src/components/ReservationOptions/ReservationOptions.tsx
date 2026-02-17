@@ -109,47 +109,47 @@ export default function ReservationOptions({
   const minDate = new Date().toISOString().split("T")[0];
 
   return (
-    <form onSubmit={handleAddToCart} className="bg-[var(--color-surface-400)] p-8 rounded-lg shadow-[var(--shadow-400)] rtl">
-      <h3 className="m-0 mb-6 text-xl text-[var(--color-gray-99)]">گزینه های رزرو</h3>
+    <form onSubmit={handleAddToCart} className="bg-card p-8 rounded-lg shadow-md rtl">
+      <h3 className="m-0 mb-6 text-xl text-foreground">گزینه های رزرو</h3>
 
       {/* Dates Section */}
-      <div className="mb-8 pb-6 border-b border-[var(--color-gray-80)] last:border-b-0">
-        <h4 className="m-0 mb-4 text-lg text-[var(--color-gray-99)] font-semibold">تاریخ و محل</h4>
+      <div className="mb-8 pb-6 border-b border-border last:border-b-0">
+        <h4 className="m-0 mb-4 text-lg text-foreground font-semibold">تاریخ و محل</h4>
 
         <div className="grid grid-cols-2 gap-4 mb-4 max-[600px]:grid-cols-1">
           <div className="flex flex-col gap-2">
-            <label className="font-medium text-[var(--color-gray-99)] text-sm">تاریخ شروع</label>
+            <label className="font-medium text-foreground text-sm">تاریخ شروع</label>
             <input
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               min={minDate}
               required
-              className="p-3 border border-[var(--color-gray-80)] rounded bg-[var(--color-surface-300)] text-[var(--color-gray-99)] text-base font-inherit focus:outline-none focus:border-[var(--color-primary-darkeMod)] focus:shadow-[0_0_0_3px_rgba(33,150,243,0.1)]"
+              className="p-3 border border-border rounded bg-muted text-foreground text-base font-inherit focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="font-medium text-[var(--color-gray-99)] text-sm">تاریخ پایان</label>
+            <label className="font-medium text-foreground text-sm">تاریخ پایان</label>
             <input
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
               min={startDate || minDate}
               required
-              className="p-3 border border-[var(--color-gray-80)] rounded bg-[var(--color-surface-300)] text-[var(--color-gray-99)] text-base font-inherit focus:outline-none focus:border-[var(--color-primary-darkeMod)] focus:shadow-[0_0_0_3px_rgba(33,150,243,0.1)]"
+              className="p-3 border border-border rounded bg-muted text-foreground text-base font-inherit focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-[1fr_50px_1fr] gap-4 items-end max-[600px]:grid-cols-1">
           <div className="flex flex-col gap-2">
-            <label className="font-medium text-[var(--color-gray-99)] text-sm">محل تحویل</label>
+            <label className="font-medium text-foreground text-sm">محل تحویل</label>
             <select
               value={pickupLocation}
               onChange={(e) => setPickupLocation(e.target.value)}
               required
-              className="p-3 border border-[var(--color-gray-80)] rounded bg-[var(--color-surface-300)] text-[var(--color-gray-99)] text-base font-inherit focus:outline-none focus:border-[var(--color-primary-darkeMod)] focus:shadow-[0_0_0_3px_rgba(33,150,243,0.1)]"
+              className="p-3 border border-border rounded bg-muted text-foreground text-base font-inherit focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             >
               <option value="">انتخاب کنید</option>
               <option value="تهران-مرکز">تهران - مرکز</option>
@@ -172,12 +172,12 @@ export default function ReservationOptions({
           </Button>
 
           <div className="flex flex-col gap-2">
-            <label className="font-medium text-[var(--color-gray-99)] text-sm">محل تحویل</label>
+            <label className="font-medium text-foreground text-sm">محل تحویل</label>
             <select
               value={dropoffLocation}
               onChange={(e) => setDropoffLocation(e.target.value)}
               required
-              className="p-3 border border-[var(--color-gray-80)] rounded bg-[var(--color-surface-300)] text-[var(--color-gray-99)] text-base font-inherit focus:outline-none focus:border-[var(--color-primary-darkeMod)] focus:shadow-[0_0_0_3px_rgba(33,150,243,0.1)]"
+              className="p-3 border border-border rounded bg-muted text-foreground text-base font-inherit focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             >
               <option value="">انتخاب کنید</option>
               <option value="تهران-مرکز">تهران - مرکز</option>
@@ -192,8 +192,8 @@ export default function ReservationOptions({
       </div>
 
       {/* Driver Section */}
-      <div className="mb-8 pb-6 border-b border-[var(--color-gray-80)] last:border-b-0">
-        <h4 className="m-0 mb-4 text-lg text-[var(--color-gray-99)] font-semibold">خدمات اضافی</h4>
+      <div className="mb-8 pb-6 border-b border-border last:border-b-0">
+        <h4 className="m-0 mb-4 text-lg text-foreground font-semibold">خدمات اضافی</h4>
 
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">
@@ -206,7 +206,7 @@ export default function ReservationOptions({
           </div>
 
           {withDriver && (
-            <div className="flex flex-col gap-2 p-4 bg-[var(--color-surface-300)] rounded">
+            <div className="flex flex-col gap-2 p-4 bg-muted rounded">
               <Label htmlFor="driverDays">تعداد روزهای راننده</Label>
               <Input
                 id="driverDays"
@@ -222,14 +222,14 @@ export default function ReservationOptions({
 
       {/* Options Section */}
       {availableOptions.length > 0 && (
-        <div className="mb-8 pb-6 border-b border-[var(--color-gray-80)] last:border-b-0">
-          <h4 className="m-0 mb-4 text-lg text-[var(--color-gray-99)] font-semibold">اپشن‌های اضافی</h4>
+        <div className="mb-8 pb-6 border-b border-border last:border-b-0">
+          <h4 className="m-0 mb-4 text-lg text-foreground font-semibold">اپشن‌های اضافی</h4>
 
           <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-4 max-[600px]:grid-cols-1">
             {availableOptions.map((option) => (
               <div
                 key={option.key}
-                className="flex items-center gap-2 p-3 bg-[var(--color-surface-300)] border border-[var(--color-gray-80)] rounded cursor-pointer transition-all hover:bg-[var(--color-surface-400)] hover:border-[var(--color-primary-darkeMod)]"
+                className="flex items-center gap-2 p-3 bg-muted border border-border rounded cursor-pointer transition-all hover:bg-card hover:border-primary"
                 onClick={() => toggleOption(option.label)}
               >
                 <Checkbox
@@ -245,16 +245,16 @@ export default function ReservationOptions({
       )}
 
       {/* Summary */}
-      <div className="bg-[var(--color-surface-300)] p-6 rounded-md border-r-4 border-[var(--color-primary-darkeMod)] my-8">
-        <div className="flex justify-between py-3 text-[var(--color-gray-70)]">
+      <div className="bg-muted p-6 rounded-md border-r-4 border-primary my-8">
+        <div className="flex justify-between py-3 text-muted-foreground">
           <span className="font-medium">قیمت روزانه:</span>
-          <span className="text-[var(--color-gray-99)] font-medium">{car.rental.minimum_rental.toLocaleString("fa-IR")} تومان</span>
+          <span className="text-foreground font-medium">{car.rental.minimum_rental.toLocaleString("fa-IR")} تومان</span>
         </div>
         {startDate && endDate && (
           <>
-            <div className="flex justify-between py-3 text-[var(--color-gray-70)]">
+            <div className="flex justify-between py-3 text-muted-foreground">
               <span className="font-medium">روزهای اجاره:</span>
-              <span className="text-[var(--color-gray-99)] font-medium">
+              <span className="text-foreground font-medium">
                 {Math.ceil(
                   (new Date(endDate).getTime() -
                     new Date(startDate).getTime()) /
@@ -263,9 +263,9 @@ export default function ReservationOptions({
                 روز
               </span>
             </div>
-            <div className="flex justify-between py-4 border-t-2 border-b-2 border-[var(--color-gray-80)] my-2 text-lg">
+            <div className="flex justify-between py-4 border-t-2 border-b-2 border-border my-2 text-lg">
               <span className="font-medium">تخمین هزینه:</span>
-              <span className="text-[var(--color-primary-darkeMod)] font-bold">
+              <span className="text-primary font-bold">
                 {(
                   car.rental.minimum_rental *
                   Math.ceil(

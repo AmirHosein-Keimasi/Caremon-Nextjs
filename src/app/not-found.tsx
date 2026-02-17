@@ -7,13 +7,13 @@ export default function NotFound(): ReactElement {
   return (
     <div className="grid grid-areas-[writings_visuals;search_search] place-content-center gap-6 min-h-full">
       <div className="[grid-area:writings]">
-        <div className="text-[var(--fz-800)] font-light leading-[0.8]">
+        <div className="text-4xl font-light leading-[0.8]">
           404
         </div>
-        <h1 className="mb-8 text-[var(--fz-600)]">صفحه‌ی مورد نظر پیدا نشد!</h1>
+        <h1 className="mb-8 text-xl">صفحه‌ی مورد نظر پیدا نشد!</h1>
         <p className="max-w-[50ch]">
           با عرض پوزش، صفحه مورد نظر شما در{" "}
-          <span className="text-[var(--fz-500)] m-1 text-[var(--color-primary)]">
+          <span className="text-lg m-1 text-primary">
             کا‌‌‌‌رِمون
           </span>{" "}
           پیدا نشد، لطفاً ماشین یا ویژگی مورد نظر خود را جستجو کنید.
