@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CarsContext } from "../../providers/cars.provider";
 import CarInfoIcon from "@/components/car-info/car-infoIcon.component";
+import CompareButtonComponent from "@/components/compare-button/compare-button.component";
 
 import { Settings, MapPin, Check } from "lucide-react";
 
@@ -97,11 +98,14 @@ export default function ResultsComponent(): ReactElement {
             </div>
 
             <div className="flex flex-col gap-2 mt-6">
-              <Button asChild>
-                <Link href={`/cars/${car.id}`} className="gap-2">
-                  بیشتر... <Settings />
-                </Link>
-              </Button>
+              <div className="flex flex-wrap gap-2">
+                <Button asChild>
+                  <Link href={`/cars/${car.id}`} className="gap-2">
+                    بیشتر... <Settings />
+                  </Link>
+                </Button>
+                <CompareButtonComponent carId={car.id} />
+              </div>
               <Button asChild variant="destructive">
                 <Link href={`/reserve/${car.id}`} className="gap-2">
                   همین الان رزرو کنید <Check />

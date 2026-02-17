@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import DarkModeToggleComponent from "../dark-mode-toggle/dark-mode-toggle.component";
+import CompareLinkComponent from "../compare-link/compare-link.component";
 import UserPanel from "./UserPanel";
 
 import clsx from "clsx";
@@ -25,7 +26,10 @@ export default function HeaderComponent(): ReactElement {
   return (
     <header className="flex items-center gap-8 py-4">
       <nav>
-        <ul className="flex gap-8">
+        <ul className="flex gap-8 items-center">
+          <li>
+            <CompareLinkComponent />
+          </li>
           {links.map((link) => (
             <li key={link.href}>
               <Link

@@ -55,3 +55,26 @@ export async function getCarById(id: string): Promise<CarsModel | null> {
   }
   return staticCars.find((c) => c.id === id) ?? null;
 }
+
+export async function getCarsByIds(ids: string[]): Promise<CarsModel[]> {
+  if (ids.length === 0) return [];
+  const uniqueIds = [...new Set(ids)];
+  try {
+    const dbCars = await prisma.car.findMany({
+      where: { id: { in: uniqueIds } },
+    });
+    if (dbCars.length > 0) {
+      const orderMap = Object.fromEntries(
+        uniqueIds.map((id, i) => [id, i]),
+      );
+      return dbCars
+        .map(prismaCarToModel)
+        .sort((a, b) => (orderMap[a.id] ?? 0) - (orderMap[b.id] ?? 0));
+    }
+  } catch {
+    // Fallback
+  }
+  return uniqueIds
+    .map((id) => staticCars.find((c) => c.id === id))
+    .filter((c): c is CarsModel => c != null);
+}

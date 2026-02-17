@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from "react";
 
 import CarInfoIcon from "@/components/car-info/car-infoIcon.component";
 import CardComponent from "@/components/card-component/card-component";
+import CompareButtonComponent from "@/components/compare-button/compare-button.component";
 
 import { CarsModel } from "@/models/cars.model";
 
@@ -50,6 +51,7 @@ const CarInfo = ({ car }: Props) => {
               luggage={car.capacity.luggage}
               transmission={car.features.transmission}
             />
+            <CompareButtonComponent carId={car.id} className="mt-2" />
           </div>
         </div>
       </CardComponent>
