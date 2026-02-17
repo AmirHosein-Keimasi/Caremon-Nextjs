@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
 
+import Link from "next/link";
 import {
   Github,
   Instagram,
@@ -72,10 +73,16 @@ export default function FooterComponent(): ReactElement {
             </p>
           </div>
           <div className="text-left pb-8">
-            <p className="text-foreground">
+            <p className="text-foreground mb-2">
               پلتفرمی یکپارچه برای اجاره خودرو و رزرو آنلاین ماشین در سراسر
               ایران
             </p>
+            <Link
+              href="/about"
+              className="text-sm text-primary hover:underline"
+            >
+              درباره ما و تماس
+            </Link>
           </div>
         </div>
       </div>

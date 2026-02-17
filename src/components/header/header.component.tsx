@@ -15,6 +15,7 @@ import useAuth from "@/utils/useAuth";
 const links = [
   { href: "/", title: "خانه" },
   { href: "/search", title: "جستجو" },
+  { href: "/about", title: "درباره ما" },
   { href: "/questions", title: "سوالات متداول" },
   { href: "/Rules", title: "شرایط و قوانین" },
 ];
