@@ -6,6 +6,9 @@ export const SEARCH_FILTER_KEYS = [
   "transmission",
   "location",
   "with_driver",
+  "chassisType",
+  "price_min",
+  "price_max",
   "sortType",
 ] as const;
 
@@ -24,6 +27,9 @@ export const SEARCH_FILTER_LABELS: Record<SearchFilterKey, string> = {
   transmission: "انتقال قدرت",
   location: "مکان",
   with_driver: "راننده",
+  chassisType: "نوع خودرو",
+  price_min: "حداقل قیمت",
+  price_max: "حداکثر قیمت",
   sortType: "مرتب‌سازی",
 };
 
@@ -82,6 +88,33 @@ export function getActiveSearchFilters(
     entries.push({ key, value });
     return entries;
   }, []);
+}
+
+const SORT_TYPE_LABELS: Record<string, string> = {
+  "price-to-up": "ارزان‌ترین",
+  "price-to-down": "گران‌ترین",
+  model: "جدیدترین (مدل)",
+  "model-asc": "قدیمی‌ترین (مدل)",
+  name: "حروف الفبا (الف-ی)",
+  "name-desc": "حروف الفبا (ی-الف)",
+  rating: "بالاترین امتیاز",
+  passengers: "ظرفیت سرنشین",
+};
+
+export function formatFilterDisplayValue(
+  key: SearchFilterKey,
+  value: string,
+): string {
+  if (key === "price_min" || key === "price_max") {
+    const num = parseInt(value, 10);
+    if (!Number.isNaN(num)) {
+      return `${(num / 1_000_000).toFixed(1)} م.ت`;
+    }
+  }
+  if (key === "sortType") {
+    return SORT_TYPE_LABELS[value] ?? value;
+  }
+  return value;
 }
 
 export function countActiveSearchFilters(

@@ -32,12 +32,19 @@ export default function CarsProvider({ children, cars }: Props): ReactElement {
 
   const isVisible = useCallback(
     (car: CarsModel): boolean => {
+      const price = car.rental.days_3_to_14;
+      const minOk = !filters.price_min || price >= parseInt(filters.price_min, 10);
+      const maxOk = !filters.price_max || price <= parseInt(filters.price_max, 10);
+
       return (
         doesCarInclude(car, filters.query) &&
         doesInclude(car.model, filters.model) &&
         doesInclude(car.location, filters.location) &&
         doesInclude(car.features.transmission, filters.transmission) &&
-        doesInclude(car.with_driver, filters.with_driver)
+        doesInclude(car.with_driver, filters.with_driver) &&
+        doesInclude(car.features.chassis_type, filters.chassisType) &&
+        minOk &&
+        maxOk
       );
     },
     [filters],

@@ -10,6 +10,7 @@ import { FiltersContext } from "../../providers/filter.providers";
 import {
   getActiveSearchFilters,
   isSearchFiltersEmpty,
+  formatFilterDisplayValue,
   SEARCH_FILTER_LABELS,
   SearchFilterKey,
 } from "@/app/search/utils/search-filters";
@@ -40,7 +41,7 @@ export default function FiltersSummaryComponent(): ReactElement | null {
     <Card>
       <CardContent className="p-4">
       <div className="flex flex-col gap-4">
-        <div className="text-lg font-semibold">Active filters</div>
+        <div className="text-lg font-semibold">فیلترهای فعال</div>
 
         <Button
           type="button"
@@ -49,7 +50,7 @@ export default function FiltersSummaryComponent(): ReactElement | null {
           className="self-end"
           onClick={removeAllButtonClickHandler}
         >
-          Clear all
+          پاک کردن همه
         </Button>
 
         <ul className="flex flex-wrap gap-2 list-none">
@@ -60,7 +61,7 @@ export default function FiltersSummaryComponent(): ReactElement | null {
               className="cursor-pointer hover:bg-accent/80 transition-colors"
               onClick={() => filterClickHandler(filter.key)}
             >
-              {SEARCH_FILTER_LABELS[filter.key]}: {filter.value}
+              {SEARCH_FILTER_LABELS[filter.key]}: {formatFilterDisplayValue(filter.key, filter.value)}
             </Badge>
           ))}
         </ul>

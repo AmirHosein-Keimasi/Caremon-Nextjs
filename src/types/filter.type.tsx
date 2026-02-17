@@ -2,6 +2,9 @@ export type FiltersType = {
   query?: string;
   name?: string;
   model?: string;
+  price_min?: string;
+  price_max?: string;
+  chassisType?: string;
   priceRange?: { min?: number; max?: number };
   minimumRentalDays?: number;
   depositRange?: { min?: number; max?: number };

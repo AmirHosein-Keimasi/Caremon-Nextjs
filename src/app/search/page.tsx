@@ -12,6 +12,8 @@ import WithDriverFilterComponent from "./components/withdriver-filter/withdriver
 import ModelFilterComponent from "./components/model-filter/model-filter.component";
 import LocationFilterComponent from "./components/location-filter/location-filter.component";
 import TransmissionFilterComponent from "./components/transmission-filter/transmission-filter.component";
+import PriceRangeFilterComponent from "./components/price-range-filter/price-range-filter.component";
+import ChassisTypeFilterComponent from "./components/chassis-type-filter/chassis-type-filter.component";
 
 import FiltersProvider from "./providers/filter.providers";
 import CarsProvider from "./providers/cars.provider";
@@ -49,6 +51,8 @@ export default async function Page({
             <LocationFilterComponent />
             <ModelFilterComponent />
             <TransmissionFilterComponent />
+            <ChassisTypeFilterComponent />
+            <PriceRangeFilterComponent />
             <WithDriverFilterComponent />
           </div>
           <div className="[grid-area:toolbar] flex items-center gap-4">
@@ -67,8 +71,17 @@ export default async function Page({
 }
 
 function generateDefaultFilters(searchParams: SearchParams): FiltersType {
-  const { query, model, transmission, location, with_driver, sortType } =
-    searchParams;
+  const {
+    query,
+    model,
+    transmission,
+    location,
+    with_driver,
+    chassisType,
+    price_min,
+    price_max,
+    sortType,
+  } = searchParams;
 
   return normalizeSearchFilters({
     query: normalizeFilter(query),
@@ -76,6 +89,9 @@ function generateDefaultFilters(searchParams: SearchParams): FiltersType {
     transmission: normalizeFilter(transmission),
     location: normalizeFilter(location),
     with_driver: normalizeFilter(with_driver),
+    chassisType: normalizeFilter(chassisType),
+    price_min: normalizeFilter(price_min),
+    price_max: normalizeFilter(price_max),
     sortType: normalizeFilter(sortType),
   });
 }

@@ -17,6 +17,9 @@ import { FiltersContext } from "../../providers/filter.providers";
 import {
   countActiveSearchFilters,
   getActiveSearchFilters,
+  formatFilterDisplayValue,
+  SEARCH_FILTER_LABELS,
+  SearchFilterKey,
 } from "@/app/search/utils/search-filters";
 import {
   SearchPreset,
@@ -39,8 +42,18 @@ export default function SavedFiltersComponent(): ReactElement {
     setPresetName(event.currentTarget.value);
   };
 
+  const generateDefaultPresetName = (): string => {
+    const parts = getActiveSearchFilters(filters)
+      .slice(0, 3)
+      .map(
+        (f) =>
+          `${SEARCH_FILTER_LABELS[f.key as SearchFilterKey]}: ${formatFilterDisplayValue(f.key as SearchFilterKey, f.value)}`,
+      );
+    return parts.length > 0 ? parts.join(" • ") : "فیلتر پیش‌فرض";
+  };
+
   const saveClickHandler = (): void => {
-    addPreset(presetName, filters);
+    addPreset(presetName.trim() || generateDefaultPresetName(), filters);
     setPresetName("");
   };
 
@@ -104,8 +117,13 @@ export default function SavedFiltersComponent(): ReactElement {
                       <span
                         key={`${preset.id}-${filter.key}`}
                         className="bg-muted rounded-full px-2 py-0.5 text-sm"
+                        title={`${SEARCH_FILTER_LABELS[filter.key as SearchFilterKey]}: ${formatFilterDisplayValue(filter.key as SearchFilterKey, filter.value)}`}
                       >
-                        {filter.value}
+                        {SEARCH_FILTER_LABELS[filter.key as SearchFilterKey]}:{" "}
+                        {formatFilterDisplayValue(
+                          filter.key as SearchFilterKey,
+                          filter.value,
+                        )}
                       </span>
                     ))}
                   </div>
