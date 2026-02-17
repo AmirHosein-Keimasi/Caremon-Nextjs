@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,7 +41,7 @@ const fieldMeta: Record<
   email: {
     label: "ایمیل",
     type: "email",
-    placeholder: "example@mail.com",
+    placeholder: "مثال@example.com",
   },
   phone: {
     label: "شماره تماس",
@@ -148,9 +149,15 @@ export default function CheckoutPage() {
             <h2 className="m-0 mb-4 text-foreground text-lg">خلاصه رزرو</h2>
 
             <div className="flex gap-4 p-3 bg-muted rounded-xl mb-4">
-              <img
-                src={currentRental.car.img}
+              <Image
+                src={
+                  currentRental.car.img.startsWith("http")
+                    ? currentRental.car.img
+                    : `https://cafeerent.com/storage/www/cars/single/${currentRental.car.img}`
+                }
                 alt={currentRental.car.model}
+                width={116}
+                height={88}
                 className="w-[116px] h-[88px] object-cover rounded-[10px] flex-shrink-0"
               />
               <div>

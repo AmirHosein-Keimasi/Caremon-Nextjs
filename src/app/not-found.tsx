@@ -23,7 +23,7 @@ export default function NotFound(): ReactElement {
       <div className="[grid-area:visuals] flex justify-center items-center">
         <Image
           src={notFoundImage}
-          alt="Not Found"
+          alt="صفحه یافت نشد"
           width={300}
           className="h-full max-w-[80%] max-h-[250px]"
         />

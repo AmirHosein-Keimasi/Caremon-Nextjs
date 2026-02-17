@@ -12,19 +12,18 @@ This comprehensive system includes shopping cart, invoicing, dashboard, and rese
 
 #### `src/store/cartStore.ts`
 
-- **Purpose**: Manage shopping cart items with persistence
+- **Purpose**: Manage current rental (Single Rental) with persistence
 - **Features**:
-  - Add/remove/update cart items
-  - Auto-calculate totals and quantities
-  - LocalStorage persistence via Zustand middleware
-  - Duplicate item handling (merges quantities)
+  - Set/clear/update current rental
+  - Auto-calculate totals
+  - LocalStorage persistence (`caremon-rental`)
   - Driver costs calculation
 
 ```typescript
 // Usage
 import { useCartStore } from "@/store/cartStore";
 
-const { items, totalPrice, totalItems, addToCart, removeFromCart } =
+const { currentRental, totalPrice, setRental, clearRental, updateRental } =
   useCartStore();
 ```
 
@@ -72,14 +71,12 @@ const { stats, refreshStats } = useDashboardStore();
 
 #### `src/components/ShoppingCart/ShoppingCart.tsx`
 
-- **Purpose**: Display and manage shopping cart
+- **Purpose**: Display current rental and manage cart
 - **Features**:
-  - Item listing with images and details
-  - Quantity adjustment (+/-)
-  - Remove individual items
+  - Current rental display with image and details
+  - Remove rental
   - Cart summary with pricing
-  - Checkout form with validation
-  - Redirect to reservation page
+  - Redirect to checkout
 
 **Props**: None (uses Zustand directly)
 

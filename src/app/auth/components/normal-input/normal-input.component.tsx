@@ -62,10 +62,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
     return (
       <div className={`flex flex-col gap-2 ${className}`}>
         {label && (
-          <Label
-            htmlFor={id}
-            className="text-sm font-medium text-foreground"
-          >
+          <Label htmlFor={id} className="text-sm font-medium text-foreground">
             {label}
           </Label>
         )}
@@ -87,9 +84,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
           autoComplete={autoComplete}
         />
         {showError && errorText && (
-          <p className="text-destructive text-xs leading-4">
-            {errorText}
-          </p>
+          <p className="text-destructive text-xs leading-4">{errorText}</p>
         )}
       </div>
     );

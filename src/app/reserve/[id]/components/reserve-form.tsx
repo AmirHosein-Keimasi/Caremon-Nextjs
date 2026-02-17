@@ -153,7 +153,7 @@ export default function ReserveForm({ carId, carName }: Props): ReactElement {
               id="email"
               name="email"
               required
-              placeholder="example@example.com"
+              placeholder="مثال@example.com"
             />
           </div>
 

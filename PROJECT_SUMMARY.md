@@ -198,8 +198,9 @@ Performance
 
 **LocalStorage Keys**:
 
-- `caremon-cart` - Shopping cart items
+- `caremon-rental` - Current rental (سبد خرید)
 - `caremon-reservations` - All reservations
+- `caremon-user-profile` - Customer profile
 
 **Automatic Sync**:
 
@@ -474,8 +475,8 @@ import ReservationOptions from '@/components/ReservationOptions/ReservationOptio
 ### Debugging
 
 ```typescript
-// View cart state
-localStorage.getItem("caremon-cart");
+// View current rental
+localStorage.getItem("caremon-rental");
 
 // View reservations
 localStorage.getItem("caremon-reservations");

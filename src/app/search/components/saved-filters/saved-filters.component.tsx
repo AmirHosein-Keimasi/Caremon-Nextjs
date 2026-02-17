@@ -54,8 +54,8 @@ export default function SavedFiltersComponent(): ReactElement {
       <CardContent className="p-4">
       <div className="grid gap-3">
         <div className="flex items-center justify-between gap-2">
-          <div className="font-black">Saved filters</div>
-          <Badge variant="secondary">{activeFiltersCount} active</Badge>
+          <div className="font-black">فیلترهای ذخیره شده</div>
+          <Badge variant="secondary">{activeFiltersCount} فعال</Badge>
         </div>
 
         <div className="grid grid-cols-[1fr_auto] gap-2 max-[48rem]:grid-cols-1">
@@ -64,7 +64,7 @@ export default function SavedFiltersComponent(): ReactElement {
             value={presetName}
             onChange={inputChangeHandler}
             maxLength={40}
-            placeholder="Preset name (optional)"
+            placeholder="نام پیش‌فرض (اختیاری)"
           />
 
           <Button
@@ -73,13 +73,13 @@ export default function SavedFiltersComponent(): ReactElement {
             onClick={saveClickHandler}
             disabled={activeFiltersCount === 0}
           >
-            Save
+            ذخیره
           </Button>
         </div>
 
         {!presets.length && (
           <div className="text-foreground text-sm">
-            No saved presets yet.
+            هنوز فیلتری ذخیره نشده است.
           </div>
         )}
 
@@ -94,7 +94,7 @@ export default function SavedFiltersComponent(): ReactElement {
                   <div className="flex items-center justify-between gap-2 max-[48rem]:items-start max-[48rem]:flex-col">
                     <div className="font-bold">{preset.name}</div>
                     <div className="text-sm text-foreground">
-                      {countActiveSearchFilters(preset.filters)} filters | used{" "}
+                      {countActiveSearchFilters(preset.filters)} فیلتر | استفاده{" "}
                       {preset.usageCount}
                     </div>
                   </div>
@@ -116,7 +116,7 @@ export default function SavedFiltersComponent(): ReactElement {
                       size="sm"
                       onClick={() => applyClickHandler(preset)}
                     >
-                      Apply
+                      اعمال
                     </Button>
 
                     <Button
@@ -125,7 +125,7 @@ export default function SavedFiltersComponent(): ReactElement {
                       variant="destructive"
                       onClick={() => removePreset(preset.id)}
                     >
-                      Delete
+                      حذف
                     </Button>
                   </div>
                 </li>
@@ -138,7 +138,7 @@ export default function SavedFiltersComponent(): ReactElement {
               variant="destructive"
               onClick={clearPresets}
             >
-              Clear presets
+              پاک کردن پیش‌فرض‌ها
             </Button>
           </>
         )}

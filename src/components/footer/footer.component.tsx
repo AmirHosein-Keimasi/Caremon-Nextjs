@@ -32,7 +32,7 @@ export default function FooterComponent(): ReactElement {
             <Instagram className="text-foreground opacity-75 transition-all duration-300 ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" />
           </a>
           <a href="#" className="mr-3">
-            <Send className="text-foreground opacity-75 transition-all duration-300 ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" title="Telegram" />
+            <Send className="text-foreground opacity-75 transition-all duration-300 ease-in-out hover:opacity-100 hover:scale-125 h-4 w-4" title="تلگرام" />
           </a>
         </div>
       </div>

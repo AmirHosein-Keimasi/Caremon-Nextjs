@@ -4,8 +4,7 @@ import {
   ComponentProps,
   ForwardedRef,
   forwardRef,
-  ReactElement,
-  useState,
+   useState,
 } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";

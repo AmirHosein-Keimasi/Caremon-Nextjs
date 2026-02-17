@@ -56,7 +56,7 @@
 │  └──────────────┘  │ getByUser()     │  │   Store         │    │
 │  Persisted to      │ updatePayment() │  └─────────────────┘    │
 │  localStorage:     └─────────────────┘                          │
-│  caremon-cart      Persisted to                                  │
+│  caremon-rental     Persisted to                                  │
 │                    localStorage:                                 │
 │                    caremon-reservations                          │
 │                                                                   │
@@ -68,31 +68,26 @@
 │                                                                   │
 │   1. User selects CAR                                             │
 │      ↓                                                            │
-│   2. Opens RESERVATION OPTIONS form                               │
+│   2. Opens RESERVE form (reserve/[id]) or ReservationOptions      │
 │      ├─ Selects dates                                            │
 │      ├─ Picks locations                                          │
 │      ├─ Adds driver option                                       │
 │      └─ Selects add-ons                                          │
 │      ↓                                                            │
-│   3. Clicks "ADD TO CART"                                        │
+│   3. Clicks "ADD TO CART" / "رزرو"                               │
 │      ↓                                                            │
-│   4. useAddToCart hook validates & calculates                    │
-│      ├─ Validates dates                                          │
-│      ├─ Calculates rental days                                   │
-│      └─ Calculates total price                                   │
+│   4. cartStore.setRental() saves to state + localStorage        │
 │      ↓                                                            │
-│   5. cartStore.addToCart() saves to state + localStorage         │
-│      ↓                                                            │
-│   6. SHOPPING CART displays item                                  │
+│   5. SHOPPING CART displays current rental                        │
 │      ├─ Shows all items in cart                                  │
 │      ├─ Allows quantity adjustment                               │
 │      └─ Shows total price                                        │
 │      ↓                                                            │
-│   7. User clicks "COMPLETE ORDER"                                │
+│   7. User clicks "ادامه برای پرداخت" → /checkout                 │
 │      ↓                                                            │
-│   8. reservationStore.createReservation() creates order          │
+│   8. Checkout: customer info + reservation creation               │
 │      ↓                                                            │
-│   9. cartStore.clearCart() empties cart                          │
+│   9. cartStore.clearRental() empties rental                       │
 │      ↓                                                            │
 │   10. DASHBOARD shows new reservation                             │
 │       ├─ Overview tab: Stats updated                             │
@@ -184,9 +179,10 @@
 ```
 src/
 ├── store/                    ← State Management
-│   ├── cartStore.ts         (Cart items + actions)
+│   ├── cartStore.ts         (Current rental + actions)
 │   ├── reservationStore.ts  (Orders + actions)
-│   └── dashboardStore.ts    (Statistics)
+│   ├── dashboardStore.ts    (Statistics)
+│   └── userProfileStore.ts  (Customer profile)
 │
 ├── hooks/                    ← Custom Hooks
 │   ├── useAddToCart.ts      (Add to cart logic)

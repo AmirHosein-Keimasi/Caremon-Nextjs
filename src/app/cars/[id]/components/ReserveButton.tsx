@@ -156,7 +156,7 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
 
   const locations = ["تهران", "مشهد", "اصفهان", "شیراز", "کرج", "تبریز"];
   const options = [
-    { id: "gps", label: "GPS" },
+    { id: "gps", label: "جی‌پی‌اس" },
     { id: "child-seat", label: "صندلی کودک" },
     { id: "wifi", label: "وای فای" },
     { id: "insurance", label: "بیمه توسعه‌یافته" },

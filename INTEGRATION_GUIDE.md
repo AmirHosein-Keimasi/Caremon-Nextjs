@@ -1,63 +1,14 @@
 # 🚀 Quick Integration Guide
 
-## Step 1: Update Layout (Global Error Handling)
+## Step 1: Layout
 
-Edit `src/app/layout.tsx` to add ErrorBoundary and ToastContainer:
-
-```tsx
-"use client";
-
-import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="fa">
-      <body>
-        <ErrorBoundary>
-          {children}
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={true}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
-        </ErrorBoundary>
-      </body>
-    </html>
-  );
-}
-```
+Layout فعلی شامل `Toaster` (sonner) است. برای نوتیفیکیشن‌ها از `toast` از sonner استفاده کنید.
 
 ---
 
-## Step 2: Create Cart Page
+## Step 2: سبد خرید
 
-Create `src/app/cart/page.tsx`:
-
-```tsx
-"use client";
-
-import ShoppingCart from "@/components/ShoppingCart/ShoppingCart";
-
-export default function CartPage() {
-  return (
-    <div>
-      <ShoppingCart />
-    </div>
-  );
-}
-```
+کامپوننت `ShoppingCart` در مسیر `/cart` یا هر صفحه‌ای که نیاز دارید استفاده می‌شود. از `currentRental` در cartStore استفاده می‌کند.
 
 ---
 
@@ -189,7 +140,7 @@ showErrorNotification("تست خطا!");
 
 ### Issue: Notifications not showing
 
-**Solution**: Ensure ErrorBoundary and ToastContainer are in layout.tsx
+**Solution**: Ensure Toaster (sonner) is in layout.tsx
 
 ### Issue: Date picker not working
 

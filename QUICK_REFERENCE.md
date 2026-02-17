@@ -5,14 +5,17 @@
 ### Stores
 
 ```typescript
-// src/store/cartStore.ts
-useCartStore() → items, totalPrice, totalItems, addToCart, removeFromCart, clearCart
+// src/store/cartStore.ts (Single Rental)
+useCartStore() → currentRental, totalPrice, setRental, clearRental, updateRental
 
 // src/store/reservationStore.ts
 useReservationStore() → reservations, createReservation, updateStatus, cancelReservation
 
 // src/store/dashboardStore.ts
 useDashboardStore() → stats, refreshStats
+
+// src/store/userProfileStore.ts
+useUserProfileStore() → profile, updateProfile, isProfileComplete
 ```
 
 ### Components
@@ -31,38 +34,46 @@ useDashboardStore() → stats, refreshStats
 ### Hooks
 
 ```typescript
-// src/hooks/useAddToCart.ts
-const { addItem } = useAddToCart()
-addItem({ car, startDate, endDate, pickupLocation, dropoffLocation, pricePerDay, ... })
+// src/hooks/useAddToCart.ts (در ReservationOptions)
+const { addItem } = useAddToCart();
+addItem({ car, startDate, endDate, pickupLocation, dropoffLocation, ... });
+
+// ReserveButton مستقیماً از setRental استفاده می‌کند
 ```
 
 ---
 
 ## 🚀 Common Tasks
 
-### Add Item to Cart
-
-```typescript
-import { useAddToCart } from "@/hooks/useAddToCart";
-
-const { addItem } = useAddToCart();
-
-addItem({
-  car: carData,
-  startDate: "2026-02-15",
-  endDate: "2026-02-20",
-  pickupLocation: "تهران-مرکز",
-  dropoffLocation: "تهران-فرودگاه",
-  pricePerDay: 500000,
-});
-```
-
-### Access Cart
+### Set Current Rental (Add to Cart)
 
 ```typescript
 import { useCartStore } from "@/store/cartStore";
 
-const { items, totalPrice, totalItems } = useCartStore();
+const { setRental } = useCartStore();
+
+setRental({
+  id: "temp-id",
+  car: carData,
+  rentalDays: 5,
+  startDate: "2026-02-15",
+  endDate: "2026-02-20",
+  pickupLocation: "تهران-مرکز",
+  dropoffLocation: "تهران-فرودگاه",
+  withDriver: false,
+  selectedOptions: [],
+  pricePerDay: 500000,
+  totalPrice: 2500000,
+  addedAt: Date.now(),
+});
+```
+
+### Access Cart / Current Rental
+
+```typescript
+import { useCartStore } from "@/store/cartStore";
+
+const { currentRental, totalPrice } = useCartStore();
 ```
 
 ### Create Reservation
@@ -144,11 +155,14 @@ dashboard/page.module.css
 ## 💾 LocalStorage Keys
 
 ```javascript
-// Cart data (auto-saved)
-localStorage.getItem("caremon-cart");
+// Current rental (auto-saved)
+localStorage.getItem("caremon-rental");
 
 // Reservations (auto-saved)
 localStorage.getItem("caremon-reservations");
+
+// User profile
+localStorage.getItem("caremon-user-profile");
 
 // Clear all
 localStorage.clear();
@@ -158,7 +172,7 @@ localStorage.clear();
 
 ## 🔄 Data Models
 
-### CartItem
+### RentalItem (Current Rental)
 
 ```typescript
 {
@@ -174,7 +188,6 @@ localStorage.clear();
   selectedOptions: string[];
   pricePerDay: number;
   totalPrice: number;
-  quantity: number;
   addedAt: number;
 }
 ```
@@ -205,17 +218,14 @@ localStorage.clear();
 
 ## 📊 Store Methods
 
-### cartStore
+### cartStore (Single Rental)
 
 ```typescript
-addToCart(item: CartItem)
-removeFromCart(id: string)
-updateQuantity(id: string, qty: number)
-updateCartItem(id: string, updates: Partial<CartItem>)
-clearCart()
-getCartItem(id: string) → CartItem | undefined
+setRental(item: RentalItem)
+clearRental()
+updateRental(updates: Partial<RentalItem>)
+getRental() → RentalItem | null
 getTotal() → number
-getItemCount() → number
 ```
 
 ### reservationStore
@@ -246,7 +256,7 @@ getStats() → DashboardStats
 
 ```typescript
 // Stores
-import { useCartStore, CartItem } from "@/store/cartStore";
+import { useCartStore, RentalItem } from "@/store/cartStore";
 import {
   useReservationStore,
   Reservation,
@@ -302,33 +312,13 @@ interface ReservationOptionsProps {
 
 ## 🎯 Integration Steps
 
-1. **Update layout.tsx**
+1. **Layout** — Toaster (sonner) در layout.tsx موجود است.
 
-   ```tsx
-   import { ErrorBoundary } from "@/components/ErrorBoundary";
-   import { ToastContainer } from "react-toastify";
-   // Wrap children with ErrorBoundary
-   // Add ToastContainer
-   ```
+2. **سبد خرید** — مسیر `/cart` یا استفاده مستقیم از `<ShoppingCart />`
 
-2. **Create cart page** (`src/app/cart/page.tsx`)
+3. **صفحه رزرو** — `reserve/[id]` با ReserveForm یا ReservationOptions
 
-   ```tsx
-   import ShoppingCart from "@/components/ShoppingCart/ShoppingCart";
-   export default () => <ShoppingCart />;
-   ```
-
-3. **Add to car pages**
-
-   ```tsx
-   import ReservationOptions from "@/components/ReservationOptions/ReservationOptions";
-   export default ({ car }) => <ReservationOptions car={car} />;
-   ```
-
-4. **Use in dashboard**
-   ```tsx
-   // Already enhanced in dashboard/page.tsx
-   ```
+4. **Checkout** — مسیر `/checkout` برای تایید و پرداخت
 
 ---
 

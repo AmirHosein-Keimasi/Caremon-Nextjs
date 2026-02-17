@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import useAuth from "@/utils/useAuth";
@@ -55,17 +55,23 @@ export default function UserPanel() {
         aria-expanded={isOpen}
         aria-label="منوی کاربری"
       >
-        <Avatar className="w-full h-full">
-          <AvatarImage src={profileImageSrc} alt="User profile" />
-        </Avatar>
+        <Image
+          src={profileImageSrc}
+          alt="تصویر پروفایل کاربر"
+          width={48}
+          height={48}
+          className="w-full h-full rounded-full object-cover"
+        />
       </Button>
 
       {isOpen && (
         <div className="absolute top-full left-auto -right-5 mt-3 bg-card border border-border rounded-lg shadow-lg overflow-hidden z-[100] min-w-[200px] animate-[slideDown_0.2s_ease-out] max-[600px]:right-0">
           <div className="flex items-center gap-4 p-4 bg-muted">
-            <img
+            <Image
               src={profileImageSrc}
-              alt="User profile"
+              alt="تصویر پروفایل کاربر"
+              width={40}
+              height={40}
               className="w-10 h-10 rounded-full object-cover flex-shrink-0 border border-border"
             />
             <div className="overflow-hidden">

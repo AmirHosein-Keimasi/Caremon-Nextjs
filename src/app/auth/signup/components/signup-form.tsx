@@ -63,7 +63,7 @@ export default function SignupForm() {
         id="email"
         name="email"
         label="ایمیل"
-        placeholder="example@example.com"
+        placeholder="مثال@example.com"
         required
       />
 

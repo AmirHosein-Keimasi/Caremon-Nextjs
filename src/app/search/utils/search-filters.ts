@@ -19,12 +19,12 @@ type SearchFilterEntries = Array<{
 }>;
 
 export const SEARCH_FILTER_LABELS: Record<SearchFilterKey, string> = {
-  query: "Search",
-  model: "Model",
-  transmission: "Transmission",
-  location: "Location",
-  with_driver: "Driver",
-  sortType: "Sort",
+  query: "جستجو",
+  model: "مدل",
+  transmission: "انتقال قدرت",
+  location: "مکان",
+  with_driver: "راننده",
+  sortType: "مرتب‌سازی",
 };
 
 function normalizeFilterValue(value: string | undefined): string | undefined {

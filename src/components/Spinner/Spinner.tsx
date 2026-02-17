@@ -41,7 +41,7 @@ const Spinner: React.FC<LoaderProps> = ({
     <div
       className={`relative ${className}`}
       style={loaderStyle}
-      aria-label="Loading"
+      aria-label="در حال بارگذاری"
       role="status"
     >
       <div

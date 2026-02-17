@@ -16,7 +16,11 @@ export default function DarkModeToggleComponent(): ReactElement {
   useEffect(() => {
     const html = document.documentElement;
     html.dataset.theme = darkMode ? "dark" : "light";
-    darkMode ? html.classList.add("dark") : html.classList.remove("dark");
+    if (darkMode) {
+      html.classList.add("dark");
+    } else {
+      html.classList.remove("dark");
+    }
   }, [darkMode]);
 
   const toggleDarkMode = () => {

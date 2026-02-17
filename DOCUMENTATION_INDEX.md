@@ -4,7 +4,9 @@
 
 **New to this system?** Start with these in order:
 
-1. **[PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md)** ← **START HERE** (5 min read)
+1. **[PROJECT_REVIEW.md](./PROJECT_REVIEW.md)** ← **بررسی جامع پروژه** (مشکلات، نقاط ضعف، مسیر)
+
+2. **[PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md)** ← **START HERE** (5 min read)
 
    - Overview of everything built
    - What's included
@@ -81,7 +83,7 @@
 
 ### "How do I...?"
 
-**...add an item to cart?**
+**...add rental to cart / set current rental?**
 → See [QUICK_REFERENCE.md](./QUICK_REFERENCE.md#-common-tasks) or [INTEGRATION_GUIDE.md](./INTEGRATION_GUIDE.md)
 
 **...understand the system?**
@@ -156,14 +158,15 @@
 
 ## 📁 Files in Repository
 
-### New Components
+### Key Structure
 
 ```
 src/
 ├── store/
-│   ├── cartStore.ts
+│   ├── cartStore.ts         (currentRental - Single Rental)
 │   ├── reservationStore.ts
-│   └── dashboardStore.ts
+│   ├── dashboardStore.ts
+│   └── userProfileStore.ts
 ├── components/
 │   ├── ShoppingCart/
 │   │   ├── ShoppingCart.tsx
@@ -321,9 +324,9 @@ Root:
 
 ## 📧 Last Updated
 
-**Date**: February 12, 2026  
-**Version**: 1.0  
-**Status**: ✅ Production Ready
+**Date**: February 17, 2026  
+**Version**: 0.2.0  
+**Status**: ✅ Production Ready (see PROJECT_REVIEW.md for improvements)
 
 ---
 

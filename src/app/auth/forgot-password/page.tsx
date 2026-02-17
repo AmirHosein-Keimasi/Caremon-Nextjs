@@ -56,9 +56,9 @@ export default function ForgotPasswordPage() {
           {status === "success" && (
             <Alert className="mb-6 bg-success text-success-foreground border-0">
               <AlertDescription>
-                اگر حساب فعالی با این ایمیل وجود داشته باشد، لینک بازیابی برای شما
-                ارسال خواهد شد. این بخش فعلاً به بک‌اند متصل نیست و در نسخه‌های
-                بعدی تکمیل می‌شود.
+                اگر حساب فعالی با این ایمیل وجود داشته باشد، لینک بازیابی برای
+                شما ارسال خواهد شد. این بخش فعلاً به بک‌اند متصل نیست و در
+                نسخه‌های بعدی تکمیل می‌شود.
               </AlertDescription>
             </Alert>
           )}
