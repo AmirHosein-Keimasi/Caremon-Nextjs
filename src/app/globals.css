@@ -270,12 +270,14 @@
    Base Styles
    ============================================ */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 html {
@@ -283,14 +285,17 @@ html {
   accent-color: var(--primary);
   caret-color: var(--primary);
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    @apply bg-background text-foreground min-h-screen min-h-dvh font-sans antialiased;
+    @apply bg-background text-foreground min-h-screen min-h-dvh font-sans antialiased w-full min-w-0 overflow-x-hidden;
   }
 }
 
@@ -299,27 +304,63 @@ html {
    ============================================ */
 
 @keyframes spin-loader {
-  0% { transform: rotate(0deg); opacity: 0.8; }
-  50% { opacity: 1; }
-  100% { transform: rotate(360deg); opacity: 0.8; }
+  0% {
+    transform: rotate(0deg);
+    opacity: 0.8;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotate(360deg);
+    opacity: 0.8;
+  }
 }
 
 @keyframes moveCar {
-  0% { transform: translateX(-10px); }
-  100% { transform: translateX(10px); }
+  0% {
+    transform: translateX(-10px);
+  }
+
+  100% {
+    transform: translateX(10px);
+  }
 }
 
 @keyframes shake {
-  0% { transform: translateY(-3px); }
-  100% { transform: translateY(3px); }
+  0% {
+    transform: translateY(-3px);
+  }
+
+  100% {
+    transform: translateY(3px);
+  }
 }
 
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
+  
