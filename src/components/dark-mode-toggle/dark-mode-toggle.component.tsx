@@ -26,21 +26,23 @@ export default function DarkModeToggleComponent(): ReactElement {
   }
 
   return (
-    <Button
-      variant="outline"
-      size="sm"
-      className="w-16 h-8 flex items-center p-0 overflow-hidden"
+    <button
+      type="button"
+      role="switch"
+      aria-checked={!isDark}
+      aria-label={isDark ? "تغییر به تم روشن" : "تغییر به تم تاریک"}
+      className="w-14 h-7 rounded-full bg-muted border border-border flex items-center p-0.5 shrink-0 transition-colors hover:bg-muted/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       onClick={toggleDarkMode}
     >
-      <div
-        className={`w-8 h-8 rounded-lg transition-[transform,background-color] duration-500 ease-in-out relative flex items-center justify-center p-1 ${
+      <span
+        className={`inline-flex items-center justify-center size-6 rounded-full transition-[transform,background-color] duration-300 ease-out ${
           isDark
-            ? "bg-muted text-muted-foreground -translate-x-8"
-            : "bg-amber-400/60 text-amber-950 translate-x-0"
+            ? "bg-muted-foreground/20 text-muted-foreground translate-x-7 rtl:-translate-x-7"
+            : "bg-amber-400/70 text-amber-950 translate-x-0"
         }`}
       >
-        {isDark ? <Moon /> : <Sun />}
-      </div>
-    </Button>
+        {isDark ? <Moon className="size-3.5" /> : <Sun className="size-3.5" />}
+      </span>
+    </button>
   );
 }
