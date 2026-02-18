@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { getCurrentUserId } from "@/utils/api.utils";
 
 export async function POST(request: Request) {
   try {
@@ -21,6 +22,8 @@ export async function POST(request: Request) {
       );
     }
 
+    const renterId = await getCurrentUserId(request);
+
     await prisma.reservation.create({
       data: {
         carId,
@@ -30,6 +33,7 @@ export async function POST(request: Request) {
         email: String(email),
         startDate: new Date(startDate),
         endDate: new Date(endDate),
+        ...(renterId ? { renterId } : {}),
       },
     });
 

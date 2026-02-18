@@ -2,6 +2,9 @@ export type CarsModel = {
   id: string;
   name: string;
   model: string;
+  /** مالک خودرو در مارکت‌پلیس؛ خالی = خودروی پلتفرم */
+  ownerId?: string | null;
+  ownerName?: string | null;
   rental: {
     days_3_to_14: number;
     more_than_14_days: number;

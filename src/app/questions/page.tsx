@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import Accordion from "@/components/Accordion/Accordion.component";
-import { faqData, faqGuest } from "./data/faqData";
+import { faqData, faqGuest, faqHolder } from "./data/faqData";
 import { HelpCircle } from "lucide-react";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 
 export default function FAQPage() {
-  const [activeTab, setActiveTab] = useState<"general" | "guest">("general");
+  const [activeTab, setActiveTab] = useState<"general" | "guest" | "holder">("general");
 
   const tabClass =
     "px-3 py-2 rounded-lg text-xs font-semibold transition-all lg:px-4 lg:py-2.5 lg:text-sm";
@@ -63,6 +63,16 @@ export default function FAQPage() {
             >
               اجاره‌گیرندگان
             </button>
+            <button
+              onClick={() => setActiveTab("holder")}
+              className={`${tabClass} ${
+                activeTab === "holder"
+                  ? "bg-primary text-primary-foreground"
+                  : "border border-border text-muted-foreground hover:bg-muted/50"
+              }`}
+            >
+              مالکین خودرو (مارکت‌پلیس)
+            </button>
           </div>
         </section>
 
@@ -94,6 +104,19 @@ export default function FAQPage() {
                   </p>
                 </div>
                 <Accordion items={faqGuest} />
+              </div>
+            )}
+            {activeTab === "holder" && (
+              <div className="animate-in fade-in duration-300">
+                <div className="mb-3 lg:mb-4">
+                  <h2 className="text-lg font-bold text-foreground lg:text-xl">
+                    سوالات مالکین خودرو (هولدر / مارکت‌پلیس)
+                  </h2>
+                  <p className="text-muted-foreground text-xs mt-0.5 lg:text-sm lg:mt-1">
+                    راهنمای ثبت خودرو و کسب درآمد از اجاره در کارِمون
+                  </p>
+                </div>
+                <Accordion items={faqHolder} />
               </div>
             )}
           </div>

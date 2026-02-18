@@ -14,11 +14,13 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  name     String
-  username String @unique
-  email    String @unique
-  password String
+  id        String   @id @default(uuid())
+  name      String
+  username  String   @unique
+  email     String   @unique
+  password  String
+  cars      Car[]    // خودروهایی که کاربر برای اجاره ثبت کرده
+  reservationsAsRenter Reservation[] @relation("RenterReservations")
 }
 
 model Car {
@@ -27,14 +29,16 @@ model Car {
   model        String
   img          String
   location     String
-  reviewCount  Int      @map("review_count")
-  ratingNumber Float    @map("rating_number")
+  reviewCount  Int      @default(0) @map("review_count")
+  ratingNumber Float    @default(0) @map("rating_number")
   withDriver   String   @map("with_driver")
   rental       Json
   capacity     Json
   features     Json
   engine       Json
   driverRental Json     @map("driver_rental")
+  ownerId      String?  @map("owner_id") // null = خودروی پلتفرم، مقدار = مالک (مارکت‌پلیس)
+  owner        User?    @relation(fields: [ownerId], references: [id], onDelete: SetNull)
 }
 
 model Reservation {
@@ -47,4 +51,6 @@ model Reservation {
   startDate DateTime @map("start_date")
   endDate   DateTime @map("end_date")
   createdAt DateTime @default(now()) @map("created_at")
+  renterId  String?  @map("renter_id") // کاربری که رنت کرده (مارکت‌پلیس)
+  renter    User?    @relation("RenterReservations", fields: [renterId], references: [id], onDelete: SetNull)
 }

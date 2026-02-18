@@ -8,10 +8,21 @@ import {
   Send,
   CheckCircle2,
 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { reserveFormSchema, type ReserveFormInput } from "@/lib/schemas";
 
 type Props = {
   carId: string;
@@ -23,89 +34,51 @@ export default function ReserveForm({
   carId,
   carName,
 }: Props): ReactElement {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const form = useForm<ReserveFormInput>({
+    resolver: zodResolver(reserveFormSchema),
+    defaultValues: {
+      name: "",
+      phone: "",
+      email: "",
+      startDate: "",
+      endDate: "",
+    },
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
+  const isSubmitting = form.formState.isSubmitting;
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const name = (formData.get("name") as string)?.trim();
-    const phone = (formData.get("phone") as string)?.trim();
-    const email = (formData.get("email") as string)?.trim();
-    const startDateValue = formData.get("startDate") as string;
-    const endDateValue = formData.get("endDate") as string;
-
-    if (!name) {
-      setError("لطفاً نام و نام خانوادگی را وارد کنید.");
-      return;
-    }
-
-    if (!/^09\d{9}$/.test(phone)) {
-      setError("شماره تماس را به‌صورت ۱۱ رقمی و با ۰۹ وارد کنید.");
-      return;
-    }
-
-    if (!email || !/.+@.+\..+/.test(email)) {
-      setError("ایمیل وارد شده معتبر نیست.");
-      return;
-    }
-
-    if (!startDateValue || !endDateValue) {
-      setError("لطفاً تاریخ تحویل و بازگرداندن را وارد کنید.");
-      return;
-    }
-
-    const startDate = new Date(startDateValue);
-    const endDate = new Date(endDateValue);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    if (startDate < today) {
-      setError("تاریخ تحویل نمی‌تواند قبل از امروز باشد.");
-      return;
-    }
-
-    if (endDate < startDate) {
-      setError("تاریخ بازگشت باید بعد از تاریخ تحویل باشد.");
-      return;
-    }
-
-    setIsSubmitting(true);
-
+  const onSubmit = async (values: ReserveFormInput) => {
     try {
       const res = await fetch("/api/reserve", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({
           carId,
           carName,
-          name,
-          phone,
-          email,
-          startDate: startDateValue,
-          endDate: endDateValue,
+          name: values.name,
+          phone: values.phone,
+          email: values.email,
+          startDate: values.startDate,
+          endDate: values.endDate,
         }),
       });
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        const message =
-          (data && (data.error as string)) ||
-          "خطا در ثبت رزرو، لطفاً بعداً دوباره تلاش کنید.";
-        setError(message);
+        form.setError("root", {
+          message:
+            (data?.error as string) ||
+            "خطا در ثبت رزرو، لطفاً بعداً دوباره تلاش کنید.",
+        });
         return;
       }
-
       setIsSuccess(true);
     } catch {
-      setError("خطا در ارتباط با سرور، لطفاً بعداً دوباره تلاش کنید.");
-    } finally {
-      setIsSubmitting(false);
+      form.setError("root", {
+        message: "خطا در ارتباط با سرور، لطفاً بعداً دوباره تلاش کنید.",
+      });
     }
   };
 
@@ -144,112 +117,148 @@ export default function ReserveForm({
         <p className="text-sm text-muted-foreground mt-1 m-0">{carName}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="p-6 sm:p-7 flex flex-col gap-6">
-        {error && (
-          <Alert variant="destructive" className="rounded-xl">
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
-
-        {/* Section: اطلاعات تماس */}
-        <section className="space-y-4" aria-labelledby="contact-heading">
-          <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center size-8 rounded-lg bg-primary/15 text-primary">
-              <UserRound className="size-4" />
-            </span>
-            <h3 id="contact-heading" className="font-semibold text-foreground m-0">
-              اطلاعات تماس
-            </h3>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="sm:col-span-2 flex flex-col gap-2">
-              <Label htmlFor="name">نام و نام خانوادگی</Label>
-              <Input
-                type="text"
-                id="name"
-                name="name"
-                required
-                placeholder="نام کامل"
-                className="rounded-xl h-11"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="phone">شماره تماس</Label>
-              <Input
-                type="tel"
-                id="phone"
-                name="phone"
-                required
-                placeholder="۰۹۱۲۳۴۵۶۷۸۹"
-                className="rounded-xl h-11"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="email">ایمیل</Label>
-              <Input
-                type="email"
-                id="email"
-                name="email"
-                required
-                placeholder="example@mail.com"
-                className="rounded-xl h-11"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Section: تاریخ سفر */}
-        <section className="space-y-4" aria-labelledby="dates-heading">
-          <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center size-8 rounded-lg bg-primary/15 text-primary">
-              <CalendarRange className="size-4" />
-            </span>
-            <h3 id="dates-heading" className="font-semibold text-foreground m-0">
-              تاریخ سفر
-            </h3>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="startDate">تحویل خودرو</Label>
-              <Input
-                type="date"
-                id="startDate"
-                name="startDate"
-                required
-                className="rounded-xl h-11"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="endDate">بازگرداندن</Label>
-              <Input
-                type="date"
-                id="endDate"
-                name="endDate"
-                required
-                className="rounded-xl h-11"
-              />
-            </div>
-          </div>
-        </section>
-
-        <Button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full h-12 rounded-xl text-base font-semibold gap-2"
-        >
-          {isSubmitting ? (
-            <>
-              <Loader2Icon className="size-5 animate-spin" />
-              در حال ثبت درخواست...
-            </>
-          ) : (
-            <>
-              <Send className="size-5" />
-              ثبت درخواست رزرو
-            </>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="p-6 sm:p-7 flex flex-col gap-6">
+          {form.formState.errors.root?.message && (
+            <Alert variant="destructive" className="rounded-xl">
+              <AlertDescription>
+                {form.formState.errors.root.message}
+              </AlertDescription>
+            </Alert>
           )}
-        </Button>
-      </form>
+
+          <section className="space-y-4" aria-labelledby="contact-heading">
+            <div className="flex items-center gap-2">
+              <span className="flex items-center justify-center size-8 rounded-lg bg-primary/15 text-primary">
+                <UserRound className="size-4" />
+              </span>
+              <h3 id="contact-heading" className="font-semibold text-foreground m-0">
+                اطلاعات تماس
+              </h3>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="sm:col-span-2">
+                    <FormLabel>نام و نام خانوادگی</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="نام کامل"
+                        className="rounded-xl h-11"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>شماره تماس</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="tel"
+                        placeholder="۰۹۱۲۳۴۵۶۷۸۹"
+                        className="rounded-xl h-11"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>ایمیل</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="example@mail.com"
+                        className="rounded-xl h-11"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </section>
+
+          <section className="space-y-4" aria-labelledby="dates-heading">
+            <div className="flex items-center gap-2">
+              <span className="flex items-center justify-center size-8 rounded-lg bg-primary/15 text-primary">
+                <CalendarRange className="size-4" />
+              </span>
+              <h3 id="dates-heading" className="font-semibold text-foreground m-0">
+                تاریخ سفر
+              </h3>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="startDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>تحویل خودرو</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="date"
+                        className="rounded-xl h-11"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="endDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>بازگرداندن</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="date"
+                        className="rounded-xl h-11"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </section>
+
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full h-12 rounded-xl text-base font-semibold gap-2"
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2Icon className="size-5 animate-spin" />
+                در حال ثبت درخواست...
+              </>
+            ) : (
+              <>
+                <Send className="size-5" />
+                ثبت درخواست رزرو
+              </>
+            )}
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 }

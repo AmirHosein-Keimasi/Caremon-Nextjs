@@ -6,6 +6,7 @@ import { getCarById } from "@/lib/cars";
 import ReserveForm from "./components/reserve-form";
 import Image from "next/image";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
+import Link from "next/link";
 
 type Props = {
   params: { id: string };

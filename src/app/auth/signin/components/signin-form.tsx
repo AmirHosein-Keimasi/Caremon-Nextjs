@@ -1,43 +1,52 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon } from "lucide-react";
 import { useUserProfileStore } from "@/store/userProfileStore";
 import { tokenUtils } from "@/lib/api-client";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import InputField from "../../components/normal-input/normal-input.component";
 import PasswordInput from "../../components/password-input/password-input.component";
+import { signinSchema, type SigninInput } from "@/lib/schemas";
 
 export default function SigninForm() {
   const router = useRouter();
   const updateProfile = useUserProfileStore((state) => state.updateProfile);
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const form = useForm<SigninInput>({
+    resolver: zodResolver(signinSchema),
+    defaultValues: { email: "", password: "" },
+  });
+
+  const isLoading = form.formState.isSubmitting;
+
+  const onSubmit = async (values: SigninInput) => {
     setError("");
-    setIsLoading(true);
-
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-
     try {
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(values),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
+        form.setError("root", { message: data.error || "خطا در ورود" });
         setError(data.error || "خطا در ورود");
         return;
       }
@@ -51,93 +60,111 @@ export default function SigninForm() {
       updateProfile({
         ...(firstName ? { firstName } : {}),
         ...(lastName ? { lastName } : {}),
-        email: String(data?.user?.email || email).trim(),
+        email: String(data?.user?.email || values.email).trim(),
       });
 
-      // فعلا بدون بک‌اند واقعی، فقط یک توکن ذخیره می‌شود تا UI وضعیت ورود را بداند
       const token =
-        (data && (data.accessToken as string | undefined)) || "dummy-token";
+        (data?.accessToken as string | undefined) || "dummy-token";
       const expiresIn =
-        (data && (data.expiresIn as number | undefined)) || 7 * 24 * 60 * 60;
+        (data?.expiresIn as number | undefined) ?? 7 * 24 * 60 * 60;
       tokenUtils.setToken(token, expiresIn);
 
       router.push("/dashboard");
     } catch {
       setError("خطا در ارتباط با سرور");
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
-    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-      {error && (
-        <Alert variant="destructive">
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
-
-      <InputField
-        type="email"
-        id="email"
-        name="email"
-        label="ایمیل"
-        placeholder="مثال@example.com"
-        required
-      />
-
-      <PasswordInput
-        label="رمز عبور"
-        name="password"
-        placeholder="رمز عبور خود را وارد کنید"
-        required
-      />
-      <div className="text-right -mt-2 mb-2">
-        <Link
-          href="/auth/forgot-password"
-          className="text-sm text-primary transition-colors duration-300 ease-in-out hover:underline hover:text-primary-400"
-        >
-          رمز عبور را فراموش کرده‌اید؟
-        </Link>
-      </div>
-
-      <Button
-        type="submit"
-        className="w-full"
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <>
-            <Loader2Icon className="size-4 animate-spin" />
-            <span>در حال ورود...</span>
-          </>
-        ) : (
-          "ورود"
+    <Form {...form}>
+      <form className="flex flex-col gap-3" onSubmit={form.handleSubmit(onSubmit)}>
+        {(error || form.formState.errors.root?.message) && (
+          <Alert variant="destructive">
+            <AlertDescription>
+              {error || form.formState.errors.root?.message}
+            </AlertDescription>
+          </Alert>
         )}
-      </Button>
 
-      <div className="flex items-center my-4 text-muted-foreground before:content-[''] before:flex-1 before:border-t before:border-border before:mx-2 after:content-[''] after:flex-1 after:border-t after:border-border after:mx-2">
-        <span className="px-2 font-semibold">یا</span>
-      </div>
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>ایمیل</FormLabel>
+              <FormControl>
+                <InputField
+                  type="email"
+                  id="email"
+                  placeholder="مثال@example.com"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-      <Button
-        type="button"
-        variant="outline"
-        className="w-full bg-[#4285f4] text-white hover:bg-[#357ae8] hover:text-white"
-        disabled
-      >
-        ورود با گوگل (به زودی)
-      </Button>
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <PasswordInput
+                  label="رمز عبور"
+                  placeholder="رمز عبور خود را وارد کنید"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-      <p className="text-center text-sm text-foreground">
-        حساب کاربری ندارید؟{" "}
-        <Link
-          href="/auth/signup"
-          className="text-primary font-medium transition-colors duration-300 ease-in-out hover:underline hover:text-primary-400"
+        <div className="text-right -mt-2 mb-2">
+          <Link
+            href="/auth/forgot-password"
+            className="text-sm text-primary transition-colors duration-300 ease-in-out hover:underline hover:text-primary-400"
+          >
+            رمز عبور را فراموش کرده‌اید؟
+          </Link>
+        </div>
+
+        <Button type="submit" className="w-full" disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Loader2Icon className="size-4 animate-spin" />
+              <span>در حال ورود...</span>
+            </>
+          ) : (
+            "ورود"
+          )}
+        </Button>
+
+        <div className="flex items-center my-4 text-muted-foreground before:content-[''] before:flex-1 before:border-t before:border-border before:mx-2 after:content-[''] after:flex-1 after:border-t after:border-border after:mx-2">
+          <span className="px-2 font-semibold">یا</span>
+        </div>
+
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full bg-[#4285f4] text-white hover:bg-[#357ae8] hover:text-white"
+          disabled
         >
-          ثبت نام
-        </Link>
-      </p>
-    </form>
+          ورود با گوگل (به زودی)
+        </Button>
+
+        <p className="text-center text-sm text-foreground">
+          حساب کاربری ندارید؟{" "}
+          <Link
+            href="/auth/signup"
+            className="text-primary font-medium transition-colors duration-300 ease-in-out hover:underline hover:text-primary-400"
+          >
+            ثبت نام
+          </Link>
+        </p>
+      </form>
+    </Form>
   );
 }

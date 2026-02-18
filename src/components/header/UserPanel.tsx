@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -101,6 +102,14 @@ export default function UserPanel() {
                 <rect x="3" y="14" width="7" height="7"></rect>
               </svg>
               <span>داشبورد</span>
+            </Link>
+
+            <Link
+              href="/cars/add"
+              className="flex items-center gap-3 px-4 py-3 text-foreground no-underline transition-all duration-200 border-l-[3px] border-l-transparent hover:bg-muted hover:border-l-primary"
+            >
+              <Car className="w-5 h-5 flex-shrink-0 text-primary" />
+              <span>ثبت خودرو برای اجاره</span>
             </Link>
 
             <Link

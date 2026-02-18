@@ -3,97 +3,116 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import InputField from "../components/normal-input/normal-input.component";
+import { forgotPasswordSchema, type ForgotPasswordInput } from "@/lib/schemas";
 
 export default function ForgotPasswordPage() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
-  >("idle");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setErrorMessage(null);
+  const form = useForm<ForgotPasswordInput>({
+    resolver: zodResolver(forgotPasswordSchema),
+    defaultValues: { email: "" },
+  });
 
-    const trimmedEmail = email.trim();
-
-    if (!trimmedEmail || !/.+@.+\..+/.test(trimmedEmail)) {
-      setErrorMessage("ایمیل وارد شده معتبر نیست.");
-      setStatus("error");
-      return;
-    }
-
-    // فعلاً بدون بک‌اند فقط یک پیام نمایشی نشان می‌دهیم
-    // بعداً اینجا می‌توان فراخوانی API واقعی را اضافه کرد.
+  const onSubmit = (values: ForgotPasswordInput) => {
     setStatus("submitting");
-
-    setTimeout(() => {
-      setStatus("success");
-    }, 500);
+    // فعلاً بدون بک‌اند فقط یک پیام نمایشی
+    setTimeout(() => setStatus("success"), 500);
   };
 
-  return (
-    <div className="w-full min-w-0 max-w-full px-4 py-6 lg:max-w-7xl flex justify-between lg:px-6 lg:py-8 lg:mx-auto">
-      <div className="w-full max-w-[28rem]">
-        <form className="flex mt-20 flex-col gap-3" onSubmit={handleSubmit}>
-          <h2 className="text-xl font-semibold mb-2 text-foreground">
-            بازیابی رمز عبور
-          </h2>
-          <p className="text-sm text-foreground mb-4 leading-relaxed">
-            ایمیل خود را وارد کنید تا لینک بازیابی رمز عبور برایتان ارسال شود.
-          </p>
-
-          {errorMessage && (
-            <Alert variant="destructive" className="mb-6">
-              <AlertDescription>{errorMessage}</AlertDescription>
-            </Alert>
-          )}
-
-          {status === "success" && (
-            <Alert className="mb-6 bg-success text-success-foreground border-0">
+  if (status === "success") {
+    return (
+      <div className="w-full min-w-0 max-w-full px-4 py-6 lg:max-w-7xl flex justify-between lg:px-6 lg:py-8 lg:mx-auto">
+        <div className="w-full max-w-[28rem]">
+          <div className="mt-20 flex flex-col gap-3">
+            <Alert className="bg-success text-success-foreground border-0">
               <AlertDescription>
                 اگر حساب فعالی با این ایمیل وجود داشته باشد، لینک بازیابی برای
                 شما ارسال خواهد شد. این بخش فعلاً به بک‌اند متصل نیست و در
                 نسخه‌های بعدی تکمیل می‌شود.
               </AlertDescription>
             </Alert>
-          )}
-
-          <InputField
-            type="email"
-            id="email"
-            name="email"
-            label="ایمیل"
-            placeholder="example@example.com"
-            required
-            value={email}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setEmail(e.target.value)
-            }
+            <Button variant="outline" asChild>
+              <Link href="/auth/signin">بازگشت به ورود</Link>
+            </Button>
+          </div>
+        </div>
+        <div className="hidden lg:block lg:w-1/2 lg:max-w-[600px]">
+          <Image
+            src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+            className="w-full h-auto object-contain"
+            width={500}
+            height={400}
+            alt="بازیابی رمز عبور"
+            priority
           />
+        </div>
+      </div>
+    );
+  }
 
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={status === "submitting"}
-          >
-            {status === "submitting" ? "در حال ارسال..." : "ارسال لینک بازیابی"}
-          </Button>
+  return (
+    <div className="w-full min-w-0 max-w-full px-4 py-6 lg:max-w-7xl flex justify-between lg:px-6 lg:py-8 lg:mx-auto">
+      <div className="w-full max-w-[28rem]">
+        <Form {...form}>
+          <form className="flex mt-20 flex-col gap-3" onSubmit={form.handleSubmit(onSubmit)}>
+            <h2 className="text-xl font-semibold mb-2 text-foreground">
+              بازیابی رمز عبور
+            </h2>
+            <p className="text-sm text-foreground mb-4 leading-relaxed">
+              ایمیل خود را وارد کنید تا لینک بازیابی رمز عبور برایتان ارسال شود.
+            </p>
 
-          <p className="text-right text-foreground text-sm">
-            رمز عبور را به یاد آوردید؟{" "}
-            <Link
-              href="/auth/signin"
-              className="text-primary font-medium text-sm transition-colors duration-300 ease-in-out hover:underline hover:text-primary-400"
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>ایمیل</FormLabel>
+                  <FormControl>
+                    <InputField
+                      type="email"
+                      id="email"
+                      placeholder="example@example.com"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={status === "submitting"}
             >
-              ورود
-            </Link>
-          </p>
-        </form>
+              {status === "submitting" ? "در حال ارسال..." : "ارسال لینک بازیابی"}
+            </Button>
+
+            <p className="text-right text-foreground text-sm">
+              رمز عبور را به یاد آوردید؟{" "}
+              <Link
+                href="/auth/signin"
+                className="text-primary font-medium text-sm transition-colors duration-300 ease-in-out hover:underline hover:text-primary-400"
+              >
+                ورود
+              </Link>
+            </p>
+          </form>
+        </Form>
       </div>
 
       <div className="hidden lg:block lg:w-1/2 lg:max-w-[600px]">

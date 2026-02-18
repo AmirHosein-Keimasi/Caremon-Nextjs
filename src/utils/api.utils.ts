@@ -77,3 +77,44 @@ export async function removeAuthCookie(): Promise<void> {
   const cookieStore = cookies();
   cookieStore.delete(process.env.TOKEN_KEY!);
 }
+
+/** نام کوکی‌های توکن (سازگار با کلاینت) */
+const AUTH_COOKIE_NAMES = ["caremon_token", "token", process.env.TOKEN_KEY].filter(Boolean) as string[];
+
+/** همان سکرت پیش‌فرض signin تا بدون TOKEN_SECRET در dev هم کار کند */
+const JWT_SECRET_FALLBACK = "caremon-default-secret-change-in-production";
+
+function getTokenFromRequest(request: Request): string | null {
+  const authHeader = request.headers.get("authorization");
+  if (authHeader?.startsWith("Bearer ")) {
+    return authHeader.slice(7).trim();
+  }
+  const cookieHeader = request.headers.get("cookie") || "";
+  for (const name of AUTH_COOKIE_NAMES) {
+    const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const match = cookieHeader.match(new RegExp(`${escaped}=([^;]+)`));
+    if (match?.[1]) {
+      const value = decodeURIComponent(match[1].trim()).replace(/^"|"$/g, "");
+      if (value) return value;
+    }
+  }
+  return null;
+}
+
+/** از درخواست توکن را بخوان و در صورت معتبر بودن، شناسه کاربر را برگردان (برای مارکت‌پلیس) */
+export async function getCurrentUserId(request: Request): Promise<string | null> {
+  const token = getTokenFromRequest(request);
+  if (!token) return null;
+  if (token === "dummy-token") return null;
+
+  const secret = new TextEncoder().encode(
+    process.env.TOKEN_SECRET || JWT_SECRET_FALLBACK,
+  );
+  try {
+    const { payload } = await jose.jwtVerify(token, secret);
+    const userId = payload.userId ?? payload.sub;
+    return typeof userId === "string" ? userId : null;
+  } catch {
+    return null;
+  }
+}

@@ -238,12 +238,22 @@ export default async function Page({ params }: Props): Promise<ReactElement> {
           <PriceCar car={car} />
           <DriverPriceCar car={car} />
           <div className="rounded-xl border-2 border-primary/30 bg-primary/5 p-4 lg:p-5 shadow-sm">
+            {car.ownerName && (
+              <div className="mb-3 p-2 rounded-lg bg-background/80 border border-border">
+                <p className="text-xs text-muted-foreground m-0">اجاره از مالک خصوصی (مارکت‌پلیس)</p>
+                <p className="text-sm font-medium text-foreground m-0 mt-0.5">{car.ownerName}</p>
+                <p className="text-xs text-muted-foreground m-0 mt-1">این خودرو توسط یک کاربر در پلتفرم ثبت شده و می‌توانید برای اجاره رزرو کنید.</p>
+              </div>
+            )}
             <p className="text-sm text-muted-foreground mb-2">
               اجاره از{" "}
               <span className="font-bold text-primary">
                 {(car.rental.days_3_to_14 || 0).toLocaleString("fa-IR")} تومان
               </span>{" "}
               در روز
+              {car.rental?.minimum_rental && car.rental.minimum_rental > 1 && (
+                <span className="block text-xs mt-0.5">حداقل {car.rental.minimum_rental} روز</span>
+              )}
             </p>
             <ReserveButton car={car} />
           </div>

@@ -16,6 +16,8 @@ function prismaCarToModel(car: {
   features: unknown;
   engine: unknown;
   driverRental: unknown;
+  ownerId?: string | null;
+  owner?: { name: string } | null;
 }): CarsModel {
   return {
     id: car.id,
@@ -31,12 +33,17 @@ function prismaCarToModel(car: {
     features: car.features as CarsModel["features"],
     engine: car.engine as CarsModel["engine"],
     driver_rental: car.driverRental as CarsModel["driver_rental"],
+    ownerId: car.ownerId ?? undefined,
+    ownerName: car.owner?.name ?? undefined,
   };
 }
 
 export async function getCars(): Promise<CarsModel[]> {
   try {
-    const dbCars = await prisma.car.findMany({ orderBy: { name: "asc" } });
+    const dbCars = await prisma.car.findMany({
+      orderBy: { name: "asc" },
+      include: { owner: { select: { name: true } } },
+    });
     if (dbCars.length > 0) {
       return dbCars.map(prismaCarToModel);
     }
@@ -48,7 +55,10 @@ export async function getCars(): Promise<CarsModel[]> {
 
 export async function getCarById(id: string): Promise<CarsModel | null> {
   try {
-    const car = await prisma.car.findUnique({ where: { id } });
+    const car = await prisma.car.findUnique({
+      where: { id },
+      include: { owner: { select: { name: true } } },
+    });
     if (car) return prismaCarToModel(car);
   } catch {
     // Fallback
@@ -77,4 +87,18 @@ export async function getCarsByIds(ids: string[]): Promise<CarsModel[]> {
   return uniqueIds
     .map((id) => staticCars.find((c) => c.id === id))
     .filter((c): c is CarsModel => c != null);
+}
+
+/** خودروهای ثبت‌شده توسط یک کاربر (مارکت‌پلیس) */
+export async function getCarsByOwnerId(ownerId: string): Promise<CarsModel[]> {
+  try {
+    const dbCars = await prisma.car.findMany({
+      where: { ownerId },
+      orderBy: { name: "asc" },
+      include: { owner: { select: { name: true } } },
+    });
+    return dbCars.map(prismaCarToModel);
+  } catch {
+    return [];
+  }
 }

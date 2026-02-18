@@ -1,30 +1,40 @@
 "use client";
 
 import { ReactElement, useState } from "react";
-
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { contactFormSchema, type ContactFormInput } from "@/lib/schemas";
 
 export default function ContactForm(): ReactElement {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("submitting");
+  const form = useForm<ContactFormInput>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    },
+  });
 
-    // فعلاً فقط UI — ارسال واقعی بعداً با بک‌اند پیاده‌سازی می‌شود
+  const onSubmit = (values: ContactFormInput) => {
+    setStatus("submitting");
+    // فعلاً فقط UI — ارسال واقعی بعداً با بک‌اند
     setTimeout(() => {
       setStatus("success");
-      setName("");
-      setEmail("");
-      setSubject("");
-      setMessage("");
+      form.reset();
     }, 800);
   };
 
@@ -48,54 +58,80 @@ export default function ContactForm(): ReactElement {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-xl">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="contact-name">نام و نام خانوادگی</Label>
-          <Input
-            id="contact-name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="نام شما"
-            required
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4 max-w-xl"
+      >
+        <div className="grid gap-4 sm:grid-cols-2">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>نام و نام خانوادگی</FormLabel>
+                <FormControl>
+                  <Input placeholder="نام شما" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>ایمیل</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    placeholder="example@email.com"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="contact-email">ایمیل</Label>
-          <Input
-            id="contact-email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="example@email.com"
-            required
-          />
-        </div>
-      </div>
-      <div className="space-y-2">
-        <Label htmlFor="contact-subject">موضوع</Label>
-        <Input
-          id="contact-subject"
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
-          placeholder="موضوع پیام"
-          required
+        <FormField
+          control={form.control}
+          name="subject"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>موضوع</FormLabel>
+              <FormControl>
+                <Input placeholder="موضوع پیام" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
-      <div className="space-y-2">
-        <Label htmlFor="contact-message">پیام</Label>
-        <Textarea
-          id="contact-message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="متن پیام خود را بنویسید..."
-          rows={5}
-          required
+        <FormField
+          control={form.control}
+          name="message"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>پیام</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="متن پیام خود را بنویسید..."
+                  rows={5}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
-      <Button type="submit" disabled={status === "submitting"}>
-        {status === "submitting" ? "در حال ارسال..." : "ارسال پیام"}
-      </Button>
-    </form>
+        <Button
+          type="submit"
+          disabled={status === "submitting"}
+        >
+          {status === "submitting" ? "در حال ارسال..." : "ارسال پیام"}
+        </Button>
+      </form>
+    </Form>
   );
 }

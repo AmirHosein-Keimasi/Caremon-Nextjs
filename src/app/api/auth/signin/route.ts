@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import * as bcrypt from "bcryptjs";
+import * as jose from "jose";
 import prisma from "@/lib/prisma";
+
+const JWT_SECRET = process.env.TOKEN_SECRET || "caremon-default-secret-change-in-production";
+const JWT_EXPIRY = "7d";
 
 export async function POST(request: Request) {
   try {
@@ -30,6 +34,13 @@ export async function POST(request: Request) {
       );
     }
 
+    const secret = new TextEncoder().encode(JWT_SECRET);
+    const accessToken = await new jose.SignJWT({ userId: user.id })
+      .setProtectedHeader({ alg: "HS256" })
+      .setIssuedAt()
+      .setExpirationTime(JWT_EXPIRY)
+      .sign(secret);
+
     return NextResponse.json({
       user: {
         id: user.id,
@@ -37,6 +48,8 @@ export async function POST(request: Request) {
         username: user.username,
         email: user.email,
       },
+      accessToken,
+      expiresIn: 7 * 24 * 60 * 60,
       success: true,
     });
   } catch (error) {
