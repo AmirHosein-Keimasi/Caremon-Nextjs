@@ -34,7 +34,7 @@ const Loading: React.FC = () => {
             />
             {/* چرخ جلو */}
             <ellipse
-              className="animate-[tireRoll_0.4s_ease-in-out_infinite_alternate]"
+              className="animate-[tireRoll_0.3s_ease-in-out_infinite_alternate]"
               cx="83.5"
               cy="30.25"
               rx="6.9"
@@ -55,7 +55,7 @@ const Loading: React.FC = () => {
               strokeWidth="3"
             />
             <path
-              className="stroke-dash-[22] animate-[line_0.8s_ease-in-out_infinite_0.4s]"
+              className="stroke-dash-[22] animate-[line_0.8s_ease-in-out_infinite_0.2s]"
               d="M25.5 9.5h-19"
               strokeWidth="3"
             />

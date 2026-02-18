@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
 import { useUserProfileStore, UserProfileData } from "@/store/userProfileStore";
+import { PrimaryColorPicker } from "@/components/primary-color-picker";
 
 const requiredFields: Array<keyof UserProfileData> = [
   "firstName",
@@ -134,6 +135,14 @@ export default function DashboardProfilePage(): ReactElement {
             ذخیره اطلاعات پروفایل
           </Button>
         </form>
+      </section>
+
+      <section className="mt-6 rounded-2xl border border-border bg-card p-4 shadow-sm lg:p-6">
+        <h2 className="text-lg font-bold text-foreground mb-1">ظاهر و تم</h2>
+        <p className="text-sm text-muted-foreground mb-4">
+          رنگ اصلی سایت را انتخاب کنید. تغییر به‌صورت زنده در همه‌ی صفحات اعمال می‌شود.
+        </p>
+        <PrimaryColorPicker />
       </section>
     </div>
   );
