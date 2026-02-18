@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Loader2Icon } from "lucide-react";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -138,6 +139,13 @@ export default function CheckoutPage() {
 
   return (
     <div className="rtl max-w-[1200px] mx-auto p-[clamp(1rem,2vw,2rem)] min-h-screen bg-background">
+      <BreadcrumbNav
+        items={[
+          { label: "خانه", href: "/" },
+          { label: "تسویه حساب" },
+        ]}
+        className="mb-4"
+      />
       <div className="mb-5">
         <h1 className="text-foreground m-0 text-[clamp(1.7rem,2.4vw,2.2rem)]">تایید و پرداخت رزرو</h1>
         <p className="m-2.5 mt-0 text-muted-foreground text-sm">مشخصات رزرو را بررسی کنید و پرداخت را نهایی کنید.</p>

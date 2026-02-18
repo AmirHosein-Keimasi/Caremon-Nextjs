@@ -1,6 +1,6 @@
-
 import { ScrollText } from "lucide-react";
 import Accordion, { type AccordionSectionItem } from "@/components/Accordion/Accordion.component";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 
 const RULES_SECTIONS: AccordionSectionItem[] = [
     {
@@ -165,6 +165,13 @@ const RULES_SECTIONS: AccordionSectionItem[] = [
 export default function TermsAndConditionsPage() {
   return (
     <div className="w-full min-w-0 max-w-full px-4 lg:max-w-5xl lg:px-6 lg:mx-auto">
+      <BreadcrumbNav
+        items={[
+          { label: "خانه", href: "/" },
+          { label: "قوانین و مقررات" },
+        ]}
+        className="pt-4 pb-2"
+      />
       {/* Hero */}
       <section className="py-6 text-center lg:py-10">
         <div className="space-y-2 lg:space-y-3">

@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import ContactForm from "./components/contact-form.component";
 import { SITE_URL, defaultOpenGraph } from "@/lib/site";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 
 export const dynamic = "force-static";
 
@@ -41,6 +42,13 @@ export const metadata: Metadata = {
 export default function AboutPage(): ReactElement {
   return (
     <div className="w-full min-w-0 max-w-full px-4 lg:max-w-5xl lg:px-6 lg:mx-auto">
+      <BreadcrumbNav
+        items={[
+          { label: "خانه", href: "/" },
+          { label: "درباره ما" },
+        ]}
+        className="pt-4 pb-2"
+      />
       {/* Hero */}
       <section className="py-6 text-center lg:py-10">
         <div className="space-y-2 lg:space-y-3">

@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 import { getCarsByIds } from "@/lib/cars";
 import CompareTable from "./components/compare-table.component";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 
 type Props = {
   searchParams: { ids?: string };
@@ -17,6 +18,13 @@ export default async function ComparePage({
 
   return (
     <div className="w-full min-w-0 max-w-full px-4 py-6 lg:max-w-7xl lg:px-6 lg:py-8 lg:mx-auto">
+      <BreadcrumbNav
+        items={[
+          { label: "خانه", href: "/" },
+          { label: "مقایسه خودروها" },
+        ]}
+        className="mb-4"
+      />
       <h1 className="text-2xl font-bold mb-6">مقایسه خودروها</h1>
       {cars.length === 0 ? (
         <div className="text-center py-16 text-muted-foreground">

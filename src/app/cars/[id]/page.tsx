@@ -13,6 +13,7 @@ import SpecsAndFeatures from "./components/car-details/car-details.component";
 import Peugeot206RentalInfo from "./components/Rental-Info/Peugeot206RentalInfo";
 import CommentComponent from "./components/comment/comment.component";
 import ReserveButton from "./components/ReserveButton";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 
 type Props = {
   params: { id: string };
@@ -193,6 +194,14 @@ export default async function Page({ params }: Props): Promise<ReactElement> {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+      <BreadcrumbNav
+        items={[
+          { label: "خانه", href: "/" },
+          { label: "جستجو", href: "/search" },
+          { label: car.name },
+        ]}
+        className="mb-4"
+      />
       {/* Hero: تصویر و اطلاعات اصلی خودرو */}
       <section className="mb-4 lg:mb-6">
         <CarInfo car={car} />

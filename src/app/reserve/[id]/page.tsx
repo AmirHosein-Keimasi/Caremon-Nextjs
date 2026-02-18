@@ -1,12 +1,11 @@
 import React, { ReactElement } from "react";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
 
 import { getCarById } from "@/lib/cars";
 
 import ReserveForm from "./components/reserve-form";
 import Image from "next/image";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 
 type Props = {
   params: { id: string };
@@ -26,18 +25,15 @@ export default async function ReservePage({
   return (
     <div className="min-h-screen bg-gradient-to-b from-muted/40 to-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
-        {/* Breadcrumb + Back */}
-        <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6 lg:mb-8">
-          <Link
-            href={`/cars/${car.id}`}
-            className="flex items-center gap-1 hover:text-foreground transition-colors"
-          >
-            <ChevronLeft className="size-4" />
-            بازگشت به جزئیات خودرو
-          </Link>
-          <span className="opacity-60">/</span>
-          <span className="text-foreground font-medium">رزرو</span>
-        </nav>
+        <BreadcrumbNav
+          items={[
+            { label: "خانه", href: "/" },
+            { label: "جستجو", href: "/search" },
+            { label: car.name, href: `/cars/${car.id}` },
+            { label: "رزرو" },
+          ]}
+          className="mb-6 lg:mb-8"
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-6 xl:gap-10 items-start">
           {/* Left: Car summary card */}

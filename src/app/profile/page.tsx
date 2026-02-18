@@ -3,6 +3,7 @@
 import type { ReactElement } from "react";
 import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
@@ -80,6 +81,13 @@ export default function ProfilePage(): ReactElement {
 
   return (
     <main className="rtl max-w-[860px] mx-auto p-[clamp(1.2rem,2vw,2rem)] min-h-screen">
+      <BreadcrumbNav
+        items={[
+          { label: "خانه", href: "/" },
+          { label: "پروفایل" },
+        ]}
+        className="mb-4"
+      />
       <div className="mb-5">
         <h1 className="m-0 text-foreground text-[clamp(1.6rem,2vw,2rem)]">
           پروفایل کاربر

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -55,6 +56,13 @@ export default function DashboardPage() {
 
   return (
     <div className="rtl p-8 max-w-[1400px] mx-auto bg-background min-h-screen">
+      <BreadcrumbNav
+        items={[
+          { label: "خانه", href: "/" },
+          { label: "داشبورد" },
+        ]}
+        className="mb-6"
+      />
       {/* Header */}
       <div className="mb-12">
         <h1 className="text-3xl m-0 text-foreground">داشبورد</h1>

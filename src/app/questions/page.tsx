@@ -4,6 +4,7 @@ import { useState } from "react";
 import Accordion from "@/components/Accordion/Accordion.component";
 import { faqData, faqGuest } from "./data/faqData";
 import { HelpCircle } from "lucide-react";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 
 export default function FAQPage() {
   const [activeTab, setActiveTab] = useState<"general" | "guest">("general");
@@ -14,6 +15,13 @@ export default function FAQPage() {
   return (
     <main className="w-full min-w-0 max-w-full overflow-x-hidden">
       <div className="w-full min-w-0 max-w-full px-4 lg:max-w-5xl lg:px-6 lg:mx-auto">
+        <BreadcrumbNav
+          items={[
+            { label: "خانه", href: "/" },
+            { label: "سوالات متداول" },
+          ]}
+          className="pt-4 pb-2"
+        />
         {/* Hero */}
         <section className="py-6 text-center lg:py-10">
           <div className="space-y-2 lg:space-y-3">

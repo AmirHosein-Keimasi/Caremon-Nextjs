@@ -22,6 +22,7 @@ import SortComponent from "./components/sort/sort.component";
 import { normalizeSearchFilters } from "./utils/search-filters";
 
 import { getCars } from "@/lib/cars";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 
 type SearchParams = { [key: string]: string | string[] | undefined };
 
@@ -42,6 +43,14 @@ export default async function Page({
     >
       <CarsProvider cars={cars}>
         <div className="grid grid-cols-1 gap-4 px-4 py-4 lg:grid-cols-[1fr_3fr] lg:max-w-7xl lg:px-6 lg:mx-auto">
+          <div className="col-span-full mb-1">
+            <BreadcrumbNav
+              items={[
+                { label: "خانه", href: "/" },
+                { label: "جستجو" },
+              ]}
+            />
+          </div>
           {/* موبایل: اول محتوا، بعد فیلترها. دسکتاپ: ستون چپ فیلتر، راست محتوا */}
           <div className="order-1 flex min-w-0 flex-col gap-4 lg:order-2">
             <SearchQueryBox />
