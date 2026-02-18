@@ -3,9 +3,16 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Tooltip,
+  useMap,
+} from "react-leaflet";
 import L from "leaflet";
-import { LocateFixed, MapPin, Car } from "lucide-react";
+import { LocateFixed, MapPin, Car, Maximize2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -26,6 +33,14 @@ import type { CarsModel } from "@/models/cars.model";
 
 import "leaflet/dist/leaflet.css";
 
+const RADIUS_OPTIONS_KM = [
+  { value: "0", label: "همه" },
+  { value: "30", label: "۳۰ ک.م" },
+  { value: "50", label: "۵۰ ک.م" },
+  { value: "100", label: "۱۰۰ ک.م" },
+  { value: "200", label: "۲۰۰ ک.م" },
+];
+
 type CarWithPosition = CarsModel & {
   position: Coordinates;
   distanceKm: number;
@@ -37,6 +52,49 @@ function FlyTo({ center }: { center: Coordinates }) {
   useEffect(() => {
     map.flyTo([center.lat, center.lng], map.getZoom(), { duration: 0.5 });
   }, [center.lat, center.lng, map]);
+  return null;
+}
+
+function FitBoundsToMarkers({
+  cars,
+  userLocation,
+  trigger,
+}: {
+  cars: CarWithPosition[];
+  userLocation: Coordinates | null;
+  trigger: number;
+}) {
+  const map = useMap();
+  useEffect(() => {
+    if (trigger === 0 || (cars.length === 0 && !userLocation)) return;
+    const points: L.LatLngExpression[] = cars.map((c) => [
+      c.position.lat,
+      c.position.lng,
+    ]);
+    if (userLocation) points.push([userLocation.lat, userLocation.lng]);
+    const bounds = L.latLngBounds(points);
+    map.flyToBounds(bounds, { padding: [40, 40], maxZoom: 11, duration: 0.6 });
+  }, [trigger, map, cars, userLocation]);
+  return null;
+}
+
+function FlyToCar({
+  carId,
+  cars,
+  onFlied,
+}: {
+  carId: string | null;
+  cars: CarWithPosition[];
+  onFlied: () => void;
+}) {
+  const map = useMap();
+  useEffect(() => {
+    if (!carId) return;
+    const car = cars.find((c) => c.id === carId);
+    if (!car) return;
+    map.flyTo([car.position.lat, car.position.lng], 15, { duration: 0.5 });
+    onFlied();
+  }, [carId, cars, map, onFlied]);
   return null;
 }
 
@@ -96,6 +154,11 @@ export default function MapView({ cars }: Props) {
     useState<string>("تهران");
   const [gpsLoading, setGpsLoading] = useState(false);
   const [gpsError, setGpsError] = useState<string | null>(null);
+  const [fitBoundsTrigger, setFitBoundsTrigger] = useState(0);
+  const [radiusKm, setRadiusKm] = useState<string>("0");
+  const [selectedCarId, setSelectedCarId] = useState<string | null>(null);
+
+  const clearSelectedCarId = useCallback(() => setSelectedCarId(null), []);
 
   const effectiveCenter = userLocation ?? center;
 
@@ -127,6 +190,12 @@ export default function MapView({ cars }: Props) {
     withPos.sort((a, b) => a.distanceKm - b.distanceKm);
     return withPos;
   }, [cars, effectiveCenter]);
+
+  const radiusKmNum = parseInt(radiusKm, 10) || 0;
+  const filteredCars = useMemo(() => {
+    if (!userLocation || radiusKmNum <= 0) return carsWithPosition;
+    return carsWithPosition.filter((car) => car.distanceKm <= radiusKmNum);
+  }, [carsWithPosition, userLocation, radiusKmNum]);
 
   const handleGps = useCallback(() => {
     setGpsError(null);
@@ -221,6 +290,29 @@ export default function MapView({ cars }: Props) {
               ))}
             </SelectContent>
           </Select>
+          {userLocation && (
+            <Select value={radiusKm} onValueChange={setRadiusKm}>
+              <SelectTrigger className="w-[110px] gap-1 text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {RADIUS_OPTIONS_KM.map((opt) => (
+                  <SelectItem key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-2"
+            onClick={() => setFitBoundsTrigger((t) => t + 1)}
+          >
+            <Maximize2 className="size-4" />
+            نمایش همه
+          </Button>
         </div>
       </header>
 
@@ -239,6 +331,16 @@ export default function MapView({ cars }: Props) {
             scrollWheelZoom
           >
             <FlyTo center={effectiveCenter} />
+            <FitBoundsToMarkers
+              cars={filteredCars}
+              userLocation={userLocation}
+              trigger={fitBoundsTrigger}
+            />
+            <FlyToCar
+              carId={selectedCarId}
+              cars={filteredCars}
+              onFlied={clearSelectedCarId}
+            />
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -248,15 +350,25 @@ export default function MapView({ cars }: Props) {
                 position={[userLocation.lat, userLocation.lng]}
                 icon={createUserLocationIcon()}
               >
+                <Tooltip permanent={false}>موقعیت شما</Tooltip>
                 <Popup>موقعیت شما</Popup>
               </Marker>
             )}
-            {carsWithPosition.map((car) => (
+            {filteredCars.map((car) => (
               <Marker
                 key={car.id}
                 position={[car.position.lat, car.position.lng]}
                 icon={createCarIcon(car)}
               >
+                <Tooltip
+                  direction="bottom"
+                  offset={[0, 10]}
+                  opacity={0.95}
+                  permanent={false}
+                >
+                  {car.name} — {car.rental.days_3_to_14?.toLocaleString("fa-IR")}{" "}
+                  تومان/روز
+                </Tooltip>
                 <Popup>
                   <div className="min-w-[180px] p-1">
                     <p className="font-bold text-foreground m-0">{car.name}</p>
@@ -279,14 +391,35 @@ export default function MapView({ cars }: Props) {
         <aside className="rounded-2xl border border-border bg-card p-4 shadow-sm lg:sticky lg:top-24">
           <h2 className="font-bold text-foreground mb-3 m-0 flex items-center gap-2">
             <Car className="size-5 text-primary" />
-            خودروهای نزدیک ({carsWithPosition.length})
+            خودروهای نزدیک
+            {userLocation && radiusKmNum > 0 ? (
+              <span className="text-muted-foreground font-normal text-sm">
+                (در شعاع {radiusKmNum} ک.م: {filteredCars.length})
+              </span>
+            ) : (
+              <span className="text-muted-foreground font-normal text-sm">
+                ({filteredCars.length})
+              </span>
+            )}
           </h2>
+          {filteredCars.length === 0 ? (
+            <p className="text-muted-foreground text-sm py-4 m-0">
+              {userLocation && radiusKmNum > 0
+                ? "در این شعاع خودرویی یافت نشد. شعاع را بیشتر کنید یا شهر را انتخاب کنید."
+                : "خودرویی در این محدوده نیست."}
+            </p>
+          ) : (
           <ul className="space-y-2 max-h-[400px] overflow-y-auto list-none p-0 m-0">
-            {carsWithPosition.map((car) => (
+            {filteredCars.map((car) => (
               <li key={car.id}>
-                <Link
-                  href={`/cars/${car.id}`}
-                  className="flex gap-3 p-2 rounded-xl hover:bg-muted/70 transition-colors no-underline text-foreground"
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setSelectedCarId(car.id)}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && setSelectedCarId(car.id)
+                  }
+                  className="flex gap-3 p-2 rounded-xl hover:bg-muted/70 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   <div className="relative w-14 h-10 rounded-lg overflow-hidden bg-muted shrink-0">
                     <Image
@@ -302,7 +435,7 @@ export default function MapView({ cars }: Props) {
                     />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="font-semibold text-sm m-0 truncate">
+                    <p className="font-semibold text-sm m-0 truncate text-foreground">
                       {car.name}
                     </p>
                     <p className="text-muted-foreground text-xs m-0">
@@ -311,11 +444,19 @@ export default function MapView({ cars }: Props) {
                         <span> — ~{Math.round(car.distanceKm)} ک.م</span>
                       )}
                     </p>
+                    <Link
+                      href={`/cars/${car.id}`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="text-primary text-xs font-medium mt-1 inline-block hover:underline"
+                    >
+                      مشاهده و رزرو
+                    </Link>
                   </div>
-                </Link>
+                </div>
               </li>
             ))}
           </ul>
+          )}
         </aside>
       </div>
     </div>
