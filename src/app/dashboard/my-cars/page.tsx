@@ -5,6 +5,7 @@ import Link from "next/link";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 import { Button } from "@/components/ui/button";
 import type { CarsModel } from "@/models/cars.model";
+import Loading from "@/app/loading";
 
 export default function MyCarsPage() {
   const [myCars, setMyCars] = useState<CarsModel[]>([]);
@@ -67,10 +68,7 @@ export default function MyCarsPage() {
       )}
 
       {loading ? (
-        <div className="flex flex-col items-center gap-3 py-12 text-muted-foreground">
-          <div className="size-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-          <p className="text-sm">در حال بارگذاری...</p>
-        </div>
+        <Loading />
       ) : myCars.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border bg-muted/50 py-12 px-6 text-center text-muted-foreground">
           <p className="text-lg font-medium text-foreground m-0 mb-2">

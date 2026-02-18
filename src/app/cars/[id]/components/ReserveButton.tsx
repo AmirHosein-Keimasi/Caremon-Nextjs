@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import StartDatePicker from "@/components/calendar/StartDatePicker-component";
 import EndDatePicker from "@/components/calendar/EndDatePicker-component";
+import Spinner from "@/components/Spinner/Spinner";
 
 interface ReserveButtonProps {
   car: CarsModel;
@@ -423,7 +424,14 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                 onClick={handleReserve}
                 disabled={loading}
               >
-                {loading ? "در حال پردازش..." : "تأیید و ادامه"}
+                {loading ? (
+                  <>
+                    <Spinner size={18} className="shrink-0" />
+                    در حال پردازش...
+                  </>
+                ) : (
+                  "تأیید و ادامه"
+                )}
               </Button>
             </div>
           </div>

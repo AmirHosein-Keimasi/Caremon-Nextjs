@@ -24,6 +24,7 @@ import useAuth from "@/utils/useAuth";
 import { tokenUtils } from "@/lib/api-client";
 import { toast } from "sonner";
 import clsx from "clsx";
+import Loading from "@/app/loading";
 
 const navItems = [
   { href: "/dashboard", label: "نمای کلی", icon: LayoutDashboard },
@@ -105,26 +106,8 @@ export default function DashboardShell({
     router.push("/");
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-dvh flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-3 text-muted-foreground">
-          <div className="size-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-          <p className="text-sm font-medium">در حال بارگذاری...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!isLoggedIn) {
-    return (
-      <div className="min-h-dvh flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-3 text-muted-foreground">
-          <div className="size-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-          <p className="text-sm font-medium">در حال انتقال به صفحه ورود...</p>
-        </div>
-      </div>
-    );
+  if (isLoading || !isLoggedIn) {
+    return <Loading />;
   }
 
   const CurrentIcon = currentItem.icon;

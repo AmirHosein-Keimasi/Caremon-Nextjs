@@ -4,7 +4,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Loader2Icon,
   CalendarDays,
   MapPin,
   User,
@@ -20,6 +19,8 @@ import { useUserProfileStore, UserProfileData } from "@/store/userProfileStore";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { toPersianOptionLabel } from "@/utils/rentalOptions";
+import Loading from "@/app/loading";
+import Spinner from "@/components/Spinner/Spinner";
 
 const requiredFields: Array<keyof UserProfileData> = [
   "firstName",
@@ -89,14 +90,7 @@ export default function CheckoutPage() {
   );
 
   if (!currentRental) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-muted/30">
-        <div className="flex flex-col items-center gap-4 text-muted-foreground">
-          <Loader2Icon className="size-10 animate-spin text-primary" />
-          <p className="text-foreground font-medium">در حال بارگذاری...</p>
-        </div>
-      </div>
-    );
+    return <Loading />;
   }
 
   const rentalBasePrice = currentRental.pricePerDay * currentRental.rentalDays;
@@ -396,7 +390,7 @@ export default function CheckoutPage() {
                 >
                   {loading ? (
                     <>
-                      <Loader2Icon className="size-5 animate-spin" />
+                      <Spinner size={20} className="shrink-0" />
                       در حال پردازش...
                     </>
                   ) : (

@@ -5,16 +5,13 @@ import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import useAuth from "@/utils/useAuth";
 import { AddCarForm } from "@/components/add-car-form/add-car-form";
+import Loading from "@/app/loading";
 
 export default function AddCarPage() {
   const { isLoggedIn, isLoading } = useAuth();
 
   if (isLoading) {
-    return (
-      <div className="max-w-2xl mx-auto px-4 py-8 text-center text-muted-foreground">
-        در حال بارگذاری...
-      </div>
-    );
+    return <Loading />;
   }
 
   if (!isLoggedIn) {

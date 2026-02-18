@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Loader2Icon } from "lucide-react";
+import Spinner from "@/components/Spinner/Spinner";
 import { CarsModel } from "@/models/cars.model";
 import { useAddToCart } from "@/hooks/useAddToCart";
 import { useRouter } from "next/navigation";
@@ -286,7 +286,7 @@ export default function ReservationOptions({
         <Button type="submit" disabled={loading} className="flex-1 bg-[#4caf50] hover:bg-[#45a049]">
           {loading ? (
             <>
-              <Loader2Icon className="size-4 animate-spin" />
+              <Spinner size={18} className="shrink-0" />
               در حال اضافه کردن...
             </>
           ) : (

@@ -14,6 +14,7 @@ import {
 import L from "leaflet";
 import { LocateFixed, MapPin, Car, Maximize2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Spinner from "@/components/Spinner/Spinner";
 import {
   Select,
   SelectContent,
@@ -269,10 +270,17 @@ export default function MapView({ cars }: Props) {
             onClick={handleGps}
             disabled={gpsLoading}
           >
-            <LocateFixed
-              className={`size-4 ${gpsLoading ? "animate-pulse" : ""}`}
-            />
-            {gpsLoading ? "در حال دریافت..." : "موقعیت من"}
+            {gpsLoading ? (
+              <>
+                <Spinner size={16} className="shrink-0" />
+                در حال دریافت...
+              </>
+            ) : (
+              <>
+                <LocateFixed className="size-4" />
+                موقعیت من
+              </>
+            )}
           </Button>
           <Select
             value={selectedLocationLabel}

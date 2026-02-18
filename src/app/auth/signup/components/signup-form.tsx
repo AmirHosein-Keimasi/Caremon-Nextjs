@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2Icon } from "lucide-react";
+import Spinner from "@/components/Spinner/Spinner";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
@@ -152,7 +152,7 @@ export default function SignupForm() {
         <Button type="submit" className="w-full" disabled={isLoading}>
           {isLoading ? (
             <>
-              <Loader2Icon className="size-4 animate-spin" />
+              <Spinner size={18} className="shrink-0" />
               <span>در حال ثبت...</span>
             </>
           ) : (
