@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { getCarImageUrl } from "@/lib/cars";
 import { useCartStore } from "@/store/cartStore";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -51,11 +52,7 @@ export default function ShoppingCart() {
             <div className="grid grid-cols-[120px_1fr_200px_120px_50px] gap-6 items-center max-lg:grid-cols-1 max-lg:gap-4">
               <div className="relative w-[120px] h-[100px] overflow-hidden rounded bg-muted">
                 <Image
-                  src={
-                    currentRental.car.img.startsWith("http")
-                      ? currentRental.car.img
-                      : `https://cafeerent.com/storage/www/cars/single/${currentRental.car.img}`
-                  }
+                  src={getCarImageUrl(currentRental.car.img)}
                   alt={currentRental.car.name}
                   width={120}
                   height={100}

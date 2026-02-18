@@ -2,6 +2,24 @@ import { cars as staticCars } from "@/db/cars";
 import { CarsModel } from "@/models/cars.model";
 import prisma from "./prisma";
 
+/** مسیر پوشهٔ تصاویر خودروها در public - نام فایل در دیتابیس/داده باید با اسم فایل اینجا یکی باشد */
+export const CAR_IMAGES_BASE = "/images/carsImag";
+
+/**
+ * آدرس نهایی تصویر خودرو.
+ * اگر img با http شروع شود (لینک خارجی) همان برگردانده می‌شود، وگرنه از public/images/carsImag استفاده می‌شود.
+ * نام فایل encode می‌شود تا فاصله و کاراکترهای خاص در URL درست کار کنند.
+ */
+export function getCarImageUrl(img: string): string {
+  if (!img) return `${CAR_IMAGES_BASE}/default-car.png`;
+  if (img.startsWith("http")) return img;
+  const encoded = img
+    .split("/")
+    .map((part) => encodeURIComponent(part))
+    .join("/");
+  return `${CAR_IMAGES_BASE}/${encoded}`;
+}
+
 function prismaCarToModel(car: {
   id: string;
   name: string;

@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { getCarById, getCars } from "@/lib/cars";
+import { getCarById, getCars, getCarImageUrl } from "@/lib/cars";
 
 import ReserveForm from "./components/reserve-form";
 import Image from "next/image";
@@ -77,7 +77,7 @@ export default async function ReservePage({
             <div className="rounded-2xl overflow-hidden border border-border/60 bg-card shadow-lg">
               <div className="relative aspect-[16/10] sm:aspect-[2/1] bg-muted/60">
                 <Image
-                  src={`https://cafeerent.com/storage/www/cars/single/${car.img}`}
+                  src={getCarImageUrl(car.img)}
                   alt={car.name}
                   fill
                   className="object-cover"

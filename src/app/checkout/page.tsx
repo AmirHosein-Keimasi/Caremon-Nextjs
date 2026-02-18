@@ -14,6 +14,7 @@ import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { getCarImageUrl } from "@/lib/cars";
 import { useCartStore } from "@/store/cartStore";
 import { useUserProfileStore, UserProfileData } from "@/store/userProfileStore";
 import { useRouter } from "next/navigation";
@@ -97,9 +98,7 @@ export default function CheckoutPage() {
     ? currentRental.pricePerDay * 0.5 * (currentRental.driverDays || 1)
     : 0;
 
-  const carImageUrl = currentRental.car.img.startsWith("http")
-    ? currentRental.car.img
-    : `https://cafeerent.com/storage/www/cars/single/${currentRental.car.img}`;
+  const carImageUrl = getCarImageUrl(currentRental.car.img);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

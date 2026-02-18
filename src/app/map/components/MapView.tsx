@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
+import { getCarImageUrl } from "@/lib/cars";
 import {
   getCoordinatesForLocation,
   getCarMarkerOffset,
@@ -100,9 +101,7 @@ function FlyToCar({
 }
 
 function createCarIcon(car: CarsModel, size: number = 44) {
-  const imgUrl = car.img.startsWith("http")
-    ? car.img
-    : `https://cafeerent.com/storage/www/cars/single/${car.img}`;
+  const imgUrl = getCarImageUrl(car.img);
   return L.divIcon({
     html: `
       <div style="
@@ -429,11 +428,7 @@ export default function MapView({ cars }: Props) {
                   >
                     <div className="relative w-14 h-10 rounded-lg overflow-hidden bg-muted shrink-0">
                       <Image
-                        src={
-                          car.img.startsWith("http")
-                            ? car.img
-                            : `https://cafeerent.com/storage/www/cars/single/${car.img}`
-                        }
+                        src={getCarImageUrl(car.img)}
                         alt={car.name}
                         fill
                         className="object-cover"

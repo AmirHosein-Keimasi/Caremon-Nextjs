@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { getCarImageUrl } from "@/lib/cars";
 import { CarsContext } from "../../providers/cars.provider";
 import CarInfoIcon from "@/components/car-info/car-infoIcon.component";
 import CompareButtonComponent from "@/components/compare-button/compare-button.component";
@@ -51,7 +52,7 @@ export default function ResultsComponent(): ReactElement {
 
             <div>
               <Image
-                src={`https://cafeerent.com/storage/www/cars/single/${car.img}`}
+                src={getCarImageUrl(car.img)}
                 alt={`${car.name} - ${car.model}`}
                 className="rounded-lg object-contain"
                 width={270}

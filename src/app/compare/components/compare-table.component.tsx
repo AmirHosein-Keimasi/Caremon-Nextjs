@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
+import { getCarImageUrl } from "@/lib/cars";
 import { useCompareStore } from "@/store/compareStore";
 import { CarsModel } from "@/models/cars.model";
 
@@ -135,7 +136,7 @@ export default function CompareTable({ cars }: Props): ReactElement {
           >
             <div className="flex flex-col items-center gap-2 p-4 border-b border-border bg-muted/30">
               <Image
-                src={`https://cafeerent.com/storage/www/cars/single/${car.img}`}
+                src={getCarImageUrl(car.img)}
                 alt={car.name}
                 width={160}
                 height={100}
@@ -199,7 +200,7 @@ export default function CompareTable({ cars }: Props): ReactElement {
                 >
                   <div className="flex flex-col items-center gap-2">
                     <Image
-                      src={`https://cafeerent.com/storage/www/cars/single/${car.img}`}
+                      src={getCarImageUrl(car.img)}
                       alt={car.name}
                       width={100}
                       height={64}
