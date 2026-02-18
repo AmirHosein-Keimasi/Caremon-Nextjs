@@ -1,6 +1,5 @@
 import { ReactElement } from "react";
 import type { Metadata, Viewport } from "next";
-import { Vazirmatn } from "next/font/google";
 
 import HeaderComponent from "@/components/header/header.component";
 import FooterComponent from "@/components/footer/footer.component";
@@ -16,13 +15,9 @@ import {
   defaultOpenGraph,
 } from "@/lib/site";
 
+import "../styles/fonts.css";
 import "./globals.css";
 import "../styles/typography.css";
-
-const vazirmatn = Vazirmatn({
-  subsets: ["latin", "arabic"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -73,7 +68,7 @@ export default function RootLayout({
     <html
       lang="fa"
       dir="rtl"
-      className={`${vazirmatn.className} w-full min-w-0`}
+      className="w-full min-w-0"
       suppressHydrationWarning
     >
       <body

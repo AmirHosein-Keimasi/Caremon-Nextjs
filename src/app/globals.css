@@ -64,8 +64,9 @@
   --radius-2xl: 1.5rem;
   --radius-full: 9999px;
 
-  /* Font */
-  --font-sans: var(--font-vazirmatn, ui-sans-serif, system-ui, sans-serif);
+  /* Font - IRANYekanXFaNum از public/fonts */
+  --font-iranyekan: "IRANYekanXFaNum", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-iranyekan);
 }
 
 /* ============================================
