@@ -21,11 +21,9 @@ import {
 } from "@/store/reservationStore";
 import { useDashboardStore } from "@/store/dashboardStore";
 import Invoice from "@/components/Invoice/Invoice";
-import type { CarsModel } from "@/models/cars.model";
 
 /**
- * Enhanced Dashboard Page
- * صفحه داشبورد بهتر شده
+ * نمای کلی پنل کاربری — آمار، رزرو فعلی، رزروها و فاکتور
  */
 export default function DashboardPage() {
   const cartStore = useCartStore();
@@ -38,63 +36,34 @@ export default function DashboardPage() {
   const tabFromUrl = searchParams.get("tab");
 
   const [activeTab, setActiveTab] = useState<
-    "overview" | "rental" | "reservations" | "invoice" | "my-cars"
+    "overview" | "rental" | "reservations" | "invoice"
   >(
-    tabFromUrl === "my-cars"
-      ? "my-cars"
-      : tabFromUrl === "rental"
-        ? "rental"
-        : tabFromUrl === "reservations"
-          ? "reservations"
-          : tabFromUrl === "invoice"
-            ? "invoice"
-            : "overview",
+    tabFromUrl === "rental"
+      ? "rental"
+      : tabFromUrl === "reservations"
+        ? "reservations"
+        : tabFromUrl === "invoice"
+          ? "invoice"
+          : "overview",
   );
   const [selectedReservation, setSelectedReservation] =
     useState<Reservation | null>(null);
   const [filterStatus, setFilterStatus] = useState<ReservationStatus | "all">(
     "all",
   );
-  const [myCars, setMyCars] = useState<CarsModel[]>([]);
-  const [myCarsLoading, setMyCarsLoading] = useState(false);
 
-  // Refresh stats on mount and when stores change
   const currentRentalCount = cartStore.currentRental ? 1 : 0;
 
   useEffect(() => {
     refreshStats("current-user-id"); // TODO: Get from auth
   }, [currentRentalCount, reservationStore.reservations.length, refreshStats]);
 
-  // Sync tab from URL
   useEffect(() => {
-    if (tabFromUrl === "my-cars") setActiveTab("my-cars");
-    else if (tabFromUrl === "rental") setActiveTab("rental");
+    if (tabFromUrl === "rental") setActiveTab("rental");
     else if (tabFromUrl === "reservations") setActiveTab("reservations");
     else if (tabFromUrl === "invoice") setActiveTab("invoice");
-    else if (tabFromUrl === "overview" || !tabFromUrl) setActiveTab("overview");
+    else setActiveTab("overview");
   }, [tabFromUrl]);
-
-  // Load my cars when tab is my-cars
-  const [myCarsError, setMyCarsError] = useState<string | null>(null);
-  useEffect(() => {
-    if (activeTab !== "my-cars") return;
-    setMyCarsLoading(true);
-    setMyCarsError(null);
-    fetch("/api/cars?my=1", { credentials: "include" })
-      .then((res) => {
-        if (res.status === 401) {
-          setMyCarsError("ورود به حساب الزامی است. اگر لاگین هستید، یک بار خارج شوید و دوباره وارد شوید.");
-          return res.json().then(() => ({ data: null }));
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (data?.data) setMyCars(data.data);
-        else setMyCars([]);
-      })
-      .catch(() => setMyCars([]))
-      .finally(() => setMyCarsLoading(false));
-  }, [activeTab]);
 
   const filteredReservations =
     filterStatus === "all"
@@ -104,18 +73,18 @@ export default function DashboardPage() {
         );
 
   return (
-    <div className="rtl p-8 max-w-[1400px] mx-auto bg-background min-h-screen">
+    <div className="p-6 lg:p-8 max-w-[1400px] mx-auto bg-background min-h-screen">
       <BreadcrumbNav
         items={[
           { label: "خانه", href: "/" },
-          { label: "داشبورد" },
+          { label: "پنل کاربری", href: "/dashboard" },
+          { label: "نمای کلی" },
         ]}
         className="mb-6"
       />
-      {/* Header */}
-      <div className="mb-12">
-        <h1 className="text-3xl m-0 text-foreground">داشبورد</h1>
-        <p className="m-2.5 mt-0 text-muted-foreground">خوش‌آمدید به پنل مدیریت</p>
+      <div className="mb-8">
+        <h1 className="text-2xl lg:text-3xl font-bold text-foreground m-0">نمای کلی</h1>
+        <p className="m-2.5 mt-0 text-muted-foreground">خوش‌آمدید به پنل کاربری؛ از منوی کناری به سایر بخش‌ها بروید.</p>
       </div>
 
       {/* Stats Cards */}
@@ -164,9 +133,6 @@ export default function DashboardPage() {
           </TabsTrigger>
           <TabsTrigger value="invoice" className="px-8 py-4 rounded-t-lg data-[state=active]:border-b-[3px] data-[state=active]:border-primary">
             فاکتور
-          </TabsTrigger>
-          <TabsTrigger value="my-cars" className="px-8 py-4 rounded-t-lg data-[state=active]:border-b-[3px] data-[state=active]:border-primary">
-            خودروهای من ({myCars.length})
           </TabsTrigger>
         </TabsList>
 
@@ -288,64 +254,6 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* My Cars Tab (مارکت‌پلیس: خودروهای ثبت‌شده برای اجاره) */}
-        {activeTab === "my-cars" && (
-          <div className="animate-[fadeIn_0.3s_ease-in] py-8">
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-              <h2 className="text-xl m-0 text-foreground pb-2 border-b-2 border-border">
-                خودروهای من (برای اجاره)
-              </h2>
-              <Button asChild>
-                <Link href="/cars/add">ثبت خودرو جدید</Link>
-              </Button>
-            </div>
-            <p className="text-sm text-muted-foreground mb-6">
-              خودروهایی که شما برای اجاره در مارکت‌پلیس ثبت کرده‌اید. با کلیک روی هر خودرو می‌توانید صفحهٔ آن را ببینید یا لینک مستقیم رزرو را به متقاضیان بدهید.
-            </p>
-            {myCarsError && (
-              <div className="mb-6 p-4 rounded-lg bg-destructive/10 border border-destructive/30 text-destructive">
-                <p className="m-0 text-sm font-medium">{myCarsError}</p>
-                <Link href="/auth/signin" className="text-sm underline mt-2 inline-block">ورود مجدد</Link>
-              </div>
-            )}
-            {myCarsLoading ? (
-              <p className="text-center py-12 text-muted-foreground">در حال بارگذاری...</p>
-            ) : myCars.length === 0 ? (
-              <div className="text-center py-12 px-8 text-muted-foreground rounded-xl bg-muted/50 border border-dashed border-border">
-                <p className="text-lg font-medium text-foreground m-0 mb-2">هنوز خودرویی ثبت نکرده‌اید</p>
-                <p className="m-0 mb-4 max-w-md mx-auto">
-                  با ثبت خودرو در مارکت‌پلیس، آن را در لیست جستجو قرار می‌دهید و دیگران می‌توانند برای اجاره درخواست دهند. شما هم می‌توانید از خودروهای دیگران اجاره بگیرید.
-                </p>
-                <Button asChild>
-                  <Link href="/cars/add">ثبت اولین خودرو</Link>
-                </Button>
-              </div>
-            ) : (
-              <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0 m-0">
-                {myCars.map((car) => (
-                  <li key={car.id}>
-                    <Link
-                      href={`/cars/${car.id}`}
-                      className="block p-4 bg-muted border border-border rounded-xl hover:border-primary hover:shadow-md transition-all"
-                    >
-                      <span className="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-primary/15 text-primary mb-2">
-                        مالک خصوصی
-                      </span>
-                      <p className="font-semibold text-foreground m-0">{car.name}</p>
-                      <p className="text-sm text-muted-foreground m-0 mt-1">{car.model} · {car.location}</p>
-                      <p className="text-sm text-primary font-medium mt-2 m-0">
-                        {(car.rental?.days_3_to_14 ?? 0).toLocaleString("fa-IR")} تومان/روز
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-1 m-0">
-                        حداقل {(car.rental?.minimum_rental ?? 1)} روز
-                      </p>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        )}
       </div>
       </Tabs>
     </div>

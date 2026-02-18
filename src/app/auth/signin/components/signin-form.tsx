@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon } from "lucide-react";
@@ -24,6 +24,8 @@ import { signinSchema, type SigninInput } from "@/lib/schemas";
 
 export default function SigninForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "/dashboard";
   const updateProfile = useUserProfileStore((state) => state.updateProfile);
   const [error, setError] = useState("");
 
@@ -69,7 +71,7 @@ export default function SigninForm() {
         (data?.expiresIn as number | undefined) ?? 7 * 24 * 60 * 60;
       tokenUtils.setToken(token, expiresIn);
 
-      router.push("/dashboard");
+      router.push(redirect.startsWith("/") ? redirect : "/dashboard");
     } catch {
       setError("خطا در ارتباط با سرور");
     }

@@ -1,7 +1,9 @@
 import { ReactElement } from "react";
 
  import LayoutContainer from "@/components/layout-container/layout-container.component";
+import Link from "next/link";
 import {
+  Car,
   Github,
   Instagram,
   Linkedin,
@@ -76,15 +78,15 @@ export default function FooterComponent(): ReactElement {
           {/* توضیحات و لینک */}
           <div className="flex flex-col items-center md:items-start gap-4">
             <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
-              پلتفرمی یکپارچه برای اجاره خودرو و رزرو آنلاین ماشین در سراسر
-              ایران
+              مارکت‌پلیس اجاره خودرو: خودروی خود را برای اجاره ثبت کنید یا از دیگران اجاره بگیرید.
             </p>
-            {/* <Link
-              href="/about"
-              className="text-sm text-primary hover:underline"
+            <Link
+              href="/cars/add"
+              className="text-sm text-primary hover:underline inline-flex items-center gap-1"
             >
-              درباره ما و تماس
-            </Link> */}
+              <Car className="size-4" />
+              خودروی خود را برای اجاره ثبت کنید
+            </Link>
           </div>
         </div>
       </LayoutContainer>

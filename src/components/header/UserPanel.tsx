@@ -87,7 +87,7 @@ export default function UserPanel() {
           <nav className="flex flex-col list-none m-0 p-0">
             <Link
               href="/dashboard"
-              className="flex items-center gap-3 px-4 py-3 text-foreground no-underline transition-all duration-200 border-l-[3px] border-l-transparent hover:bg-muted hover:border-l-primary"
+              className="flex items-center gap-3 px-4 py-3 text-foreground no-underline transition-all duration-200 border-l-[3px] border-l-transparent hover:bg-muted hover:border-l-primary font-medium"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -101,9 +101,8 @@ export default function UserPanel() {
                 <rect x="14" y="14" width="7" height="7"></rect>
                 <rect x="3" y="14" width="7" height="7"></rect>
               </svg>
-              <span>داشبورد</span>
+              <span>پنل کاربری</span>
             </Link>
-
             <Link
               href="/cars/add"
               className="flex items-center gap-3 px-4 py-3 text-foreground no-underline transition-all duration-200 border-l-[3px] border-l-transparent hover:bg-muted hover:border-l-primary"
@@ -111,7 +110,6 @@ export default function UserPanel() {
               <Car className="w-5 h-5 flex-shrink-0 text-primary" />
               <span>ثبت خودرو برای اجاره</span>
             </Link>
-
             <Link
               href="/profile"
               className="flex items-center gap-3 px-4 py-3 text-foreground no-underline transition-all duration-200 border-l-[3px] border-l-transparent hover:bg-muted hover:border-l-primary"
