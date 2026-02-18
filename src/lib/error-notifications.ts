@@ -56,11 +56,7 @@ export function showErrorNotification(error: unknown): void {
   const message = getErrorMessage(error);
   toast.error(message, {
     position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
+    duration: 5000,
   });
 }
 
@@ -70,11 +66,7 @@ export function showErrorNotification(error: unknown): void {
 export function showSuccessNotification(message: string): void {
   toast.success(message, {
     position: "top-right",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
+    duration: 3000,
   });
 }
 
@@ -84,11 +76,7 @@ export function showSuccessNotification(message: string): void {
 export function showInfoNotification(message: string): void {
   toast.info(message, {
     position: "top-right",
-    autoClose: 4000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
+    duration: 4000,
   });
 }
 
@@ -98,11 +86,7 @@ export function showInfoNotification(message: string): void {
 export function showWarningNotification(message: string): void {
   toast.warning(message, {
     position: "top-right",
-    autoClose: 4000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
+    duration: 4000,
   });
 }
 

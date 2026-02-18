@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -57,7 +57,7 @@ export function AddCarForm({
   const [error, setError] = useState("");
 
   const form = useForm<AddCarInput>({
-    resolver: zodResolver(addCarSchema),
+    resolver: zodResolver(addCarSchema) as Resolver<AddCarInput>,
     defaultValues,
   });
 

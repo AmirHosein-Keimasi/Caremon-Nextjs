@@ -13,7 +13,7 @@ export default function LogOutButton() {
   const router = useRouter();
   const [showDialog, setShowDialog] = useState(false);
 
-  const signOutButtonHandler = async (e: MouseEvent<HTMLButtonElement>) => {
+  const signOutButtonHandler = async (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     setShowDialog(true);
   };
