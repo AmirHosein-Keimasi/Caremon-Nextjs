@@ -78,26 +78,26 @@ export default function DashboardProfilePage(): ReactElement {
   };
 
   return (
-    <div className="p-6 lg:p-8 max-w-[860px] mx-auto">
+    <div className="mx-auto max-w-2xl px-4 py-5 lg:max-w-[860px] lg:px-8 lg:py-8">
       <BreadcrumbNav
         items={[
           { label: "خانه", href: "/" },
           { label: "پنل کاربری", href: "/dashboard" },
           { label: "پروفایل" },
         ]}
-        className="mb-4"
+        className="mb-4 lg:mb-6"
       />
-      <div className="mb-5">
-        <h1 className="m-0 text-foreground text-xl lg:text-2xl font-bold">
+      <div className="mb-4 lg:mb-5">
+        <h1 className="text-xl font-bold text-foreground m-0 lg:text-2xl">
           پروفایل کاربر
         </h1>
-        <p className="mt-2 mb-0 text-muted-foreground text-sm">
+        <p className="mt-1.5 text-sm text-muted-foreground m-0 lg:mt-2">
           اطلاعات اصلی خود را اینجا ثبت کنید تا در رزرو تکرار نشود.
         </p>
       </div>
 
-      <section className="bg-card rounded-2xl p-4 lg:p-6 shadow-lg border border-border">
-        <div className="flex items-center justify-between text-foreground mb-3 text-sm">
+      <section className="rounded-2xl border border-border bg-card p-4 shadow-sm lg:p-6">
+        <div className="mb-3 flex items-center justify-between text-sm text-foreground">
           <span>تکمیل اطلاعات</span>
           <strong>
             {completionCount} از {requiredFields.length}
@@ -109,11 +109,11 @@ export default function DashboardProfilePage(): ReactElement {
         />
 
         <form
-          className="grid grid-cols-2 gap-4 max-[720px]:grid-cols-1"
+          className="grid grid-cols-1 gap-4 sm:grid-cols-2"
           onSubmit={handleSubmit}
         >
           {requiredFields.map((field) => (
-            <div key={field} className="flex flex-col gap-2">
+            <div key={field} className="flex flex-col gap-2 sm:col-span-1">
               <Label htmlFor={field}>{fieldMeta[field].label}</Label>
               <Input
                 id={field}
@@ -122,13 +122,14 @@ export default function DashboardProfilePage(): ReactElement {
                 value={formData[field]}
                 onChange={handleInputChange}
                 placeholder={fieldMeta[field].placeholder}
+                className="min-h-[44px] rounded-xl"
               />
             </div>
           ))}
 
           <Button
             type="submit"
-            className="col-span-2 max-[720px]:col-span-1 mt-2"
+            className="min-h-[44px] sm:col-span-2"
           >
             ذخیره اطلاعات پروفایل
           </Button>

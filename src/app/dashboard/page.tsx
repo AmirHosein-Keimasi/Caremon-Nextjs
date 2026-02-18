@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
@@ -24,6 +23,7 @@ import Invoice from "@/components/Invoice/Invoice";
 
 /**
  * نمای کلی پنل کاربری — آمار، رزرو فعلی، رزروها و فاکتور
+ * ریسپانسیو: زیر 1024 موبایل، از 1024 دسکتاپ
  */
 export default function DashboardPage() {
   const cartStore = useCartStore();
@@ -55,7 +55,7 @@ export default function DashboardPage() {
   const currentRentalCount = cartStore.currentRental ? 1 : 0;
 
   useEffect(() => {
-    refreshStats("current-user-id"); // TODO: Get from auth
+    refreshStats("current-user-id");
   }, [currentRentalCount, reservationStore.reservations.length, refreshStats]);
 
   useEffect(() => {
@@ -73,22 +73,26 @@ export default function DashboardPage() {
         );
 
   return (
-    <div className="p-6 lg:p-8 max-w-[1400px] mx-auto bg-background min-h-screen">
+    <div className="mx-auto min-h-full max-w-[1400px] bg-background px-4 py-5 lg:px-8 lg:py-8">
       <BreadcrumbNav
         items={[
           { label: "خانه", href: "/" },
           { label: "پنل کاربری", href: "/dashboard" },
           { label: "نمای کلی" },
         ]}
-        className="mb-6"
+        className="mb-4 lg:mb-6"
       />
-      <div className="mb-8">
-        <h1 className="text-2xl lg:text-3xl font-bold text-foreground m-0">نمای کلی</h1>
-        <p className="m-2.5 mt-0 text-muted-foreground">خوش‌آمدید به پنل کاربری؛ از منوی کناری به سایر بخش‌ها بروید.</p>
+      <div className="mb-6 lg:mb-8">
+        <h1 className="m-0 text-xl font-bold text-foreground lg:text-3xl">
+          نمای کلی
+        </h1>
+        <p className="mt-1.5 text-sm text-muted-foreground lg:mt-2 lg:text-base">
+          خوش‌آمدید به پنل کاربری؛ از منو به سایر بخش‌ها بروید.
+        </p>
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 mb-12">
+      {/* کارت‌های آمار — موبایل ۲ ستون، دسکتاپ ۴ ستون */}
+      <div className="mb-8 grid grid-cols-2 gap-3 lg:mb-12 lg:grid-cols-4 lg:gap-6">
         <StatCard
           title="سبد خرید"
           value={stats.cartItemCount}
@@ -111,7 +115,7 @@ export default function DashboardPage() {
           icon="💰"
         />
         <StatCard
-          title="درخواست‌های پرداخت"
+          title="درخواست پرداخت"
           value={stats.pendingPayments}
           subtitle="منتظر پرداخت"
           color="orange"
@@ -119,150 +123,192 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)} className="mb-8">
-        <TabsList className="w-full justify-start rounded-t-lg rounded-b-none h-auto p-0 bg-muted border-b-2 border-border">
-          <TabsTrigger value="overview" className="px-8 py-4 rounded-t-lg data-[state=active]:border-b-[3px] data-[state=active]:border-primary">
+      {/* تب‌ها — موبایل اسکرول افقی، دسکتاپ عادی */}
+      <Tabs
+        value={activeTab}
+        onValueChange={(v) => setActiveTab(v as typeof activeTab)}
+        className="mb-6 lg:mb-8"
+      >
+        <TabsList className="inline-flex h-auto w-full min-w-0 justify-start gap-0 overflow-x-auto rounded-t-xl rounded-b-none border-b-2 border-border bg-muted p-0 [&>button]:shrink-0 lg:flex-wrap lg:overflow-visible">
+          <TabsTrigger
+            value="overview"
+            className="min-h-[44px] px-4 py-3 text-sm data-[state=active]:border-b-[3px] data-[state=active]:border-primary data-[state=active]:-mb-0.5 lg:px-6 lg:py-4"
+          >
             نمای کلی
           </TabsTrigger>
-          <TabsTrigger value="rental" className="px-8 py-4 rounded-t-lg data-[state=active]:border-b-[3px] data-[state=active]:border-primary">
+          <TabsTrigger
+            value="rental"
+            className="min-h-[44px] px-4 py-3 text-sm data-[state=active]:border-b-[3px] data-[state=active]:border-primary data-[state=active]:-mb-0.5 lg:px-6 lg:py-4"
+          >
             رزرو فعلی ({cartStore.currentRental ? 1 : 0})
           </TabsTrigger>
-          <TabsTrigger value="reservations" className="px-8 py-4 rounded-t-lg data-[state=active]:border-b-[3px] data-[state=active]:border-primary">
+          <TabsTrigger
+            value="reservations"
+            className="min-h-[44px] px-4 py-3 text-sm data-[state=active]:border-b-[3px] data-[state=active]:border-primary data-[state=active]:-mb-0.5 lg:px-6 lg:py-4"
+          >
             رزروها ({stats.totalReservations})
           </TabsTrigger>
-          <TabsTrigger value="invoice" className="px-8 py-4 rounded-t-lg data-[state=active]:border-b-[3px] data-[state=active]:border-primary">
+          <TabsTrigger
+            value="invoice"
+            className="min-h-[44px] px-4 py-3 text-sm data-[state=active]:border-b-[3px] data-[state=active]:border-primary data-[state=active]:-mb-0.5 lg:px-6 lg:py-4"
+          >
             فاکتور
           </TabsTrigger>
         </TabsList>
 
-      {/* Tab Content */}
-      <div className="bg-card rounded-b-lg p-8 shadow-md">
-        {/* Overview Tab */}
-        {activeTab === "overview" && (
-          <div className="animate-[fadeIn_0.3s_ease-in_forwards]">
-            <div className="mb-12 last:mb-0">
-              <h2 className="text-xl m-0 mb-6 text-foreground pb-2 border-b-2 border-border">آمار سفارشات</h2>
-              <div className="flex flex-col gap-0 bg-muted rounded-md overflow-hidden">
-                <div className="flex justify-between p-4 border-b border-border last:border-b-0">
-                  <span className="text-muted-foreground">مجموع رزروها:</span>
-                  <strong className="text-foreground font-semibold">{stats.totalReservations}</strong>
+        {/* محتوای تب‌ها */}
+        <div className="rounded-b-xl border border-t-0 border-border bg-card p-4 shadow-sm lg:p-8">
+          {activeTab === "overview" && (
+            <div className="animate-in fade-in duration-300">
+              <div className="mb-8 last:mb-0 lg:mb-12">
+                <h2 className="mb-4 border-b-2 border-border pb-2 text-lg font-semibold text-foreground lg:mb-6 lg:text-xl">
+                  آمار سفارشات
+                </h2>
+                <div className="flex flex-col overflow-hidden rounded-xl bg-muted">
+                  {[
+                    { label: "مجموع رزروها", value: stats.totalReservations },
+                    {
+                      label: "تکمیل شده",
+                      value: stats.completedReservations,
+                      accent: "text-success",
+                    },
+                    {
+                      label: "فعال",
+                      value: stats.activeReservations,
+                      accent: "text-warning",
+                    },
+                    {
+                      label: "لغو شده",
+                      value: stats.cancelledReservations,
+                      accent: "text-destructive",
+                    },
+                  ].map(({ label, value, accent }) => (
+                    <div
+                      key={label}
+                      className="flex justify-between border-b border-border px-4 py-3 last:border-b-0"
+                    >
+                      <span className="text-sm text-muted-foreground">
+                        {label}:
+                      </span>
+                      <strong
+                        className={`font-semibold ${accent ?? "text-foreground"}`}
+                      >
+                        {value}
+                      </strong>
+                    </div>
+                  ))}
+                  <div className="flex justify-between bg-primary/10 px-4 py-3">
+                    <span className="text-sm text-muted-foreground">
+                      میانگین ارزش رزرو:
+                    </span>
+                    <strong className="font-semibold text-primary">
+                      {stats.averageReservationValue.toLocaleString("fa-IR")}{" "}
+                      تومان
+                    </strong>
+                  </div>
                 </div>
-                <div className="flex justify-between p-4 border-b border-border last:border-b-0">
-                  <span className="text-muted-foreground">تکمیل شده:</span>
-                  <strong className="text-success font-semibold">
-                    {stats.completedReservations}
-                  </strong>
-                </div>
-                <div className="flex justify-between p-4 border-b border-border last:border-b-0">
-                  <span className="text-muted-foreground">فعال:</span>
-                  <strong className="text-warning font-semibold">
-                    {stats.activeReservations}
-                  </strong>
-                </div>
-                <div className="flex justify-between p-4 border-b border-border last:border-b-0">
-                  <span className="text-muted-foreground">لغو شده:</span>
-                  <strong className="text-destructive font-semibold">
-                    {stats.cancelledReservations}
-                  </strong>
-                </div>
-                <div className="flex justify-between p-4 bg-primary/10 border-t border-border mt-2">
-                  <span className="text-muted-foreground">میانگین ارزش رزرو:</span>
-                  <strong className="text-primary font-semibold">
-                    {stats.averageReservationValue.toLocaleString("fa-IR")}{" "}
-                    تومان
-                  </strong>
-                </div>
+              </div>
+
+              <div className="last:mb-0">
+                <h2 className="mb-4 border-b-2 border-border pb-2 text-lg font-semibold text-foreground lg:mb-6 lg:text-xl">
+                  رزروهای اخیر
+                </h2>
+                <RecentReservationsList
+                  reservations={reservationStore.reservations.slice(0, 5)}
+                  onSelect={(res) => {
+                    setSelectedReservation(res);
+                    setActiveTab("invoice");
+                  }}
+                />
               </div>
             </div>
+          )}
 
-            <div className="mb-12 last:mb-0">
-              <h2 className="text-xl m-0 mb-6 text-foreground pb-2 border-b-2 border-border">رزروهای اخیر</h2>
-              <RecentReservationsList
-                reservations={reservationStore.reservations.slice(0, 5)}
-                onSelect={(res) => {
-                  setSelectedReservation(res);
-                  setActiveTab("invoice");
-                }}
-              />
+          {activeTab === "rental" && (
+            <div className="animate-in fade-in duration-300">
+              {cartStore.currentRental ? (
+                <RentalDisplay rental={cartStore.currentRental} />
+              ) : (
+                <div className="py-12 text-center text-muted-foreground">
+                  <p className="text-base lg:text-lg">هیچ رزروی فعالی وجود ندارد</p>
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Rental Tab */}
-        {activeTab === "rental" && (
-          <div className="animate-[fadeIn_0.3s_ease-in_forwards]">
-            {cartStore.currentRental ? (
-              <RentalDisplay rental={cartStore.currentRental} />
-            ) : (
-              <div className="text-center py-12 px-8 text-muted-foreground">
-                <p className="text-lg m-0">هیچ رزروی فعالی وجود ندارد</p>
+          {activeTab === "reservations" && (
+            <div className="animate-in fade-in duration-300">
+              <div className="mb-4 flex flex-col gap-3 rounded-xl bg-muted p-4 sm:flex-row sm:items-center lg:mb-6">
+                <label className="shrink-0 text-sm font-semibold text-foreground">
+                  فیلتر وضعیت:
+                </label>
+                <Select
+                  value={filterStatus}
+                  onValueChange={(v) =>
+                    setFilterStatus(v as ReservationStatus | "all")
+                  }
+                >
+                  <SelectTrigger className="min-h-[44px] w-full sm:w-[200px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">همه</SelectItem>
+                    <SelectItem value={ReservationStatus.PENDING}>
+                      در انتظار تایید
+                    </SelectItem>
+                    <SelectItem value={ReservationStatus.CONFIRMED}>
+                      تایید شده
+                    </SelectItem>
+                    <SelectItem value={ReservationStatus.ACTIVE}>
+                      فعال
+                    </SelectItem>
+                    <SelectItem value={ReservationStatus.COMPLETED}>
+                      تکمیل شده
+                    </SelectItem>
+                    <SelectItem value={ReservationStatus.CANCELLED}>
+                      لغو شده
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
-            )}
-          </div>
-        )}
 
-        {/* Reservations Tab */}
-        {activeTab === "reservations" && (
-          <div className="animate-[fadeIn_0.3s_ease-in_forwards]">
-            <div className="flex gap-4 items-center mb-6 p-4 bg-muted rounded-md">
-              <label className="font-semibold text-foreground">فیلتر بر اساس وضعیت:</label>
-              <Select
-                value={filterStatus}
-                onValueChange={(v) => setFilterStatus(v as ReservationStatus | "all")}
-              >
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">همه</SelectItem>
-                  <SelectItem value={ReservationStatus.PENDING}>در انتظار تایید</SelectItem>
-                  <SelectItem value={ReservationStatus.CONFIRMED}>تایید شده</SelectItem>
-                  <SelectItem value={ReservationStatus.ACTIVE}>فعال</SelectItem>
-                  <SelectItem value={ReservationStatus.COMPLETED}>تکمیل شده</SelectItem>
-                  <SelectItem value={ReservationStatus.CANCELLED}>لغو شده</SelectItem>
-                </SelectContent>
-              </Select>
+              {filteredReservations.length > 0 ? (
+                <ReservationsList
+                  reservations={filteredReservations}
+                  onSelect={(res) => {
+                    setSelectedReservation(res);
+                    setActiveTab("invoice");
+                  }}
+                />
+              ) : (
+                <div className="py-12 text-center text-muted-foreground">
+                  <p className="text-base lg:text-lg">
+                    رزروی برای این وضعیت وجود ندارد
+                  </p>
+                </div>
+              )}
             </div>
+          )}
 
-            {filteredReservations.length > 0 ? (
-              <ReservationsList
-                reservations={filteredReservations}
-                onSelect={(res) => {
-                  setSelectedReservation(res);
-                  setActiveTab("invoice");
-                }}
-              />
-            ) : (
-              <div className="text-center py-12 px-8 text-muted-foreground">
-                <p className="text-lg m-0">رزروی برای این وضعیت وجود ندارد</p>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Invoice Tab */}
-        {activeTab === "invoice" && (
-          <div className="animate-[fadeIn_0.3s_ease-in] py-8">
-            {selectedReservation ? (
-              <Invoice reservation={selectedReservation} />
-            ) : (
-              <div className="text-center py-12 px-8 text-muted-foreground">
-                <p className="text-lg m-0">لطفا یک رزرو انتخاب کنید</p>
-              </div>
-            )}
-          </div>
-        )}
-
-      </div>
+          {activeTab === "invoice" && (
+            <div className="animate-in fade-in duration-300 py-4 lg:py-8">
+              {selectedReservation ? (
+                <Invoice reservation={selectedReservation} />
+              ) : (
+                <div className="py-12 text-center text-muted-foreground">
+                  <p className="text-base lg:text-lg">
+                    لطفاً یک رزرو انتخاب کنید
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </Tabs>
     </div>
   );
 }
 
-/**
- * Stat Card Component
- */
 function StatCard({
   title,
   value,
@@ -276,28 +322,35 @@ function StatCard({
   color: "blue" | "green" | "purple" | "orange";
   icon: string;
 }) {
-  const colorBorders: Record<string, string> = {
+  const borderClass = {
     blue: "border-r-4 border-primary",
     green: "border-r-4 border-success",
     purple: "border-r-4 border-purple-500",
     orange: "border-r-4 border-amber-500",
-  };
+  }[color];
 
   return (
-    <div className={`flex items-center gap-6 p-6 bg-card rounded-lg shadow-md transition-all hover:-translate-y-1 hover:shadow-lg ${colorBorders[color]}`}>
-      <div className="text-4xl">{icon}</div>
-      <div className="flex-1">
-        <p className="m-0 text-sm text-muted-foreground font-medium">{title}</p>
-        <h3 className="m-2.5 mt-0 text-3xl text-foreground font-bold">{value}</h3>
-        <p className="m-1 mt-0 text-sm text-muted-foreground">{subtitle}</p>
+    <div
+      className={`flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-sm transition-all hover:shadow-md lg:gap-4 lg:p-6 ${borderClass}`}
+    >
+      <span className="text-2xl lg:text-4xl" aria-hidden>
+        {icon}
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="m-0 text-xs font-medium text-muted-foreground lg:text-sm">
+          {title}
+        </p>
+        <p className="mt-1 truncate text-lg font-bold text-foreground lg:mt-2 lg:text-3xl">
+          {value}
+        </p>
+        <p className="mt-0.5 text-xs text-muted-foreground lg:text-sm">
+          {subtitle}
+        </p>
       </div>
     </div>
   );
 }
 
-/**
- * Recent Reservations List
- */
 function RecentReservationsList({
   reservations,
   onSelect,
@@ -306,38 +359,64 @@ function RecentReservationsList({
   onSelect: (res: Reservation) => void;
 }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3">
       {reservations.length === 0 ? (
-        <p className="text-center py-12 px-8 text-muted-foreground text-lg m-0">هیچ رزروی وجود ندارد</p>
+        <p className="py-8 text-center text-muted-foreground">
+          هیچ رزروی وجود ندارد
+        </p>
       ) : (
         reservations.map((res) => (
-          <div
+          <button
+            type="button"
             key={res.id}
-            className="p-4 bg-muted border border-border rounded-md cursor-pointer transition-all hover:bg-card hover:border-primary hover:shadow-lg hover:shadow-primary/20"
+            className="flex min-h-[44px] w-full flex-col gap-1 rounded-xl border border-border bg-muted/50 p-4 text-right transition-colors hover:border-primary hover:bg-card hover:shadow-md active:scale-[0.99]"
             onClick={() => onSelect(res)}
           >
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-sm text-muted-foreground font-mono">{res.id}</span>
+            <div className="flex justify-between items-center">
               <span className="font-semibold text-foreground">
                 {res.firstName} {res.lastName}
               </span>
+              <span className="font-mono text-xs text-muted-foreground">
+                {res.id}
+              </span>
             </div>
             <div className="flex justify-between text-sm text-muted-foreground">
-              <span>1 خودرو</span>
-              <span className="text-primary font-semibold">
+              <span>۱ خودرو</span>
+              <span className="font-semibold text-primary">
                 {res.totalPrice.toLocaleString("fa-IR")} تومان
               </span>
             </div>
-          </div>
+          </button>
         ))
       )}
     </div>
   );
 }
 
-/**
- * Reservations List
- */
+const statusLabel: Record<ReservationStatus, string> = {
+  [ReservationStatus.PENDING]: "در انتظار تایید",
+  [ReservationStatus.CONFIRMED]: "تایید شده",
+  [ReservationStatus.ACTIVE]: "فعال",
+  [ReservationStatus.COMPLETED]: "تکمیل شده",
+  [ReservationStatus.CANCELLED]: "لغو شده",
+};
+
+function statusBadgeClass(status: ReservationStatus): string {
+  const map: Record<ReservationStatus, string> = {
+    [ReservationStatus.PENDING]:
+      "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
+    [ReservationStatus.CONFIRMED]:
+      "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
+    [ReservationStatus.ACTIVE]:
+      "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+    [ReservationStatus.COMPLETED]:
+      "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+    [ReservationStatus.CANCELLED]:
+      "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
+  };
+  return `inline-block rounded-full px-2.5 py-1 text-xs font-semibold ${map[status] ?? ""}`;
+}
+
 function ReservationsList({
   reservations,
   onSelect,
@@ -345,118 +424,144 @@ function ReservationsList({
   reservations: Reservation[];
   onSelect: (res: Reservation) => void;
 }) {
-  const statusLabel = {
-    [ReservationStatus.PENDING]: "در انتظار تایید",
-    [ReservationStatus.CONFIRMED]: "تایید شده",
-    [ReservationStatus.ACTIVE]: "فعال",
-    [ReservationStatus.COMPLETED]: "تکمیل شده",
-    [ReservationStatus.CANCELLED]: "لغو شده",
-  };
-
-  const getBadgeClass = (status: ReservationStatus) => {
-    const badgeClasses: Record<ReservationStatus, string> = {
-      [ReservationStatus.PENDING]: "inline-block px-3 py-1.5 rounded-xl text-sm font-semibold bg-amber-100 text-amber-800",
-      [ReservationStatus.CONFIRMED]: "inline-block px-3 py-1.5 rounded-xl text-sm font-semibold bg-blue-100 text-blue-800",
-      [ReservationStatus.ACTIVE]: "inline-block px-3 py-1.5 rounded-xl text-sm font-semibold bg-green-100 text-green-800",
-      [ReservationStatus.COMPLETED]: "inline-block px-3 py-1.5 rounded-xl text-sm font-semibold bg-green-100 text-green-800",
-      [ReservationStatus.CANCELLED]: "inline-block px-3 py-1.5 rounded-xl text-sm font-semibold bg-red-100 text-red-800",
-    };
-    return badgeClasses[status] || "";
-  };
-
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full border-collapse">
-        <thead className="bg-muted">
-          <tr>
-            <th className="p-4 text-right font-semibold text-foreground border-b-2 border-border">شماره رزرو</th>
-            <th className="p-4 text-right font-semibold text-foreground border-b-2 border-border">نام مشتری</th>
-            <th className="p-4 text-right font-semibold text-foreground border-b-2 border-border">تعداد خودرو</th>
-            <th className="p-4 text-right font-semibold text-foreground border-b-2 border-border">مبلغ</th>
-            <th className="p-4 text-right font-semibold text-foreground border-b-2 border-border">وضعیت</th>
-            <th className="p-4 text-right font-semibold text-foreground border-b-2 border-border">اقدام</th>
-          </tr>
-        </thead>
-        <tbody>
-          {reservations.map((res) => (
-            <tr key={res.id} className="hover:bg-muted">
-              <td className="p-4 border-b border-border text-muted-foreground">{res.id}</td>
-              <td className="p-4 border-b border-border text-muted-foreground">
-                {res.firstName} {res.lastName}
-              </td>
-              <td className="p-4 border-b border-border text-muted-foreground">1</td>
-              <td className="p-4 border-b border-border text-muted-foreground">{res.totalPrice.toLocaleString("fa-IR")} تومان</td>
-              <td className="p-4 border-b border-border text-muted-foreground">
-                <span className={getBadgeClass(res.status)}>
-                  {statusLabel[res.status]}
-                </span>
-              </td>
-              <td className="p-4 border-b border-border text-muted-foreground">
-                <Button
-                  size="sm"
-                  onClick={() => onSelect(res)}
-                >
-                  مشاهده
-                </Button>
-              </td>
+    <>
+      {/* موبایل: کارت‌های قابل کلیک */}
+      <div className="flex flex-col gap-3 lg:hidden">
+        {reservations.map((res) => (
+          <div
+            key={res.id}
+            className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-muted/30 p-4"
+          >
+            <div className="min-w-0 flex-1">
+              <p className="font-semibold text-foreground m-0">
+                {res.rental?.car?.name ?? "خودرو"}
+              </p>
+              <p className="text-sm text-muted-foreground m-0">
+                {res.firstName} {res.lastName} ·{" "}
+                {res.totalPrice.toLocaleString("fa-IR")} تومان
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className={statusBadgeClass(res.status)}>
+                {statusLabel[res.status]}
+              </span>
+              <Button
+                size="sm"
+                className="min-h-[40px]"
+                onClick={() => onSelect(res)}
+              >
+                مشاهده
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* دسکتاپ: جدول */}
+      <div className="hidden overflow-x-auto lg:block">
+        <table className="w-full border-collapse">
+          <thead className="bg-muted">
+            <tr>
+              <th className="border-b-2 border-border p-3 text-right text-sm font-semibold text-foreground">
+                شماره رزرو
+              </th>
+              <th className="border-b-2 border-border p-3 text-right text-sm font-semibold text-foreground">
+                نام مشتری
+              </th>
+              <th className="border-b-2 border-border p-3 text-right text-sm font-semibold text-foreground">
+                تعداد خودرو
+              </th>
+              <th className="border-b-2 border-border p-3 text-right text-sm font-semibold text-foreground">
+                مبلغ
+              </th>
+              <th className="border-b-2 border-border p-3 text-right text-sm font-semibold text-foreground">
+                وضعیت
+              </th>
+              <th className="border-b-2 border-border p-3 text-right text-sm font-semibold text-foreground">
+                اقدام
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {reservations.map((res) => (
+              <tr key={res.id} className="hover:bg-muted/50">
+                <td className="border-b border-border p-3 text-sm text-muted-foreground">
+                  {res.id}
+                </td>
+                <td className="border-b border-border p-3 text-sm text-foreground">
+                  {res.firstName} {res.lastName}
+                </td>
+                <td className="border-b border-border p-3 text-sm text-muted-foreground">
+                  ۱
+                </td>
+                <td className="border-b border-border p-3 text-sm text-foreground">
+                  {res.totalPrice.toLocaleString("fa-IR")} تومان
+                </td>
+                <td className="border-b border-border p-3">
+                  <span className={statusBadgeClass(res.status)}>
+                    {statusLabel[res.status]}
+                  </span>
+                </td>
+                <td className="border-b border-border p-3">
+                  <Button size="sm" onClick={() => onSelect(res)}>
+                    مشاهده
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
 
-/**
- * Rental Display Component
- */
 function RentalDisplay({ rental }: { rental: RentalItem }) {
+  const rows = [
+    { label: "مدل ماشین", value: rental.car.name },
+    {
+      label: "تاریخ شروع",
+      value: new Date(rental.startDate).toLocaleDateString("fa-IR"),
+    },
+    {
+      label: "تاریخ پایان",
+      value: new Date(rental.endDate).toLocaleDateString("fa-IR"),
+    },
+    { label: "تعداد روز", value: String(rental.rentalDays) },
+    { label: "محل تحویل", value: rental.pickupLocation },
+    { label: "محل تسلیم", value: rental.dropoffLocation },
+    ...(rental.withDriver
+      ? [{ label: "راننده", value: `بلی (${rental.driverDays} روز)` }]
+      : []),
+    {
+      label: "قیمت کل",
+      value: `${rental.totalPrice.toLocaleString("fa-IR")} تومان`,
+      accent: true,
+    },
+  ] as { label: string; value: string; accent?: boolean }[];
+
   return (
     <div>
-      <div className="mb-12 last:mb-0">
-        <h2 className="text-xl m-0 mb-6 text-foreground pb-2 border-b-2 border-border">جزئیات رزرو فعلی</h2>
-        <div className="flex flex-col gap-4">
-          <div className="flex justify-between items-center p-4 bg-muted rounded-md">
-            <span className="text-muted-foreground">مدل ماشین:</span>
-            <strong className="text-foreground font-semibold">{rental.car.name}</strong>
-          </div>
-          <div className="flex justify-between items-center p-4 bg-muted rounded-md">
-            <span className="text-muted-foreground">تاریخ شروع:</span>
-            <strong className="text-foreground font-semibold">
-              {new Date(rental.startDate).toLocaleDateString("fa-IR")}
+      <h2 className="mb-4 border-b-2 border-border pb-2 text-lg font-semibold text-foreground lg:mb-6 lg:text-xl">
+        جزئیات رزرو فعلی
+      </h2>
+      <div className="flex flex-col gap-3">
+        {rows.map(({ label, value, accent }) => (
+          <div
+            key={label}
+            className={`flex justify-between items-center rounded-xl px-4 py-3 ${
+              accent ? "bg-primary/10" : "bg-muted"
+            }`}
+          >
+            <span className="text-sm text-muted-foreground">{label}:</span>
+            <strong
+              className={`font-semibold ${accent ? "text-primary" : "text-foreground"}`}
+            >
+              {value}
             </strong>
           </div>
-          <div className="flex justify-between items-center p-4 bg-muted rounded-md">
-            <span className="text-muted-foreground">تاریخ پایان:</span>
-            <strong className="text-foreground font-semibold">
-              {new Date(rental.endDate).toLocaleDateString("fa-IR")}
-            </strong>
-          </div>
-          <div className="flex justify-between items-center p-4 bg-muted rounded-md">
-            <span className="text-muted-foreground">تعداد روز:</span>
-            <strong className="text-foreground font-semibold">{rental.rentalDays}</strong>
-          </div>
-          <div className="flex justify-between items-center p-4 bg-muted rounded-md">
-            <span className="text-muted-foreground">محل تحویل:</span>
-            <strong className="text-foreground font-semibold">{rental.pickupLocation}</strong>
-          </div>
-          <div className="flex justify-between items-center p-4 bg-muted rounded-md">
-            <span className="text-muted-foreground">محل تسلیم:</span>
-            <strong className="text-foreground font-semibold">{rental.dropoffLocation}</strong>
-          </div>
-          {rental.withDriver && (
-            <div className="flex justify-between items-center p-4 bg-muted rounded-md">
-              <span className="text-muted-foreground">راننده:</span>
-              <strong className="text-foreground font-semibold">بلی ({rental.driverDays} روز)</strong>
-            </div>
-          )}
-          <div className="flex justify-between items-center p-4 bg-muted rounded-md">
-            <span className="text-muted-foreground">قیمت کل:</span>
-            <strong className="text-primary font-semibold">
-              {rental.totalPrice.toLocaleString("fa-IR")} تومان
-            </strong>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
