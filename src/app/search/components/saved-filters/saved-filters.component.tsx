@@ -50,7 +50,9 @@ export default function SavedFiltersComponent(): ReactElement {
     <CardComponent>
       <div className="grid gap-3">
         <div className="flex items-center justify-between gap-2">
-          <div className="font-black text-(--color-text-700) text-[length:var(--fz-300)]">فیلترهای ذخیره‌شده</div>
+          <div className="font-black text-(--color-text-700) text-[length:var(--fz-300)]">
+            فیلترهای ذخیره‌شده
+          </div>
           <div className="bg-[var(--color-surface-700)] text-(--color-text-700) rounded-full px-2.5 py-0.5 text-[length:var(--fz-300)]">
             {activeFiltersCount} فعال
           </div>
@@ -91,7 +93,9 @@ export default function SavedFiltersComponent(): ReactElement {
                   className="bg-[var(--color-surface-700)] border border-[var(--color-border)] rounded-(--border-radius) p-2.5 grid gap-1.5"
                 >
                   <div className="flex items-center justify-between gap-2 max-[48rem]:items-start max-[48rem]:flex-col">
-                    <div className="font-bold text-(--color-text-700) text-[length:var(--fz-300)]">{preset.name}</div>
+                    <div className="font-bold text-(--color-text-700) text-[length:var(--fz-300)]">
+                      {preset.name}
+                    </div>
                     <div className="text-(--color-text-700) text-[length:var(--fz-300)]">
                       {countActiveSearchFilters(preset.filters)} فیلتر · استفاده{" "}
                       {preset.usageCount}
