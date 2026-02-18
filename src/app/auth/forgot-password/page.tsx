@@ -28,7 +28,8 @@ export default function ForgotPasswordPage() {
     defaultValues: { email: "" },
   });
 
-  const onSubmit = (values: ForgotPasswordInput) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const onSubmit = (_values: ForgotPasswordInput) => {
     setStatus("submitting");
     // فعلاً بدون بک‌اند فقط یک پیام نمایشی
     setTimeout(() => setStatus("success"), 500);

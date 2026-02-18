@@ -260,6 +260,22 @@ export default function MapView({ cars }: Props) {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          <Select
+            value={selectedLocationLabel}
+            onValueChange={handleSelectLocation}
+          >
+            <SelectTrigger className="w-[140px] gap-2">
+              <MapPin className="size-4 shrink-0" />
+              <SelectValue placeholder="انتخاب شهر" />
+            </SelectTrigger>
+            <SelectContent>
+              {selectableLocations.map((loc) => (
+                <SelectItem key={loc} value={loc}>
+                  {loc}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <Button
             variant="outline"
             size="sm"
@@ -279,22 +295,7 @@ export default function MapView({ cars }: Props) {
               </>
             )}
           </Button>
-          <Select
-            value={selectedLocationLabel}
-            onValueChange={handleSelectLocation}
-          >
-            <SelectTrigger className="w-[140px] gap-2">
-              <MapPin className="size-4 shrink-0" />
-              <SelectValue placeholder="انتخاب شهر" />
-            </SelectTrigger>
-            <SelectContent>
-              {selectableLocations.map((loc) => (
-                <SelectItem key={loc} value={loc}>
-                  {loc}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+
           {userLocation && (
             <Select value={radiusKm} onValueChange={setRadiusKm}>
               <SelectTrigger className="w-[110px] gap-1 text-xs">

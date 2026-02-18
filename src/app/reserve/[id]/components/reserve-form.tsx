@@ -2,16 +2,15 @@
 
 import { ReactElement, useState } from "react";
 import {
-  Loader2Icon,
   UserRound,
   CalendarRange,
   Send,
   CheckCircle2,
 } from "lucide-react";
+import Spinner from "@/components/Spinner/Spinner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
@@ -253,7 +252,7 @@ export default function ReserveForm({ carId, carName }: Props): ReactElement {
           >
             {isSubmitting ? (
               <>
-                <Loader2Icon className="size-5 animate-spin" />
+                <Spinner size={20} className="shrink-0" />
                 در حال ثبت درخواست...
               </>
             ) : (

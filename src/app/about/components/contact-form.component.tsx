@@ -31,7 +31,8 @@ export default function ContactForm(): ReactElement {
     },
   });
 
-  const onSubmit = (values: ContactFormInput) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const onSubmit = (_values: ContactFormInput) => {
     setStatus("submitting");
     // فعلاً فقط UI — ارسال واقعی بعداً با بک‌اند
     setTimeout(() => {
