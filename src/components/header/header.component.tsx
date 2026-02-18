@@ -43,11 +43,6 @@ function NavLinks({
 }) {
   return (
     <>
-      {!isMobile && (
-        <li>
-          <CompareLinkComponent />
-        </li>
-      )}
       {links.map((link) => (
         <li key={link.href}>
           <Link
@@ -62,6 +57,7 @@ function NavLinks({
           </Link>
         </li>
       ))}
+
       <li>
         <Link
           href={rentOutHref}
@@ -75,11 +71,6 @@ function NavLinks({
           {isMobile ? "ثبت خودرو" : "خودرو اجاره بده"}
         </Link>
       </li>
-      {isMobile && (
-        <li className="pt-2 border-t border-border mt-2">
-          <CompareLinkComponent />
-        </li>
-      )}
     </>
   );
 }
@@ -90,7 +81,9 @@ export default function HeaderComponent(): ReactElement {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [ctaBarOpen, setCtaBarOpen] = useState(true);
 
-  const rentOutHref = isLoggedIn ? "/cars/add" : "/auth/signin?redirect=/cars/add";
+  const rentOutHref = isLoggedIn
+    ? "/cars/add"
+    : "/auth/signin?redirect=/cars/add";
 
   return (
     <header className="sticky top-0 z-50 w-full shrink-0 flex flex-col items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border">
@@ -106,7 +99,11 @@ export default function HeaderComponent(): ReactElement {
                 </span>{" "}
                 و از اجارهٔ آن درآمد داشته باشید.
               </p>
-              <Button asChild size="sm" className="rounded-lg gap-1.5 bg-primary hover:bg-primary/90 shrink-0">
+              <Button
+                asChild
+                size="sm"
+                className="rounded-lg gap-1.5 bg-primary hover:bg-primary/90 shrink-0"
+              >
                 <Link href={rentOutHref}>
                   <Car className="size-4" />
                   ثبت خودرو برای اجاره
@@ -147,7 +144,9 @@ export default function HeaderComponent(): ReactElement {
                 className="w-[min(320px,85vw)] border-l border-border p-0"
               >
                 <SheetHeader className="border-b border-border p-4 text-right">
-                  <SheetTitle className="text-lg font-bold">منوی اصلی</SheetTitle>
+                  <SheetTitle className="text-lg font-bold">
+                    منوی اصلی
+                  </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col p-4" aria-label="منوی اصلی">
                   <ul className="flex flex-col gap-1 list-none p-0 m-0">
@@ -177,9 +176,10 @@ export default function HeaderComponent(): ReactElement {
               کارِمون
             </Link>
 
-            {/* سمت چپ (در RTL): سوئیچ تم + دکمه ورود — هم موبایل هم دسکتاپ */}
+            {/* سمت چپ (در RTL): سوئیچ تم + مقایسه (اگر لاگین) + دکمه ورود — هم موبایل هم دسکتاپ */}
             <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 shrink-0 overflow-visible">
               <DarkModeToggleComponent />
+              {isLoggedIn && <CompareLinkComponent />}
               {isLoggedIn ? (
                 <UserPanel />
               ) : (
