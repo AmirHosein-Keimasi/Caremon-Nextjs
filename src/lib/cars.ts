@@ -68,7 +68,7 @@ export async function getCarById(id: string): Promise<CarsModel | null> {
 
 export async function getCarsByIds(ids: string[]): Promise<CarsModel[]> {
   if (ids.length === 0) return [];
-  const uniqueIds = [...new Set(ids)];
+  const uniqueIds = Array.from(new Set(ids));
   try {
     const dbCars = await prisma.car.findMany({
       where: { id: { in: uniqueIds } },
