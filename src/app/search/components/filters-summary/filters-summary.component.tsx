@@ -12,6 +12,7 @@ import {
   SearchFilterKey,
 } from "@/app/search/utils/search-filters";
 
+ 
 export default function FiltersSummaryComponent(): ReactElement | null {
   const { filters, dispatchFilters } = useContext(FiltersContext);
 
@@ -36,14 +37,14 @@ export default function FiltersSummaryComponent(): ReactElement | null {
   return (
     <CardComponent>
       <div className="flex flex-col gap-4">
-        <div className="text-lg font-semibold">فیلترهای فعال</div>
+        <div className="text-lg font-semibold">Active filters</div>
 
         <button
           type="button"
           onClick={removeAllButtonClickHandler}
-          className="self-end px-4 py-2 bg-transparent text-primary border border-primary rounded-md hover:bg-primary hover:text-primary-foreground transition-colors"
+          className="self-end px-4 py-2 bg-transparent text-[var(--color-primary)] border border-[var(--color-primary)] rounded-md hover:bg-[var(--color-primary)] hover:text-[var(--color-primary-opposite)] transition-colors"
         >
-          پاک کردن همه
+          Clear all
         </button>
 
         <ul className="flex flex-wrap gap-2 list-none">
