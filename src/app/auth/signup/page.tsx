@@ -4,7 +4,7 @@ import SignupForm from "./components/signup-form";
 
 export default function SignupPage() {
   return (
-    <div className="flex flex-wrap items-center justify-center lg:justify-between lg:p-16">
+    <div className="w-full min-w-0 max-w-full px-4 py-6 lg:max-w-7xl flex justify-between lg:px-6 lg:py-8 lg:mx-auto">
       <div className="w-full max-w-[28rem]">
         <SignupForm />
       </div>

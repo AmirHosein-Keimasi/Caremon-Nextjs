@@ -37,9 +37,9 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-center lg:justify-between lg:p-16">
+    <div className="w-full min-w-0 max-w-full px-4 py-6 lg:max-w-7xl flex justify-between lg:px-6 lg:py-8 lg:mx-auto">
       <div className="w-full max-w-[28rem]">
-        <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+        <form className="flex mt-20 flex-col gap-3" onSubmit={handleSubmit}>
           <h2 className="text-xl font-semibold mb-2 text-foreground">
             بازیابی رمز عبور
           </h2>
