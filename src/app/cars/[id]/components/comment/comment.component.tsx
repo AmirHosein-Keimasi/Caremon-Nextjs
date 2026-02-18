@@ -19,23 +19,28 @@ export default function CommentComponent({ comment }: Props): ReactElement {
 
   return (
     <CardComponent>
-      <div className="grid gap-4">
-        <div className="grid grid-areas-[image_name_rating;image_date_rating] grid-cols-[auto_1fr_auto] items-start gap-x-3">
-          <div className="[grid-area:image] bg-primary text-primary-foreground grid place-content-center min-h-full h-0 aspect-square rounded-full text-lg">
+      <div className="flex flex-col gap-3">
+        <div className="flex items-start gap-3">
+          <div
+            className="size-10 shrink-0 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-base font-bold"
+            aria-hidden
+          >
             {comment.user.name[0].toUpperCase()}
           </div>
-          <div className="[grid-area:name] text-lg font-bold">
-            {comment.user.name}
+          <div className="min-w-0 flex-1">
+            <div className="font-bold text-foreground">{comment.user.name}</div>
+            <div className="text-sm text-muted-foreground">
+              {formatter.format(relativeTimeInDays, "days")}
+            </div>
           </div>
-          <div className="[grid-area:date] text-sm">
-            {formatter.format(relativeTimeInDays, "days")}
-          </div>
-          <div className="[grid-area:rating] rounded-lg text-lg font-bold">
-            {comment.rating}{" "}
-            <Star className="text-amber-500 mb-[-0.15em]" />
+          <div className="flex shrink-0 items-center gap-1 font-bold text-foreground">
+            <span>{comment.rating}</span>
+            <Star className="size-5 text-amber-500" aria-hidden />
           </div>
         </div>
-        <div className="whitespace-pre-line">{comment.text}</div>
+        <p className="whitespace-pre-line text-foreground m-0">
+          {comment.text}
+        </p>
       </div>
     </CardComponent>
   );

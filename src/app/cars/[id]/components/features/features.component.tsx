@@ -49,29 +49,23 @@ const Features: React.FC<FeaturesProps> = ({ features }) => {
     ...(Array.isArray(features.braking_system) ? features.braking_system : []),
   ];
 
+  const allFeatures = [...enabledFeatures, ...extraFeatures];
+
   return (
-    <CardComponent>
-      <div>
-        <div className="text-lg font-bold flex items-center mb-2">
-          <Car />
+    <CardComponent className="h-full flex flex-col">
+      <div className="flex flex-col h-full min-h-0">
+        <h3 className="text-lg font-bold flex items-center gap-2 mb-3 m-0">
+          <Car className="size-5 text-primary shrink-0" />
           امکانات
-        </div>
+        </h3>
         <div className="flex flex-wrap gap-2">
-          {enabledFeatures.map((feature, index) => (
-            <div
+          {allFeatures.map((feature, index) => (
+            <span
               key={index}
-              className="py-2 px-3 bg-card rounded-lg text-sm text-foreground"
+              className="inline-flex items-center py-2 px-3 rounded-lg text-sm font-medium text-foreground bg-muted/80 border border-border/60 hover:border-primary/30 hover:bg-primary/5 transition-colors"
             >
               {feature}
-            </div>
-          ))}
-          {extraFeatures.map((feature, index) => (
-            <div
-              key={`extra-${index}`}
-              className="py-2 px-3 bg-card rounded-lg text-sm text-foreground"
-            >
-              {feature}
-            </div>
+            </span>
           ))}
         </div>
       </div>

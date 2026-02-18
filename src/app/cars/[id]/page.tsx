@@ -192,31 +192,59 @@ export default async function Page({ params }: Props): Promise<ReactElement> {
   }
 
   return (
-    <div className="grid grid-cols-[1fr_1.3fr] gap-4 items-stretch max-md:grid-cols-1" style={{ gridTemplateAreas: '"carInfo Prices" "locationCar SpecsAndFeatures" "rentalInfo rentalInfo"' }}>
-      <div style={{ gridArea: 'carInfo' }}>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+      {/* Hero: تصویر و اطلاعات اصلی خودرو */}
+      <section className="mb-4 lg:mb-6">
         <CarInfo car={car} />
-      </div>
+      </section>
 
-      <div style={{ gridArea: 'Prices' }} className="grid grid-cols-2 gap-4">
-        <PriceCar car={car} />
-        <DriverPriceCar car={car} />
-        <ReserveButton car={car} />
-      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-4 lg:gap-6 xl:gap-8 items-start">
+        {/* ستون اصلی: محل + امکانات در یک ردیف روی دسکتاپ، بعد مشخصات و نظرات */}
+        <div className="flex flex-col gap-4 lg:gap-5 min-w-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5">
+            <LocationCar car={car} />
+            <Features features={car.features} />
+          </div>
+          <SpecsAndFeatures car={car} />
 
-      <div style={{ gridArea: 'locationCar' }} className="flex flex-col gap-4 min-h-full">
-        <LocationCar car={car} />
-        <Features features={car.features} />
-        {comments.map((comment) => (
-          <CommentComponent key={comment.id} comment={comment} />
-        ))}
-      </div>
-
-      <div style={{ gridArea: 'SpecsAndFeatures' }} className="min-h-full">
-        <SpecsAndFeatures car={car} />
-        <div style={{ gridArea: 'rentalInfo' }}>
-          <Peugeot206RentalInfo car={car} />
+          <section className="space-y-3" aria-labelledby="comments-heading">
+            <h2
+              id="comments-heading"
+              className="text-xl font-bold text-foreground  pb-2"
+            >
+              نظرات کاربران
+            </h2>
+            <ul className="space-y-3 list-none p-0 m-0">
+              {comments.map((comment) => (
+                <li key={comment.id}>
+                  <CommentComponent comment={comment} />
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
+
+        {/* سایدبار ثابت: قیمت‌ها + رزرو */}
+        <aside className="lg:sticky lg:top-24 flex flex-col gap-3 lg:gap-4">
+          <PriceCar car={car} />
+          <DriverPriceCar car={car} />
+          <div className="rounded-xl border-2 border-primary/30 bg-primary/5 p-4 lg:p-5 shadow-sm">
+            <p className="text-sm text-muted-foreground mb-2">
+              اجاره از{" "}
+              <span className="font-bold text-primary">
+                {(car.rental.days_3_to_14 || 0).toLocaleString("fa-IR")} تومان
+              </span>{" "}
+              در روز
+            </p>
+            <ReserveButton car={car} />
+          </div>
+        </aside>
       </div>
+
+      {/* اطلاعات اجاره و شرایط (تمام عرض) */}
+      <section className="mt-8 lg:mt-10">
+        <Peugeot206RentalInfo car={car} />
+      </section>
     </div>
   );
 }

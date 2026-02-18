@@ -10,7 +10,7 @@ const SpecsAndFeatures = ({ car }: Props) => {
   return (
     <CardComponent>
       <div className="grid text-foreground max-md:grid-cols-1">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 [&>div:last-child]:border-b-0">
           <h2 className="text-xl font-semibold text-foreground mb-2 pb-2 border-b-2 border-border">
             مشخصات فنی
           </h2>

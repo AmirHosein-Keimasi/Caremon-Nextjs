@@ -16,7 +16,7 @@ const DriverPriceCar = ({ car }: Props) => {
     { label: "ترانسفر فرودگاهی", price: car.driver_rental.airport_transfer },
   ];
   return (
-    <div className="bg-card rounded-lg p-4 shadow-lg mt-auto">
+    <div className="bg-card rounded-xl p-5 shadow-md border border-border/50">
       <div className="text-primary py-2 text-start font-bold mb-4">
         اجاره همراه با راننده{" "}
       </div>

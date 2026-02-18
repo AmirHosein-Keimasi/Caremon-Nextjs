@@ -167,14 +167,14 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
   return (
     <>
       <Button
-        className="px-8 py-3"
+        className="w-full py-4 text-base font-bold rounded-xl shadow-md hover:shadow-lg transition-shadow"
         onClick={() => setShowReservationForm(true)}
       >
         رزرو کنید
       </Button>
 
       {showReservationForm && (
-        <div className="fixed top-0 left-0 right-0 bottom-0 bg-[rgba(7,10,18,0.52)] backdrop-blur-sm flex items-center justify-center z-[1000] rtl">
+        <div className="fixed inset-0 bg-[rgba(7,10,18,0.52)] backdrop-blur-sm flex items-center justify-center z-[1000] rtl">
           <div className="bg-card rounded-2xl max-w-[600px] w-[90%] max-h-[90vh] overflow-y-auto shadow-2xl">
             <div className="flex justify-between items-center p-6 border-b border-border/20">
               <h2 className="m-0 text-foreground text-[1.3rem]">
@@ -298,7 +298,10 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                     name="withDriver"
                     checked={formData.withDriver}
                     onCheckedChange={(checked) =>
-                      setFormData((prev) => ({ ...prev, withDriver: !!checked }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        withDriver: !!checked,
+                      }))
                     }
                   />
                   <Label htmlFor="withDriver" className="cursor-pointer">
@@ -307,7 +310,9 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                 </div>
                 {formData.withDriver && (
                   <div className="flex flex-col gap-2 p-4 bg-muted rounded-[10px]">
-                    <Label htmlFor="driverDays">تعداد روزهایی که راننده را نیاز دارید</Label>
+                    <Label htmlFor="driverDays">
+                      تعداد روزهایی که راننده را نیاز دارید
+                    </Label>
                     <Input
                       id="driverDays"
                       type="number"
@@ -342,7 +347,10 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                         checked={formData.selectedOptions.includes(option.id)}
                         onCheckedChange={() => handleOptionChange(option.id)}
                       />
-                      <Label htmlFor={option.id} className="cursor-pointer font-medium">
+                      <Label
+                        htmlFor={option.id}
+                        className="cursor-pointer font-medium"
+                      >
                         {option.label}
                       </Label>
                     </div>
@@ -370,7 +378,9 @@ export default function ReserveButton({ car }: ReserveButtonProps) {
                   </div>
                   {formData.withDriver && (
                     <div className="flex justify-between py-3 text-muted-foreground">
-                      <span className="font-medium">هزینه راننده (روزانه):</span>
+                      <span className="font-medium">
+                        هزینه راننده (روزانه):
+                      </span>
                       <span className="text-foreground">
                         {(
                           (car.rental.days_3_to_14 || 100000) *

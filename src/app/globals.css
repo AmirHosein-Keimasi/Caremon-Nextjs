@@ -271,6 +271,7 @@
    ============================================ */
 
 @layer base {
+
   *,
   *::before,
   *::after {
@@ -341,10 +342,12 @@ html {
 
 /* چرخ تایر: مکان ثابت، فقط کمی چرخش برای حس حرکت */
 @keyframes tireRoll {
+
   0%,
   100% {
     transform: rotate(-6deg);
   }
+
   50% {
     transform: rotate(6deg);
   }
@@ -373,5 +376,3 @@ html {
     transform: translateY(0);
   }
 }
-
-  

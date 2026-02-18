@@ -14,7 +14,7 @@ const PriceCar = ({ car }: Props) => {
   ];
 
   return (
-    <div className="bg-card rounded-lg p-4 shadow-lg mt-auto">
+    <div className="bg-card rounded-xl p-5 shadow-md border border-border/50">
       <div className="text-primary py-2 text-start font-bold mb-4">
         اجاره بدون راننده{" "}
       </div>
