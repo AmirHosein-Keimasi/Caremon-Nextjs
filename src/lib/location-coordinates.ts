@@ -42,7 +42,10 @@ export function getCoordinatesForLocation(location: string): Coordinates {
 /**
  * برای خودروهای متعدد در یک شهر، افست کوچک برای عدم هم‌پوشانی مارکرها
  */
-export function getCarMarkerOffset(index: number): { lat: number; lng: number } {
+export function getCarMarkerOffset(index: number): {
+  lat: number;
+  lng: number;
+} {
   const step = 0.008;
   const row = Math.floor(index / 3);
   const col = index % 3;
@@ -55,10 +58,7 @@ export function getCarMarkerOffset(index: number): { lat: number; lng: number } 
 /**
  * فاصله تقریبی دو نقطه (کیلومتر) - فرمول Haversine ساده
  */
-export function distanceKm(
-  a: Coordinates,
-  b: Coordinates,
-): number {
+export function distanceKm(a: Coordinates, b: Coordinates): number {
   const R = 6371;
   const dLat = ((b.lat - a.lat) * Math.PI) / 180;
   const dLng = ((b.lng - a.lng) * Math.PI) / 180;

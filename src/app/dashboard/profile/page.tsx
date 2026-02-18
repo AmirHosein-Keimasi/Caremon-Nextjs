@@ -128,10 +128,7 @@ export default function DashboardProfilePage(): ReactElement {
             </div>
           ))}
 
-          <Button
-            type="submit"
-            className="min-h-[44px] sm:col-span-2"
-          >
+          <Button type="submit" className="min-h-[44px] sm:col-span-2">
             ذخیره اطلاعات پروفایل
           </Button>
         </form>
@@ -140,7 +137,8 @@ export default function DashboardProfilePage(): ReactElement {
       <section className="mt-6 rounded-2xl border border-border bg-card p-4 shadow-sm lg:p-6">
         <h2 className="text-lg font-bold text-foreground mb-1">ظاهر و تم</h2>
         <p className="text-sm text-muted-foreground mb-4">
-          رنگ اصلی سایت را انتخاب کنید. تغییر به‌صورت زنده در همه‌ی صفحات اعمال می‌شود.
+          رنگ اصلی سایت را انتخاب کنید. تغییر به‌صورت زنده در همه‌ی صفحات اعمال
+          می‌شود.
         </p>
         <PrimaryColorPicker />
       </section>

@@ -84,8 +84,7 @@ export default function CheckoutPage() {
   );
 
   const allFieldsFilled = useMemo(
-    () =>
-      requiredFields.every((field) => !isFieldEmpty(customerInfo[field])),
+    () => requiredFields.every((field) => !isFieldEmpty(customerInfo[field])),
     [customerInfo],
   );
 
@@ -98,10 +97,9 @@ export default function CheckoutPage() {
     ? currentRental.pricePerDay * 0.5 * (currentRental.driverDays || 1)
     : 0;
 
-  const carImageUrl =
-    currentRental.car.img.startsWith("http")
-      ? currentRental.car.img
-      : `https://cafeerent.com/storage/www/cars/single/${currentRental.car.img}`;
+  const carImageUrl = currentRental.car.img.startsWith("http")
+    ? currentRental.car.img
+    : `https://cafeerent.com/storage/www/cars/single/${currentRental.car.img}`;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -149,10 +147,7 @@ export default function CheckoutPage() {
     <div className="min-h-screen bg-gradient-to-b from-muted/30 to-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
         <BreadcrumbNav
-          items={[
-            { label: "خانه", href: "/" },
-            { label: "تسویه حساب" },
-          ]}
+          items={[{ label: "خانه", href: "/" }, { label: "تسویه حساب" }]}
           className="mb-6"
         />
 
@@ -215,9 +210,9 @@ export default function CheckoutPage() {
                         تاریخ تحویل
                       </p>
                       <p className="font-semibold text-foreground text-sm m-0">
-                        {new Date(
-                          currentRental.startDate,
-                        ).toLocaleDateString("fa-IR")}
+                        {new Date(currentRental.startDate).toLocaleDateString(
+                          "fa-IR",
+                        )}
                       </p>
                     </div>
                   </div>
@@ -228,9 +223,9 @@ export default function CheckoutPage() {
                         تاریخ بازگشت
                       </p>
                       <p className="font-semibold text-foreground text-sm m-0">
-                        {new Date(
-                          currentRental.endDate,
-                        ).toLocaleDateString("fa-IR")}
+                        {new Date(currentRental.endDate).toLocaleDateString(
+                          "fa-IR",
+                        )}
                       </p>
                     </div>
                   </div>
@@ -322,9 +317,7 @@ export default function CheckoutPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {requiredFields.map((field) => (
                     <div key={field} className="flex flex-col gap-2">
-                      <Label htmlFor={field}>
-                        {fieldMeta[field].label}
-                      </Label>
+                      <Label htmlFor={field}>{fieldMeta[field].label}</Label>
                       <Input
                         id={field}
                         type={fieldMeta[field].type}
@@ -362,9 +355,7 @@ export default function CheckoutPage() {
                 </div>
                 {currentRental.withDriver && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">
-                      هزینه راننده
-                    </span>
+                    <span className="text-muted-foreground">هزینه راننده</span>
                     <span className="font-medium text-foreground">
                       {driverCost.toLocaleString("fa-IR")} تومان
                     </span>

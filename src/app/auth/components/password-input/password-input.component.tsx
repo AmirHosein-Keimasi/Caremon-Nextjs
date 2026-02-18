@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  ComponentProps,
-  ForwardedRef,
-  forwardRef,
-   useState,
-} from "react";
+import { ComponentProps, ForwardedRef, forwardRef, useState } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

@@ -7,7 +7,8 @@ import { SITE_URL, defaultOpenGraph } from "@/lib/site";
 export const dynamic = "force-static";
 
 const title = "ثبت نام";
-const description = "ثبت نام در کارِمون برای اجاره خودرو، رزرو آنلاین و ثبت خودرو در مارکت‌پلیس.";
+const description =
+  "ثبت نام در کارِمون برای اجاره خودرو، رزرو آنلاین و ثبت خودرو در مارکت‌پلیس.";
 
 export const metadata: Metadata = {
   title,

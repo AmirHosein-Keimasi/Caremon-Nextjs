@@ -82,10 +82,7 @@ export default function ProfilePage(): ReactElement {
   return (
     <main className="rtl max-w-[860px] mx-auto p-[clamp(1.2rem,2vw,2rem)] min-h-screen">
       <BreadcrumbNav
-        items={[
-          { label: "خانه", href: "/" },
-          { label: "پروفایل" },
-        ]}
+        items={[{ label: "خانه", href: "/" }, { label: "پروفایل" }]}
         className="mb-4"
       />
       <div className="mb-5">

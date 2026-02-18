@@ -380,6 +380,7 @@ Created with ❤️ for Caremon
 ## Version History
 
 - **v0.2.0** (Feb 16, 2026) - CSS Modules to Tailwind Migration
+
   - ✅ Complete migration from CSS Modules to Tailwind CSS
   - ✅ Removed all `.module.css` files (60+ files)
   - ✅ Converted all components to use Tailwind utility classes

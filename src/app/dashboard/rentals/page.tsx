@@ -110,13 +110,13 @@ export default function MyRentalsPage() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {(Object.keys(statusLabel) as Array<ReservationStatus | "all">).map(
-                  (s) => (
-                    <SelectItem key={s} value={s}>
-                      {statusLabel[s]}
-                    </SelectItem>
-                  ),
-                )}
+                {(
+                  Object.keys(statusLabel) as Array<ReservationStatus | "all">
+                ).map((s) => (
+                  <SelectItem key={s} value={s}>
+                    {statusLabel[s]}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

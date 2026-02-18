@@ -53,13 +53,13 @@ maincaremon/
 
 ### ۱. ناسازگاری مستندات با کد فعلی
 
-| مورد | مستندات | واقعیت کد |
-|------|---------|-----------|
-| Cart API | `addToCart`, `removeFromCart`, `items` | `setRental`, `clearRental`, `currentRental` |
-| LocalStorage | `caremon-cart` | `caremon-rental` |
-| مدل داده | `CartItem` با quantity | `RentalItem` (تک رزرو) |
-| Toast | `ToastContainer` (react-toastify) | `Toaster` (sonner) |
-| Layout | ErrorBoundary + ToastContainer | فقط Toaster، بدون ErrorBoundary |
+| مورد         | مستندات                                | واقعیت کد                                   |
+| ------------ | -------------------------------------- | ------------------------------------------- |
+| Cart API     | `addToCart`, `removeFromCart`, `items` | `setRental`, `clearRental`, `currentRental` |
+| LocalStorage | `caremon-cart`                         | `caremon-rental`                            |
+| مدل داده     | `CartItem` با quantity                 | `RentalItem` (تک رزرو)                      |
+| Toast        | `ToastContainer` (react-toastify)      | `Toaster` (sonner)                          |
+| Layout       | ErrorBoundary + ToastContainer         | فقط Toaster، بدون ErrorBoundary             |
 
 ### ۲. Dark Mode
 
@@ -117,12 +117,12 @@ maincaremon/
 
 ## 📁 فایل‌های LocalStorage
 
-| کلید | توضیح |
-|------|-------|
-| `caremon-rental` | رزرو فعلی در سبد |
-| `caremon-reservations` | رزروهای ثبت‌شده |
-| `caremon-user-profile` | پروفایل مشتری |
-| `dark-mode` | تم تاریک/روشن |
+| کلید                   | توضیح            |
+| ---------------------- | ---------------- |
+| `caremon-rental`       | رزرو فعلی در سبد |
+| `caremon-reservations` | رزروهای ثبت‌شده  |
+| `caremon-user-profile` | پروفایل مشتری    |
+| `dark-mode`            | تم تاریک/روشن    |
 
 ---
 
@@ -140,12 +140,12 @@ maincaremon/
 
 ## 📊 خلاصه وضعیت
 
-| بخش | وضعیت |
-|-----|-------|
-| UI/UX | ✅ خوب |
-| State Management | ✅ خوب |
-| Routing | ✅ خوب |
-| احراز هویت | ⚠️ نیاز به اتصال به بک‌اند |
-| پرداخت | ❌ پیاده‌سازی نشده |
-| مستندات | ⚠️ قدیمی و ناسازگار |
-| تست | ❌ وجود ندارد |
+| بخش              | وضعیت                      |
+| ---------------- | -------------------------- |
+| UI/UX            | ✅ خوب                     |
+| State Management | ✅ خوب                     |
+| Routing          | ✅ خوب                     |
+| احراز هویت       | ⚠️ نیاز به اتصال به بک‌اند |
+| پرداخت           | ❌ پیاده‌سازی نشده         |
+| مستندات          | ⚠️ قدیمی و ناسازگار        |
+| تست              | ❌ وجود ندارد              |

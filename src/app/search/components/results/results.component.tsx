@@ -35,9 +35,7 @@ export default function ResultsComponent(): ReactElement {
 
   if (!filteredCars?.length) {
     return (
-      <div className="text-center py-8 text-foreground">
-        نتیجه‌ای یافت نشد
-      </div>
+      <div className="text-center py-8 text-foreground">نتیجه‌ای یافت نشد</div>
     );
   }
 
@@ -66,7 +64,9 @@ export default function ResultsComponent(): ReactElement {
               <h3 className="text-lg font-bold my-1.5 mx-0 text-primary">
                 {car.name}
               </h3>
-              <p className="flex justify-between items-center p-2 relative">{car.model}</p>
+              <p className="flex justify-between items-center p-2 relative">
+                {car.model}
+              </p>
             </div>
 
             <CarInfoIcon

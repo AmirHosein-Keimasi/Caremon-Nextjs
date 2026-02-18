@@ -30,20 +30,16 @@ const CarInfoIcon: React.FC<CarInfoProps> = ({
 }) => (
   <div className="flex justify-center items-center gap-8 text-base flex-wrap text-foreground">
     <span>
-      <CarFront className="text-primary" />{" "}
-      {toPersianNumbers(doors)}
+      <CarFront className="text-primary" /> {toPersianNumbers(doors)}
     </span>
     <span>
-      <Users className="text-primary" />{" "}
-      {toPersianNumbers(passengers)}
+      <Users className="text-primary" /> {toPersianNumbers(passengers)}
     </span>
     <span>
-      <Briefcase className="text-primary" />{" "}
-      {toPersianNumbers(luggage)}
+      <Briefcase className="text-primary" /> {toPersianNumbers(luggage)}
     </span>
     <span>
-      <Gauge className="text-primary" />{" "}
-      {toPersianNumbers(transmission)}
+      <Gauge className="text-primary" /> {toPersianNumbers(transmission)}
     </span>
   </div>
 );

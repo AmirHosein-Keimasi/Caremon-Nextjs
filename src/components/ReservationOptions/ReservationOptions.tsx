@@ -109,16 +109,23 @@ export default function ReservationOptions({
   const minDate = new Date().toISOString().split("T")[0];
 
   return (
-    <form onSubmit={handleAddToCart} className="bg-card p-8 rounded-lg shadow-md rtl">
+    <form
+      onSubmit={handleAddToCart}
+      className="bg-card p-8 rounded-lg shadow-md rtl"
+    >
       <h3 className="m-0 mb-6 text-xl text-foreground">گزینه های رزرو</h3>
 
       {/* Dates Section */}
       <div className="mb-8 pb-6 border-b border-border last:border-b-0">
-        <h4 className="m-0 mb-4 text-lg text-foreground font-semibold">تاریخ و محل</h4>
+        <h4 className="m-0 mb-4 text-lg text-foreground font-semibold">
+          تاریخ و محل
+        </h4>
 
         <div className="grid grid-cols-2 gap-4 mb-4 max-[600px]:grid-cols-1">
           <div className="flex flex-col gap-2">
-            <label className="font-medium text-foreground text-sm">تاریخ شروع</label>
+            <label className="font-medium text-foreground text-sm">
+              تاریخ شروع
+            </label>
             <input
               type="date"
               value={startDate}
@@ -130,7 +137,9 @@ export default function ReservationOptions({
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="font-medium text-foreground text-sm">تاریخ پایان</label>
+            <label className="font-medium text-foreground text-sm">
+              تاریخ پایان
+            </label>
             <input
               type="date"
               value={endDate}
@@ -144,7 +153,9 @@ export default function ReservationOptions({
 
         <div className="grid grid-cols-[1fr_50px_1fr] gap-4 items-end max-[600px]:grid-cols-1">
           <div className="flex flex-col gap-2">
-            <label className="font-medium text-foreground text-sm">محل تحویل</label>
+            <label className="font-medium text-foreground text-sm">
+              محل تحویل
+            </label>
             <select
               value={pickupLocation}
               onChange={(e) => setPickupLocation(e.target.value)}
@@ -172,7 +183,9 @@ export default function ReservationOptions({
           </Button>
 
           <div className="flex flex-col gap-2">
-            <label className="font-medium text-foreground text-sm">محل تحویل</label>
+            <label className="font-medium text-foreground text-sm">
+              محل تحویل
+            </label>
             <select
               value={dropoffLocation}
               onChange={(e) => setDropoffLocation(e.target.value)}
@@ -193,7 +206,9 @@ export default function ReservationOptions({
 
       {/* Driver Section */}
       <div className="mb-8 pb-6 border-b border-border last:border-b-0">
-        <h4 className="m-0 mb-4 text-lg text-foreground font-semibold">خدمات اضافی</h4>
+        <h4 className="m-0 mb-4 text-lg text-foreground font-semibold">
+          خدمات اضافی
+        </h4>
 
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">
@@ -202,7 +217,9 @@ export default function ReservationOptions({
               checked={withDriver}
               onCheckedChange={(checked) => setWithDriver(!!checked)}
             />
-            <Label htmlFor="withDriver" className="cursor-pointer">درخواست راننده</Label>
+            <Label htmlFor="withDriver" className="cursor-pointer">
+              درخواست راننده
+            </Label>
           </div>
 
           {withDriver && (
@@ -223,7 +240,9 @@ export default function ReservationOptions({
       {/* Options Section */}
       {availableOptions.length > 0 && (
         <div className="mb-8 pb-6 border-b border-border last:border-b-0">
-          <h4 className="m-0 mb-4 text-lg text-foreground font-semibold">اپشن‌های اضافی</h4>
+          <h4 className="m-0 mb-4 text-lg text-foreground font-semibold">
+            اپشن‌های اضافی
+          </h4>
 
           <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-4 max-[600px]:grid-cols-1">
             {availableOptions.map((option) => (
@@ -237,7 +256,12 @@ export default function ReservationOptions({
                   checked={selectedOptions.includes(option.label)}
                   onCheckedChange={() => toggleOption(option.label)}
                 />
-                <Label htmlFor={option.key} className="cursor-pointer font-medium">{option.label}</Label>
+                <Label
+                  htmlFor={option.key}
+                  className="cursor-pointer font-medium"
+                >
+                  {option.label}
+                </Label>
               </div>
             ))}
           </div>
@@ -248,7 +272,9 @@ export default function ReservationOptions({
       <div className="bg-muted p-6 rounded-md border-r-4 border-primary my-8">
         <div className="flex justify-between py-3 text-muted-foreground">
           <span className="font-medium">قیمت روزانه:</span>
-          <span className="text-foreground font-medium">{car.rental.minimum_rental.toLocaleString("fa-IR")} تومان</span>
+          <span className="text-foreground font-medium">
+            {car.rental.minimum_rental.toLocaleString("fa-IR")} تومان
+          </span>
         </div>
         {startDate && endDate && (
           <>
@@ -283,7 +309,11 @@ export default function ReservationOptions({
 
       {/* Action Buttons */}
       <div className="flex gap-4 mt-8">
-        <Button type="submit" disabled={loading} className="flex-1 bg-[#4caf50] hover:bg-[#45a049]">
+        <Button
+          type="submit"
+          disabled={loading}
+          className="flex-1 bg-[#4caf50] hover:bg-[#45a049]"
+        >
           {loading ? (
             <>
               <Spinner size={18} className="shrink-0" />

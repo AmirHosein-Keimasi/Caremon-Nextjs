@@ -16,9 +16,7 @@ const SpecsAndFeatures = ({ car }: Props) => {
           </h2>
 
           <div className="flex justify-between py-2 border-b border-dashed border-border">
-            <span className="font-medium text-foreground">
-              نوع موتور
-            </span>
+            <span className="font-medium text-foreground">نوع موتور</span>
             <span className="font-normal text-foreground">
               {car.engine.type}
             </span>
@@ -43,27 +41,21 @@ const SpecsAndFeatures = ({ car }: Props) => {
           </div>
 
           <div className="flex justify-between py-2 border-b border-dashed border-border">
-            <span className="font-medium text-foreground">
-              تعداد سیلندر
-            </span>
+            <span className="font-medium text-foreground">تعداد سیلندر</span>
             <span className="font-normal text-foreground">
               {car.engine.cylinders}
             </span>
           </div>
 
           <div className="flex justify-between py-2 border-b border-dashed border-border">
-            <span className="font-medium text-foreground">
-              ظرفیت سرنشین
-            </span>
+            <span className="font-medium text-foreground">ظرفیت سرنشین</span>
             <span className="font-normal text-foreground">
               {car.capacity.passengers} نفر
             </span>
           </div>
 
           <div className="flex justify-between py-2 border-b border-dashed border-border">
-            <span className="font-medium text-foreground">
-              حجم صندوق عقب
-            </span>
+            <span className="font-medium text-foreground">حجم صندوق عقب</span>
             <span className="font-normal text-foreground">
               {car.capacity.luggage} چمدان
             </span>

@@ -22,7 +22,12 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  keywords: ["درباره کارمون", "اجاره خودرو", "رزرو ماشین آنلاین", "تماس با کارمون"],
+  keywords: [
+    "درباره کارمون",
+    "اجاره خودرو",
+    "رزرو ماشین آنلاین",
+    "تماس با کارمون",
+  ],
   openGraph: {
     ...defaultOpenGraph,
     title: `${title} | کارِمون`,
@@ -43,10 +48,7 @@ export default function AboutPage(): ReactElement {
   return (
     <div className="w-full min-w-0 max-w-full px-4 lg:max-w-5xl lg:px-6 lg:mx-auto">
       <BreadcrumbNav
-        items={[
-          { label: "خانه", href: "/" },
-          { label: "درباره ما" },
-        ]}
+        items={[{ label: "خانه", href: "/" }, { label: "درباره ما" }]}
         className="pt-4 pb-2"
       />
       {/* Hero */}
@@ -75,7 +77,9 @@ export default function AboutPage(): ReactElement {
               key={label}
               className="p-3 rounded-xl border border-border text-center flex flex-col items-center justify-center min-h-[76px] lg:p-4 lg:min-h-[92px]"
             >
-              <span className="text-lg font-bold text-primary lg:text-2xl">{num}</span>
+              <span className="text-lg font-bold text-primary lg:text-2xl">
+                {num}
+              </span>
               <span className="text-[10px] text-muted-foreground mt-0.5 lg:text-xs lg:mt-1">
                 {label}
               </span>
@@ -91,10 +95,9 @@ export default function AboutPage(): ReactElement {
         </h2>
         <div className="space-y-3 lg:space-y-4">
           <p className="text-muted-foreground text-sm leading-relaxed lg:text-base">
-            کارِمون به عنوان یک پل ارتباطی میان میزبانان و سفرچیان، فرآیند
-            اجاره خودرو را ساده‌تر و ایمن‌تر کرده است. ما بر این باور
-            هستیم که هر کسی باید بتواند به بسادگی و با اطمینان خودروی مورد
-            نیازش را اجاره کند.
+            کارِمون به عنوان یک پل ارتباطی میان میزبانان و سفرچیان، فرآیند اجاره
+            خودرو را ساده‌تر و ایمن‌تر کرده است. ما بر این باور هستیم که هر کسی
+            باید بتواند به بسادگی و با اطمینان خودروی مورد نیازش را اجاره کند.
           </p>
           <p className="text-muted-foreground text-sm leading-relaxed lg:text-base">
             با استفاده از فناوری مدرن و تیم متخصصی، ما تجربه‌ای بی‌نقص ایجاد
@@ -116,12 +119,36 @@ export default function AboutPage(): ReactElement {
           </div>
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-5">
             {[
-              { Icon: Zap, title: "جستجوی سریع و هوشمند", desc: "فیلترهای پیشرفته و جستجوی ساده‌شده برای یافتن خودروی مناسب در کمترین زمان" },
-              { Icon: Shield, title: "امنیت و اعتماد", desc: "تمامی خودروها بیمه‌شده و تحت پوشش بیمه‌نامه مشخصی قرار دارند" },
-              { Icon: Users, title: "مقایسه خودروها", desc: "مقایسه آسان خودروهای مختلف برای انتخاب بهترین گزینه" },
-              { Icon: CheckCircle2, title: "قیمت‌گذاری شفاف", desc: "بدون هزینه پنهان، تمام هزینه‌ها از قبل مشخص است" },
-              { Icon: Zap, title: "رزرو آنلاین", desc: "کل فرآیند رزرو از جستجو تا پرداخت به صورت آنلاین انجام می‌شود" },
-              { Icon: Shield, title: "پشتیبانی ۲۴ ساعته", desc: "تیم پشتیبانی ما همیشه آماده کمک به شما در هر ساعتی است" },
+              {
+                Icon: Zap,
+                title: "جستجوی سریع و هوشمند",
+                desc: "فیلترهای پیشرفته و جستجوی ساده‌شده برای یافتن خودروی مناسب در کمترین زمان",
+              },
+              {
+                Icon: Shield,
+                title: "امنیت و اعتماد",
+                desc: "تمامی خودروها بیمه‌شده و تحت پوشش بیمه‌نامه مشخصی قرار دارند",
+              },
+              {
+                Icon: Users,
+                title: "مقایسه خودروها",
+                desc: "مقایسه آسان خودروهای مختلف برای انتخاب بهترین گزینه",
+              },
+              {
+                Icon: CheckCircle2,
+                title: "قیمت‌گذاری شفاف",
+                desc: "بدون هزینه پنهان، تمام هزینه‌ها از قبل مشخص است",
+              },
+              {
+                Icon: Zap,
+                title: "رزرو آنلاین",
+                desc: "کل فرآیند رزرو از جستجو تا پرداخت به صورت آنلاین انجام می‌شود",
+              },
+              {
+                Icon: Shield,
+                title: "پشتیبانی ۲۴ ساعته",
+                desc: "تیم پشتیبانی ما همیشه آماده کمک به شما در هر ساعتی است",
+              },
             ].map(({ Icon, title, desc }) => (
               <div
                 key={title}
@@ -130,8 +157,12 @@ export default function AboutPage(): ReactElement {
                 <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 lg:w-10 lg:h-10">
                   <Icon className="w-4 h-4 text-primary lg:w-5 lg:h-5" />
                 </div>
-                <h3 className="font-semibold text-foreground text-sm lg:text-base">{title}</h3>
-                <p className="text-muted-foreground text-xs leading-relaxed lg:text-sm">{desc}</p>
+                <h3 className="font-semibold text-foreground text-sm lg:text-base">
+                  {title}
+                </h3>
+                <p className="text-muted-foreground text-xs leading-relaxed lg:text-sm">
+                  {desc}
+                </p>
               </div>
             ))}
           </div>
@@ -142,7 +173,9 @@ export default function AboutPage(): ReactElement {
       <section className="py-6 lg:py-10">
         <div className="space-y-4 lg:space-y-6">
           <div className="text-center space-y-1 lg:space-y-2">
-            <h2 className="text-lg font-bold text-primary lg:text-2xl">تماس با ما</h2>
+            <h2 className="text-lg font-bold text-primary lg:text-2xl">
+              تماس با ما
+            </h2>
             <p className="text-muted-foreground text-sm lg:text-base">
               با سؤالات و پیشنهادات خود با ما در تماس باشید
             </p>
@@ -153,7 +186,9 @@ export default function AboutPage(): ReactElement {
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 lg:w-9 lg:h-9">
                   <MapPin className="w-3.5 h-3.5 text-primary lg:w-4 lg:h-4" />
                 </div>
-                <h3 className="font-semibold text-foreground text-sm lg:text-base">آدرس</h3>
+                <h3 className="font-semibold text-foreground text-sm lg:text-base">
+                  آدرس
+                </h3>
               </div>
               <p className="text-xs text-muted-foreground leading-relaxed lg:text-sm">
                 تهران، خیابان آزادی، بلوار کشاورز، پلاک ۱۲۳
@@ -164,9 +199,14 @@ export default function AboutPage(): ReactElement {
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 lg:w-9 lg:h-9">
                   <Phone className="w-3.5 h-3.5 text-primary lg:w-4 lg:h-4" />
                 </div>
-                <h3 className="font-semibold text-foreground text-sm lg:text-base">تلفن</h3>
+                <h3 className="font-semibold text-foreground text-sm lg:text-base">
+                  تلفن
+                </h3>
               </div>
-              <a href="tel:02112345678" className="text-xs text-primary hover:underline lg:text-sm">
+              <a
+                href="tel:02112345678"
+                className="text-xs text-primary hover:underline lg:text-sm"
+              >
                 ۰۲۱-۱۲۳۴۵۶۷۸
               </a>
             </div>
@@ -175,9 +215,14 @@ export default function AboutPage(): ReactElement {
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 lg:w-9 lg:h-9">
                   <Mail className="w-3.5 h-3.5 text-primary lg:w-4 lg:h-4" />
                 </div>
-                <h3 className="font-semibold text-foreground text-sm lg:text-base">ایمیل</h3>
+                <h3 className="font-semibold text-foreground text-sm lg:text-base">
+                  ایمیل
+                </h3>
               </div>
-              <a href="mailto:info@caremon.ir" className="text-xs text-primary hover:underline lg:text-sm">
+              <a
+                href="mailto:info@caremon.ir"
+                className="text-xs text-primary hover:underline lg:text-sm"
+              >
                 info@caremon.ir
               </a>
             </div>

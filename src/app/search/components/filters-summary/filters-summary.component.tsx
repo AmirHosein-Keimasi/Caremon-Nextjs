@@ -12,7 +12,6 @@ import {
   SearchFilterKey,
 } from "@/app/search/utils/search-filters";
 
- 
 export default function FiltersSummaryComponent(): ReactElement | null {
   const { filters, dispatchFilters } = useContext(FiltersContext);
 

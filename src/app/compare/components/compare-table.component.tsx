@@ -13,13 +13,10 @@ import { X, ExternalLink } from "lucide-react";
 
 const toPersianNumbers = (num: number | string): string => {
   const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-  return num
-    .toString()
-    .replace(/\d/g, (d) => persianDigits[parseInt(d, 10)]);
+  return num.toString().replace(/\d/g, (d) => persianDigits[parseInt(d, 10)]);
 };
 
-const formatPrice = (n: number) =>
-  `${(n / 1_000_000).toFixed(1)} م.ت`;
+const formatPrice = (n: number) => `${(n / 1_000_000).toFixed(1)} م.ت`;
 
 type SpecRow = {
   label: string;
@@ -32,8 +29,14 @@ const SPEC_ROWS: SpecRow[] = [
   { label: "مکان", getValue: (c) => c.location },
   { label: "امتیاز", getValue: (c) => c.ratingNumber },
   { label: "تعداد نظرات", getValue: (c) => c.reviewCount },
-  { label: "قیمت ۳–۱۴ روز", getValue: (c) => formatPrice(c.rental.days_3_to_14) },
-  { label: "قیمت ۱۴+ روز", getValue: (c) => formatPrice(c.rental.more_than_14_days) },
+  {
+    label: "قیمت ۳–۱۴ روز",
+    getValue: (c) => formatPrice(c.rental.days_3_to_14),
+  },
+  {
+    label: "قیمت ۱۴+ روز",
+    getValue: (c) => formatPrice(c.rental.more_than_14_days),
+  },
   { label: "حداقل اجاره (روز)", getValue: (c) => c.rental.minimum_rental },
   { label: "سپرده", getValue: (c) => formatPrice(c.rental.deposit) },
   { label: "نوع موتور", getValue: (c) => c.engine.type },
@@ -48,15 +51,39 @@ const SPEC_ROWS: SpecRow[] = [
   { label: "صندوق عقب", getValue: (c) => `${c.capacity.luggage} چمدان` },
   { label: "در", getValue: (c) => c.capacity.door },
   { label: "راننده", getValue: (c) => c.with_driver },
-  { label: "کروز کنترل", getValue: (c) => (c.features.cruise_control ? "بله" : "خیر") },
-  { label: "کمک حرکت سربالایی", getValue: (c) => (c.features.hill_start_assist ? "بله" : "خیر") },
-  { label: "کولر", getValue: (c) => (c.features.air_conditioning ? "بله" : "خیر") },
-  { label: "سنسور عقب", getValue: (c) => (c.features.rear_sensor ? "بله" : "خیر") },
+  {
+    label: "کروز کنترل",
+    getValue: (c) => (c.features.cruise_control ? "بله" : "خیر"),
+  },
+  {
+    label: "کمک حرکت سربالایی",
+    getValue: (c) => (c.features.hill_start_assist ? "بله" : "خیر"),
+  },
+  {
+    label: "کولر",
+    getValue: (c) => (c.features.air_conditioning ? "بله" : "خیر"),
+  },
+  {
+    label: "سنسور عقب",
+    getValue: (c) => (c.features.rear_sensor ? "بله" : "خیر"),
+  },
   { label: "جی‌پی‌اس", getValue: (c) => (c.features.gps ? "بله" : "خیر") },
-  { label: "اپل کارپلی", getValue: (c) => (c.features.apple_carplay ? "بله" : "خیر") },
-  { label: "گرم‌کن صندلی", getValue: (c) => (c.features.seat_heating ? "بله" : "خیر") },
-  { label: "سردکن صندلی", getValue: (c) => (c.features.seat_cooling ? "بله" : "خیر") },
-  { label: "سانروف", getValue: (c) => (c.features.panoramic_roof ? "بله" : "خیر") },
+  {
+    label: "اپل کارپلی",
+    getValue: (c) => (c.features.apple_carplay ? "بله" : "خیر"),
+  },
+  {
+    label: "گرم‌کن صندلی",
+    getValue: (c) => (c.features.seat_heating ? "بله" : "خیر"),
+  },
+  {
+    label: "سردکن صندلی",
+    getValue: (c) => (c.features.seat_cooling ? "بله" : "خیر"),
+  },
+  {
+    label: "سانروف",
+    getValue: (c) => (c.features.panoramic_roof ? "بله" : "خیر"),
+  },
   { label: "سیستم صوتی", getValue: (c) => c.features.audio_system },
   { label: "مانیتور", getValue: (c) => c.features.monitor },
   { label: "تنظیم صندلی", getValue: (c) => c.features.driver_seat_adjustment },
@@ -215,11 +242,7 @@ export default function CompareTable({ cars }: Props): ReactElement {
             {SPEC_ROWS.map((row, idx) => (
               <tr
                 key={row.label}
-                className={
-                  idx % 2 === 0
-                    ? "bg-background"
-                    : "bg-muted/40"
-                }
+                className={idx % 2 === 0 ? "bg-background" : "bg-muted/40"}
               >
                 <td className="p-3 font-medium text-foreground w-48 max-w-48 min-w-0">
                   {row.label}

@@ -4,7 +4,8 @@ import DashboardShell from "./DashboardShell";
 
 export const metadata: Metadata = {
   title: "پنل کاربری",
-  description: "مدیریت اجاره‌ها، رزروها، خودروهای من و تنظیمات حساب در کارِمون.",
+  description:
+    "مدیریت اجاره‌ها، رزروها، خودروهای من و تنظیمات حساب در کارِمون.",
   robots: { index: false, follow: true },
   openGraph: {
     ...defaultOpenGraph,

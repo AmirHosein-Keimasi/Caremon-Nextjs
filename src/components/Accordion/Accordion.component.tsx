@@ -71,7 +71,10 @@ export default function Accordion({
       <ShadcnAccordion
         type="single"
         collapsible
-        defaultValue={defaultValue ?? (normalizedSections[0] ? normalizedSections[0].value : undefined)}
+        defaultValue={
+          defaultValue ??
+          (normalizedSections[0] ? normalizedSections[0].value : undefined)
+        }
         className="w-full min-w-0 max-w-full space-y-2"
       >
         {normalizedSections.map((item) => (

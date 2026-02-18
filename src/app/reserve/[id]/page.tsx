@@ -89,7 +89,9 @@ export default async function ReservePage({
                   <h1 className="text-xl sm:text-2xl font-bold m-0 drop-shadow-md">
                     {car.name}
                   </h1>
-                  <p className="text-white/90 text-sm mt-0.5 m-0">{car.model}</p>
+                  <p className="text-white/90 text-sm mt-0.5 m-0">
+                    {car.model}
+                  </p>
                 </div>
               </div>
               <div className="p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 border-t border-border/50">
@@ -116,11 +118,7 @@ export default async function ReservePage({
 
           {/* Right: Form */}
           <div className="order-1 lg:order-2 lg:sticky lg:top-6">
-            <ReserveForm
-              carId={car.id}
-              carName={car.name}
-              carImage={car.img}
-            />
+            <ReserveForm carId={car.id} carName={car.name} carImage={car.img} />
           </div>
         </div>
       </div>

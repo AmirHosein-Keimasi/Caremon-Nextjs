@@ -161,7 +161,9 @@ export default function DashboardShell({
       <aside className="hidden shrink-0 border-l border-border bg-card lg:block lg:w-[280px] xl:w-[300px]">
         <div className="sticky top-0 flex h-dvh flex-col">
           <div className="border-b border-border p-5">
-            <h2 className="font-bold text-lg text-foreground m-0">پنل کاربری</h2>
+            <h2 className="font-bold text-lg text-foreground m-0">
+              پنل کاربری
+            </h2>
             <p className="text-sm text-muted-foreground m-0 mt-1">
               مدیریت اجاره و رزروها
             </p>
@@ -183,9 +185,7 @@ export default function DashboardShell({
       </aside>
 
       {/* محتوای اصلی */}
-      <main className="flex-1 min-w-0 overflow-x-hidden">
-        {children}
-      </main>
+      <main className="flex-1 min-w-0 overflow-x-hidden">{children}</main>
     </div>
   );
 }

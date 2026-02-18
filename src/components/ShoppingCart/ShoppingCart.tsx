@@ -30,7 +30,9 @@ export default function ShoppingCart() {
     return (
       <Card className="text-center py-16 px-8">
         <CardContent>
-          <p className="text-lg text-muted-foreground mb-6">سبد خرید خالی است</p>
+          <p className="text-lg text-muted-foreground mb-6">
+            سبد خرید خالی است
+          </p>
           <Button variant="outline" onClick={() => router.push("/search")}>
             جستجوی خودرو
           </Button>
@@ -46,77 +48,92 @@ export default function ShoppingCart() {
       <div className="flex flex-col gap-6 mb-8">
         <Card>
           <CardContent className="p-6">
-        <div className="grid grid-cols-[120px_1fr_200px_120px_50px] gap-6 items-center max-lg:grid-cols-1 max-lg:gap-4">
-          <div className="relative w-[120px] h-[100px] overflow-hidden rounded bg-muted">
-            <Image
-              src={
-                currentRental.car.img.startsWith("http")
-                  ? currentRental.car.img
-                  : `https://cafeerent.com/storage/www/cars/single/${currentRental.car.img}`
-              }
-              alt={currentRental.car.name}
-              width={120}
-              height={100}
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold mb-2 text-foreground">{currentRental.car.name}</h3>
-            <p className="text-muted-foreground text-sm mb-2">{currentRental.car.model}</p>
-            <div className="flex gap-2 text-sm text-muted-foreground mb-2">
-              <span>
-                {new Date(currentRental.startDate).toLocaleDateString("fa-IR")}
-              </span>
-              <span>تا</span>
-              <span>
-                {new Date(currentRental.endDate).toLocaleDateString("fa-IR")}
-              </span>
-            </div>
-            {currentRental.withDriver && (
-              <Badge variant="secondary" className="mr-2">راننده شامل</Badge>
-            )}
-            {currentRental.selectedOptions.length > 0 && (
-              <div className="flex gap-2 mt-2 flex-wrap">
-                <span>خدمات:</span>
-                {currentRental.selectedOptions.map((opt) => (
-                  <span key={opt} className="inline-block px-2 py-1 bg-muted rounded text-xs text-muted-foreground">
-                    {opt}
-                  </span>
-                ))}
+            <div className="grid grid-cols-[120px_1fr_200px_120px_50px] gap-6 items-center max-lg:grid-cols-1 max-lg:gap-4">
+              <div className="relative w-[120px] h-[100px] overflow-hidden rounded bg-muted">
+                <Image
+                  src={
+                    currentRental.car.img.startsWith("http")
+                      ? currentRental.car.img
+                      : `https://cafeerent.com/storage/www/cars/single/${currentRental.car.img}`
+                  }
+                  alt={currentRental.car.name}
+                  width={120}
+                  height={100}
+                  className="w-full h-full object-cover"
+                />
               </div>
-            )}
-          </div>
 
-          <div className="flex flex-col gap-2 text-right">
-            <div className="flex justify-between gap-4 text-sm">
-              <span className="text-muted-foreground">قیمت روزانه:</span>
-              <span className="font-medium text-foreground">
-                {currentRental.pricePerDay.toLocaleString("fa-IR")} تومان
-              </span>
-            </div>
-            <div className="flex justify-between gap-4 text-sm">
-              <span className="text-muted-foreground">روزها:</span>
-              <span className="font-medium text-foreground">{currentRental.rentalDays}</span>
-            </div>
-            <div className="flex justify-between gap-4 border-t border-border pt-2 mt-2">
-              <span className="text-muted-foreground">مجموع:</span>
-              <span className="text-primary text-lg font-medium">
-                {currentRental.totalPrice.toLocaleString("fa-IR")} تومان
-              </span>
-            </div>
-          </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-2 text-foreground">
+                  {currentRental.car.name}
+                </h3>
+                <p className="text-muted-foreground text-sm mb-2">
+                  {currentRental.car.model}
+                </p>
+                <div className="flex gap-2 text-sm text-muted-foreground mb-2">
+                  <span>
+                    {new Date(currentRental.startDate).toLocaleDateString(
+                      "fa-IR",
+                    )}
+                  </span>
+                  <span>تا</span>
+                  <span>
+                    {new Date(currentRental.endDate).toLocaleDateString(
+                      "fa-IR",
+                    )}
+                  </span>
+                </div>
+                {currentRental.withDriver && (
+                  <Badge variant="secondary" className="mr-2">
+                    راننده شامل
+                  </Badge>
+                )}
+                {currentRental.selectedOptions.length > 0 && (
+                  <div className="flex gap-2 mt-2 flex-wrap">
+                    <span>خدمات:</span>
+                    {currentRental.selectedOptions.map((opt) => (
+                      <span
+                        key={opt}
+                        className="inline-block px-2 py-1 bg-muted rounded text-xs text-muted-foreground"
+                      >
+                        {opt}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
 
-          <Button
-            variant="destructive"
-            size="icon"
-            className="w-10 h-10"
-            onClick={handleClearRental}
-            title="حذف از سبد"
-          >
-            ✕
-          </Button>
-        </div>
+              <div className="flex flex-col gap-2 text-right">
+                <div className="flex justify-between gap-4 text-sm">
+                  <span className="text-muted-foreground">قیمت روزانه:</span>
+                  <span className="font-medium text-foreground">
+                    {currentRental.pricePerDay.toLocaleString("fa-IR")} تومان
+                  </span>
+                </div>
+                <div className="flex justify-between gap-4 text-sm">
+                  <span className="text-muted-foreground">روزها:</span>
+                  <span className="font-medium text-foreground">
+                    {currentRental.rentalDays}
+                  </span>
+                </div>
+                <div className="flex justify-between gap-4 border-t border-border pt-2 mt-2">
+                  <span className="text-muted-foreground">مجموع:</span>
+                  <span className="text-primary text-lg font-medium">
+                    {currentRental.totalPrice.toLocaleString("fa-IR")} تومان
+                  </span>
+                </div>
+              </div>
+
+              <Button
+                variant="destructive"
+                size="icon"
+                className="w-10 h-10"
+                onClick={handleClearRental}
+                title="حذف از سبد"
+              >
+                ✕
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -136,7 +153,10 @@ export default function ShoppingCart() {
         <Button variant="outline" onClick={() => router.push("/search")}>
           جستجوی خودروهای دیگر
         </Button>
-        <Button onClick={handleCheckout} className="bg-success text-success-foreground hover:bg-success/90">
+        <Button
+          onClick={handleCheckout}
+          className="bg-success text-success-foreground hover:bg-success/90"
+        >
           ادامه برای پرداخت
         </Button>
       </div>

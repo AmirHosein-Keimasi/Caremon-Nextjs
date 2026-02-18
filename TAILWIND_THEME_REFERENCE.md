@@ -2,26 +2,26 @@
 
 ## کلاس‌های Semantic (تغییر با Light/Dark)
 
-| کلاس | کاربرد |
-|------|--------|
-| `bg-background` | پس‌زمینه اصلی |
-| `text-foreground` | متن اصلی |
-| `bg-card` | کارت‌ها |
-| `text-card-foreground` | متن روی کارت |
-| `bg-primary` | دکمه اصلی، لینک فعال |
-| `text-primary` | متن پررنگ، لینک |
-| `text-primary-foreground` | متن روی primary |
-| `bg-secondary` | پس‌زمینه ثانویه |
-| `text-secondary-foreground` | متن روی secondary |
-| `bg-muted` | پس‌زمینه کم‌رنگ |
-| `text-muted-foreground` | متن کم‌رنگ |
-| `bg-accent` | هاور، هایلایت |
-| `text-accent-foreground` | متن روی accent |
-| `bg-destructive` | خطا، حذف |
-| `text-destructive` | متن قرمز |
-| `border-border` | بوردر |
-| `bg-input` | اینپوت‌ها |
-| `ring-ring` | فوکوس |
+| کلاس                        | کاربرد               |
+| --------------------------- | -------------------- |
+| `bg-background`             | پس‌زمینه اصلی        |
+| `text-foreground`           | متن اصلی             |
+| `bg-card`                   | کارت‌ها              |
+| `text-card-foreground`      | متن روی کارت         |
+| `bg-primary`                | دکمه اصلی، لینک فعال |
+| `text-primary`              | متن پررنگ، لینک      |
+| `text-primary-foreground`   | متن روی primary      |
+| `bg-secondary`              | پس‌زمینه ثانویه      |
+| `text-secondary-foreground` | متن روی secondary    |
+| `bg-muted`                  | پس‌زمینه کم‌رنگ      |
+| `text-muted-foreground`     | متن کم‌رنگ           |
+| `bg-accent`                 | هاور، هایلایت        |
+| `text-accent-foreground`    | متن روی accent       |
+| `bg-destructive`            | خطا، حذف             |
+| `text-destructive`          | متن قرمز             |
+| `border-border`             | بوردر                |
+| `bg-input`                  | اینپوت‌ها            |
+| `ring-ring`                 | فوکوس                |
 
 ## کلاس‌های Primary (۵۰ تا ۹۵۰)
 
@@ -41,18 +41,18 @@ text-secondary-500
 
 ## کلاس‌های وضعیت
 
-| وضعیت | کلاس |
-|-------|------|
-| موفق | `bg-success` `text-success` |
-| هشدار | `bg-warning` `text-warning` |
-| خطا | `bg-destructive` `text-destructive` |
-| اطلاعات | `bg-info` `text-info` |
+| وضعیت   | کلاس                                |
+| ------- | ----------------------------------- |
+| موفق    | `bg-success` `text-success`         |
+| هشدار   | `bg-warning` `text-warning`         |
+| خطا     | `bg-destructive` `text-destructive` |
+| اطلاعات | `bg-info` `text-info`               |
 
 ## Dark Mode
 
 ```html
 <!-- با کلاس dark: -->
-<div class="bg-background dark:bg-gray-900">
+<div class="bg-background dark:bg-gray-900"></div>
 ```
 
 تم با `data-theme="dark"` یا کلاس `.dark` روی `html` فعال می‌شود.

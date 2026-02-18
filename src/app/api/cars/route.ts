@@ -7,12 +7,18 @@ import prisma from "@/lib/prisma";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   if (searchParams.get("my") !== "1") {
-    return NextResponse.json({ error: "پارامتر my=1 الزامی است" }, { status: 400 });
+    return NextResponse.json(
+      { error: "پارامتر my=1 الزامی است" },
+      { status: 400 },
+    );
   }
 
   const userId = await getCurrentUserId(request);
   if (!userId) {
-    return NextResponse.json({ error: "ورود به حساب کاربری الزامی است" }, { status: 401 });
+    return NextResponse.json(
+      { error: "ورود به حساب کاربری الزامی است" },
+      { status: 401 },
+    );
   }
 
   const cars = await getCarsByOwnerId(userId);
@@ -26,7 +32,12 @@ const createCarBodySchema = {
   img: "",
   location: "",
   withDriver: "بدون راننده",
-  rental: { days_3_to_14: 0, more_than_14_days: 0, minimum_rental: 1, deposit: 0 },
+  rental: {
+    days_3_to_14: 0,
+    more_than_14_days: 0,
+    minimum_rental: 1,
+    deposit: 0,
+  },
   capacity: { passengers: 5, luggage: 2, door: 4 },
   features: {} as Record<string, unknown>,
   engine: {} as Record<string, unknown>,
@@ -37,7 +48,10 @@ const createCarBodySchema = {
 export async function POST(request: Request) {
   const userId = await getCurrentUserId(request);
   if (!userId) {
-    return NextResponse.json({ error: "ورود به حساب کاربری الزامی است" }, { status: 401 });
+    return NextResponse.json(
+      { error: "ورود به حساب کاربری الزامی است" },
+      { status: 401 },
+    );
   }
 
   try {
@@ -90,9 +104,6 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Create car error:", error);
-    return NextResponse.json(
-      { error: "خطا در ثبت خودرو" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "خطا در ثبت خودرو" }, { status: 500 });
   }
 }

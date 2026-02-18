@@ -7,7 +7,8 @@ import { SITE_URL, defaultOpenGraph } from "@/lib/site";
 export const dynamic = "force-static";
 
 const title = "ورود به حساب";
-const description = "ورود به حساب کاربری کارِمون برای رزرو و مدیریت اجاره خودرو.";
+const description =
+  "ورود به حساب کاربری کارِمون برای رزرو و مدیریت اجاره خودرو.";
 
 export const metadata: Metadata = {
   title,

@@ -28,7 +28,9 @@ type PrimaryThemeContextValue = {
   defaultHue: number;
 };
 
-const PrimaryThemeContext = createContext<PrimaryThemeContextValue | null>(null);
+const PrimaryThemeContext = createContext<PrimaryThemeContextValue | null>(
+  null,
+);
 
 export function usePrimaryTheme(): PrimaryThemeContextValue {
   const ctx = useContext(PrimaryThemeContext);
@@ -56,7 +58,10 @@ export function PrimaryThemeProvider({ children }: { children: ReactNode }) {
     const clamped = ((hue % 360) + 360) % 360;
     setStoredPrimaryHue(clamped);
     setPrimaryHueState(clamped);
-    applyPrimaryHue(clamped, document.documentElement.classList.contains("dark"));
+    applyPrimaryHue(
+      clamped,
+      document.documentElement.classList.contains("dark"),
+    );
   }, []);
 
   // بار اول از localStorage بخوان و اعمال کن

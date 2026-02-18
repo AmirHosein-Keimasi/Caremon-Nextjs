@@ -178,9 +178,7 @@ export default function ComponentsShowcasePage() {
         <div className="max-w-md space-y-4">
           <Alert>
             <AlertTitle>هشدار</AlertTitle>
-            <AlertDescription>
-              این یک پیام هشدار است.
-            </AlertDescription>
+            <AlertDescription>این یک پیام هشدار است.</AlertDescription>
           </Alert>
         </div>
       </section>
@@ -207,16 +205,10 @@ export default function ComponentsShowcasePage() {
           >
             موفقیت
           </Button>
-          <Button
-            onClick={() => toast.error("خطا رخ داد!")}
-            variant="outline"
-          >
+          <Button onClick={() => toast.error("خطا رخ داد!")} variant="outline">
             خطا
           </Button>
-          <Button
-            onClick={() => toast.info("اطلاعات")}
-            variant="outline"
-          >
+          <Button onClick={() => toast.info("اطلاعات")} variant="outline">
             اطلاعات
           </Button>
         </div>

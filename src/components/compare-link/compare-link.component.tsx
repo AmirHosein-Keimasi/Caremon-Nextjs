@@ -13,7 +13,9 @@ export default function CompareLinkComponent(): ReactElement {
   const { carIds } = useCompareStore();
   const count = carIds.length;
   const href =
-    count > 0 ? `/compare?ids=${encodeURIComponent(carIds.join(","))}` : "/compare";
+    count > 0
+      ? `/compare?ids=${encodeURIComponent(carIds.join(","))}`
+      : "/compare";
 
   return (
     <Button variant="ghost" size="sm" asChild className="relative">

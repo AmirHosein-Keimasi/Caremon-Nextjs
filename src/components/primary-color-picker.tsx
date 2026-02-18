@@ -31,7 +31,8 @@ export function PrimaryColorPicker() {
     <div className="space-y-3">
       <Label className="text-base">رنگ تم (پرایمری)</Label>
       <p className="text-sm text-muted-foreground">
-        رنگ دکمه‌ها و لینک‌های اصلی سایت را انتخاب کنید. تغییر بلافاصله اعمال می‌شود.
+        رنگ دکمه‌ها و لینک‌های اصلی سایت را انتخاب کنید. تغییر بلافاصله اعمال
+        می‌شود.
       </p>
       <div className="flex flex-wrap items-center gap-2">
         {PRESETS.map(({ hue, label }) => {

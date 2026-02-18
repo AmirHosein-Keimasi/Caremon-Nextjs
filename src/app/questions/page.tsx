@@ -7,7 +7,9 @@ import { HelpCircle } from "lucide-react";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 
 export default function FAQPage() {
-  const [activeTab, setActiveTab] = useState<"general" | "guest" | "holder">("general");
+  const [activeTab, setActiveTab] = useState<"general" | "guest" | "holder">(
+    "general",
+  );
 
   const tabClass =
     "px-3 py-2 rounded-lg text-xs font-semibold transition-all lg:px-4 lg:py-2.5 lg:text-sm";
@@ -16,10 +18,7 @@ export default function FAQPage() {
     <main className="w-full min-w-0 max-w-full overflow-x-hidden">
       <div className="w-full min-w-0 max-w-full px-4 lg:max-w-5xl lg:px-6 lg:mx-auto">
         <BreadcrumbNav
-          items={[
-            { label: "خانه", href: "/" },
-            { label: "سوالات متداول" },
-          ]}
+          items={[{ label: "خانه", href: "/" }, { label: "سوالات متداول" }]}
           className="pt-4 pb-2"
         />
         {/* Hero */}

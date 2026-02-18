@@ -86,11 +86,7 @@ function DefaultErrorFallback({
             <pre>{JSON.stringify(apiError.details, null, 2)}</pre>
           </div>
         )}
-        <Button
-          onClick={reset}
-          variant="destructive"
-          className="w-full"
-        >
+        <Button onClick={reset} variant="destructive" className="w-full">
           تلاش دوباره
         </Button>
       </div>

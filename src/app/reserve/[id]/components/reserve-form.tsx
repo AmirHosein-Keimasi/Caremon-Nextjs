@@ -30,10 +30,7 @@ type Props = {
   carImage?: string;
 };
 
-export default function ReserveForm({
-  carId,
-  carName,
-}: Props): ReactElement {
+export default function ReserveForm({ carId, carName }: Props): ReactElement {
   const [isSuccess, setIsSuccess] = useState(false);
   const form = useForm<ReserveFormInput>({
     resolver: zodResolver(reserveFormSchema),
@@ -118,7 +115,10 @@ export default function ReserveForm({
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="p-6 sm:p-7 flex flex-col gap-6">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="p-6 sm:p-7 flex flex-col gap-6"
+        >
           {form.formState.errors.root?.message && (
             <Alert variant="destructive" className="rounded-xl">
               <AlertDescription>
@@ -132,7 +132,10 @@ export default function ReserveForm({
               <span className="flex items-center justify-center size-8 rounded-lg bg-primary/15 text-primary">
                 <UserRound className="size-4" />
               </span>
-              <h3 id="contact-heading" className="font-semibold text-foreground m-0">
+              <h3
+                id="contact-heading"
+                className="font-semibold text-foreground m-0"
+              >
                 اطلاعات تماس
               </h3>
             </div>
@@ -198,7 +201,10 @@ export default function ReserveForm({
               <span className="flex items-center justify-center size-8 rounded-lg bg-primary/15 text-primary">
                 <CalendarRange className="size-4" />
               </span>
-              <h3 id="dates-heading" className="font-semibold text-foreground m-0">
+              <h3
+                id="dates-heading"
+                className="font-semibold text-foreground m-0"
+              >
                 تاریخ سفر
               </h3>
             </div>

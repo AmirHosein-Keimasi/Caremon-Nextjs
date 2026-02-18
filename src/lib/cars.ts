@@ -74,9 +74,7 @@ export async function getCarsByIds(ids: string[]): Promise<CarsModel[]> {
       where: { id: { in: uniqueIds } },
     });
     if (dbCars.length > 0) {
-      const orderMap = Object.fromEntries(
-        uniqueIds.map((id, i) => [id, i]),
-      );
+      const orderMap = Object.fromEntries(uniqueIds.map((id, i) => [id, i]));
       return dbCars
         .map(prismaCarToModel)
         .sort((a, b) => (orderMap[a.id] ?? 0) - (orderMap[b.id] ?? 0));

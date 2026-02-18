@@ -230,7 +230,9 @@ export default function DashboardPage() {
                 <RentalDisplay rental={cartStore.currentRental} />
               ) : (
                 <div className="py-12 text-center text-muted-foreground">
-                  <p className="text-base lg:text-lg">هیچ رزروی فعالی وجود ندارد</p>
+                  <p className="text-base lg:text-lg">
+                    هیچ رزروی فعالی وجود ندارد
+                  </p>
                 </div>
               )}
             </div>

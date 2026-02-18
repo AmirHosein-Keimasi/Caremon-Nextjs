@@ -13,14 +13,14 @@
    - Quick stats
    - Getting started
 
-2. **[QUICK_REFERENCE.md](./QUICK_REFERENCE.md)** ← **BOOKMARK THIS** (2 min reference)
+3. **[QUICK_REFERENCE.md](./QUICK_REFERENCE.md)** ← **BOOKMARK THIS** (2 min reference)
 
    - Quick code snippets
    - Common tasks
    - Store methods
    - Quick imports
 
-3. **[INTEGRATION_GUIDE.md](./INTEGRATION_GUIDE.md)** ← **Follow this to integrate** (10 min)
+4. **[INTEGRATION_GUIDE.md](./INTEGRATION_GUIDE.md)** ← **Follow this to integrate** (10 min)
    - Step-by-step setup
    - Code examples
    - How to use each component

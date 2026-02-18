@@ -38,18 +38,14 @@ export default function SelectComponent({
 
   return (
     <div className={title ? "flex flex-row-reverse items-center gap-2" : ""}>
-      {title && (
-        <span className="text-sm font-bold">{title}: </span>
-      )}
+      {title && <span className="text-sm font-bold">{title}: </span>}
       <Select
         value={selectedOption?.value ?? ""}
         onValueChange={handleValueChange}
       >
         <SelectTrigger
           className={
-            floating
-              ? "min-w-[8rem] bg-card shadow-md"
-              : "min-w-[8rem]"
+            floating ? "min-w-[8rem] bg-card shadow-md" : "min-w-[8rem]"
           }
         >
           <SelectValue placeholder={placeholder ?? "انتخاب کنید"} />

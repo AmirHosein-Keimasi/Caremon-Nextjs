@@ -58,7 +58,14 @@ function AccordionContent({
       className="w-full min-w-0 data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
       {...props}
     >
-      <div className={cn("w-full min-w-0 max-w-full pt-0 pb-4 wrap-break-word", className)}>{children}</div>
+      <div
+        className={cn(
+          "w-full min-w-0 max-w-full pt-0 pb-4 wrap-break-word",
+          className,
+        )}
+      >
+        {children}
+      </div>
     </AccordionPrimitive.Content>
   );
 }

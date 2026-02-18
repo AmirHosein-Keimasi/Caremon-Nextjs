@@ -65,8 +65,7 @@ export default function SigninForm() {
         email: String(data?.user?.email || values.email).trim(),
       });
 
-      const token =
-        (data?.accessToken as string | undefined) || "dummy-token";
+      const token = (data?.accessToken as string | undefined) || "dummy-token";
       const expiresIn =
         (data?.expiresIn as number | undefined) ?? 7 * 24 * 60 * 60;
       tokenUtils.setToken(token, expiresIn);
@@ -79,7 +78,10 @@ export default function SigninForm() {
 
   return (
     <Form {...form}>
-      <form className="flex flex-col gap-3" onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className="flex flex-col gap-3"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         {(error || form.formState.errors.root?.message) && (
           <Alert variant="destructive">
             <AlertDescription>

@@ -7,10 +7,7 @@ export const reserveFormSchema = z
       .string()
       .min(1, "شماره تماس الزامی است")
       .regex(/^09\d{9}$/, "شماره تماس را به‌صورت ۱۱ رقمی و با ۰۹ وارد کنید"),
-    email: z
-      .string()
-      .min(1, "ایمیل الزامی است")
-      .email("ایمیل معتبر وارد کنید"),
+    email: z.string().min(1, "ایمیل الزامی است").email("ایمیل معتبر وارد کنید"),
     startDate: z.string().min(1, "تاریخ تحویل الزامی است"),
     endDate: z.string().min(1, "تاریخ بازگرداندن الزامی است"),
   })

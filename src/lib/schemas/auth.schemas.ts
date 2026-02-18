@@ -9,13 +9,8 @@ const faMessages = {
 };
 
 export const signinSchema = z.object({
-  email: z
-    .string()
-    .min(1, faMessages.required)
-    .email(faMessages.email),
-  password: z
-    .string()
-    .min(1, faMessages.required),
+  email: z.string().min(1, faMessages.required).email(faMessages.email),
+  password: z.string().min(1, faMessages.required),
 });
 
 export const signupSchema = z.object({
@@ -23,14 +18,14 @@ export const signupSchema = z.object({
     .string()
     .min(1, faMessages.required)
     .min(2, "نام باید حداقل ۲ کاراکتر باشد"),
-  email: z
-    .string()
-    .min(1, faMessages.required)
-    .email(faMessages.email),
+  email: z.string().min(1, faMessages.required).email(faMessages.email),
   phone: z
     .string()
     .optional()
-    .refine((v) => !v || v === "" || /^09\d{9}$/.test(v), "شماره موبایل را با ۰۹ و ۱۱ رقم وارد کنید"),
+    .refine(
+      (v) => !v || v === "" || /^09\d{9}$/.test(v),
+      "شماره موبایل را با ۰۹ و ۱۱ رقم وارد کنید",
+    ),
   password: z
     .string()
     .min(1, faMessages.required)
@@ -38,10 +33,7 @@ export const signupSchema = z.object({
 });
 
 export const forgotPasswordSchema = z.object({
-  email: z
-    .string()
-    .min(1, faMessages.required)
-    .email(faMessages.email),
+  email: z.string().min(1, faMessages.required).email(faMessages.email),
 });
 
 export type SigninInput = z.infer<typeof signinSchema>;

@@ -18,12 +18,8 @@ const PriceCar = ({ car }: Props) => {
       <div className="text-primary py-2 text-start font-bold mb-4">
         اجاره بدون راننده{" "}
       </div>
-      <div className="text-foreground text-sm">
-        هزینه اجاره {car.name}
-      </div>{" "}
-      <span className="text-xs text-muted-foreground">
-        {car.model}
-      </span>
+      <div className="text-foreground text-sm">هزینه اجاره {car.name}</div>{" "}
+      <span className="text-xs text-muted-foreground">{car.model}</span>
       <div className="mt-2">
         {prices.map((item, index) => (
           <div

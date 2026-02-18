@@ -17,7 +17,9 @@ import {
 import { contactFormSchema, type ContactFormInput } from "@/lib/schemas";
 
 export default function ContactForm(): ReactElement {
-  const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success">(
+    "idle",
+  );
 
   const form = useForm<ContactFormInput>({
     resolver: zodResolver(contactFormSchema),
@@ -42,9 +44,7 @@ export default function ContactForm(): ReactElement {
     return (
       <div className="p-6 rounded-lg bg-primary/10 text-primary text-center">
         <p className="font-medium">پیام شما با موفقیت ثبت شد.</p>
-        <p className="text-sm mt-1">
-          در اسرع وقت با شما تماس خواهیم گرفت.
-        </p>
+        <p className="text-sm mt-1">در اسرع وقت با شما تماس خواهیم گرفت.</p>
         <Button
           variant="outline"
           size="sm"
@@ -125,10 +125,7 @@ export default function ContactForm(): ReactElement {
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          disabled={status === "submitting"}
-        >
+        <Button type="submit" disabled={status === "submitting"}>
           {status === "submitting" ? "در حال ارسال..." : "ارسال پیام"}
         </Button>
       </form>

@@ -9,9 +9,7 @@ const RentalRequirements = () => {
 
       <div className="grid grid-cols-2 gap-6 max-md:grid-cols-1">
         <div className="bg-card p-6 rounded-lg shadow-md">
-          <h3 className="text-xl text-primary mb-4">
-            ویژه افراد ساکن ایران
-          </h3>
+          <h3 className="text-xl text-primary mb-4">ویژه افراد ساکن ایران</h3>
           <ul className="list-disc pr-6 leading-relaxed [&_li]:mb-2">
             <li>کپی از گواهینامه رانندگی با اعتبار حداقل ۶ ماه</li>
             <li>کپی از کارت ملی</li>

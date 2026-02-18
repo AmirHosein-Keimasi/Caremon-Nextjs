@@ -98,7 +98,7 @@ export function AddCarForm({
         const msg =
           res.status === 401
             ? "ورود به حساب الزامی است. اگر قبلاً وارد شده‌اید، یک بار از حساب خارج شوید و دوباره وارد شوید."
-            : (data.error || "خطا در ثبت خودرو");
+            : data.error || "خطا در ثبت خودرو";
         setError(msg);
         return;
       }
@@ -235,7 +235,9 @@ export function AddCarForm({
                       min={0}
                       placeholder="مثال: 1500000"
                       {...field}
-                      onChange={(e) => field.onChange(e.target.valueAsNumber || 0)}
+                      onChange={(e) =>
+                        field.onChange(e.target.valueAsNumber || 0)
+                      }
                     />
                   </FormControl>
                   <FormMessage />
@@ -254,7 +256,9 @@ export function AddCarForm({
                       min={0}
                       placeholder="مثال: 20000000"
                       {...field}
-                      onChange={(e) => field.onChange(e.target.valueAsNumber || 0)}
+                      onChange={(e) =>
+                        field.onChange(e.target.valueAsNumber || 0)
+                      }
                     />
                   </FormControl>
                   <FormMessage />
@@ -272,7 +276,9 @@ export function AddCarForm({
                       type="number"
                       min={1}
                       {...field}
-                      onChange={(e) => field.onChange(e.target.valueAsNumber || 1)}
+                      onChange={(e) =>
+                        field.onChange(e.target.valueAsNumber || 1)
+                      }
                     />
                   </FormControl>
                   <FormMessage />
@@ -290,7 +296,9 @@ export function AddCarForm({
                       type="number"
                       min={1}
                       {...field}
-                      onChange={(e) => field.onChange(e.target.valueAsNumber || 1)}
+                      onChange={(e) =>
+                        field.onChange(e.target.valueAsNumber || 1)
+                      }
                     />
                   </FormControl>
                   <FormMessage />
@@ -308,7 +316,9 @@ export function AddCarForm({
                       type="number"
                       min={0}
                       {...field}
-                      onChange={(e) => field.onChange(e.target.valueAsNumber || 0)}
+                      onChange={(e) =>
+                        field.onChange(e.target.valueAsNumber || 0)
+                      }
                     />
                   </FormControl>
                   <FormMessage />
@@ -326,7 +336,9 @@ export function AddCarForm({
                       type="number"
                       min={2}
                       {...field}
-                      onChange={(e) => field.onChange(e.target.valueAsNumber || 2)}
+                      onChange={(e) =>
+                        field.onChange(e.target.valueAsNumber || 2)
+                      }
                     />
                   </FormControl>
                   <FormMessage />

@@ -19,7 +19,9 @@ export default function DashboardAddCarPage() {
       </h1>
       <p className="text-sm text-muted-foreground mb-2">
         در مارکت‌پلیس کارمون شما هم می‌توانید{" "}
-        <strong className="text-foreground">خودروی خود را برای اجاره قرار دهید</strong>{" "}
+        <strong className="text-foreground">
+          خودروی خود را برای اجاره قرار دهید
+        </strong>{" "}
         و هم از خودروهای دیگران{" "}
         <strong className="text-foreground">اجاره بگیرید</strong>.
       </p>

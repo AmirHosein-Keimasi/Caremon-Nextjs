@@ -10,7 +10,13 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  keywords: ["سوالات متداول", "FAQ کارمون", "اجاره خودرو", "رزرو ماشین", "پشتیبانی"],
+  keywords: [
+    "سوالات متداول",
+    "FAQ کارمون",
+    "اجاره خودرو",
+    "رزرو ماشین",
+    "پشتیبانی",
+  ],
   openGraph: {
     ...defaultOpenGraph,
     title: `${title} | کارِمون`,

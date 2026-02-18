@@ -246,10 +246,7 @@ export default function MapView({ cars }: Props) {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <BreadcrumbNav
-        items={[
-          { label: "خانه", href: "/" },
-          { label: "نقشه خودروها" },
-        ]}
+        items={[{ label: "خانه", href: "/" }, { label: "نقشه خودروها" }]}
         className="mb-4"
       />
 
@@ -374,8 +371,8 @@ export default function MapView({ cars }: Props) {
                   opacity={0.95}
                   permanent={false}
                 >
-                  {car.name} — {car.rental.days_3_to_14?.toLocaleString("fa-IR")}{" "}
-                  تومان/روز
+                  {car.name} —{" "}
+                  {car.rental.days_3_to_14?.toLocaleString("fa-IR")} تومان/روز
                 </Tooltip>
                 <Popup>
                   <div className="min-w-[180px] p-1">
@@ -417,53 +414,53 @@ export default function MapView({ cars }: Props) {
                 : "خودرویی در این محدوده نیست."}
             </p>
           ) : (
-          <ul className="space-y-2 max-h-[400px] overflow-y-auto list-none p-0 m-0">
-            {filteredCars.map((car) => (
-              <li key={car.id}>
-                <div
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => setSelectedCarId(car.id)}
-                  onKeyDown={(e) =>
-                    e.key === "Enter" && setSelectedCarId(car.id)
-                  }
-                  className="flex gap-3 p-2 rounded-xl hover:bg-muted/70 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                >
-                  <div className="relative w-14 h-10 rounded-lg overflow-hidden bg-muted shrink-0">
-                    <Image
-                      src={
-                        car.img.startsWith("http")
-                          ? car.img
-                          : `https://cafeerent.com/storage/www/cars/single/${car.img}`
-                      }
-                      alt={car.name}
-                      fill
-                      className="object-cover"
-                      sizes="56px"
-                    />
+            <ul className="space-y-2 max-h-[400px] overflow-y-auto list-none p-0 m-0">
+              {filteredCars.map((car) => (
+                <li key={car.id}>
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setSelectedCarId(car.id)}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && setSelectedCarId(car.id)
+                    }
+                    className="flex gap-3 p-2 rounded-xl hover:bg-muted/70 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  >
+                    <div className="relative w-14 h-10 rounded-lg overflow-hidden bg-muted shrink-0">
+                      <Image
+                        src={
+                          car.img.startsWith("http")
+                            ? car.img
+                            : `https://cafeerent.com/storage/www/cars/single/${car.img}`
+                        }
+                        alt={car.name}
+                        fill
+                        className="object-cover"
+                        sizes="56px"
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-semibold text-sm m-0 truncate text-foreground">
+                        {car.name}
+                      </p>
+                      <p className="text-muted-foreground text-xs m-0">
+                        {car.location}
+                        {userLocation && (
+                          <span> — ~{Math.round(car.distanceKm)} ک.م</span>
+                        )}
+                      </p>
+                      <Link
+                        href={`/cars/${car.id}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-primary text-xs font-medium mt-1 inline-block hover:underline"
+                      >
+                        مشاهده و رزرو
+                      </Link>
+                    </div>
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="font-semibold text-sm m-0 truncate text-foreground">
-                      {car.name}
-                    </p>
-                    <p className="text-muted-foreground text-xs m-0">
-                      {car.location}
-                      {userLocation && (
-                        <span> — ~{Math.round(car.distanceKm)} ک.م</span>
-                      )}
-                    </p>
-                    <Link
-                      href={`/cars/${car.id}`}
-                      onClick={(e) => e.stopPropagation()}
-                      className="text-primary text-xs font-medium mt-1 inline-block hover:underline"
-                    >
-                      مشاهده و رزرو
-                    </Link>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
           )}
         </aside>
       </div>

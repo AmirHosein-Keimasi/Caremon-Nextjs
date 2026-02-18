@@ -28,11 +28,7 @@ export default function MobileFiltersSheetComponent(): ReactElement {
     <div className="w-full lg:hidden">
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full gap-2"
-          >
+          <Button type="button" variant="outline" className="w-full gap-2">
             <SlidersHorizontal className="size-4" />
             فیلترها
           </Button>

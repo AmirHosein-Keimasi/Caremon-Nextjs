@@ -13,8 +13,6 @@ export default function LayoutContainer({
   className = "",
 }: Props): ReactElement {
   return (
-    <div className={`${CONTAINER_CLASS} ${className}`.trim()}>
-      {children}
-    </div>
+    <div className={`${CONTAINER_CLASS} ${className}`.trim()}>{children}</div>
   );
 }

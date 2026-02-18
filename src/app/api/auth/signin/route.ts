@@ -3,7 +3,8 @@ import * as bcrypt from "bcryptjs";
 import * as jose from "jose";
 import prisma from "@/lib/prisma";
 
-const JWT_SECRET = process.env.TOKEN_SECRET || "caremon-default-secret-change-in-production";
+const JWT_SECRET =
+  process.env.TOKEN_SECRET || "caremon-default-secret-change-in-production";
 const JWT_EXPIRY = "7d";
 
 export async function POST(request: Request) {

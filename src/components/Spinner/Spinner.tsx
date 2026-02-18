@@ -32,7 +32,8 @@ const Spinner: React.FC<LoaderProps> = ({
       )
       no-repeat
     `,
-    animation: "spin-loader 1.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55)",
+    animation:
+      "spin-loader 1.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55)",
     position: "relative" as const,
     boxShadow: "0 0 10px rgba(79, 70, 229, 0.2)",
   };

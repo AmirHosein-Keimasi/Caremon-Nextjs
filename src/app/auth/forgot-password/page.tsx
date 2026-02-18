@@ -19,7 +19,9 @@ import InputField from "../components/normal-input/normal-input.component";
 import { forgotPasswordSchema, type ForgotPasswordInput } from "@/lib/schemas";
 
 export default function ForgotPasswordPage() {
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
 
   const form = useForm<ForgotPasswordInput>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -67,7 +69,10 @@ export default function ForgotPasswordPage() {
     <div className="w-full min-w-0 max-w-full px-4 py-6 lg:max-w-7xl flex justify-between lg:px-6 lg:py-8 lg:mx-auto">
       <div className="w-full max-w-[28rem]">
         <Form {...form}>
-          <form className="flex mt-20 flex-col gap-3" onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            className="flex mt-20 flex-col gap-3"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
             <h2 className="text-xl font-semibold mb-2 text-foreground">
               بازیابی رمز عبور
             </h2>
@@ -99,7 +104,9 @@ export default function ForgotPasswordPage() {
               className="w-full"
               disabled={status === "submitting"}
             >
-              {status === "submitting" ? "در حال ارسال..." : "ارسال لینک بازیابی"}
+              {status === "submitting"
+                ? "در حال ارسال..."
+                : "ارسال لینک بازیابی"}
             </Button>
 
             <p className="text-right text-foreground text-sm">

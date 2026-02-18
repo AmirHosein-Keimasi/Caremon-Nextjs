@@ -74,10 +74,7 @@ export default async function Page({
         <div className="grid grid-cols-1 gap-4 px-4 py-4 lg:grid-cols-[1fr_3fr] lg:max-w-7xl lg:px-6 lg:mx-auto">
           <div className="col-span-full mb-1">
             <BreadcrumbNav
-              items={[
-                { label: "خانه", href: "/" },
-                { label: "جستجو" },
-              ]}
+              items={[{ label: "خانه", href: "/" }, { label: "جستجو" }]}
             />
           </div>
           {/* موبایل: اول محتوا، بعد فیلترها. دسکتاپ: ستون چپ فیلتر، راست محتوا */}

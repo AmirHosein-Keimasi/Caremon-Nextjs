@@ -12,17 +12,8 @@ export {
   type ForgotPasswordInput,
 } from "./auth.schemas";
 
-export {
-  reserveFormSchema,
-  type ReserveFormInput,
-} from "./reserve.schemas";
+export { reserveFormSchema, type ReserveFormInput } from "./reserve.schemas";
 
-export {
-  addCarSchema,
-  type AddCarInput,
-} from "./car.schemas";
+export { addCarSchema, type AddCarInput } from "./car.schemas";
 
-export {
-  contactFormSchema,
-  type ContactFormInput,
-} from "./contact.schemas";
+export { contactFormSchema, type ContactFormInput } from "./contact.schemas";

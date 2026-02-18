@@ -169,7 +169,8 @@ export default function SavedFiltersComponent(): ReactElement {
         <div className="space-y-2">
           {presets.length === 0 ? (
             <p className="rounded-lg bg-[var(--color-surface-700)] px-3 py-4 text-center text-[var(--fz-300)] text-[var(--color-text-700)]">
-              هنوز فیلتری ذخیره نکرده‌اید. فیلترها را انتخاب و با دکمه بالا ذخیره کنید.
+              هنوز فیلتری ذخیره نکرده‌اید. فیلترها را انتخاب و با دکمه بالا
+              ذخیره کنید.
             </p>
           ) : (
             <>

@@ -102,7 +102,7 @@ export default function MyCarsPage() {
                   تومان/روز
                 </p>
                 <p className="text-xs text-muted-foreground mt-1 m-0">
-                  حداقل {(car.rental?.minimum_rental ?? 1)} روز
+                  حداقل {car.rental?.minimum_rental ?? 1} روز
                 </p>
               </Link>
             </li>

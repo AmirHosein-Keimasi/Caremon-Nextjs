@@ -11,7 +11,10 @@ type Props = PropsWithChildren & {
 const Peugeot206RentalInfo = ({ car }: Props) => {
   return (
     <div className="max-w-[85rem] mx-auto p-8 px-8 text-foreground">
-      <details className="[&_summary]:cursor-pointer [&_summary]:font-bold [&_summary]:list-none [&_summary]:before:content-['+'] [&_summary]:before:mr-2 [&[open]_summary]:before:content-['-']" open>
+      <details
+        className="[&_summary]:cursor-pointer [&_summary]:font-bold [&_summary]:list-none [&_summary]:before:content-['+'] [&_summary]:before:mr-2 [&[open]_summary]:before:content-['-']"
+        open
+      >
         <summary className="text-[1.8rem] text-primary mb-8 text-center pb-4 border-b-2 border-primary max-md:text-2xl">
           مدارک و شرایط اجاره {car.name} در {car.location}
         </summary>
