@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import type { Metadata } from "next";
 
 import SearchQueryBox from "./components/search-query-box/search-query-box.component";
 import SavedFiltersComponent from "./components/saved-filters/saved-filters.component";
@@ -23,6 +24,34 @@ import { normalizeSearchFilters } from "./utils/search-filters";
 
 import { getCars } from "@/lib/cars";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
+import { SITE_URL, defaultOpenGraph } from "@/lib/site";
+
+/** ISR: هر ۶۰ ثانیه کش جستجو و لیست خودروها به‌روز می‌شود */
+export const revalidate = 60;
+
+const title = "جستجوی خودرو";
+const description =
+  "جستجو و فیلتر خودروهای اجاره‌ای در کارِمون. بر اساس شهر، مدل، گیربکس، قیمت و راننده خودروی مناسب را پیدا کنید.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  keywords: ["جستجوی خودرو", "اجاره ماشین", "فیلتر خودرو", "رزرو آنلاین"],
+  openGraph: {
+    ...defaultOpenGraph,
+    title: `${title} | کارِمون`,
+    description,
+    url: `${SITE_URL}/search`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${title} | کارِمون`,
+    description,
+  },
+  alternates: {
+    canonical: `${SITE_URL}/search`,
+  },
+};
 
 type SearchParams = { [key: string]: string | string[] | undefined };
 

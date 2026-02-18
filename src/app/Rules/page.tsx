@@ -1,6 +1,35 @@
+import { ReactElement } from "react";
+import type { Metadata } from "next";
 import { ScrollText } from "lucide-react";
 import Accordion, { type AccordionSectionItem } from "@/components/Accordion/Accordion.component";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
+import { SITE_URL, defaultOpenGraph } from "@/lib/site";
+
+export const dynamic = "force-static";
+
+const title = "قوانین و مقررات";
+const description =
+  "شرایط و قوانین اجاره خودرو در کارِمون. قوانین مارکت‌پلیس، میزبان و مهمان، تحویل و عودت، بیمه و مسئولیت‌ها.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  keywords: ["قوانین کارمون", "شرایط اجاره خودرو", "مقررات رزرو"],
+  openGraph: {
+    ...defaultOpenGraph,
+    title: `${title} | کارِمون`,
+    description,
+    url: `${SITE_URL}/Rules`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${title} | کارِمون`,
+    description,
+  },
+  alternates: {
+    canonical: `${SITE_URL}/Rules`,
+  },
+};
 
 const RULES_SECTIONS: AccordionSectionItem[] = [
     {
@@ -189,7 +218,7 @@ const RULES_SECTIONS: AccordionSectionItem[] = [
     },
   ];
 
-export default function TermsAndConditionsPage() {
+export default function TermsAndConditionsPage(): ReactElement {
   return (
     <div className="w-full min-w-0 max-w-full px-4 lg:max-w-5xl lg:px-6 lg:mx-auto">
       <BreadcrumbNav
@@ -236,7 +265,7 @@ export default function TermsAndConditionsPage() {
       {/* Footer note */}
       <section className="py-6 text-center border-t border-border space-y-1 lg:py-10">
         <p className="text-xs text-muted-foreground lg:text-sm">
-          آخرین بروزرسانی: {new Date().toLocaleDateString("fa-IR")}
+          آخرین بروزرسانی: <time dateTime={new Date().toISOString()}>{new Date().toLocaleDateString("fa-IR")}</time>
         </p>
         <p className="text-xs text-muted-foreground lg:text-sm">
           کارِمون حق دارد این قوانین را هرزمان تغییر دهد. تغییرات از طریق وب‌سایت اطلاع رسانی خواهند شد.

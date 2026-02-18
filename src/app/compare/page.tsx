@@ -1,7 +1,36 @@
 import { ReactElement } from "react";
+import type { Metadata } from "next";
 import { getCarsByIds } from "@/lib/cars";
 import CompareTable from "./components/compare-table.component";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
+import { SITE_URL, defaultOpenGraph } from "@/lib/site";
+
+/** ISR: کش مقایسه با پارامتر ids هر ۶۰ ثانیه */
+export const revalidate = 60;
+
+const title = "مقایسه خودروها";
+const description =
+  "مقایسه مشخصات، قیمت و امکانات خودروهای اجاره‌ای در کارِمون برای انتخاب بهترین گزینه.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  keywords: ["مقایسه خودرو", "مقایسه اجاره ماشین", "قیمت خودرو"],
+  openGraph: {
+    ...defaultOpenGraph,
+    title: `${title} | کارِمون`,
+    description,
+    url: `${SITE_URL}/compare`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${title} | کارِمون`,
+    description,
+  },
+  alternates: {
+    canonical: `${SITE_URL}/compare`,
+  },
+};
 
 type Props = {
   searchParams: { ids?: string };

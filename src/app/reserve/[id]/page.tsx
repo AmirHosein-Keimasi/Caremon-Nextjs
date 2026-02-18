@@ -1,16 +1,51 @@
 import React, { ReactElement } from "react";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { getCarById } from "@/lib/cars";
+import { getCarById, getCars } from "@/lib/cars";
 
 import ReserveForm from "./components/reserve-form";
 import Image from "next/image";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 import Link from "next/link";
+import { SITE_URL, defaultOpenGraph } from "@/lib/site";
+
+/** ISR: صفحات رزرو هر ۶۰ ثانیه به‌روز می‌شوند */
+export const revalidate = 60;
 
 type Props = {
   params: { id: string };
 };
+
+export async function generateStaticParams(): Promise<{ id: string }[]> {
+  const cars = await getCars();
+  return cars.map((c) => ({ id: c.id }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const car = await getCarById(params.id);
+  if (!car) return { title: "رزرو | خودرو یافت نشد" };
+  const title = `رزرو ${car.name}`;
+  const description = `رزرو و اجاره ${car.name} (${car.model}). قیمت از ${(car.rental.days_3_to_14 ?? 0).toLocaleString("fa-IR")} تومان در روز. کارِمون.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      ...defaultOpenGraph,
+      title: `${title} | کارِمون`,
+      description,
+      url: `${SITE_URL}/reserve/${car.id}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | کارِمون`,
+      description,
+    },
+    alternates: {
+      canonical: `${SITE_URL}/reserve/${car.id}`,
+    },
+  };
+}
 
 export default async function ReservePage({
   params,

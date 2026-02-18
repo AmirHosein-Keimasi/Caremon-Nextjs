@@ -1,7 +1,8 @@
 import React, { ReactElement } from "react";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { getCarById } from "@/lib/cars";
+import { getCarById, getCars } from "@/lib/cars";
 import { CommentModel } from "@/models/comment.model";
 
 import CarInfo from "./components/car-info/car-info.component";
@@ -14,10 +15,44 @@ import Peugeot206RentalInfo from "./components/Rental-Info/Peugeot206RentalInfo"
 import CommentComponent from "./components/comment/comment.component";
 import ReserveButton from "./components/ReserveButton";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
+import { SITE_URL, defaultOpenGraph } from "@/lib/site";
+
+/** ISR: صفحات خودرو هر ۶۰ ثانیه به‌روز می‌شوند */
+export const revalidate = 60;
 
 type Props = {
   params: { id: string };
 };
+
+export async function generateStaticParams(): Promise<{ id: string }[]> {
+  const cars = await getCars();
+  return cars.map((c) => ({ id: c.id }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const car = await getCarById(params.id);
+  if (!car) return { title: "خودرو یافت نشد" };
+  const title = `${car.name} | اجاره خودرو`;
+  const description = `اجاره ${car.name} (${car.model}) در ${car.location}. قیمت از ${(car.rental.days_3_to_14 ?? 0).toLocaleString("fa-IR")} تومان در روز. رزرو آنلاین در کارِمون.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      ...defaultOpenGraph,
+      title: `${car.name} | کارِمون`,
+      description,
+      url: `${SITE_URL}/cars/${car.id}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${car.name} | کارِمون`,
+      description,
+    },
+    alternates: {
+      canonical: `${SITE_URL}/cars/${car.id}`,
+    },
+  };
+}
 const comments: CommentModel[] = [
   {
     id: "1",

@@ -1,6 +1,27 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 
 import SignupForm from "./components/signup-form";
+import { SITE_URL, defaultOpenGraph } from "@/lib/site";
+
+export const dynamic = "force-static";
+
+const title = "ثبت نام";
+const description = "ثبت نام در کارِمون برای اجاره خودرو، رزرو آنلاین و ثبت خودرو در مارکت‌پلیس.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  openGraph: {
+    ...defaultOpenGraph,
+    title: `${title} | کارِمون`,
+    description,
+    url: `${SITE_URL}/auth/signup`,
+  },
+  alternates: {
+    canonical: `${SITE_URL}/auth/signup`,
+  },
+};
 
 export default function SignupPage() {
   return (

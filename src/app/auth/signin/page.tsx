@@ -1,6 +1,27 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 
 import SigninForm from "./components/signin-form";
+import { SITE_URL, defaultOpenGraph } from "@/lib/site";
+
+export const dynamic = "force-static";
+
+const title = "ورود به حساب";
+const description = "ورود به حساب کاربری کارِمون برای رزرو و مدیریت اجاره خودرو.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  openGraph: {
+    ...defaultOpenGraph,
+    title: `${title} | کارِمون`,
+    description,
+    url: `${SITE_URL}/auth/signin`,
+  },
+  alternates: {
+    canonical: `${SITE_URL}/auth/signin`,
+  },
+};
 
 export default function SigninPage() {
   return (
