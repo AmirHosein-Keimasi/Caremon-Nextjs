@@ -88,31 +88,43 @@ export default function HeaderComponent(): ReactElement {
   const pathname = usePathname();
   const { isLoggedIn } = useAuth();
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [ctaBarOpen, setCtaBarOpen] = useState(true);
 
   const rentOutHref = isLoggedIn ? "/cars/add" : "/auth/signin?redirect=/cars/add";
 
   return (
     <header className="sticky top-0 z-50 w-full shrink-0 flex flex-col items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border">
-      {/* نوار CTA: خودروی خود را اجاره بدهید — موبایل مخفی، دسکتاپ نمایش */}
-      <div className="hidden lg:block w-full bg-primary/10 border-b border-primary/20 py-2">
-        <LayoutContainer className="w-full">
-          <div className="flex items-center justify-between gap-4 text-sm">
-            <p className="m-0 text-foreground/90 font-medium text-right">
-              خودرو دارید؟{" "}
-              <span className="text-primary font-semibold">
-                همین‌جا برای اجاره ثبت کنید
-              </span>{" "}
-              و از اجارهٔ آن درآمد داشته باشید.
-            </p>
-            <Button asChild size="sm" className="rounded-lg gap-1.5 bg-primary hover:bg-primary/90 shrink-0">
-              <Link href={rentOutHref}>
-                <Car className="size-4" />
-                ثبت خودرو برای اجاره
-              </Link>
-            </Button>
-          </div>
-        </LayoutContainer>
-      </div>
+      {/* نوار CTA: خودروی خود را اجاره بدهید — موبایل مخفی، دسکتاپ نمایش؛ با دکمه بستن */}
+      {ctaBarOpen && (
+        <div className="hidden lg:block w-full bg-primary/10 border-b border-primary/20 py-2">
+          <LayoutContainer className="w-full">
+            <div className="flex items-center justify-between gap-4 text-sm">
+              <p className="m-0 text-foreground/90 font-medium text-right min-w-0 flex-1">
+                خودرو دارید؟{" "}
+                <span className="text-primary font-semibold">
+                  همین‌جا برای اجاره ثبت کنید
+                </span>{" "}
+                و از اجارهٔ آن درآمد داشته باشید.
+              </p>
+              <Button asChild size="sm" className="rounded-lg gap-1.5 bg-primary hover:bg-primary/90 shrink-0">
+                <Link href={rentOutHref}>
+                  <Car className="size-4" />
+                  ثبت خودرو برای اجاره
+                </Link>
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="size-8 shrink-0 rounded-lg text-muted-foreground hover:text-foreground"
+                onClick={() => setCtaBarOpen(false)}
+                aria-label="بستن نوار"
+              >
+                <X className="size-4" />
+              </Button>
+            </div>
+          </LayoutContainer>
+        </div>
+      )}
 
       {/* هدر اصلی */}
       <div className="w-full py-3 lg:py-4">
