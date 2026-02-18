@@ -13,7 +13,7 @@ export default function FAQPage() {
 
   return (
     <main className="w-full min-w-0 max-w-full overflow-x-hidden">
-      <div className="w-full min-w-0 max-w-full px-4 lg:max-w-3xl lg:px-6 lg:mx-auto">
+      <div className="w-full min-w-0 max-w-full px-4 lg:max-w-5xl lg:px-6 lg:mx-auto">
         {/* Hero */}
         <section className="py-6 text-center lg:py-10">
           <div className="space-y-2 lg:space-y-3">
@@ -26,7 +26,8 @@ export default function FAQPage() {
               سوالات <span className="text-primary">متداول</span>
             </h1>
             <p className="text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed lg:text-lg">
-              پاسخ به تمام پرسش‌های شما درباره کارِمون و نحوه استفاده از سرویس‌های ما
+              پاسخ به تمام پرسش‌های شما درباره کارِمون و نحوه استفاده از
+              سرویس‌های ما
             </p>
           </div>
         </section>
@@ -80,7 +81,8 @@ export default function FAQPage() {
                     سوالات اجاره‌گیرندگان
                   </h2>
                   <p className="text-muted-foreground text-xs mt-0.5 lg:text-sm lg:mt-1">
-                    راهنمای کامل برای استفاده از خدمات کارِمون به عنوان اجاره‌گیرنده
+                    راهنمای کامل برای استفاده از خدمات کارِمون به عنوان
+                    اجاره‌گیرنده
                   </p>
                 </div>
                 <Accordion items={faqGuest} />

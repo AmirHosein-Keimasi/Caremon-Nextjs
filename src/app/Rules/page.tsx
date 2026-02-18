@@ -164,7 +164,7 @@ const RULES_SECTIONS: AccordionSectionItem[] = [
 
 export default function TermsAndConditionsPage() {
   return (
-    <div className="w-full min-w-0 max-w-full px-4 lg:max-w-3xl lg:px-6 lg:mx-auto">
+    <div className="w-full min-w-0 max-w-full px-4 lg:max-w-5xl lg:px-6 lg:mx-auto">
       {/* Hero */}
       <section className="py-6 text-center lg:py-10">
         <div className="space-y-2 lg:space-y-3">

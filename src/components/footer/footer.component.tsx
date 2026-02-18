@@ -1,7 +1,6 @@
 import { ReactElement } from "react";
 
-import Link from "next/link";
-import LayoutContainer from "@/components/layout-container/layout-container.component";
+ import LayoutContainer from "@/components/layout-container/layout-container.component";
 import {
   Github,
   Instagram,
@@ -21,8 +20,8 @@ export default function FooterComponent(): ReactElement {
     <footer className="text-foreground mt-auto w-full flex flex-col items-center bg-background ">
       <LayoutContainer>
         {/* بخش شبکه‌های اجتماعی */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:justify-between sm:gap-12 border-b border-border  ">
-          <span className="text-sm text-muted-foreground order-1 sm:order-1">
+        <div className="flex flex-col sm:flex-row items-center  justify-center gap-6 sm:justify-between sm:gap-12 border-b border-border  ">
+          <span className="text-sm text-muted-foreground mb-4 order-1 sm:order-1">
             ما را در شبکه‌های اجتماعی دنبال کنید
           </span>
           <div className="flex items-center gap-5 order-2 sm:order-2">
@@ -45,7 +44,7 @@ export default function FooterComponent(): ReactElement {
         </div>
 
         {/* بخش سه ستونی */}
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.5fr] gap-12 md:gap-16 py-10 sm:py-12 text-center md:text-start">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.5fr] gap-12 md:gap-16 py-5 sm:py-6 text-center md:text-start">
           {/* آدرس ما */}
           <div className="flex flex-col items-center md:items-start gap-4">
             <h6 className="text-base font-semibold text-foreground">
@@ -80,12 +79,12 @@ export default function FooterComponent(): ReactElement {
               پلتفرمی یکپارچه برای اجاره خودرو و رزرو آنلاین ماشین در سراسر
               ایران
             </p>
-            <Link
+            {/* <Link
               href="/about"
               className="text-sm text-primary hover:underline"
             >
               درباره ما و تماس
-            </Link>
+            </Link> */}
           </div>
         </div>
       </LayoutContainer>
