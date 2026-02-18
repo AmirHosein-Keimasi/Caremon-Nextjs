@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
- import LayoutContainer from "@/components/layout-container/layout-container.component";
+import LayoutContainer from "@/components/layout-container/layout-container.component";
 import Link from "next/link";
 import {
   Car,
@@ -22,11 +22,11 @@ export default function FooterComponent(): ReactElement {
     <footer className="text-foreground mt-auto w-full flex flex-col items-center bg-background ">
       <LayoutContainer>
         {/* بخش شبکه‌های اجتماعی */}
-        <div className="flex flex-col sm:flex-row items-center  justify-center gap-6 sm:justify-between sm:gap-12 border-b border-border  ">
+        <div className="flex flex-col  sm:flex-row items-center  justify-center gap-6 sm:justify-between sm:gap-12 border-b border-border  ">
           <span className="text-sm text-muted-foreground mb-4 order-1 sm:order-1">
             ما را در شبکه‌های اجتماعی دنبال کنید
           </span>
-          <div className="flex items-center gap-5 order-2 sm:order-2">
+          <div className="flex items-center gap-5 order-2 sm:order-2 mb-2 lg:mb-0">
             <a href="#" title="تلگرام" className={iconClass}>
               <Send className="size-4" />
             </a>
@@ -49,9 +49,7 @@ export default function FooterComponent(): ReactElement {
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.5fr] gap-12 md:gap-16 py-5 sm:py-6 text-center md:text-start">
           {/* آدرس ما */}
           <div className="flex flex-col items-center md:items-start gap-4">
-            <h6 className="text-base font-semibold text-foreground">
-              آدرس ما
-            </h6>
+            <h6 className="text-base font-semibold text-foreground">آدرس ما</h6>
             <p className="text-sm text-muted-foreground flex items-start gap-2 justify-center md:justify-start leading-relaxed">
               <MapPin className="size-5 shrink-0 mt-0.5" />
               تهران، خیابان آزادی، بلوار کشاورز، پلاک ۱۲۳
@@ -78,7 +76,8 @@ export default function FooterComponent(): ReactElement {
           {/* توضیحات و لینک */}
           <div className="flex flex-col items-center md:items-start gap-4">
             <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
-              مارکت‌پلیس اجاره خودرو: خودروی خود را برای اجاره ثبت کنید یا از دیگران اجاره بگیرید.
+              مارکت‌پلیس اجاره خودرو: خودروی خود را برای اجاره ثبت کنید یا از
+              دیگران اجاره بگیرید.
             </p>
             <Link
               href="/cars/add"
