@@ -4,7 +4,7 @@ import SigninForm from "./components/signin-form";
 
 export default function SigninPage() {
   return (
-    <div className="flex flex-wrap items-center justify-center lg:justify-between lg:p-16">
+    <div className="flex flex-wrap items-center  justify-center lg:justify-between lg:p-16">
       <div className="w-full max-w-[28rem]">
         <SigninForm />
       </div>
