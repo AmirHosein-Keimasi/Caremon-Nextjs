@@ -37,14 +37,14 @@ export default function FiltersSummaryComponent(): ReactElement | null {
   return (
     <CardComponent>
       <div className="flex flex-col gap-4">
-        <div className="text-lg font-semibold">Active filters</div>
+        <div className="text-lg font-semibold">فیلترهای فعال</div>
 
         <button
           type="button"
           onClick={removeAllButtonClickHandler}
           className="self-end px-4 py-2 bg-transparent text-[var(--color-primary)] border border-[var(--color-primary)] rounded-md hover:bg-[var(--color-primary)] hover:text-[var(--color-primary-opposite)] transition-colors"
         >
-          Clear all
+          پاک کردن همه
         </button>
 
         <ul className="flex flex-wrap gap-2 list-none">

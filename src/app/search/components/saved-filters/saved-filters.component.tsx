@@ -14,6 +14,10 @@ import { FiltersContext } from "../../providers/filter.providers";
 import {
   countActiveSearchFilters,
   getActiveSearchFilters,
+  isSearchFiltersEmpty,
+  SEARCH_FILTER_LABELS,
+  SearchFilterKey,
+  formatFilterDisplayValue,
 } from "@/app/search/utils/search-filters";
 import {
   SearchPreset,
@@ -32,6 +36,15 @@ export default function SavedFiltersComponent(): ReactElement {
     [filters],
   );
 
+  const activeFilters = useMemo(
+    () => getActiveSearchFilters(filters),
+    [filters],
+  );
+  const hasActiveFilters = useMemo(
+    () => !isSearchFiltersEmpty(filters),
+    [filters],
+  );
+
   const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     setPresetName(event.currentTarget.value);
   };
@@ -46,15 +59,47 @@ export default function SavedFiltersComponent(): ReactElement {
     touchPreset(preset.id);
   };
 
+  const removeAllButtonClickHandler = (): void => {
+    dispatchFilters({ type: "removed_all" });
+  };
+
+  const filterClickHandler = (key: SearchFilterKey): void => {
+    dispatchFilters({ type: "removed_filter", key });
+  };
+
   return (
     <CardComponent>
-      <div className="grid gap-3">
+      <div className="grid gap-3" dir="rtl">
         <div className="flex items-center justify-between gap-2">
-          <div className="font-black">Saved filters</div>
+          <div className="font-black">فیلترهای ذخیره‌شده</div>
           <div className="bg-[var(--color-surface-700)] text-[var(--color-text-700)] rounded-full px-2.5 py-0.5 text-[var(--fz-300)]">
-            {activeFiltersCount} active
+            {activeFiltersCount} فعال
           </div>
         </div>
+
+        {hasActiveFilters && (
+          <div className="flex flex-wrap items-center gap-2">
+            <ul className="flex flex-wrap gap-2 list-none">
+              {activeFilters.map((filter) => (
+                <li
+                  key={filter.key}
+                  onClick={() => filterClickHandler(filter.key)}
+                  className="px-3 py-1 bg-[var(--color-surface-400)] text-[var(--color-text-400)] rounded-md cursor-pointer hover:bg-[var(--color-surface-300)] transition-colors text-sm"
+                >
+                  {SEARCH_FILTER_LABELS[filter.key]}:{" "}
+                  {formatFilterDisplayValue(filter.key, filter.value)}
+                </li>
+              ))}
+            </ul>
+            <button
+              type="button"
+              onClick={removeAllButtonClickHandler}
+              className="px-3 py-1.5 text-sm bg-transparent text-[var(--color-primary)] border border-[var(--color-primary)] rounded-md hover:bg-[var(--color-primary)] hover:text-[var(--color-primary-opposite)] transition-colors"
+            >
+              پاک کردن همه
+            </button>
+          </div>
+        )}
 
         <div className="grid grid-cols-[1fr_auto] gap-2 max-[48rem]:grid-cols-1">
           <input
@@ -62,7 +107,7 @@ export default function SavedFiltersComponent(): ReactElement {
             value={presetName}
             onChange={inputChangeHandler}
             maxLength={40}
-            placeholder="Preset name (optional)"
+            placeholder="نام پیش‌فرض (اختیاری)"
             className="bg-[var(--color-surface-700)] text-[var(--color-text-400)] border border-[var(--color-border)] rounded-[var(--border-radius)] px-2.5 py-1.5 focus-visible:border-[var(--color-primary)] focus-visible:outline-none"
           />
 
@@ -72,13 +117,13 @@ export default function SavedFiltersComponent(): ReactElement {
             className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-primary)] text-[var(--color-primary-opposite)] px-2.5 py-1.5 disabled:hover:brightness-100"
             disabled={activeFiltersCount === 0}
           >
-            Save
+            ذخیره
           </button>
         </div>
 
         {!presets.length && (
           <div className="text-[var(--color-text-700)] text-[var(--fz-300)]">
-            No saved presets yet.
+            هنوز پیش‌فرضی ذخیره نشده.
           </div>
         )}
 
@@ -91,10 +136,12 @@ export default function SavedFiltersComponent(): ReactElement {
                   className="bg-[var(--color-surface-700)] border border-[var(--color-border)] rounded-[var(--border-radius)] p-2.5 grid gap-1.5"
                 >
                   <div className="flex items-center justify-between gap-2 max-[48rem]:items-start max-[48rem]:flex-col">
-                    <div className="font-bold">{preset.name}</div>
+                    <div className="font-bold">
+                      {preset.name || "بدون نام"}
+                    </div>
                     <div className="text-[var(--fz-300)] text-[var(--color-text-700)]">
-                      {countActiveSearchFilters(preset.filters)} filters | used{" "}
-                      {preset.usageCount}
+                      {countActiveSearchFilters(preset.filters)} فیلتر · استفاده‌شده{" "}
+                      {preset.usageCount} بار
                     </div>
                   </div>
 
@@ -104,7 +151,7 @@ export default function SavedFiltersComponent(): ReactElement {
                         key={`${preset.id}-${filter.key}`}
                         className="bg-[var(--color-surface-300)] rounded-full px-2 py-0.5 text-[var(--fz-300)]"
                       >
-                        {filter.value}
+                        {formatFilterDisplayValue(filter.key, filter.value)}
                       </span>
                     ))}
                   </div>
@@ -115,7 +162,7 @@ export default function SavedFiltersComponent(): ReactElement {
                       className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-primary)] text-[var(--color-primary-opposite)] px-2 py-1 text-[var(--fz-300)] disabled:hover:brightness-100"
                       onClick={() => applyClickHandler(preset)}
                     >
-                      Apply
+                      اعمال
                     </button>
 
                     <button
@@ -123,7 +170,7 @@ export default function SavedFiltersComponent(): ReactElement {
                       className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-danger)] text-[var(--color-gray-93)] px-2 py-1 text-[var(--fz-300)] disabled:hover:brightness-100"
                       onClick={() => removePreset(preset.id)}
                     >
-                      Delete
+                      حذف
                     </button>
                   </div>
                 </li>
@@ -135,7 +182,7 @@ export default function SavedFiltersComponent(): ReactElement {
               className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-danger)] text-[var(--color-gray-93)] px-2.5 py-1.5 disabled:hover:brightness-100"
               onClick={clearPresets}
             >
-              Clear presets
+              پاک کردن پیش‌فرض‌ها
             </button>
           </>
         )}

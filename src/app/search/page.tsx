@@ -6,7 +6,6 @@ import SavedFiltersComponent from "./components/saved-filters/saved-filters.comp
 import { FiltersType } from "@/types/filter.type";
 
 import ResultsComponent from "./components/results/results.component";
-import FiltersSummaryComponent from "./components/filters-summary/filters-summary.component";
 import StatsComponent from "./components/stats/stats.component";
 import WithDriverFilterComponent from "./components/withdriver-filter/withdriver-filter.component";
 import ModelFilterComponent from "./components/model-filter/model-filter.component";
@@ -41,22 +40,17 @@ export default async function Page({
       defaultFilters={defaultFilters}
     >
       <CarsProvider cars={cars}>
-        <div 
-          className="grid grid-cols-[1fr_3.5fr] gap-4 lg:max-w-7xl lg:px-6 lg:mx-auto"
+        <div
+          className="grid grid-cols-[1fr_3fr] gap-4 lg:max-w-7xl lg:px-6 lg:mx-auto"
           style={{
             gridTemplateAreas: `
-              "search search"
-              "filters toolbar"
-              "filters results"
-            `
+              "filters content"
+              "filters content"
+            `,
           }}
         >
-          <div className="[grid-area:search]">
-            <SearchQueryBox />
-          </div>
           <div className="[grid-area:filters] grid gap-4">
             <SavedFiltersComponent />
-            <FiltersSummaryComponent />
             <LocationFilterComponent />
             <ModelFilterComponent />
             <TransmissionFilterComponent />
@@ -64,14 +58,17 @@ export default async function Page({
             <PriceRangeFilterComponent />
             <WithDriverFilterComponent />
           </div>
-          <div className="[grid-area:toolbar] flex items-center gap-4">
-            <SortComponent />
-            <div className="ms-auto">
-              <StatsComponent />
+          <div className="[grid-area:content] flex flex-col gap-4 min-w-0">
+            <SearchQueryBox />
+            <div className="flex items-center gap-4">
+              <SortComponent />
+              <div className="ms-auto">
+                <StatsComponent />
+              </div>
             </div>
-          </div>
-          <div className="[grid-area:results]">
-            <ResultsComponent />
+            <div className="min-h-0">
+              <ResultsComponent />
+            </div>
           </div>
         </div>
       </CarsProvider>
