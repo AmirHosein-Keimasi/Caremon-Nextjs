@@ -86,7 +86,7 @@ export default function HeaderComponent(): ReactElement {
     : "/auth/signin?redirect=/cars/add";
 
   return (
-    <header className="sticky top-0 z-50 w-full shrink-0 flex flex-col items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border">
+    <header className="sticky mb-5 top-0 z-50 w-full shrink-0 flex flex-col items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       {/* نوار CTA: خودروی خود را اجاره بدهید — موبایل مخفی، دسکتاپ نمایش؛ با دکمه بستن */}
       {ctaBarOpen && (
         <div className="hidden lg:block w-full bg-primary/10 border-b border-primary/20 py-2">
