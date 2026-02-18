@@ -3,6 +3,7 @@
 import { ReactElement } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { useCompareStore } from "@/store/compareStore";
@@ -72,12 +73,28 @@ type Props = {
 };
 
 export default function CompareTable({ cars }: Props): ReactElement {
+  const router = useRouter();
   const { removeCar, clearCompare } = useCompareStore();
+
+  const handleRemoveCar = (carId: string) => {
+    removeCar(carId);
+    const newIds = cars.filter((c) => c.id !== carId).map((c) => c.id);
+    if (newIds.length === 0) {
+      router.push("/compare");
+    } else {
+      router.push(`/compare?ids=${newIds.join(",")}`);
+    }
+  };
+
+  const handleClearAll = () => {
+    clearCompare();
+    router.push("/compare");
+  };
 
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center flex-wrap gap-2">
-        <Button variant="outline" size="sm" onClick={clearCompare}>
+        <Button variant="outline" size="sm" onClick={handleClearAll}>
           پاک کردن همه
         </Button>
       </div>
@@ -112,7 +129,7 @@ export default function CompareTable({ cars }: Props): ReactElement {
                   variant="ghost"
                   size="sm"
                   className="text-destructive hover:text-destructive"
-                  onClick={() => removeCar(car.id)}
+                  onClick={() => handleRemoveCar(car.id)}
                   title="حذف از مقایسه"
                 >
                   <X className="size-4" />
@@ -183,7 +200,7 @@ export default function CompareTable({ cars }: Props): ReactElement {
                         variant="ghost"
                         size="sm"
                         className="text-destructive hover:text-destructive"
-                        onClick={() => removeCar(car.id)}
+                        onClick={() => handleRemoveCar(car.id)}
                         title="حذف از مقایسه"
                       >
                         <X className="size-4" />
