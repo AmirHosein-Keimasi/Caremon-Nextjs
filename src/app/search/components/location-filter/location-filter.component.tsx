@@ -49,8 +49,8 @@ export default function LocationFilterComponent(): ReactElement {
 
   return (
     <Card>
-      <CardContent className="pt-4">
-        <div className="mb-2 font-black text-lg">استان</div>
+      <CardContent className="pt-3 pb-1">
+        <div className="mb-1.5 font-bold text-sm">استان</div>
         <ul className="overflow-auto max-h-72 space-y-0.5 [scrollbar-width:thin] [scrollbar-color:#888_#f3f4f6]">
           {options.map((x) => (
             <li key={x}>

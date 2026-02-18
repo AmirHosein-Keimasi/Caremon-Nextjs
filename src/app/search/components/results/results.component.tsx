@@ -42,10 +42,10 @@ export default function ResultsComponent(): ReactElement {
   }
 
   return (
-    <ul className="grid grid-cols-[repeat(3,minmax(280px,1fr))] gap-4 justify-center">
+    <ul className="grid grid-cols-1 gap-3 justify-center lg:grid-cols-2 lg:gap-4 xl:grid-cols-3">
       {filteredCars.map((car) => (
         <Card key={car.id} className="relative overflow-hidden">
-          <CardContent className="p-8 text-center">
+          <CardContent className="p-4 text-center sm:p-6 lg:p-8">
             <div className="flex items-center gap-2 absolute top-4 right-4">
               <MapPin className="text-amber-500 text-base mb-[-0.05em]" />
               <LocationBadge label={car.location} />

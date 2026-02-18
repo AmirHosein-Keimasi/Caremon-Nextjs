@@ -2,6 +2,7 @@ import { ReactElement } from "react";
 
 import SearchQueryBox from "./components/search-query-box/search-query-box.component";
 import SavedFiltersComponent from "./components/saved-filters/saved-filters.component";
+import MobileFiltersSheetComponent from "./components/mobile-filters-sheet/mobile-filters-sheet.component";
 
 import { FiltersType } from "@/types/filter.type";
 
@@ -40,16 +41,22 @@ export default async function Page({
       defaultFilters={defaultFilters}
     >
       <CarsProvider cars={cars}>
-        <div
-          className="grid grid-cols-[1fr_3fr] gap-4 lg:max-w-7xl lg:px-6 lg:mx-auto"
-          style={{
-            gridTemplateAreas: `
-              "filters content"
-              "filters content"
-            `,
-          }}
-        >
-          <div className="[grid-area:filters] grid gap-4">
+        <div className="grid grid-cols-1 gap-4 px-4 py-4 lg:grid-cols-[1fr_3fr] lg:max-w-7xl lg:px-6 lg:mx-auto">
+          {/* موبایل: اول محتوا، بعد فیلترها. دسکتاپ: ستون چپ فیلتر، راست محتوا */}
+          <div className="order-1 flex min-w-0 flex-col gap-4 lg:order-2">
+            <SearchQueryBox />
+            <div className="flex flex-wrap items-center gap-3 gap-y-2">
+              <SortComponent />
+              <div className="ms-auto">
+                <StatsComponent />
+              </div>
+            </div>
+            <MobileFiltersSheetComponent />
+            <div className="min-h-0">
+              <ResultsComponent />
+            </div>
+          </div>
+          <div className="order-2 hidden auto-rows-min items-start gap-3 lg:order-1 lg:grid lg:gap-4">
             <SavedFiltersComponent />
             <LocationFilterComponent />
             <ModelFilterComponent />
@@ -57,18 +64,6 @@ export default async function Page({
             <ChassisTypeFilterComponent />
             <PriceRangeFilterComponent />
             <WithDriverFilterComponent />
-          </div>
-          <div className="[grid-area:content] flex flex-col gap-4 min-w-0">
-            <SearchQueryBox />
-            <div className="flex items-center gap-4">
-              <SortComponent />
-              <div className="ms-auto">
-                <StatsComponent />
-              </div>
-            </div>
-            <div className="min-h-0">
-              <ResultsComponent />
-            </div>
           </div>
         </div>
       </CarsProvider>

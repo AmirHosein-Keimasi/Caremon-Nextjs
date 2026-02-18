@@ -6,7 +6,7 @@ type Props = PropsWithChildren;
 export default function CardComponent({ children }: Props): ReactElement {
   return (
     <Card className="bg-card shadow-md">
-      <CardContent className="p-4 pt-4">{children}</CardContent>
+      <CardContent className="px-4 pt-3 pb-2">{children}</CardContent>
     </Card>
   );
 }

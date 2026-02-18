@@ -42,7 +42,7 @@ export default function FiltersSummaryComponent(): ReactElement | null {
         <button
           type="button"
           onClick={removeAllButtonClickHandler}
-          className="self-end px-4 py-2 bg-transparent text-[var(--color-primary)] border border-[var(--color-primary)] rounded-md hover:bg-[var(--color-primary)] hover:text-[var(--color-primary-opposite)] transition-colors"
+          className="self-end px-4 py-2 bg-transparent text-primary border border-primary rounded-md hover:bg-primary hover:text-primary-foreground transition-colors"
         >
           پاک کردن همه
         </button>

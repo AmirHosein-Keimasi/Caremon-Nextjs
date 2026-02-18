@@ -25,7 +25,7 @@ export default function GlobalSearchBoxComponent({
   };
 
   return (
-    <div className="flex items-center gap-2 w-[min(50rem,100%)] px-4 border border-border rounded-full focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+    <div className="flex w-full max-w-full items-center gap-2 rounded-full border border-border px-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 lg:w-[min(50rem,100%)] lg:px-4">
       <div className="grid items-center text-lg focus-within:text-primary">
         <Search />
       </div>

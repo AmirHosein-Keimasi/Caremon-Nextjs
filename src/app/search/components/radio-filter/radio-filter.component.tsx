@@ -24,8 +24,8 @@ export default function RadioFilterComponent({
 }: Props): ReactElement {
   return (
     <Card>
-      <CardContent className="pt-4">
-        <Label className="mb-2 block font-bold">{title}</Label>
+      <CardContent className="pt-3 pb-1">
+        <Label className="mb-1.5 block font-bold text-sm">{title}</Label>
         <RadioGroup
           value={value ?? ""}
           onValueChange={onChange}

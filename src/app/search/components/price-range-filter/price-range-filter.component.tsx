@@ -49,8 +49,8 @@ export default function PriceRangeFilterComponent(): ReactElement {
 
   return (
     <Card>
-      <CardContent className="pt-4">
-        <Label className="mb-2 block font-bold">محدوده قیمت (روزانه)</Label>
+      <CardContent className="pt-3 pb-1">
+        <Label className="mb-1.5 block text-sm font-bold">محدوده قیمت (روزانه)</Label>
         <div className="grid grid-cols-2 gap-2">
           <div>
             <Label className="text-xs text-muted-foreground">حداقل (تومان)</Label>
