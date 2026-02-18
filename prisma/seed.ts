@@ -6,12 +6,12 @@ import { cars } from "../src/db/cars";
 const prisma = new PrismaClient();
 
 const users = [
-  {
-    name: "امیرحسین کیماسی ",
-    username: "amir",
-    email: "amirkimasi@gmail.com",
-    password: "123456",
-  },
+  { name: "امیرحسین کیماسی", username: "amir", email: "amirkimasi@gmail.com", password: "123456" },
+  { name: "مریم احمدی", username: "maryam", email: "maryam.ahmadi@example.com", password: "123456" },
+  { name: "علی رضایی", username: "ali_rezaei", email: "ali.rezaei@example.com", password: "123456" },
+  { name: "سارا محمدی", username: "sara_m", email: "sara.mohammadi@example.com", password: "123456" },
+  { name: "رضا کریمی", username: "reza_karimi", email: "reza.karimi@example.com", password: "123456" },
+  { name: "زهرا حسینی", username: "zahra_h", email: "zahra.hosseini@example.com", password: "123456" },
 ];
 
 function carToPrisma(car: (typeof cars)[number]) {
