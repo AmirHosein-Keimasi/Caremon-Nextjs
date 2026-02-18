@@ -41,7 +41,16 @@ export default async function Page({
       defaultFilters={defaultFilters}
     >
       <CarsProvider cars={cars}>
-        <div className="grid grid-areas-[._search;_filters_toolbar;_filters_results] grid-cols-[1fr_3.5fr] grid-rows-[auto_auto_1fr] items-start gap-4">
+        <div 
+          className="grid grid-cols-[1fr_3.5fr] gap-4 lg:max-w-7xl lg:px-6 lg:mx-auto"
+          style={{
+            gridTemplateAreas: `
+              "search search"
+              "filters toolbar"
+              "filters results"
+            `
+          }}
+        >
           <div className="[grid-area:search]">
             <SearchQueryBox />
           </div>
