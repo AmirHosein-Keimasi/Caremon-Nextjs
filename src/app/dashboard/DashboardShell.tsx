@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -12,16 +12,14 @@ import {
   Wallet,
   Headphones,
   LogOut,
-  Menu,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
 import useAuth from "@/utils/useAuth";
 import { tokenUtils } from "@/lib/api-client";
 import { toast } from "sonner";
@@ -40,11 +38,9 @@ const navItems = [
 function NavLinks({
   pathname,
   onNavigate,
-  isMobile,
 }: {
   pathname: string | null;
   onNavigate?: () => void;
-  isMobile?: boolean;
 }) {
   return (
     <>
@@ -84,7 +80,16 @@ export default function DashboardShell({
   const pathname = usePathname();
   const router = useRouter();
   const { isLoggedIn, isLoading } = useAuth();
-  const [sheetOpen, setSheetOpen] = useState(false);
+
+  const currentItem = useMemo(() => {
+    if (!pathname) return navItems[0];
+    const sorted = [...navItems].sort((a, b) => b.href.length - a.href.length);
+    return sorted.find((item) => pathname.startsWith(item.href)) ?? navItems[0];
+  }, [pathname]);
+
+  const handleSelectChange = (value: string) => {
+    router.push(value);
+  };
 
   useEffect(() => {
     if (!isLoading && !isLoggedIn) {
@@ -122,51 +127,51 @@ export default function DashboardShell({
     );
   }
 
+  const CurrentIcon = currentItem.icon;
+
   return (
     <div className="rtl min-h-dvh flex flex-col bg-background lg:flex-row">
-      {/* موبایل: هدر ثابت + دکمه منو */}
+      {/* موبایل: سلکت‌باکس + خروج */}
       <header className="sticky top-0 z-40 flex items-center justify-between gap-3 border-b border-border bg-card/95 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-card/80 lg:hidden">
-        <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="size-11 shrink-0 rounded-xl"
-              aria-label="باز کردن منو"
+        <div className="min-w-0 flex-1">
+          <Select value={currentItem.href} onValueChange={handleSelectChange}>
+            <SelectTrigger className="min-h-[44px] w-full rounded-xl border-border bg-background text-base font-medium text-right flex-row-reverse [&>svg]:shrink-0">
+              <span className="flex items-center gap-3 min-w-0 flex-1 text-right justify-end flex-row-reverse">
+                <span className="truncate">{currentItem.label}</span>
+                <CurrentIcon className="size-5 shrink-0 text-primary" />
+              </span>
+            </SelectTrigger>
+            <SelectContent
+              className="rounded-xl text-right"
+              sideOffset={4}
+              dir="rtl"
             >
-              <Menu className="size-6" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent
-            side="right"
-            className="w-[min(320px,85vw)] border-l border-border p-0"
-          >
-            <SheetHeader className="border-b border-border p-4 text-right">
-              <SheetTitle className="text-lg font-bold">پنل کاربری</SheetTitle>
-            </SheetHeader>
-            <nav className="flex flex-col gap-0.5 p-3">
-              <NavLinks
-                pathname={pathname}
-                onNavigate={() => setSheetOpen(false)}
-                isMobile
-              />
-              <div className="mt-2 border-t border-border pt-2">
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start gap-3 rounded-xl text-destructive hover:bg-destructive/10 hover:text-destructive min-h-[44px]"
-                  onClick={handleLogout}
-                >
-                  <LogOut className="size-5 shrink-0" />
-                  خروج
-                </Button>
-              </div>
-            </nav>
-          </SheetContent>
-        </Sheet>
-        <h1 className="text-base font-bold text-foreground truncate">
-          پنل کاربری
-        </h1>
-        <div className="size-11 shrink-0" aria-hidden />
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <SelectItem
+                    key={item.href}
+                    value={item.href}
+                    className="min-h-[44px] rounded-lg text-right [&>span:last-child]:flex [&>span:last-child]:items-center [&>span:last-child]:gap-3 [&>span:last-child]:justify-end"
+                  >
+                    <span className="flex items-center gap-3 justify-end">
+                      <Icon className="size-5 shrink-0 text-primary" />
+                      {item.label}
+                    </span>
+                  </SelectItem>
+                );
+              })}
+            </SelectContent>
+          </Select>
+        </div>
+        <Button
+          variant="ghost"
+          className="shrink-0 gap-2 rounded-xl text-destructive hover:bg-destructive/10 hover:text-destructive min-h-[44px] px-3 flex-row-reverse"
+          onClick={handleLogout}
+        >
+          <LogOut className="size-5 shrink-0" />
+          <span>خروج</span>
+        </Button>
       </header>
 
       {/* دسکتاپ: سایدبار ثابت */}

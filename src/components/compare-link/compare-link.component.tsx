@@ -19,7 +19,7 @@ export default function CompareLinkComponent(): ReactElement {
     <Button variant="ghost" size="sm" asChild className="relative">
       <Link href={href}>
         <GitCompare className="size-4" />
-        <span className="hidden sm:inline">مقایسه</span>
+        {/* <span className="hidden sm:inline">مقایسه</span> */}
         {count > 0 && (
           <Badge
             variant="secondary"
