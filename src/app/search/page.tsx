@@ -66,10 +66,7 @@ export default async function Page({
   const cars = await getCars();
 
   return (
-    <FiltersProvider
-      key={JSON.stringify(defaultFilters)}
-      defaultFilters={defaultFilters}
-    >
+    <FiltersProvider defaultFilters={defaultFilters}>
       <CarsProvider cars={cars}>
         <div className="grid grid-cols-1 gap-4 px-4 py-4 lg:grid-cols-[1fr_3fr] lg:max-w-7xl lg:px-6 lg:mx-auto">
           <div className="col-span-full mb-1">

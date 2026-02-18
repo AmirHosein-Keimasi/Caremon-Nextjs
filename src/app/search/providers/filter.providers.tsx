@@ -44,6 +44,14 @@ export default function FiltersProvider({
     normalizeSearchFilters(defaultFilters),
   );
 
+  // وقتی کاربر با لینک یا دکمه بازگشت آمد، state را با URL همگام کن (بدون ریمونت کردن کل درخت)
+  useEffect(() => {
+    dispatchFilters({
+      type: "replaced_filters",
+      filters: normalizeSearchFilters(defaultFilters),
+    });
+  }, [defaultFilters]);
+
   useEffect(() => {
     const search = buildSearchParams(filters);
     const targetUrl = pathname + (search ? `?${search}` : "");

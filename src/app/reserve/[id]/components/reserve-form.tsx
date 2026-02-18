@@ -220,7 +220,7 @@ export default function ReserveForm({ carId, carName }: Props): ReactElement {
                         }
                         onChange={(date) =>
                           field.onChange(
-                            date ? date.toDate().toISOString() : ""
+                            date ? date.toDate().toISOString() : "",
                           )
                         }
                         minDate={new DateObject()}
@@ -246,7 +246,7 @@ export default function ReserveForm({ carId, carName }: Props): ReactElement {
                           }
                           onChange={(date) =>
                             field.onChange(
-                              date ? date.toDate().toISOString() : ""
+                              date ? date.toDate().toISOString() : "",
                             )
                           }
                           minDate={
