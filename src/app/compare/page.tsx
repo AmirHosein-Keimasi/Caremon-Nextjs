@@ -16,7 +16,7 @@ export default async function ComparePage({
   const cars = await getCarsByIds(ids);
 
   return (
-    <div className="container py-8">
+    <div className="w-full min-w-0 max-w-full px-4 py-6 lg:max-w-7xl lg:px-6 lg:py-8 lg:mx-auto">
       <h1 className="text-2xl font-bold mb-6">مقایسه خودروها</h1>
       {cars.length === 0 ? (
         <div className="text-center py-16 text-muted-foreground">

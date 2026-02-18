@@ -61,6 +61,12 @@ const SPEC_ROWS: SpecRow[] = [
   { label: "تنظیم صندلی", getValue: (c) => c.features.driver_seat_adjustment },
 ];
 
+function formatCellValue(value: string | number | boolean): string {
+  if (value === undefined || value === null) return "—";
+  if (typeof value === "number") return toPersianNumbers(value);
+  return String(value);
+}
+
 type Props = {
   cars: CarsModel[];
 };
@@ -76,33 +82,92 @@ export default function CompareTable({ cars }: Props): ReactElement {
         </Button>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-border">
-        <table className="w-full text-sm">
+      {/* موبایل: کارت‌ها (زیر 1024) — بدون اسکرول افقی */}
+      <div className="flex flex-col gap-6 lg:hidden">
+        {cars.map((car) => (
+          <div
+            key={car.id}
+            className="rounded-xl border border-border bg-card overflow-hidden"
+          >
+            <div className="flex flex-col items-center gap-2 p-4 border-b border-border bg-muted/30">
+              <Image
+                src={`https://cafeerent.com/storage/www/cars/single/${car.img}`}
+                alt={car.name}
+                width={160}
+                height={100}
+                className="rounded object-contain"
+              />
+              <div className="text-center">
+                <div className="font-bold">{car.name}</div>
+                <div className="text-muted-foreground text-sm">{car.model}</div>
+              </div>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" asChild className="text-xs">
+                  <Link href={`/cars/${car.id}`}>
+                    <ExternalLink className="size-3" />
+                    مشاهده
+                  </Link>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-destructive hover:text-destructive"
+                  onClick={() => removeCar(car.id)}
+                  title="حذف از مقایسه"
+                >
+                  <X className="size-4" />
+                </Button>
+              </div>
+            </div>
+            <dl className="divide-y divide-border">
+              {SPEC_ROWS.map((row, idx) => (
+                <div
+                  key={row.label}
+                  className={idx % 2 === 0 ? "bg-background" : "bg-muted/40"}
+                >
+                  <div className="flex justify-between items-center gap-4 px-4 py-2.5 text-sm">
+                    <dt className="font-medium text-muted-foreground shrink-0">
+                      {row.label}
+                    </dt>
+                    <dd className="text-left min-w-0">
+                      {formatCellValue(row.getValue(car))}
+                    </dd>
+                  </div>
+                </div>
+              ))}
+            </dl>
+          </div>
+        ))}
+      </div>
+
+      {/* دسکتاپ: جدول (از 1024 به بالا) — بدون اسکرول افقی، ردیف‌ها یکی‌درمیان */}
+      <div className="hidden lg:block overflow-hidden rounded-lg border border-border">
+        <table className="w-full table-fixed text-sm min-w-0">
           <thead>
             <tr className="bg-muted/50">
-              <th className="text-right p-3 font-semibold min-w-[140px] w-[140px]">
+              <th className="text-right p-3 font-semibold w-48 max-w-48 min-w-0">
                 مشخصات
               </th>
               {cars.map((car) => (
                 <th
                   key={car.id}
-                  className="text-center p-3 font-semibold min-w-[180px] border-s border-border"
+                  className="text-center p-3 font-semibold border-s border-border min-w-0"
                 >
                   <div className="flex flex-col items-center gap-2">
                     <Image
                       src={`https://cafeerent.com/storage/www/cars/single/${car.img}`}
                       alt={car.name}
-                      width={120}
-                      height={80}
+                      width={100}
+                      height={64}
                       className="rounded object-contain"
                     />
-                    <div>
-                      <div className="font-bold">{car.name}</div>
-                      <div className="text-muted-foreground text-xs">
+                    <div className="min-w-0 overflow-hidden text-ellipsis">
+                      <div className="font-bold truncate">{car.name}</div>
+                      <div className="text-muted-foreground text-xs truncate">
                         {car.model}
                       </div>
                     </div>
-                    <div className="flex gap-1">
+                    <div className="flex gap-1 flex-wrap justify-center">
                       <Button
                         variant="outline"
                         size="sm"
@@ -133,19 +198,21 @@ export default function CompareTable({ cars }: Props): ReactElement {
             {SPEC_ROWS.map((row, idx) => (
               <tr
                 key={row.label}
-                className={idx % 2 === 0 ? "bg-background" : "bg-muted/20"}
+                className={
+                  idx % 2 === 0
+                    ? "bg-background"
+                    : "bg-muted/40"
+                }
               >
-                <td className="p-3 font-medium text-foreground">{row.label}</td>
+                <td className="p-3 font-medium text-foreground w-48 max-w-48 min-w-0">
+                  {row.label}
+                </td>
                 {cars.map((car) => (
                   <td
                     key={car.id}
-                    className="p-3 text-center border-s border-border"
+                    className="p-3 text-center border-s border-border min-w-0 overflow-hidden text-ellipsis"
                   >
-                    {row.getValue(car)
-                      ? typeof row.getValue(car) === "number"
-                        ? toPersianNumbers(row.getValue(car) as number)
-                        : String(row.getValue(car))
-                      : "—"}
+                    {formatCellValue(row.getValue(car))}
                   </td>
                 ))}
               </tr>
