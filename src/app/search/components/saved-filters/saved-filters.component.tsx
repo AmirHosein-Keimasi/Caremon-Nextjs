@@ -24,9 +24,12 @@ import {
   useSearchPresetsStore,
 } from "@/store/searchPresetsStore";
 
+import { Bookmark, Trash2, Play, X } from "lucide-react";
+
 export default function SavedFiltersComponent(): ReactElement {
   const { filters, dispatchFilters } = useContext(FiltersContext);
   const [presetName, setPresetName] = useState("");
+  const [expandSave, setExpandSave] = useState(false);
 
   const { presets, addPreset, removePreset, touchPreset, clearPresets } =
     useSearchPresetsStore();
@@ -50,8 +53,9 @@ export default function SavedFiltersComponent(): ReactElement {
   };
 
   const saveClickHandler = (): void => {
-    addPreset(presetName, filters);
+    addPreset(presetName.trim() || "فیلتر ذخیره‌شده", filters);
     setPresetName("");
+    setExpandSave(false);
   };
 
   const applyClickHandler = (preset: SearchPreset): void => {
@@ -69,123 +73,170 @@ export default function SavedFiltersComponent(): ReactElement {
 
   return (
     <CardComponent>
-      <div className="grid gap-3" dir="rtl">
-        <div className="flex items-center justify-between gap-2">
-          <div className="font-black">فیلترهای ذخیره‌شده</div>
-          <div className="bg-[var(--color-surface-700)] text-[var(--color-text-700)] rounded-full px-2.5 py-0.5 text-[var(--fz-300)]">
-            {activeFiltersCount} فعال
-          </div>
+      <div className="grid gap-4" dir="rtl">
+        {/* عنوان */}
+        <div className="flex items-center gap-2 border-b border-[var(--color-border)] pb-3">
+          <Bookmark className="size-5 text-[var(--color-primary)]" />
+          <h3 className="font-bold text-[var(--color-text-400)]">
+            فیلترهای ذخیره‌شده
+          </h3>
         </div>
 
+        {/* فیلترهای فعلی */}
         {hasActiveFilters && (
-          <div className="flex flex-wrap items-center gap-2">
-            <ul className="flex flex-wrap gap-2 list-none">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-[var(--fz-300)] text-[var(--color-text-700)]">
+                فیلترهای اعمال‌شده ({activeFiltersCount})
+              </span>
+              <button
+                type="button"
+                onClick={removeAllButtonClickHandler}
+                className="inline-flex items-center gap-1 text-[var(--color-primary)] text-[var(--fz-300)] hover:underline"
+              >
+                <X className="size-3.5" />
+                پاک کردن همه
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
               {activeFilters.map((filter) => (
-                <li
+                <button
                   key={filter.key}
+                  type="button"
                   onClick={() => filterClickHandler(filter.key)}
-                  className="px-3 py-1 bg-[var(--color-surface-400)] text-[var(--color-text-400)] rounded-md cursor-pointer hover:bg-[var(--color-surface-300)] transition-colors text-sm"
+                  className="inline-flex items-center gap-1 rounded-full bg-[var(--color-surface-400)] px-2.5 py-1 text-[var(--fz-300)] text-[var(--color-text-400)] transition-colors hover:bg-[var(--color-surface-300)]"
                 >
-                  {SEARCH_FILTER_LABELS[filter.key]}:{" "}
-                  {formatFilterDisplayValue(filter.key, filter.value)}
-                </li>
+                  <span>
+                    {SEARCH_FILTER_LABELS[filter.key]}:{" "}
+                    {formatFilterDisplayValue(filter.key, filter.value)}
+                  </span>
+                  <X className="size-3 opacity-70" />
+                </button>
               ))}
-            </ul>
-            <button
-              type="button"
-              onClick={removeAllButtonClickHandler}
-              className="px-3 py-1.5 text-sm bg-transparent text-[var(--color-primary)] border border-[var(--color-primary)] rounded-md hover:bg-[var(--color-primary)] hover:text-[var(--color-primary-opposite)] transition-colors"
-            >
-              پاک کردن همه
-            </button>
+            </div>
           </div>
         )}
 
-        <div className="grid grid-cols-[1fr_auto] gap-2 max-[48rem]:grid-cols-1">
-          <input
-            type="text"
-            value={presetName}
-            onChange={inputChangeHandler}
-            maxLength={40}
-            placeholder="نام پیش‌فرض (اختیاری)"
-            className="bg-[var(--color-surface-700)] text-[var(--color-text-400)] border border-[var(--color-border)] rounded-[var(--border-radius)] px-2.5 py-1.5 focus-visible:border-[var(--color-primary)] focus-visible:outline-none"
-          />
-
-          <button
-            type="button"
-            onClick={saveClickHandler}
-            className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-primary)] text-[var(--color-primary-opposite)] px-2.5 py-1.5 disabled:hover:brightness-100"
-            disabled={activeFiltersCount === 0}
-          >
-            ذخیره
-          </button>
+        {/* ذخیره فیلتر فعلی */}
+        <div className="space-y-2">
+          {!expandSave ? (
+            <button
+              type="button"
+              onClick={() => setExpandSave(true)}
+              disabled={!hasActiveFilters}
+              className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-[var(--color-border)] py-2.5 text-[var(--fz-300)] text-[var(--color-text-700)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <Bookmark className="size-4" />
+              ذخیره این فیلترها
+            </button>
+          ) : (
+            <div className="space-y-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-700)] p-3">
+              <label className="block text-[var(--fz-300)] text-[var(--color-text-700)]">
+                نام (اختیاری)
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={presetName}
+                  onChange={inputChangeHandler}
+                  onKeyDown={(e) => e.key === "Escape" && setExpandSave(false)}
+                  maxLength={40}
+                  placeholder="مثلاً: تهران، ارزان"
+                  className="flex-1 rounded-md border border-[var(--color-border)] bg-[var(--color-surface-400)] px-2.5 py-1.5 text-[var(--fz-300)] text-[var(--color-text-400)] placeholder:text-[var(--color-text-700)] focus:border-[var(--color-primary)] focus:outline-none"
+                  autoFocus
+                />
+                <button
+                  type="button"
+                  onClick={saveClickHandler}
+                  className="rounded-md bg-[var(--color-primary)] px-3 py-1.5 text-[var(--fz-300)] text-[var(--color-primary-opposite)] transition-opacity hover:opacity-90"
+                >
+                  ذخیره
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setExpandSave(false)}
+                  className="rounded-md px-2 text-[var(--color-text-700)] hover:bg-[var(--color-surface-400)]"
+                  aria-label="لغو"
+                >
+                  <X className="size-4" />
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
-        {!presets.length && (
-          <div className="text-[var(--color-text-700)] text-[var(--fz-300)]">
-            هنوز پیش‌فرضی ذخیره نشده.
-          </div>
-        )}
-
-        {presets.length > 0 && (
-          <>
-            <ul className="grid gap-2">
-              {presets.map((preset) => (
-                <li
-                  key={preset.id}
-                  className="bg-[var(--color-surface-700)] border border-[var(--color-border)] rounded-[var(--border-radius)] p-2.5 grid gap-1.5"
-                >
-                  <div className="flex items-center justify-between gap-2 max-[48rem]:items-start max-[48rem]:flex-col">
-                    <div className="font-bold">
-                      {preset.name || "بدون نام"}
-                    </div>
-                    <div className="text-[var(--fz-300)] text-[var(--color-text-700)]">
-                      {countActiveSearchFilters(preset.filters)} فیلتر · استفاده‌شده{" "}
-                      {preset.usageCount} بار
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1">
-                    {getActiveSearchFilters(preset.filters).map((filter) => (
-                      <span
-                        key={`${preset.id}-${filter.key}`}
-                        className="bg-[var(--color-surface-300)] rounded-full px-2 py-0.5 text-[var(--fz-300)]"
-                      >
-                        {formatFilterDisplayValue(filter.key, filter.value)}
+        {/* لیست ذخیره‌شده‌ها */}
+        <div className="space-y-2">
+          {presets.length === 0 ? (
+            <p className="rounded-lg bg-[var(--color-surface-700)] px-3 py-4 text-center text-[var(--fz-300)] text-[var(--color-text-700)]">
+              هنوز فیلتری ذخیره نکرده‌اید. فیلترها را انتخاب و با دکمه بالا ذخیره کنید.
+            </p>
+          ) : (
+            <>
+              <span className="block text-[var(--fz-300)] text-[var(--color-text-700)]">
+                {presets.length} ذخیره‌شده
+              </span>
+              <ul className="grid gap-2">
+                {presets.map((preset) => (
+                  <li
+                    key={preset.id}
+                    className="flex flex-col gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-700)] p-3"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="font-medium text-[var(--color-text-400)]">
+                        {preset.name || "بدون نام"}
                       </span>
-                    ))}
-                  </div>
-
-                  <div className="flex gap-1.5">
-                    <button
-                      type="button"
-                      className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-primary)] text-[var(--color-primary-opposite)] px-2 py-1 text-[var(--fz-300)] disabled:hover:brightness-100"
-                      onClick={() => applyClickHandler(preset)}
-                    >
-                      اعمال
-                    </button>
-
-                    <button
-                      type="button"
-                      className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-danger)] text-[var(--color-gray-93)] px-2 py-1 text-[var(--fz-300)] disabled:hover:brightness-100"
-                      onClick={() => removePreset(preset.id)}
-                    >
-                      حذف
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-
-            <button
-              type="button"
-              className="border-none rounded-[var(--border-radius)] cursor-pointer transition-[filter] duration-[var(--animation-duration-fast)] ease-in-out disabled:cursor-not-allowed disabled:grayscale disabled:opacity-70 hover:brightness-105 bg-[var(--color-danger)] text-[var(--color-gray-93)] px-2.5 py-1.5 disabled:hover:brightness-100"
-              onClick={clearPresets}
-            >
-              پاک کردن پیش‌فرض‌ها
-            </button>
-          </>
-        )}
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => applyClickHandler(preset)}
+                          className="inline-flex items-center gap-1 rounded-md bg-[var(--color-primary)] px-2 py-1 text-[var(--fz-300)] text-[var(--color-primary-opposite)] transition-opacity hover:opacity-90"
+                          title="اعمال"
+                        >
+                          <Play className="size-3.5" />
+                          اعمال
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => removePreset(preset.id)}
+                          className="rounded-md p-1 text-[var(--color-text-700)] transition-colors hover:bg-[var(--color-danger)] hover:text-[var(--color-gray-93)]"
+                          title="حذف"
+                        >
+                          <Trash2 className="size-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {getActiveSearchFilters(preset.filters).map((filter) => (
+                        <span
+                          key={`${preset.id}-${filter.key}`}
+                          className="rounded-full bg-[var(--color-surface-300)] px-2 py-0.5 text-[var(--fz-300)] text-[var(--color-text-700)]"
+                        >
+                          {formatFilterDisplayValue(filter.key, filter.value)}
+                        </span>
+                      ))}
+                    </div>
+                    {preset.usageCount > 0 && (
+                      <span className="text-[var(--fz-300)] text-[var(--color-text-700)]">
+                        استفاده‌شده {preset.usageCount} بار
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              {presets.length > 1 && (
+                <button
+                  type="button"
+                  onClick={clearPresets}
+                  className="mt-1 flex w-full items-center justify-center gap-1.5 rounded-md py-2 text-[var(--fz-300)] text-[var(--color-danger)] transition-colors hover:bg-[var(--color-surface-700)]"
+                >
+                  <Trash2 className="size-3.5" />
+                  حذف همه ذخیره‌ها
+                </button>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </CardComponent>
   );
