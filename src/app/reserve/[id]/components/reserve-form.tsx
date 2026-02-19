@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { reserveFormSchema, type ReserveFormInput } from "@/lib/schemas";
+import { useUserProfileStore } from "@/store/userProfileStore";
 import StartDatePicker from "@/components/calendar/StartDatePicker-component";
 import EndDatePicker from "@/components/calendar/EndDatePicker-component";
 
@@ -27,17 +28,23 @@ type Props = {
   carImage?: string;
 };
 
+function getDefaultReserveValues(): ReserveFormInput {
+  const profile = useUserProfileStore.getState().profile;
+  const name = [profile.firstName, profile.lastName].filter(Boolean).join(" ").trim();
+  return {
+    name: name || "",
+    phone: profile.phone?.trim() || "",
+    email: profile.email?.trim() || "",
+    startDate: "",
+    endDate: "",
+  };
+}
+
 export default function ReserveForm({ carId, carName }: Props): ReactElement {
   const [isSuccess, setIsSuccess] = useState(false);
   const form = useForm<ReserveFormInput>({
     resolver: zodResolver(reserveFormSchema),
-    defaultValues: {
-      name: "",
-      phone: "",
-      email: "",
-      startDate: "",
-      endDate: "",
-    },
+    defaultValues: getDefaultReserveValues(),
   });
 
   const isSubmitting = form.formState.isSubmitting;
@@ -142,7 +149,7 @@ export default function ReserveForm({ carId, carName }: Props): ReactElement {
                 name="name"
                 render={({ field }) => (
                   <FormItem className="sm:col-span-2">
-                    <FormLabel>نام و نام خانوادگی</FormLabel>
+                    <FormLabel>نام و نام خانوادگی *</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="نام کامل"
@@ -159,7 +166,7 @@ export default function ReserveForm({ carId, carName }: Props): ReactElement {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>شماره تماس</FormLabel>
+                    <FormLabel>شماره تماس *</FormLabel>
                     <FormControl>
                       <Input
                         type="tel"
@@ -177,7 +184,7 @@ export default function ReserveForm({ carId, carName }: Props): ReactElement {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>ایمیل</FormLabel>
+                    <FormLabel>ایمیل *</FormLabel>
                     <FormControl>
                       <Input
                         type="email"

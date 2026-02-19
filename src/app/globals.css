@@ -376,3 +376,28 @@ html {
     transform: translateY(0);
   }
 }
+
+/* تقویم و تایم‌پیکر ایرانی — راست به چپ و اعداد فارسی */
+[dir="rtl"] .rmdp-wrapper,
+.rmdp-rtl .rmdp-wrapper,
+.calendar-rtl .rmdp-wrapper {
+  direction: rtl;
+  text-align: right;
+}
+
+.rmdp-rtl .rmdp-calendar,
+.calendar-rtl .rmdp-calendar {
+  direction: rtl;
+  font-family: var(--font-iranyekan);
+}
+
+.rmdp-rtl .rmdp-day-picker .rmdp-day,
+.calendar-rtl .rmdp-day {
+  font-variant-numeric: arabic-indic;
+}
+
+.rmdp-rtl .rmdp-time-picker input,
+.calendar-rtl .rmdp-time-picker input {
+  direction: ltr;
+  text-align: center;
+}

@@ -62,6 +62,7 @@ export default function SigninForm() {
       updateProfile({
         ...(firstName ? { firstName } : {}),
         ...(lastName ? { lastName } : {}),
+        username: String(data?.user?.username || "").trim(),
         email: String(data?.user?.email || values.email).trim(),
       });
 

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { normalizePhoneForValidation } from "@/lib/utils";
 
 export const reserveFormSchema = z
   .object({
@@ -6,10 +7,16 @@ export const reserveFormSchema = z
     phone: z
       .string()
       .min(1, "شماره تماس الزامی است")
-      .regex(/^09\d{9}$/, "شماره تماس را به‌صورت ۱۱ رقمی و با ۰۹ وارد کنید"),
+      .transform((v) => normalizePhoneForValidation(v))
+      .pipe(
+        z.string().regex(
+          /^09\d{9}$/,
+          "شماره تماس را به‌صورت ۱۱ رقمی و با ۰۹ وارد کنید",
+        ),
+      ),
     email: z.string().min(1, "ایمیل الزامی است").email("ایمیل معتبر وارد کنید"),
-    startDate: z.string().min(1, "تاریخ تحویل الزامی است"),
-    endDate: z.string().min(1, "تاریخ بازگرداندن الزامی است"),
+    startDate: z.string().min(1, "تاریخ و ساعت تحویل الزامی است"),
+    endDate: z.string().min(1, "تاریخ و ساعت بازگرداندن الزامی است"),
   })
   .refine(
     (data) => {

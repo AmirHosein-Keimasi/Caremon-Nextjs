@@ -158,7 +158,7 @@ export default function DashboardShell({
       </header>
 
       {/* دسکتاپ: سایدبار ثابت */}
-      <aside className="hidden shrink-0 border-l border-border bg-card lg:block lg:w-[280px] xl:w-[300px]">
+      <aside className="hidden shrink-0 border-l  rounded-2xl border-border bg-card lg:block lg:w-[280px] xl:w-[300px]">
         <div className="sticky top-0 flex h-dvh flex-col">
           <div className="border-b border-border p-5">
             <h2 className="font-bold text-lg text-foreground m-0">
@@ -170,7 +170,7 @@ export default function DashboardShell({
           </div>
           <nav className="flex-1 overflow-y-auto p-3 flex flex-col gap-0.5">
             <NavLinks pathname={pathname} />
-            <div className="mt-auto border-t border-border pt-3">
+            <div className="  border-t border-border pt-3">
               <Button
                 variant="ghost"
                 className="w-full justify-start gap-3 rounded-xl text-destructive hover:bg-destructive/10 hover:text-destructive min-h-[44px]"

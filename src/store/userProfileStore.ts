@@ -4,8 +4,12 @@ import { persist } from "zustand/middleware";
 export interface UserProfileData {
   firstName: string;
   lastName: string;
+  username: string;
   email: string;
   phone: string;
+  nationalId: string;
+  address: string;
+  birthDate: string;
 }
 
 interface UserProfileStore {
@@ -19,13 +23,18 @@ interface UserProfileStore {
 const emptyProfile: UserProfileData = {
   firstName: "",
   lastName: "",
+  username: "",
   email: "",
   phone: "",
+  nationalId: "",
+  address: "",
+  birthDate: "",
 };
 
 const requiredFields: Array<keyof UserProfileData> = [
   "firstName",
   "lastName",
+  "username",
   "email",
   "phone",
 ];
@@ -48,7 +57,7 @@ export const useUserProfileStore = create<UserProfileStore>()(
     }),
     {
       name: "caremon-user-profile",
-      version: 1,
+      version: 2,
     },
   ),
 );
