@@ -8,12 +8,18 @@ import {
   useState,
 } from "react";
 
+import { X } from "lucide-react";
+
 import CardComponent from "@/components/card-component/card-component";
 
 import { FiltersContext } from "../../providers/filter.providers";
 import {
   countActiveSearchFilters,
+  formatFilterDisplayValue,
   getActiveSearchFilters,
+  MULTI_VALUE_FILTER_KEYS,
+  SEARCH_FILTER_LABELS,
+  type SearchFilterKey,
 } from "@/app/search/utils/search-filters";
 import {
   SearchPreset,
@@ -27,10 +33,12 @@ export default function SavedFiltersComponent(): ReactElement {
   const { presets, addPreset, removePreset, touchPreset, clearPresets } =
     useSearchPresetsStore();
 
-  const activeFiltersCount = useMemo(
-    () => countActiveSearchFilters(filters),
+  const activeFiltersList = useMemo(
+    () => getActiveSearchFilters(filters),
     [filters],
   );
+
+  const activeFiltersCount = activeFiltersList.length;
 
   const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     setPresetName(event.currentTarget.value);
@@ -46,6 +54,18 @@ export default function SavedFiltersComponent(): ReactElement {
     touchPreset(preset.id);
   };
 
+  const removeOneFilter = (key: SearchFilterKey, value?: string): void => {
+    if (MULTI_VALUE_FILTER_KEYS.includes(key) && value != null) {
+      dispatchFilters({ type: "removed_filter", key, value });
+    } else {
+      dispatchFilters({ type: "removed_filter", key });
+    }
+  };
+
+  const removeAllFilters = (): void => {
+    dispatchFilters({ type: "removed_all" });
+  };
+
   return (
     <CardComponent>
       <div className="grid gap-3">
@@ -57,6 +77,48 @@ export default function SavedFiltersComponent(): ReactElement {
             {activeFiltersCount} فعال
           </div>
         </div>
+
+        {/* فیلترهای انتخاب‌شده فعلی — حذف تکی یا همه */}
+        {activeFiltersList.length > 0 && (
+          <div className="grid gap-2 rounded-(--border-radius) border border-[var(--color-border)] bg-[var(--color-surface-700)] p-2.5">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="text-(--color-text-700) text-[length:var(--fz-300)] font-medium">
+                فیلترهای اعمال‌شده
+              </span>
+              <button
+                type="button"
+                onClick={removeAllFilters}
+                className="border-none rounded-(--border-radius) cursor-pointer px-2 py-1 text-[length:var(--fz-300)] text-[var(--color-danger)] hover:bg-[var(--color-danger)]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+              >
+                حذف همه
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {activeFiltersList.map(({ key, value }) => (
+                <span
+                  key={`${key}-${value}`}
+                  className="inline-flex items-center gap-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-300)] py-1 pr-2 pl-1 text-[length:var(--fz-300)] text-(--color-text-700)"
+                >
+                  <span className="font-medium text-[var(--color-primary)]">
+                    {SEARCH_FILTER_LABELS[key]}:
+                  </span>
+                  <span>
+                    {formatFilterDisplayValue(key, value)}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => removeOneFilter(key, value)}
+                    className="flex size-5 shrink-0 items-center justify-center rounded-full border-none bg-[var(--color-danger)]/20 text-[var(--color-danger)] hover:bg-[var(--color-danger)] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                    title="حذف این فیلتر"
+                    aria-label="حذف این فیلتر"
+                  >
+                    <X className="size-3" />
+                  </button>
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="grid grid-cols-[1fr_auto] gap-2 max-[48rem]:grid-cols-1">
           <input

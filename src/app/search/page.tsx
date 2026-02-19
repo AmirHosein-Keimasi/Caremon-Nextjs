@@ -132,9 +132,9 @@ function generateDefaultFilters(searchParams: SearchParams): FiltersType {
 function normalizeFilter(
   value: string | string[] | undefined,
 ): string | undefined {
+  if (value == null) return undefined;
   if (Array.isArray(value)) {
-    return value[0];
+    return value.filter(Boolean).join(",").trim() || undefined;
   }
-
-  return value;
+  return String(value).trim() || undefined;
 }

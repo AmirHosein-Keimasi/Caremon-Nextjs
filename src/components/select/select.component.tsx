@@ -38,7 +38,6 @@ export default function SelectComponent({
 
   return (
     <div className={title ? "flex flex-row-reverse items-center gap-2" : ""}>
-      {title && <span className="text-sm font-bold">{title}: </span>}
       <Select
         value={selectedOption?.value ?? ""}
         onValueChange={handleValueChange}
@@ -58,6 +57,8 @@ export default function SelectComponent({
           ))}
         </SelectContent>
       </Select>
+      {title && <span className="text-sm font-bold">{title}: </span>}
+
     </div>
   );
 }

@@ -33,6 +33,9 @@ export const SEARCH_FILTER_LABELS: Record<SearchFilterKey, string> = {
   sortType: "مرتب‌سازی",
 };
 
+/** فیلترهایی که چند مقدار می‌گیرند (چند انتخاب هم‌زمان) — مقدار در state به‌صورت کاما جدا ذخیره می‌شود */
+export const MULTI_VALUE_FILTER_KEYS: SearchFilterKey[] = ["model", "location"];
+
 function normalizeFilterValue(value: string | undefined): string | undefined {
   if (value == null) {
     return undefined;
@@ -85,7 +88,12 @@ export function getActiveSearchFilters(
       return entries;
     }
 
-    entries.push({ key, value });
+    if (MULTI_VALUE_FILTER_KEYS.includes(key)) {
+      const parts = value.split(",").map((p) => p.trim()).filter(Boolean);
+      parts.forEach((part) => entries.push({ key, value: part }));
+    } else {
+      entries.push({ key, value });
+    }
     return entries;
   }, []);
 }

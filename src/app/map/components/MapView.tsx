@@ -263,11 +263,11 @@ export default function MapView({ cars }: Props) {
             value={selectedLocationLabel}
             onValueChange={handleSelectLocation}
           >
-            <SelectTrigger className="w-[140px] gap-2">
+            <SelectTrigger className="w-[140px] gap-2 ">
               <MapPin className="size-4 shrink-0" />
               <SelectValue placeholder="انتخاب شهر" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="z-1000">
               {selectableLocations.map((loc) => (
                 <SelectItem key={loc} value={loc}>
                   {loc}
@@ -300,7 +300,7 @@ export default function MapView({ cars }: Props) {
               <SelectTrigger className="w-[110px] gap-1 text-xs">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="z-1000">
                 {RADIUS_OPTIONS_KM.map((opt) => (
                   <SelectItem key={opt.value} value={opt.value}>
                     {opt.label}

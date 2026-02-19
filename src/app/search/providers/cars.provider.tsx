@@ -40,8 +40,8 @@ export default function CarsProvider({ children, cars }: Props): ReactElement {
 
       return (
         doesCarInclude(car, filters.query) &&
-        doesInclude(car.model, filters.model) &&
-        doesInclude(car.location, filters.location) &&
+        doesIncludeMultiValue(car.model, filters.model) &&
+        doesIncludeMultiValue(car.location, filters.location) &&
         doesInclude(car.features.transmission, filters.transmission) &&
         doesInclude(car.with_driver, filters.with_driver) &&
         doesInclude(car.features.chassis_type, filters.chassisType) &&
@@ -85,4 +85,16 @@ function doesSomeInclude(items: string[], query?: string): boolean {
 function doesInclude(item: string, query?: string): boolean {
   if (!query) return true;
   return item.toLowerCase().includes(query.toLowerCase());
+}
+
+/** فیلتر چندمقداری: مقدار با کاما جدا شده؛ خودرو اگر با هر کدام مطابقت داشت نمایش داده می‌شود */
+function doesIncludeMultiValue(carValue: string, filterValue?: string): boolean {
+  if (!filterValue) return true;
+  const parts = filterValue.split(",").map((p) => p.trim()).filter(Boolean);
+  if (parts.length === 0) return true;
+  const lower = carValue.toLowerCase();
+  return parts.some((part) => {
+    const p = part.toLowerCase();
+    return lower.includes(p) || p.includes(lower);
+  });
 }
