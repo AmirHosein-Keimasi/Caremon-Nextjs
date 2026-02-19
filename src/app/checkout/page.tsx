@@ -32,7 +32,11 @@ const requiredFields: Array<keyof UserProfileData> = [
 
 const fieldMeta: Record<
   keyof UserProfileData,
-  { label: string; type: "text" | "email" | "tel"; placeholder: string }
+  {
+    label: string;
+    type: "text" | "email" | "tel" | "date";
+    placeholder: string;
+  }
 > = {
   firstName: {
     label: "نام",
@@ -44,6 +48,11 @@ const fieldMeta: Record<
     type: "text",
     placeholder: "نام خانوادگی خود را وارد کنید",
   },
+  username: {
+    label: "نام کاربری",
+    type: "text",
+    placeholder: "username",
+  },
   email: {
     label: "ایمیل",
     type: "email",
@@ -53,6 +62,21 @@ const fieldMeta: Record<
     label: "شماره تماس",
     type: "tel",
     placeholder: "۰۹۱۲۳۴۵۶۷۸۹",
+  },
+  nationalId: {
+    label: "کد ملی",
+    type: "text",
+    placeholder: "۱۰ رقم کد ملی",
+  },
+  address: {
+    label: "آدرس",
+    type: "text",
+    placeholder: "استان، شهر، خیابان، پلاک",
+  },
+  birthDate: {
+    label: "تاریخ تولد",
+    type: "date",
+    placeholder: "",
   },
 };
 
@@ -107,6 +131,7 @@ export default function CheckoutPage() {
 
   const handleCheckout = async () => {
     const normalizedInfo: UserProfileData = {
+      ...profile,
       firstName: customerInfo.firstName.trim(),
       lastName: customerInfo.lastName.trim(),
       email: customerInfo.email.trim(),

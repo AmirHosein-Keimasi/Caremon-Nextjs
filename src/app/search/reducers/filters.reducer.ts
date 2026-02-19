@@ -51,7 +51,10 @@ export function filtersReducer(filters: FiltersType, action: FiltersAction) {
             .map((p) => p.trim())
             .filter(Boolean);
           const next = parts.filter((p) => p !== toRemove).join(",");
-          if (next) clonedFilters[key] = next;
+          if (next)
+            (clonedFilters as Record<keyof FiltersType, string | undefined>)[
+              key
+            ] = next;
           else delete clonedFilters[key];
         } else {
           delete clonedFilters[key];
