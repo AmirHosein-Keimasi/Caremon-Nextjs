@@ -20,7 +20,7 @@ export function getCarImageUrl(img: string): string {
   return `${CAR_IMAGES_BASE}/${encoded}`;
 }
 
-function prismaCarToModel(car: {
+export function prismaCarToModel(car: {
   id: string;
   name: string;
   model: string;
@@ -56,19 +56,21 @@ function prismaCarToModel(car: {
   };
 }
 
+/** خودروهای دیتابیس (مارکت‌پلیس) + خودروهای ثابت پلتفرم را با هم برمی‌گرداند */
 export async function getCars(): Promise<CarsModel[]> {
+  let dbCars: CarsModel[] = [];
   try {
-    const dbCars = await prisma.car.findMany({
+    const rows = await prisma.car.findMany({
       orderBy: { name: "asc" },
       include: { owner: { select: { name: true } } },
     });
-    if (dbCars.length > 0) {
-      return dbCars.map(prismaCarToModel);
-    }
+    dbCars = rows.map(prismaCarToModel);
   } catch {
-    // Fallback to static data if DB fails or is empty
+    // در صورت خطای دیتابیس فقط خودروهای ثابت
   }
-  return staticCars;
+  const combined = [...staticCars, ...dbCars];
+  combined.sort((a, b) => a.name.localeCompare(b.name, "fa"));
+  return combined;
 }
 
 export async function getCarById(id: string): Promise<CarsModel | null> {
@@ -87,22 +89,29 @@ export async function getCarById(id: string): Promise<CarsModel | null> {
 export async function getCarsByIds(ids: string[]): Promise<CarsModel[]> {
   if (ids.length === 0) return [];
   const uniqueIds = Array.from(new Set(ids));
+  const orderMap = Object.fromEntries(uniqueIds.map((id, i) => [id, i]));
+  const result: CarsModel[] = [];
+
   try {
     const dbCars = await prisma.car.findMany({
       where: { id: { in: uniqueIds } },
+      include: { owner: { select: { name: true } } },
     });
-    if (dbCars.length > 0) {
-      const orderMap = Object.fromEntries(uniqueIds.map((id, i) => [id, i]));
-      return dbCars
-        .map(prismaCarToModel)
-        .sort((a, b) => (orderMap[a.id] ?? 0) - (orderMap[b.id] ?? 0));
+    for (const row of dbCars) {
+      result.push(prismaCarToModel(row));
     }
   } catch {
-    // Fallback
+    // ignore
   }
-  return uniqueIds
-    .map((id) => staticCars.find((c) => c.id === id))
-    .filter((c): c is CarsModel => c != null);
+
+  for (const id of uniqueIds) {
+    if (result.some((c) => c.id === id)) continue;
+    const fromStatic = staticCars.find((c) => c.id === id);
+    if (fromStatic) result.push(fromStatic);
+  }
+
+  result.sort((a, b) => (orderMap[a.id] ?? 0) - (orderMap[b.id] ?? 0));
+  return result;
 }
 
 /** خودروهای ثبت‌شده توسط یک کاربر (مارکت‌پلیس) */

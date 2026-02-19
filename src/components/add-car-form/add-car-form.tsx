@@ -77,19 +77,26 @@ type AddCarFormProps = {
   successRedirect?: string;
   cancelHref?: string;
   cancelLabel?: string;
+  /** برای حالت ویرایش: مقدار اولیه فرم از خودرو */
+  initialData?: Partial<AddCarInput>;
+  /** وقتی مقدار دارد فرم در حالت ویرایش است و ذخیره با PATCH انجام می‌شود */
+  carId?: string;
 };
 
 export function AddCarForm({
   successRedirect = "/dashboard/my-cars",
   cancelHref = "/dashboard",
   cancelLabel = "انصراف و بازگشت به داشبورد",
+  initialData,
+  carId,
 }: AddCarFormProps) {
   const router = useRouter();
   const [error, setError] = useState("");
+  const isEdit = Boolean(carId);
 
   const form = useForm<AddCarInput>({
     resolver: zodResolver(addCarSchema) as Resolver<AddCarInput>,
-    defaultValues,
+    defaultValues: { ...defaultValues, ...initialData },
   });
 
   const isSubmitting = form.formState.isSubmitting;
@@ -150,8 +157,11 @@ export function AddCarForm({
         },
       };
 
-      const res = await fetch("/api/cars", {
-        method: "POST",
+      const url = isEdit ? `/api/cars/${carId}` : "/api/cars";
+      const method = isEdit ? "PATCH" : "POST";
+
+      const res = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify(body),
@@ -162,7 +172,7 @@ export function AddCarForm({
         const msg =
           res.status === 401
             ? "ورود به حساب الزامی است. اگر قبلاً وارد شده‌اید، یک بار از حساب خارج شوید و دوباره وارد شوید."
-            : data.error || "خطا در ثبت خودرو";
+            : data.error || (isEdit ? "خطا در به‌روزرسانی خودرو" : "خطا در ثبت خودرو");
         setError(msg);
         return;
       }
@@ -855,7 +865,7 @@ export function AddCarForm({
 
         <div className="flex flex-wrap gap-3 border-t pt-6">
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "در حال ثبت..." : "ثبت خودرو در مارکت‌پلیس"}
+            {isSubmitting ? (isEdit ? "در حال ذخیره..." : "در حال ثبت...") : isEdit ? "ذخیره تغییرات" : "ثبت خودرو در مارکت‌پلیس"}
           </Button>
           <Button type="button" variant="outline" asChild>
             <Link href={cancelHref}>{cancelLabel}</Link>
