@@ -58,7 +58,6 @@ export default function SelectComponent({
         </SelectContent>
       </Select>
       {title && <span className="text-sm font-bold">{title}: </span>}
-
     </div>
   );
 }

@@ -82,7 +82,8 @@ export async function PATCH(request: Request, { params }: Params) {
     const model = String(body.model ?? existing.model).trim();
     const location = String(body.location ?? existing.location).trim();
     const img = String(body.img ?? existing.img).trim() || "default-car.png";
-    const withDriver = String(body.withDriver ?? existing.withDriver).trim() || "بدون راننده";
+    const withDriver =
+      String(body.withDriver ?? existing.withDriver).trim() || "بدون راننده";
 
     if (!name || !model || !location) {
       return NextResponse.json(
@@ -159,9 +160,6 @@ export async function DELETE(_request: Request, { params }: Params) {
     });
   } catch (error) {
     console.error("Delete car error:", error);
-    return NextResponse.json(
-      { error: "خطا در حذف خودرو" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "خطا در حذف خودرو" }, { status: 500 });
   }
 }

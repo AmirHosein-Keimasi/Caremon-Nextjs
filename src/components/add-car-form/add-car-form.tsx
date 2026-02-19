@@ -104,7 +104,9 @@ export function AddCarForm({
   const onSubmit = async (values: AddCarInput) => {
     setError("");
     try {
-      const moreThan14 = values.more_than_14_days ?? Math.round((values.days_3_to_14 || 0) * 0.9);
+      const moreThan14 =
+        values.more_than_14_days ??
+        Math.round((values.days_3_to_14 || 0) * 0.9);
       const body = {
         name: values.name,
         model: values.model,
@@ -172,7 +174,8 @@ export function AddCarForm({
         const msg =
           res.status === 401
             ? "ورود به حساب الزامی است. اگر قبلاً وارد شده‌اید، یک بار از حساب خارج شوید و دوباره وارد شوید."
-            : data.error || (isEdit ? "خطا در به‌روزرسانی خودرو" : "خطا در ثبت خودرو");
+            : data.error ||
+              (isEdit ? "خطا در به‌روزرسانی خودرو" : "خطا در ثبت خودرو");
         setError(msg);
         return;
       }
@@ -405,8 +408,14 @@ export function AddCarForm({
         {/* امکانات و ویژگی‌ها */}
         <Collapsible defaultOpen>
           <CollapsibleTrigger asChild>
-            <Button type="button" variant="outline" className="w-full justify-between border-t pt-4">
-              <span className="font-semibold text-foreground">امکانات و ویژگی‌ها</span>
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full justify-between border-t pt-4"
+            >
+              <span className="font-semibold text-foreground">
+                امکانات و ویژگی‌ها
+              </span>
               <span className="text-muted-foreground">کلیک برای باز/بسته</span>
             </Button>
           </CollapsibleTrigger>
@@ -454,7 +463,10 @@ export function AddCarForm({
                   <FormItem>
                     <FormLabel>نوع آپشن</FormLabel>
                     <FormControl>
-                      <Input placeholder="مثال: فول آپشن، استاندارد" {...field} />
+                      <Input
+                        placeholder="مثال: فول آپشن، استاندارد"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -681,8 +693,14 @@ export function AddCarForm({
         {/* مشخصات موتور */}
         <Collapsible>
           <CollapsibleTrigger asChild>
-            <Button type="button" variant="outline" className="w-full justify-between border-t pt-4">
-              <span className="font-semibold text-foreground">مشخصات موتور</span>
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full justify-between border-t pt-4"
+            >
+              <span className="font-semibold text-foreground">
+                مشخصات موتور
+              </span>
               <span className="text-muted-foreground">کلیک برای باز/بسته</span>
             </Button>
           </CollapsibleTrigger>
@@ -792,8 +810,14 @@ export function AddCarForm({
         {/* قیمت با راننده */}
         <Collapsible>
           <CollapsibleTrigger asChild>
-            <Button type="button" variant="outline" className="w-full justify-between border-t pt-4">
-              <span className="font-semibold text-foreground">قیمت با راننده (اختیاری)</span>
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full justify-between border-t pt-4"
+            >
+              <span className="font-semibold text-foreground">
+                قیمت با راننده (اختیاری)
+              </span>
               <span className="text-muted-foreground">کلیک برای باز/بسته</span>
             </Button>
           </CollapsibleTrigger>
@@ -865,7 +889,13 @@ export function AddCarForm({
 
         <div className="flex flex-wrap gap-3 border-t pt-6">
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? (isEdit ? "در حال ذخیره..." : "در حال ثبت...") : isEdit ? "ذخیره تغییرات" : "ثبت خودرو در مارکت‌پلیس"}
+            {isSubmitting
+              ? isEdit
+                ? "در حال ذخیره..."
+                : "در حال ثبت..."
+              : isEdit
+                ? "ذخیره تغییرات"
+                : "ثبت خودرو در مارکت‌پلیس"}
           </Button>
           <Button type="button" variant="outline" asChild>
             <Link href={cancelHref}>{cancelLabel}</Link>

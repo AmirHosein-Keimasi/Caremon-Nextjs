@@ -30,7 +30,10 @@ type Props = {
 
 function getDefaultReserveValues(): ReserveFormInput {
   const profile = useUserProfileStore.getState().profile;
-  const name = [profile.firstName, profile.lastName].filter(Boolean).join(" ").trim();
+  const name = [profile.firstName, profile.lastName]
+    .filter(Boolean)
+    .join(" ")
+    .trim();
   return {
     name: name || "",
     phone: profile.phone?.trim() || "",

@@ -89,7 +89,10 @@ export function getActiveSearchFilters(
     }
 
     if (MULTI_VALUE_FILTER_KEYS.includes(key)) {
-      const parts = value.split(",").map((p) => p.trim()).filter(Boolean);
+      const parts = value
+        .split(",")
+        .map((p) => p.trim())
+        .filter(Boolean);
       parts.forEach((part) => entries.push({ key, value: part }));
     } else {
       entries.push({ key, value });

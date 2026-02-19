@@ -102,9 +102,7 @@ export default function SavedFiltersComponent(): ReactElement {
                   <span className="font-medium text-[var(--color-primary)]">
                     {SEARCH_FILTER_LABELS[key]}:
                   </span>
-                  <span>
-                    {formatFilterDisplayValue(key, value)}
-                  </span>
+                  <span>{formatFilterDisplayValue(key, value)}</span>
                   <button
                     type="button"
                     onClick={() => removeOneFilter(key, value)}

@@ -32,9 +32,7 @@ const BirthDatePicker = forwardRef<HTMLInputElement, BirthDatePickerProps>(
     },
     ref,
   ) => {
-    const dateValue = value
-      ? new DateObject(new Date(value))
-      : null;
+    const dateValue = value ? new DateObject(new Date(value)) : null;
 
     const handleChange = (date: DateObject | null) => {
       if (!date) {

@@ -88,9 +88,15 @@ function doesInclude(item: string, query?: string): boolean {
 }
 
 /** فیلتر چندمقداری: مقدار با کاما جدا شده؛ خودرو اگر با هر کدام مطابقت داشت نمایش داده می‌شود */
-function doesIncludeMultiValue(carValue: string, filterValue?: string): boolean {
+function doesIncludeMultiValue(
+  carValue: string,
+  filterValue?: string,
+): boolean {
   if (!filterValue) return true;
-  const parts = filterValue.split(",").map((p) => p.trim()).filter(Boolean);
+  const parts = filterValue
+    .split(",")
+    .map((p) => p.trim())
+    .filter(Boolean);
   if (parts.length === 0) return true;
   const lower = carValue.toLowerCase();
   return parts.some((part) => {

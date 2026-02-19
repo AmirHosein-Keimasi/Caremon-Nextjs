@@ -46,7 +46,10 @@ export function filtersReducer(filters: FiltersType, action: FiltersAction) {
       if (toRemove && isMultiValueKey(key)) {
         const current = clonedFilters[key];
         if (typeof current === "string") {
-          const parts = current.split(",").map((p) => p.trim()).filter(Boolean);
+          const parts = current
+            .split(",")
+            .map((p) => p.trim())
+            .filter(Boolean);
           const next = parts.filter((p) => p !== toRemove).join(",");
           if (next) clonedFilters[key] = next;
           else delete clonedFilters[key];

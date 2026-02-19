@@ -56,8 +56,13 @@ export function mergeRental(body: unknown): typeof defaultRental {
   const b = body as Record<string, unknown>;
   return {
     days_3_to_14: toNum(b.days_3_to_14 ?? defaultRental.days_3_to_14),
-    more_than_14_days: toNum(b.more_than_14_days ?? defaultRental.more_than_14_days),
-    minimum_rental: Math.max(1, toNum(b.minimum_rental ?? defaultRental.minimum_rental)),
+    more_than_14_days: toNum(
+      b.more_than_14_days ?? defaultRental.more_than_14_days,
+    ),
+    minimum_rental: Math.max(
+      1,
+      toNum(b.minimum_rental ?? defaultRental.minimum_rental),
+    ),
     deposit: Math.max(0, toNum(b.deposit ?? defaultRental.deposit)),
   };
 }
@@ -79,20 +84,30 @@ export function mergeFeatures(body: unknown): typeof defaultFeatures {
     cruise_control: Boolean(b.cruise_control ?? defaultFeatures.cruise_control),
     chassis_type: String(b.chassis_type ?? defaultFeatures.chassis_type),
     option_type: String(b.option_type ?? defaultFeatures.option_type),
-    hill_start_assist: Boolean(b.hill_start_assist ?? defaultFeatures.hill_start_assist),
+    hill_start_assist: Boolean(
+      b.hill_start_assist ?? defaultFeatures.hill_start_assist,
+    ),
     transmission: String(b.transmission ?? defaultFeatures.transmission),
     apple_carplay: Boolean(b.apple_carplay ?? defaultFeatures.apple_carplay),
     seat_heating: Boolean(b.seat_heating ?? defaultFeatures.seat_heating),
     seat_cooling: Boolean(b.seat_cooling ?? defaultFeatures.seat_cooling),
-    air_conditioning: Boolean(b.air_conditioning ?? defaultFeatures.air_conditioning),
+    air_conditioning: Boolean(
+      b.air_conditioning ?? defaultFeatures.air_conditioning,
+    ),
     rear_sensor: Boolean(b.rear_sensor ?? defaultFeatures.rear_sensor),
     audio_system: String(b.audio_system ?? defaultFeatures.audio_system),
     monitor: String(b.monitor ?? defaultFeatures.monitor),
-    driver_seat_adjustment: String(b.driver_seat_adjustment ?? defaultFeatures.driver_seat_adjustment),
+    driver_seat_adjustment: String(
+      b.driver_seat_adjustment ?? defaultFeatures.driver_seat_adjustment,
+    ),
     panoramic_roof: Boolean(b.panoramic_roof ?? defaultFeatures.panoramic_roof),
     gps: Boolean(b.gps ?? defaultFeatures.gps),
-    connectivity: Array.isArray(b.connectivity) ? b.connectivity.map(String) : defaultFeatures.connectivity,
-    braking_system: Array.isArray(b.braking_system) ? b.braking_system.map(String) : defaultFeatures.braking_system,
+    connectivity: Array.isArray(b.connectivity)
+      ? b.connectivity.map(String)
+      : defaultFeatures.connectivity,
+    braking_system: Array.isArray(b.braking_system)
+      ? b.braking_system.map(String)
+      : defaultFeatures.braking_system,
     auto_park: Boolean(b.auto_park ?? defaultFeatures.auto_park),
     auto_drive: Boolean(b.auto_drive ?? defaultFeatures.auto_drive),
   };
@@ -106,7 +121,9 @@ export function mergeEngine(body: unknown): typeof defaultEngine {
     capacity: toNum(b.capacity ?? defaultEngine.capacity),
     cylinders: Math.max(0, toNum(b.cylinders ?? defaultEngine.cylinders)),
     acceleration: toNum(b.acceleration ?? defaultEngine.acceleration),
-    fuel_consumption: toNum(b.fuel_consumption ?? defaultEngine.fuel_consumption),
+    fuel_consumption: toNum(
+      b.fuel_consumption ?? defaultEngine.fuel_consumption,
+    ),
   };
 }
 
@@ -115,7 +132,11 @@ export function mergeDriverRental(body: unknown): typeof defaultDriverRental {
   const b = body as Record<string, unknown>;
   return {
     hourly_10: toNum(b.hourly_10 ?? defaultDriverRental.hourly_10),
-    intercity_per_km: toNum(b.intercity_per_km ?? defaultDriverRental.intercity_per_km),
-    airport_transfer: toNum(b.airport_transfer ?? defaultDriverRental.airport_transfer),
+    intercity_per_km: toNum(
+      b.intercity_per_km ?? defaultDriverRental.intercity_per_km,
+    ),
+    airport_transfer: toNum(
+      b.airport_transfer ?? defaultDriverRental.airport_transfer,
+    ),
   };
 }

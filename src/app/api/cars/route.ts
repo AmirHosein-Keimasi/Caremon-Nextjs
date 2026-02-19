@@ -4,11 +4,11 @@ import { getCurrentUserId } from "@/utils/api.utils";
 import { getCarsByOwnerId } from "@/lib/cars";
 import prisma from "@/lib/prisma";
 import {
-  defaultRental,
-  defaultCapacity,
-  defaultFeatures,
-  defaultEngine,
-  defaultDriverRental,
+  // defaultRental,
+  // defaultCapacity,
+  // defaultFeatures,
+  // defaultEngine,
+  // defaultDriverRental,
   mergeRental,
   mergeCapacity,
   mergeFeatures,
@@ -88,8 +88,10 @@ export async function POST(request: Request) {
     const name = String(body.name ?? "").trim();
     const model = String(body.model ?? "").trim();
     const location = String(body.location ?? "").trim();
-    const img = String(body.img ?? "default-car.png").trim() || "default-car.png";
-    const withDriver = String(body.withDriver ?? "بدون راننده").trim() || "بدون راننده";
+    const img =
+      String(body.img ?? "default-car.png").trim() || "default-car.png";
+    const withDriver =
+      String(body.withDriver ?? "بدون راننده").trim() || "بدون راننده";
 
     if (!name || !model || !location) {
       return NextResponse.json(
@@ -133,9 +135,6 @@ export async function POST(request: Request) {
   } catch (error) {
     const userMessage = getCarCreateErrorMessage(error);
     console.error("Create car error:", error);
-    return NextResponse.json(
-      { error: userMessage },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: userMessage }, { status: 500 });
   }
 }

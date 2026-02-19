@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 import { Button } from "@/components/ui/button";
 import {
@@ -125,10 +126,13 @@ export default function MyCarsPage() {
                   href={`/cars/${car.id}`}
                   className="relative block aspect-16/10 w-full overflow-hidden bg-muted"
                 >
-                  <img
+                  <Image
                     src={getCarImageUrl(car.img)}
                     alt={car.name}
-                    className="h-full w-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    unoptimized={car.img?.startsWith("http") ?? false}
                   />
                   <span className="absolute start-2 top-2 rounded-full bg-primary/90 px-2.5 py-0.5 text-xs font-medium text-primary-foreground">
                     مالک خصوصی
@@ -158,7 +162,12 @@ export default function MyCarsPage() {
                     حداقل {car.rental?.minimum_rental ?? 1} روز اجاره
                   </p>
                   <div className="mt-4 flex items-center gap-2 border-t border-border pt-3">
-                    <Button variant="ghost" size="sm" asChild className="flex-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      asChild
+                      className="flex-1"
+                    >
                       <Link href={`/cars/${car.id}`}>
                         <Car className="ml-1 h-4 w-4" />
                         مشاهده

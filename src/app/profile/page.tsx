@@ -9,10 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
-import {
-  useUserProfileStore,
-  UserProfileData,
-} from "@/store/userProfileStore";
+import { useUserProfileStore, UserProfileData } from "@/store/userProfileStore";
 import BirthDatePicker from "@/components/calendar/BirthDatePicker-component";
 
 const requiredFields: Array<keyof UserProfileData> = [
@@ -25,7 +22,11 @@ const requiredFields: Array<keyof UserProfileData> = [
 
 const fieldMeta: Record<
   keyof UserProfileData,
-  { label: string; type: "text" | "email" | "tel" | "date"; placeholder: string }
+  {
+    label: string;
+    type: "text" | "email" | "tel" | "date";
+    placeholder: string;
+  }
 > = {
   firstName: {
     label: "نام",
@@ -80,9 +81,8 @@ export default function ProfilePage(): ReactElement {
 
   const completionCount = useMemo(
     () =>
-      requiredFields.filter((field) =>
-        !!String(formData[field] ?? "").trim(),
-      ).length,
+      requiredFields.filter((field) => !!String(formData[field] ?? "").trim())
+        .length,
     [formData],
   );
 

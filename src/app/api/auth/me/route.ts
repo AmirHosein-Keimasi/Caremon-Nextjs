@@ -59,10 +59,7 @@ export async function PATCH(request: Request) {
       );
     }
     if (!email) {
-      return NextResponse.json(
-        { error: "ایمیل الزامی است" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "ایمیل الزامی است" }, { status: 400 });
     }
 
     const existing = await prisma.user.findUnique({

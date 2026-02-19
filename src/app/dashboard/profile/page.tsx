@@ -1,23 +1,14 @@
 "use client";
 
 import type { ReactElement } from "react";
-import {
-  ChangeEvent,
-  FormEvent,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { BreadcrumbNav } from "@/components/breadcrumb-nav/breadcrumb-nav";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
-import {
-  useUserProfileStore,
-  UserProfileData,
-} from "@/store/userProfileStore";
+import { useUserProfileStore, UserProfileData } from "@/store/userProfileStore";
 import { PrimaryColorPicker } from "@/components/primary-color-picker";
 import { User, Mail, Phone, MapPin, Hash, Calendar } from "lucide-react";
 import BirthDatePicker from "@/components/calendar/BirthDatePicker-component";
@@ -130,7 +121,9 @@ export default function DashboardProfilePage(): ReactElement {
   }, []);
 
   const completionCount = useMemo(
-    () => requiredFields.filter((field) => !!String(formData[field] ?? "").trim()).length,
+    () =>
+      requiredFields.filter((field) => !!String(formData[field] ?? "").trim())
+        .length,
     [formData],
   );
 
@@ -147,7 +140,8 @@ export default function DashboardProfilePage(): ReactElement {
     setError(null);
     setSaving(true);
 
-    const name = `${formData.firstName.trim()} ${formData.lastName.trim()}`.trim();
+    const name =
+      `${formData.firstName.trim()} ${formData.lastName.trim()}`.trim();
     const username = formData.username.trim();
     const email = formData.email.trim();
 
@@ -306,12 +300,10 @@ export default function DashboardProfilePage(): ReactElement {
       </section>
 
       <section className="mt-6 rounded-2xl border border-border bg-card p-4 shadow-sm lg:p-6">
-        <h2 className="mb-1 text-lg font-bold text-foreground">
-          ظاهر و تم
-        </h2>
+        <h2 className="mb-1 text-lg font-bold text-foreground">ظاهر و تم</h2>
         <p className="mb-4 text-sm text-muted-foreground">
-          رنگ اصلی سایت را انتخاب کنید. تغییر به‌صورت زنده در همه‌ی صفحات
-          اعمال می‌شود.
+          رنگ اصلی سایت را انتخاب کنید. تغییر به‌صورت زنده در همه‌ی صفحات اعمال
+          می‌شود.
         </p>
         <PrimaryColorPicker />
       </section>
